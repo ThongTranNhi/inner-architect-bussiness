@@ -1,0 +1,22 @@
+# Local dependencies and build output
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.vercel/
+.netlify/
+
+# Local noise
+*.log
+.DS_Store
+Thumbs.db
+*.tmp
