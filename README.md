@@ -2,7 +2,29 @@
 
 Bộ tài liệu dành cho PM, thiết kế, nội dung và phát triển website INNER ARCHITECT.
 
-**Trạng thái:** khởi tạo tài liệu và cấu trúc dự án; chưa có ứng dụng, Git repository hoặc cấu hình triển khai. Không có thay đổi nào được thực hiện trong Figma.
+**Trạng thái:** Git repository đã tồn tại; chưa có mã ứng dụng, package manager manifest hoặc cấu hình deploy. Bộ tài liệu là nguồn chuẩn để chuẩn bị triển khai. Không có thay đổi nào được thực hiện trong Figma.
+
+## Tổng quan sản phẩm
+
+INNER ARCHITECT là một thương hiệu gồm trà đạo có hướng dẫn theo lịch hẹn, Tarot online/offline, đồng hành 1:1, workshop, Academy và sản phẩm. MVP giúp khách hiểu dịch vụ và mở một Zalo/Facebook chung để tự liên hệ; chưa có booking/payment nội bộ. Định hướng thị giác là **natural modern**: ấm, tinh tế, gần thiên nhiên và rõ ràng hiện đại.
+
+## Bộ tài liệu chuẩn
+
+| Tài liệu | Nội dung |
+| --- | --- |
+| [01 — PRD](docs/01-PRD.md) | Mục tiêu, phạm vi, yêu cầu |
+| [02 — Sitemap](docs/02-SITEMAP.md) | Cây trang và điều hướng |
+| [03 — Architecture](docs/03-ARCHITECTURE.md) | Kiến trúc mục tiêu và ranh giới |
+| [04 — Database](docs/04-DATABASE.md) | Mô hình dữ liệu/nội dung |
+| [05 — API](docs/05-API.md) | Hợp đồng dữ liệu và tích hợp |
+| [06 — Design System](docs/06-DESIGN-SYSTEM.md) | Token, component, accessibility |
+| [07 — UX/UI](docs/07-UX-UI.md) | Hành trình, trạng thái, responsive |
+| [08 — Security](docs/08-SECURITY.md) | Bảo mật và quyền riêng tư |
+| [09 — Testing](docs/09-TESTING.md) | Chiến lược kiểm thử |
+| [10 — Deployment](docs/10-DEPLOYMENT.md) | CI/CD, release, rollback |
+| [11 — Changelog](docs/11-CHANGELOG.md) | Lịch sử thay đổi đáng chú ý |
+
+Các thư mục `docs/01-product` đến `docs/04-delivery` giữ tài liệu chi tiết và lịch sử; không xóa khi chưa hợp nhất có chủ đích.
 
 ## Bắt đầu tại đây
 

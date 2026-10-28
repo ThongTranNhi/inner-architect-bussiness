@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  documentation:
+    name: Documentation integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify required project files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            AGENTS.md CLAUDE.md README.md
+            docs/01-PRD.md docs/02-SITEMAP.md docs/03-ARCHITECTURE.md
+            docs/04-DATABASE.md docs/05-API.md docs/06-DESIGN-SYSTEM.md
+            docs/07-UX-UI.md docs/08-SECURITY.md docs/09-TESTING.md
+            docs/10-DEPLOYMENT.md docs/11-CHANGELOG.md
+            .github/copilot-instructions.md .github/pull_request_template.md
+          )
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "Missing or empty: $file"; exit 1; }
+          done
+      - name: Check whitespace errors
+        run: git diff --check HEAD^
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+      - name: Check pull request whitespace errors
+        run: git diff --check "origin/${{ github.base_ref }}...HEAD"
+        if: github.event_name == 'pull_request'
+
+  application:
+    name: Application checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Detect application and package manager
+        id: detect
+        shell: bash
+        run: |
+          if [ ! -f package.json ]; then
+            echo "has_app=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "has_app=true" >> "$GITHUB_OUTPUT"
+          if [ -f pnpm-lock.yaml ]; then echo "manager=pnpm" >> "$GITHUB_OUTPUT"
+          elif [ -f yarn.lock ]; then echo "manager=yarn" >> "$GITHUB_OUTPUT"
+          else echo "manager=npm" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.detect.outputs.has_app == 'true'
+        with:
+          node-version: 22
+          cache: ${{ steps.detect.outputs.manager }}
+      - name: Enable package managers
+        if: steps.detect.outputs.has_app == 'true'
+        run: corepack enable
+      - name: Install dependencies
+        if: steps.detect.outputs.has_app == 'true'
+        shell: bash
+        run: |
+          if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile
+          elif [ -f yarn.lock ]; then yarn install --immutable
+          elif [ -f package-lock.json ]; then npm ci
+          else npm install --ignore-scripts
+          fi
+      - name: Run configured quality scripts
+        if: steps.detect.outputs.has_app == 'true'
+        shell: bash
+        run: |
+          if [ -f pnpm-lock.yaml ]; then runner=pnpm
+          elif [ -f yarn.lock ]; then runner=yarn
+          else runner=npm
+          fi
+          for script in lint typecheck test build; do
+            if node -e "const p=require('./package.json'); process.exit(p.scripts?.['$script'] ? 0 : 1)"; then
+              "$runner" run "$script"
+            else
+              echo "Skipping missing script: $script"
+            fi
+          done
