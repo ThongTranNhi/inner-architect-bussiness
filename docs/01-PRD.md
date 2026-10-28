@@ -1,7 +1,9 @@
 # 01 — Product Requirements Document
 
-**Trạng thái:** Draft để PM/chủ thương hiệu duyệt  
-**Cập nhật:** 28/10/2026  
+**Trạng thái:** Draft để PM/chủ thương hiệu duyệt
+
+**Cập nhật:** 28/10/2026
+
 **Nguồn chi tiết:** `docs/01-product/prd.md`, `project-plan.md`, `decision-log.md`
 
 ## Tầm nhìn
