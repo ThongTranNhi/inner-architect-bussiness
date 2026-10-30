@@ -20,3 +20,23 @@ coverage/
 .DS_Store
 Thumbs.db
 *.tmp
+~$*
+
+# Large archives and binary bundles
+*.zip
+*.rar
+*.7z
+
+# Scratch, test artifacts & local caches
+tmp/
+artifacts/
+.playwright-mcp/
+.superpowers/
+.serena/
+
+# Raw image dump directories (curated assets are inside inner-architect-figma-make/public/)
+TONG-HOP-HINH-ANH-THEO-TRANG/
+inner-architect-assets/
+inner-architect-images-2026-10-27/
+
+

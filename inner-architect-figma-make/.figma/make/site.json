@@ -1,0 +1,10 @@
+{
+  "description": "Explore INNER ARCHITECT™’s inner-work system, Tarot journal, workshops, Academy, and The Hermit space, with clear guidance for booking an initial session.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

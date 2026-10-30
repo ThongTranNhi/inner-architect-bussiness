@@ -1,0 +1,3570 @@
+{
+ "url": "http://127.0.0.1:4173/",
+ "at": "2026-10-29T07:37:58.265Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.96,
+    0.96,
+    0.96,
+    0.38,
+    0.77,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.48,
+    0.46,
+    0.96
+   ],
+   "motion": {
+    "elements": 11,
+    "css": 1,
+    "transitions": 10,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 11563,
+     "screens": 12.8,
+     "words": 912,
+     "img": 16,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 16,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "journal-tarot-reading-horizontal.webp",
+      "cafe-tarot-Pn1YNV38.jpg",
+      "intensive-session-CbAwiJs9.jpg",
+      "journal-tarot-box-portrait.webp",
+      "tea-room-placeholder.png",
+      "ws-cham-ve-diu-lai-CMQz-7CG.png",
+      "intensive-session-CbAwiJs9.jpg",
+      "intensive-session-CbAwiJs9.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Xây trật tự bên trong để sống tự chủ.",
+     "words": 9,
+     "chars": 37,
+     "lines": 2,
+     "size": 103.7,
+     "vw": 7.2,
+     "font": "EB Garamond",
+     "weight": 400,
+     "tracking": -0.035,
+     "leading": 0.92,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.63,
+     "top": 304,
+     "mixedFonts": [
+      "EB Garamond",
+      "EB Garamond italic"
+     ],
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Xây trật tự bên trong để sống tự chủ.",
+     "words": 9,
+     "lines": 2,
+     "size": 103.7,
+     "font": "EB Garamond"
+    },
+    "headings": [
+     {
+      "text": "Xây trật tự bên trong để sống tự chủ.",
+      "words": 9,
+      "chars": 37,
+      "lines": 2,
+      "size": 103.7,
+      "vw": 7.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 304,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Bốn tầng phản chiếu, một tiến trình tự chủ.",
+      "words": 9,
+      "chars": 43,
+      "lines": 4,
+      "size": 69.1,
+      "vw": 4.8,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.025,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.35,
+      "top": 1050,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“Con người không thiếu thêm lời khuyên. Điều thường thiếu là một cấu trúc đủ an toàn để tự nhìn rõ.”",
+      "words": 21,
+      "chars": 100,
+      "lines": 3,
+      "size": 30.2,
+      "vw": 2.1,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.28,
+      "top": 1050,
+      "tag": "blockquote",
+      "kind": "statement"
+     },
+     {
+      "text": "Định hướng & Giữ trục",
+      "words": 5,
+      "chars": 21,
+      "lines": 2,
+      "size": 37.4,
+      "vw": 2.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.21,
+      "top": 1878,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Chữa lành & Tái cấu trúc",
+      "words": 6,
+      "chars": 24,
+      "lines": 1,
+      "size": 37.4,
+      "vw": 2.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.28,
+      "top": 2040,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Tiếp cận ban đầu",
+      "words": 4,
+      "chars": 16,
+      "lines": 1,
+      "size": 37.4,
+      "vw": 2.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 2046,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Điều tiết thân & Năng lượng",
+      "words": 6,
+      "chars": 27,
+      "lines": 1,
+      "size": 37.4,
+      "vw": 2.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.35,
+      "top": 2766,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu từ điều đang lặp lại.",
+      "words": 7,
+      "chars": 29,
+      "lines": 2,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 3166,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Nhìn rõ trước khi đi tiếp.",
+      "words": 6,
+      "chars": 26,
+      "lines": 2,
+      "size": 63.4,
+      "vw": 4.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.28,
+      "top": 4696,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Đi tiếp theo nhịp riêng.",
+      "words": 5,
+      "chars": 24,
+      "lines": 1,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.56,
+      "top": 5672,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "The Hermit Space",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 33.1,
+      "vw": 2.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 6213,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Phiên tiếp cận 1:1",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 60.5,
+      "vw": 4.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 6603,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Workshop Chạm — Vẽ",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 33.1,
+      "vw": 2.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 6753,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Khóa Tarot Căn Bản",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 33.1,
+      "vw": 2.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 7292,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "An toàn đi trước chiều sâu.",
+      "words": 6,
+      "chars": 27,
+      "lines": 2,
+      "size": 92.2,
+      "vw": 6.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 7755,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“Cấu trúc trước. Diễn giải sau. Con người luôn là chủ thể duy nhất quyết định cuộc đời mình.”",
+      "words": 19,
+      "chars": 93,
+      "lines": 2,
+      "size": 33.1,
+      "vw": 2.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 7977,
+      "tag": "blockquote",
+      "kind": "statement"
+     },
+     {
+      "text": "Đọc để hiểu điều đang xảy ra.",
+      "words": 7,
+      "chars": 29,
+      "lines": 2,
+      "size": 74.9,
+      "vw": 5.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.53,
+      "top": 8574,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Khi một mô thức cứ lặp lại Điều gì đang vận hành bên dưới?",
+      "words": 14,
+      "chars": 58,
+      "lines": 2,
+      "size": 33.1,
+      "vw": 2.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 9199,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Tarot không phải lời tiên đoán Đọc bài như một hình thức soi chiếu",
+      "words": 14,
+      "chars": 66,
+      "lines": 2,
+      "size": 60.5,
+      "vw": 4.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 9539,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Chạm ngõ Tarot Chuẩn bị cho phiên tiếp cận đầu tiên",
+      "words": 11,
+      "chars": 51,
+      "lines": 2,
+      "size": 33.1,
+      "vw": 2.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 9736,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu từ một cuộc gặp nhỏ.",
+      "words": 7,
+      "chars": 28,
+      "lines": 2,
+      "size": 93.6,
+      "vw": 6.5,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 10289,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu không phải bằng một câu trả lời. Bắt đầu bằng việc nhìn rõ mình đang ở đâu.",
+      "words": 19,
+      "chars": 83,
+      "lines": 4,
+      "size": 80,
+      "vw": 5.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.76,
+      "top": 10844,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 22,
+     "maxLines": 4,
+     "over2Lines": 2,
+     "statements": 2,
+     "centered": 1,
+     "medianWords": 6,
+     "mixedFontHeadings": 4
+    },
+    "type": {
+     "families": [
+      {
+       "family": "EB Garamond",
+       "share": 0.61,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Sans",
+       "share": 0.39,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      6,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      30,
+      33,
+      37,
+      38,
+      61,
+      63,
+      69,
+      75,
+      80,
+      92,
+      94,
+      104
+     ],
+     "sizeCount": 24,
+     "notLoaded": [],
+     "body": {
+      "font": "EB Garamond",
+      "size": 18,
+      "leading": 1.4,
+      "weight": 300,
+      "tracking": 0,
+      "contrast": 9.5
+     },
+     "measureChars": 78,
+     "max": {
+      "size": 103.7,
+      "vw": 7.2,
+      "font": "EB Garamond",
+      "text": "Xây trật tự bên trong"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.004,
+     "microSamples": [
+      "INNER ARCHITECT™"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.09,
+     "smallText": 29
+    },
+    "eyebrows": [
+     {
+      "text": "Đời sống & Ranh giới",
+      "above": "Định hướng & Giữ trục",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 1851
+     },
+     {
+      "text": "Cảm xúc & Mô thức",
+      "above": "Chữa lành & Tái cấu trúc",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2013
+     },
+     {
+      "text": "Nhận thức & Thấu hiểu",
+      "above": "Tiếp cận ban đầu",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2019
+     },
+     {
+      "text": "Cơ thể & Hơi thở",
+      "above": "Điều tiết thân & Năng lượng",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2739
+     },
+     {
+      "text": "Nếu bạn đang tìm hỗ trợ cho chính mình",
+      "above": "Bắt đầu từ điều đang lặp lại.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 3125
+     },
+     {
+      "text": "Phiên đầu tiên diễn ra như thế nào?",
+      "above": "Nhìn rõ trước khi đi tiếp.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 4655
+     },
+     {
+      "text": "Những lối đi tiếp theo",
+      "above": "Đi tiếp theo nhịp riêng.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 5595
+     },
+     {
+      "text": "02 · Không gian",
+      "above": "The Hermit Space",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 6186
+     },
+     {
+      "text": "01 · Cá nhân",
+      "above": "Phiên tiếp cận 1:1",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 6576
+     },
+     {
+      "text": "03 · Trải nghiệm",
+      "above": "Workshop Chạm — Vẽ",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 6725
+     },
+     {
+      "text": "04 · Đào tạo",
+      "above": "Khóa Tarot Căn Bản",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 7264
+     },
+     {
+      "text": "Ethics & integrity",
+      "above": "An toàn đi trước chiều sâu.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 7710
+     },
+     {
+      "text": "Journal",
+      "above": "Đọc để hiểu điều đang xảy ra.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 8533
+     },
+     {
+      "text": "INNER WORK",
+      "above": "Khi một mô thức cứ lặp lại Điều gì đang ",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 9172
+     },
+     {
+      "text": "TAROT",
+      "above": "Tarot không phải lời tiên đoán Đọc bài n",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 9512
+     },
+     {
+      "text": "THE HERMIT",
+      "above": "Chạm ngõ Tarot Chuẩn bị cho phiên tiếp c",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 9709
+     },
+     {
+      "text": "Nếu đây có thể là điểm bắt đầu",
+      "above": "Bắt đầu từ một cuộc gặp nhỏ.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 10247
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 10,
+      "top": 2019
+     },
+     {
+      "text": "02",
+      "size": 10,
+      "top": 2013
+     },
+     {
+      "text": "03",
+      "size": 10,
+      "top": 1851
+     },
+     {
+      "text": "04",
+      "size": 10,
+      "top": 2739
+     },
+     {
+      "text": "01",
+      "size": 11,
+      "top": 7735
+     },
+     {
+      "text": "02",
+      "size": 11,
+      "top": 7832
+     },
+     {
+      "text": "03",
+      "size": 11,
+      "top": 7928
+     },
+     {
+      "text": "04",
+      "size": 11,
+      "top": 8025
+     }
+    ],
+    "color": {
+     "bodyBg": "#faf3e8",
+     "bodyBgHsl": {
+      "h": 37,
+      "s": 0.64,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f5f1e5",
+       "top": 0,
+       "hsl": {
+        "h": 45,
+        "s": 0.44,
+        "l": 0.93
+       }
+      },
+      {
+       "color": "#301f05",
+       "top": 0,
+       "hsl": {
+        "h": 36,
+        "s": 0.81,
+        "l": 0.1
+       }
+      },
+      {
+       "color": "#faf3e8",
+       "top": 2975,
+       "hsl": {
+        "h": 37,
+        "s": 0.64,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#ebe7dc",
+       "top": 4426,
+       "hsl": {
+        "h": 44,
+        "s": 0.27,
+        "l": 0.89
+       }
+      },
+      {
+       "color": "#3f4a36",
+       "top": 7560,
+       "hsl": {
+        "h": 93,
+        "s": 0.16,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#383839",
+       "share": 0.44
+      },
+      {
+       "color": "#faf3e8",
+       "share": 0.35
+      },
+      {
+       "color": "#5d5a51",
+       "share": 0.11
+      },
+      {
+       "color": "#faf3e9",
+       "share": 0.05
+      },
+      {
+       "color": "#301f05",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#f3b163",
+      "hsl": {
+       "h": 33,
+       "s": 0.86,
+       "l": 0.67
+      },
+      "fg": "#301f05"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 0,
+     "radius": 0,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 2,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 8,
+     "hairlineSamples": [
+      "li 403px",
+      "li 403px",
+      "li 403px",
+      "article.reveal-child 509px",
+      "article.reveal-child 509px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 15,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 4868
+      },
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 7710
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 6,
+     "fixed": true,
+     "height": 76,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "eb garamond",
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 11563,
+    "margins": {
+     "left": 92,
+     "right": 92
+    },
+    "sections": [
+     {
+      "sel": "div.page-transition",
+      "tag": "div",
+      "top": 0,
+      "height": 10716,
+      "words": 761,
+      "media": 15,
+      "middle": 0,
+      "heading": {
+       "text": "Xây trật tự bên trong",
+       "size": 104,
+       "tag": "h1"
+      },
+      "left": 92,
+      "right": 92,
+      "textLeft": 92,
+      "textRight": 92,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.home-footer",
+      "tag": "footer",
+      "top": 10716,
+      "height": 847,
+      "words": 73,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Bắt đầu không phải bằng một câu trả lời.",
+       "size": 80,
+       "tag": "div"
+      },
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 32,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 2812,
+      "height": 312
+     },
+     {
+      "top": 5296,
+      "height": 296
+     },
+     {
+      "top": 7388,
+      "height": 320
+     },
+     {
+      "top": 8232,
+      "height": 300
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Xây trật tự bên trong để sống tự chủ.",
+      "size": 104,
+      "top": 304,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 92,
+      "n": 14
+     },
+     {
+      "x": 972,
+      "n": 10
+     },
+     {
+      "x": 899,
+      "n": 4
+     },
+     {
+      "x": 943,
+      "n": 4
+     },
+     {
+      "x": 412,
+      "n": 3
+     },
+     {
+      "x": 732,
+      "n": 2
+     },
+     {
+      "x": 625,
+      "n": 1
+     },
+     {
+      "x": 1052,
+      "n": 1
+     },
+     {
+      "x": 1108,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 40,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.95,
+    0.95,
+    0.95,
+    0.43,
+    0.86,
+    0.97,
+    0.95,
+    0.95,
+    0.69,
+    0.65,
+    0.89,
+    0.95
+   ],
+   "motion": {
+    "elements": 7,
+    "css": 1,
+    "transitions": 6,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 12153,
+     "screens": 11.9,
+     "words": 905,
+     "img": 16,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 15,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "cafe-tarot-Pn1YNV38.jpg",
+      "intensive-session-CbAwiJs9.jpg",
+      "journal-tarot-box-portrait.webp",
+      "tea-room-placeholder.png",
+      "ws-cham-ve-diu-lai-CMQz-7CG.png",
+      "intensive-session-CbAwiJs9.jpg",
+      "intensive-session-CbAwiJs9.jpg",
+      "first-session.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Xây trật tự bên trong để sống tự chủ.",
+     "words": 9,
+     "chars": 37,
+     "lines": 2,
+     "size": 62,
+     "vw": 8.1,
+     "font": "EB Garamond",
+     "weight": 400,
+     "tracking": -0.035,
+     "leading": 0.92,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 407,
+     "mixedFonts": [
+      "EB Garamond",
+      "EB Garamond italic"
+     ],
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Xây trật tự bên trong để sống tự chủ.",
+     "words": 9,
+     "lines": 2,
+     "size": 62,
+     "font": "EB Garamond"
+    },
+    "headings": [
+     {
+      "text": "Xây trật tự bên trong để sống tự chủ.",
+      "words": 9,
+      "chars": 37,
+      "lines": 2,
+      "size": 62,
+      "vw": 8.1,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 407,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Bốn tầng phản chiếu, một tiến trình tự chủ.",
+      "words": 9,
+      "chars": 43,
+      "lines": 4,
+      "size": 48,
+      "vw": 6.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.025,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.35,
+      "top": 1174,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Chữa lành & Tái cấu trúc",
+      "words": 6,
+      "chars": 24,
+      "lines": 1,
+      "size": 29,
+      "vw": 3.8,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.42,
+      "top": 2225,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Tiếp cận ban đầu",
+      "words": 4,
+      "chars": 16,
+      "lines": 1,
+      "size": 29,
+      "vw": 3.8,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 2231,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Định hướng & Giữ trục",
+      "words": 5,
+      "chars": 21,
+      "lines": 2,
+      "size": 29,
+      "vw": 3.8,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 2769,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Điều tiết thân & Năng lượng",
+      "words": 6,
+      "chars": 27,
+      "lines": 1,
+      "size": 29,
+      "vw": 3.8,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.42,
+      "top": 2979,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu từ điều đang lặp lại.",
+      "words": 7,
+      "chars": 29,
+      "lines": 3,
+      "size": 50,
+      "vw": 6.5,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 3370,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Nhìn rõ trước khi đi tiếp.",
+      "words": 6,
+      "chars": 26,
+      "lines": 2,
+      "size": 46,
+      "vw": 6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.35,
+      "top": 4698,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Đi tiếp theo nhịp riêng.",
+      "words": 5,
+      "chars": 24,
+      "lines": 1,
+      "size": 50,
+      "vw": 6.5,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.55,
+      "top": 5812,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "The Hermit Space",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 6330,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Phiên tiếp cận 1:1",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 42,
+      "vw": 5.5,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 6720,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Workshop Chạm — Vẽ",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 6890,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Khóa Tarot Căn Bản",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 7450,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "An toàn đi trước chiều sâu.",
+      "words": 6,
+      "chars": 27,
+      "lines": 2,
+      "size": 56,
+      "vw": 7.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 7934,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Đọc để hiểu điều đang xảy ra.",
+      "words": 7,
+      "chars": 29,
+      "lines": 1,
+      "size": 50,
+      "vw": 6.5,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.67,
+      "top": 9055,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Khi một mô thức cứ lặp lại Điều gì đang vận hành bên dưới?",
+      "words": 14,
+      "chars": 58,
+      "lines": 3,
+      "size": 28,
+      "vw": 3.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 9585,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Tarot không phải lời tiên đoán Đọc bài như một hình thức soi chiếu",
+      "words": 14,
+      "chars": 66,
+      "lines": 3,
+      "size": 42,
+      "vw": 5.5,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 9925,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Chạm ngõ Tarot Chuẩn bị cho phiên tiếp cận đầu tiên",
+      "words": 11,
+      "chars": 51,
+      "lines": 2,
+      "size": 28,
+      "vw": 3.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 10142,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu từ một cuộc gặp nhỏ.",
+      "words": 7,
+      "chars": 28,
+      "lines": 1,
+      "size": 58,
+      "vw": 7.6,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 10904,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu không phải bằng một câu trả lời. Bắt đầu bằng việc nhìn rõ mình đang ở đâu.",
+      "words": 19,
+      "chars": 83,
+      "lines": 4,
+      "size": 80,
+      "vw": 10.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 11343,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 20,
+     "maxLines": 4,
+     "over2Lines": 5,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 6,
+     "mixedFontHeadings": 4
+    },
+    "type": {
+     "families": [
+      {
+       "family": "EB Garamond",
+       "share": 0.61,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Sans",
+       "share": 0.39,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      6,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      24,
+      25,
+      26,
+      28,
+      29,
+      42,
+      46,
+      48,
+      50,
+      56,
+      58,
+      62,
+      80
+     ],
+     "sizeCount": 25,
+     "notLoaded": [],
+     "body": {
+      "font": "EB Garamond",
+      "size": 18,
+      "leading": 1.4,
+      "weight": 300,
+      "tracking": 0,
+      "contrast": 9.5
+     },
+     "measureChars": 50,
+     "max": {
+      "size": 80,
+      "vw": 10.4,
+      "font": "EB Garamond",
+      "text": "Bắt đầu không phải bằng một câu trả lời."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.004,
+     "microSamples": [
+      "INNER ARCHITECT™"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.09,
+     "smallText": 28
+    },
+    "eyebrows": [
+     {
+      "text": "Cảm xúc & Mô thức",
+      "above": "Chữa lành & Tái cấu trúc",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2198
+     },
+     {
+      "text": "Nhận thức & Thấu hiểu",
+      "above": "Tiếp cận ban đầu",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2204
+     },
+     {
+      "text": "Đời sống & Ranh giới",
+      "above": "Định hướng & Giữ trục",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2741
+     },
+     {
+      "text": "Cơ thể & Hơi thở",
+      "above": "Điều tiết thân & Năng lượng",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2951
+     },
+     {
+      "text": "Nếu bạn đang tìm hỗ trợ cho chính mình",
+      "above": "Bắt đầu từ điều đang lặp lại.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 3328
+     },
+     {
+      "text": "Phiên đầu tiên diễn ra như thế nào?",
+      "above": "Nhìn rõ trước khi đi tiếp.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 4657
+     },
+     {
+      "text": "02 · Không gian",
+      "above": "The Hermit Space",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 6302
+     },
+     {
+      "text": "01 · Cá nhân",
+      "above": "Phiên tiếp cận 1:1",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 6692
+     },
+     {
+      "text": "03 · Trải nghiệm",
+      "above": "Workshop Chạm — Vẽ",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 6863
+     },
+     {
+      "text": "04 · Đào tạo",
+      "above": "Khóa Tarot Căn Bản",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 7423
+     },
+     {
+      "text": "Ethics & integrity",
+      "above": "An toàn đi trước chiều sâu.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 7889
+     },
+     {
+      "text": "Journal",
+      "above": "Đọc để hiểu điều đang xảy ra.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 9014
+     },
+     {
+      "text": "INNER WORK",
+      "above": "Khi một mô thức cứ lặp lại Điều gì đang ",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 9557
+     },
+     {
+      "text": "TAROT",
+      "above": "Tarot không phải lời tiên đoán Đọc bài n",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 9897
+     },
+     {
+      "text": "THE HERMIT",
+      "above": "Chạm ngõ Tarot Chuẩn bị cho phiên tiếp c",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 10114
+     },
+     {
+      "text": "Nếu đây có thể là điểm bắt đầu",
+      "above": "Bắt đầu từ một cuộc gặp nhỏ.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 10863
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 10,
+      "top": 2204
+     },
+     {
+      "text": "02",
+      "size": 10,
+      "top": 2198
+     },
+     {
+      "text": "03",
+      "size": 10,
+      "top": 2741
+     },
+     {
+      "text": "04",
+      "size": 10,
+      "top": 2951
+     },
+     {
+      "text": "01",
+      "size": 11,
+      "top": 7914
+     },
+     {
+      "text": "02",
+      "size": 11,
+      "top": 8058
+     },
+     {
+      "text": "03",
+      "size": 11,
+      "top": 8226
+     },
+     {
+      "text": "04",
+      "size": 11,
+      "top": 8394
+     }
+    ],
+    "color": {
+     "bodyBg": "#faf3e8",
+     "bodyBgHsl": {
+      "h": 37,
+      "s": 0.64,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f5f1e5",
+       "top": 0,
+       "hsl": {
+        "h": 45,
+        "s": 0.44,
+        "l": 0.93
+       }
+      },
+      {
+       "color": "#301f05",
+       "top": 0,
+       "hsl": {
+        "h": 36,
+        "s": 0.81,
+        "l": 0.1
+       }
+      },
+      {
+       "color": "#faf3e8",
+       "top": 3178,
+       "hsl": {
+        "h": 37,
+        "s": 0.64,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#ebe7dc",
+       "top": 4487,
+       "hsl": {
+        "h": 44,
+        "s": 0.27,
+        "l": 0.89
+       }
+      },
+      {
+       "color": "#3f4a36",
+       "top": 7739,
+       "hsl": {
+        "h": 93,
+        "s": 0.16,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#383839",
+       "share": 0.45
+      },
+      {
+       "color": "#faf3e8",
+       "share": 0.35
+      },
+      {
+       "color": "#5d5a51",
+       "share": 0.11
+      },
+      {
+       "color": "#faf3e9",
+       "share": 0.05
+      },
+      {
+       "color": "#301f05",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#f3b163",
+      "hsl": {
+       "h": 33,
+       "s": 0.86,
+       "l": 0.67
+      },
+      "fg": "#301f05"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 0,
+     "radius": 0,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 2,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 8,
+     "hairlineSamples": [
+      "li 265px",
+      "li 265px",
+      "li 265px",
+      "article.reveal-child 323px",
+      "article.reveal-child 323px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 15,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 4836
+      },
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 7889
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 76,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "eb garamond",
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 12153,
+    "margins": {
+     "left": 24,
+     "right": 48
+    },
+    "sections": [
+     {
+      "sel": "div.page-transition",
+      "tag": "div",
+      "top": 0,
+      "height": 11215,
+      "words": 761,
+      "media": 15,
+      "middle": 0,
+      "heading": {
+       "text": "Xây trật tự bên trong",
+       "size": 62,
+       "tag": "h1"
+      },
+      "left": 49,
+      "right": 49,
+      "textLeft": 49,
+      "textRight": 49,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.home-footer",
+      "tag": "footer",
+      "top": 11215,
+      "height": 939,
+      "words": 73,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Bắt đầu không phải bằng một câu trả lời.",
+       "size": 80,
+       "tag": "div"
+      },
+      "left": 24,
+      "right": 24,
+      "textLeft": 24,
+      "textRight": 24,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 3012,
+      "height": 316
+     },
+     {
+      "top": 7568,
+      "height": 320
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Xây trật tự bên trong để sống tự chủ.",
+      "size": 62,
+      "top": 407,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 49,
+      "n": 15
+     },
+     {
+      "x": 454,
+      "n": 15
+     },
+     {
+      "x": 396,
+      "n": 4
+     },
+     {
+      "x": 509,
+      "n": 3
+     },
+     {
+      "x": 223,
+      "n": 2
+     },
+     {
+      "x": 614,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 40,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.61,
+    0.72,
+    0.96,
+    0.99,
+    0.96,
+    0.96,
+    0.99,
+    0.99
+   ],
+   "motion": {
+    "elements": 7,
+    "css": 1,
+    "transitions": 6,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 14391,
+     "screens": 17.1,
+     "words": 886,
+     "img": 16,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 14,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "cafe-tarot-Pn1YNV38.jpg",
+      "intensive-session-CbAwiJs9.jpg",
+      "journal-tarot-box-portrait.webp",
+      "tea-room-placeholder.png",
+      "ws-cham-ve-diu-lai-CMQz-7CG.png",
+      "intensive-session-CbAwiJs9.jpg",
+      "intensive-session-CbAwiJs9.jpg",
+      "first-session.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Xây trật tự bên trong để sống tự chủ.",
+     "words": 9,
+     "chars": 37,
+     "lines": 3,
+     "size": 50,
+     "vw": 12.8,
+     "font": "EB Garamond",
+     "weight": 400,
+     "tracking": -0.035,
+     "leading": 0.95,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 457,
+     "mixedFonts": [
+      "EB Garamond",
+      "EB Garamond italic"
+     ],
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Xây trật tự bên trong để sống tự chủ.",
+     "words": 9,
+     "lines": 3,
+     "size": 50,
+     "font": "EB Garamond"
+    },
+    "headings": [
+     {
+      "text": "Xây trật tự bên trong để sống tự chủ.",
+      "words": 9,
+      "chars": 37,
+      "lines": 3,
+      "size": 50,
+      "vw": 12.8,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 457,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Bốn tầng phản chiếu, một tiến trình tự chủ.",
+      "words": 9,
+      "chars": 43,
+      "lines": 4,
+      "size": 47,
+      "vw": 12.1,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.025,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 989,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“Con người không thiếu thêm lời khuyên. Điều thường thiếu là một cấu trúc đủ an toàn để tự nhìn rõ.”",
+      "words": 21,
+      "chars": 100,
+      "lines": 3,
+      "size": 24,
+      "vw": 6.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1231,
+      "tag": "blockquote",
+      "kind": "statement"
+     },
+     {
+      "text": "Tiếp cận ban đầu",
+      "words": 4,
+      "chars": 16,
+      "lines": 1,
+      "size": 29,
+      "vw": 7.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1968,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Chữa lành & Tái cấu trúc",
+      "words": 6,
+      "chars": 24,
+      "lines": 1,
+      "size": 29,
+      "vw": 7.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.75,
+      "top": 2481,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Định hướng & Giữ trục",
+      "words": 5,
+      "chars": 21,
+      "lines": 2,
+      "size": 29,
+      "vw": 7.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.68,
+      "top": 2959,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Điều tiết thân & Năng lượng",
+      "words": 6,
+      "chars": 27,
+      "lines": 2,
+      "size": 29,
+      "vw": 7.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.03,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 3519,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu từ điều đang lặp lại.",
+      "words": 7,
+      "chars": 29,
+      "lines": 2,
+      "size": 47,
+      "vw": 12.1,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3804,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Nhìn rõ trước khi đi tiếp.",
+      "words": 6,
+      "chars": 26,
+      "lines": 2,
+      "size": 45,
+      "vw": 11.5,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5662,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Đi tiếp theo nhịp riêng.",
+      "words": 5,
+      "chars": 24,
+      "lines": 2,
+      "size": 47,
+      "vw": 12.1,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6373,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Phiên tiếp cận 1:1",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 44,
+      "vw": 11.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7118,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "The Hermit Space",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7834,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Workshop Chạm — Vẽ",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.75,
+      "top": 8402,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Khóa Tarot Căn Bản",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.68,
+      "top": 8961,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "An toàn đi trước chiều sâu.",
+      "words": 6,
+      "chars": 27,
+      "lines": 2,
+      "size": 56,
+      "vw": 14.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 9309,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“Cấu trúc trước. Diễn giải sau. Con người luôn là chủ thể duy nhất quyết định cuộc đời mình.”",
+      "words": 19,
+      "chars": 93,
+      "lines": 3,
+      "size": 25,
+      "vw": 6.4,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 9465,
+      "tag": "blockquote",
+      "kind": "statement"
+     },
+     {
+      "text": "Đọc để hiểu điều đang xảy ra.",
+      "words": 7,
+      "chars": 29,
+      "lines": 2,
+      "size": 47,
+      "vw": 12.1,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.03,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 10556,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tarot không phải lời tiên đoán Đọc bài như một hình thức soi chiếu",
+      "words": 14,
+      "chars": 66,
+      "lines": 4,
+      "size": 44,
+      "vw": 11.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 11257,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Khi một mô thức cứ lặp lại Điều gì đang vận hành bên dưới?",
+      "words": 14,
+      "chars": 58,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 12049,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Chạm ngõ Tarot Chuẩn bị cho phiên tiếp cận đầu tiên",
+      "words": 11,
+      "chars": 51,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 12658,
+      "mixedFonts": [
+       "EB Garamond",
+       "EB Garamond italic"
+      ],
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu từ một cuộc gặp nhỏ.",
+      "words": 7,
+      "chars": 28,
+      "lines": 2,
+      "size": 58,
+      "vw": 14.9,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 13134,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Bắt đầu không phải bằng một câu trả lời. Bắt đầu bằng việc nhìn rõ mình đang ở đâu.",
+      "words": 19,
+      "chars": 83,
+      "lines": 6,
+      "size": 48,
+      "vw": 12.3,
+      "font": "EB Garamond",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 13599,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 22,
+     "maxLines": 6,
+     "over2Lines": 4,
+     "statements": 2,
+     "centered": 0,
+     "medianWords": 6,
+     "mixedFontHeadings": 4
+    },
+    "type": {
+     "families": [
+      {
+       "family": "EB Garamond",
+       "share": 0.63,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Sans",
+       "share": 0.37,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      24,
+      25,
+      27,
+      28,
+      29,
+      44,
+      45,
+      47,
+      48,
+      50,
+      56,
+      58
+     ],
+     "sizeCount": 22,
+     "notLoaded": [],
+     "body": {
+      "font": "EB Garamond",
+      "size": 18,
+      "leading": 1.42,
+      "weight": 300,
+      "tracking": 0,
+      "contrast": null
+     },
+     "measureChars": 54,
+     "max": {
+      "size": 58,
+      "vw": 14.9,
+      "font": "EB Garamond",
+      "text": "Bắt đầu từ một cuộc gặp nhỏ."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.004,
+     "microSamples": [
+      "INNER ARCHITECT™"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0,
+     "smallText": 28
+    },
+    "eyebrows": [
+     {
+      "text": "The Inner Architect System®",
+      "above": "Bốn tầng phản chiếu, một tiến trình tự c",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 948
+     },
+     {
+      "text": "Nhận thức & Thấu hiểu",
+      "above": "Tiếp cận ban đầu",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 1941
+     },
+     {
+      "text": "Cảm xúc & Mô thức",
+      "above": "Chữa lành & Tái cấu trúc",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2454
+     },
+     {
+      "text": "Đời sống & Ranh giới",
+      "above": "Định hướng & Giữ trục",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 2932
+     },
+     {
+      "text": "Cơ thể & Hơi thở",
+      "above": "Điều tiết thân & Năng lượng",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 3492
+     },
+     {
+      "text": "Nếu bạn đang tìm hỗ trợ cho chính mình",
+      "above": "Bắt đầu từ điều đang lặp lại.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 3763
+     },
+     {
+      "text": "Phiên đầu tiên diễn ra như thế nào?",
+      "above": "Nhìn rõ trước khi đi tiếp.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 5621
+     },
+     {
+      "text": "Những lối đi tiếp theo",
+      "above": "Đi tiếp theo nhịp riêng.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 6356
+     },
+     {
+      "text": "01 · Cá nhân",
+      "above": "Phiên tiếp cận 1:1",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 7090
+     },
+     {
+      "text": "02 · Không gian",
+      "above": "The Hermit Space",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 7807
+     },
+     {
+      "text": "03 · Trải nghiệm",
+      "above": "Workshop Chạm — Vẽ",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 8374
+     },
+     {
+      "text": "04 · Đào tạo",
+      "above": "Khóa Tarot Căn Bản",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 8933
+     },
+     {
+      "text": "Ethics & integrity",
+      "above": "An toàn đi trước chiều sâu.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 9264
+     },
+     {
+      "text": "Journal",
+      "above": "Đọc để hiểu điều đang xảy ra.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 10515
+     },
+     {
+      "text": "TAROT",
+      "above": "Tarot không phải lời tiên đoán Đọc bài n",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 11230
+     },
+     {
+      "text": "INNER WORK",
+      "above": "Khi một mô thức cứ lặp lại Điều gì đang ",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 12022
+     },
+     {
+      "text": "THE HERMIT",
+      "above": "Chạm ngõ Tarot Chuẩn bị cho phiên tiếp c",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10,
+      "top": 12630
+     },
+     {
+      "text": "Nếu đây có thể là điểm bắt đầu",
+      "above": "Bắt đầu từ một cuộc gặp nhỏ.",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11,
+      "top": 13093
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 10,
+      "top": 1941
+     },
+     {
+      "text": "02",
+      "size": 10,
+      "top": 2454
+     },
+     {
+      "text": "03",
+      "size": 10,
+      "top": 2932
+     },
+     {
+      "text": "04",
+      "size": 10,
+      "top": 3492
+     },
+     {
+      "text": "01",
+      "size": 11,
+      "top": 9654
+     },
+     {
+      "text": "02",
+      "size": 11,
+      "top": 9792
+     },
+     {
+      "text": "03",
+      "size": 11,
+      "top": 9930
+     },
+     {
+      "text": "04",
+      "size": 11,
+      "top": 10068
+     }
+    ],
+    "color": {
+     "bodyBg": "#faf3e8",
+     "bodyBgHsl": {
+      "h": 37,
+      "s": 0.64,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f5f1e5",
+       "top": 0,
+       "hsl": {
+        "h": 45,
+        "s": 0.44,
+        "l": 0.93
+       }
+      },
+      {
+       "color": "#301f05",
+       "top": 0,
+       "hsl": {
+        "h": 36,
+        "s": 0.81,
+        "l": 0.1
+       }
+      },
+      {
+       "color": "#faf3e8",
+       "top": 3671,
+       "hsl": {
+        "h": 37,
+        "s": 0.64,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#ebe7dc",
+       "top": 5001,
+       "hsl": {
+        "h": 44,
+        "s": 0.27,
+        "l": 0.89
+       }
+      },
+      {
+       "color": "#3f4a36",
+       "top": 9172,
+       "hsl": {
+        "h": 93,
+        "s": 0.16,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#383839",
+       "share": 0.46
+      },
+      {
+       "color": "#faf3e8",
+       "share": 0.34
+      },
+      {
+       "color": "#5d5a51",
+       "share": 0.11
+      },
+      {
+       "color": "#faf3e9",
+       "share": 0.06
+      },
+      {
+       "color": "#301f05",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#f3b163",
+      "hsl": {
+       "h": 33,
+       "s": 0.86,
+       "l": 0.67
+      },
+      "fg": "#301f05"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 0,
+     "radius": 0,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 2,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 8,
+     "hairlineSamples": [
+      "li 350px",
+      "li 350px",
+      "li 350px",
+      "article.reveal-child 350px",
+      "article.reveal-child 350px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 15,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 5798
+      },
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 9629
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 76,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "eb garamond",
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 14391,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "div.page-transition",
+      "tag": "div",
+      "top": 0,
+      "height": 13503,
+      "words": 745,
+      "media": 15,
+      "middle": 0,
+      "heading": {
+       "text": "Xây trật tự bên trong",
+       "size": 50,
+       "tag": "h1"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.home-footer",
+      "tag": "footer",
+      "top": 13503,
+      "height": 888,
+      "words": 73,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Bắt đầu không phải bằng một câu trả lời.",
+       "size": 48,
+       "tag": "div"
+      },
+      "left": 20,
+      "right": 25,
+      "textLeft": 20,
+      "textRight": 25,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Xây trật tự bên trong để sống tự chủ.",
+      "size": 50,
+      "top": 457,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 34
+     },
+     {
+      "x": 62,
+      "n": 6
+     },
+     {
+      "x": 76,
+      "n": 3
+     }
+    ],
+    "leftBlocks": 43,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "2 headline(s) wrap past two lines at 1440px: \"Bốn tầng phản chiếu, một tiến trình tự chủ.\" → 4 lines (9 words, 69.1px); \"Bắt đầu không phải bằng một câu trả lời. Bắt đầu\" → 4 lines (19 words, 80px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "mixed-font-headline",
+   "width": 1440,
+   "message": "4 headline(s) switch typeface or to italic mid-line (the \"one italic serif word\" move).",
+   "fix": "Set the whole headline in one face. Emphasis comes from the words.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "17 eyebrow/kicker label(s) above headings: \"Đời sống & Ranh giới\" above \"Định hướng & Giữ trục\"; \"Cảm xúc & Mô thức\" above \"Chữa lành & Tái cấu trúc\"; \"Nhận thức & Thấu hiểu\" above \"Tiếp cận ban đầu\"; \"Cơ thể & Hơi thở\" above \"Điều tiết thân & Năng lượng\"; \"Nếu bạn đang tìm hỗ trợ cho chính mình\" above \"Bắt đầu từ điều đang lặp lại.\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "width": 1440,
+   "message": "Decorative index numbers: \"01\", \"02\", \"03\", \"04\", \"01\", \"02\"",
+   "fix": "Remove them. If order truly matters, write it into the words (\"First, …\") or use a real <ol>.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "1 tiny uppercase letter-spaced label(s): \"INNER ARCHITECT™\"",
+   "fix": "Prefer sentence case at body size.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "8 thin rule(s)/divider line(s): li 403px | li 403px | li 403px | article.reveal-child 509px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "card-rows",
+   "width": 1440,
+   "message": "2 rows of identical boxed cards.",
+   "fix": "Vary the composition; not every section is a card grid.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #faf3e8, section #f5f1e5, section #faf3e8).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "24 different font sizes (6, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 30, 33, 37, 38, 61, 63, 69, 75, 80, 92, 94, 104).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "first-action",
+   "width": 1440,
+   "message": "No visible button in the first screen.",
+   "fix": "Give the one primary action a real button in the first screen (a filled or solid-bordered control, 44px or taller), not only a link in the navigation.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "29 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Little motion: 11 element(s) moved while the page loaded and scrolled.",
+   "fix": "Give every section an entrance for its parts (not one fade of the whole block) and add one moving picture: a looping clip or a slow move on a photograph."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "5 headline(s) wrap past two lines at 768px: \"Bốn tầng phản chiếu, một tiến trình tự chủ.\" → 4 lines (9 words, 48px); \"Bắt đầu từ điều đang lặp lại.\" → 3 lines (7 words, 50px); \"Khi một mô thức cứ lặp lại Điều gì đang vận hành\" → 3 lines (14 words, 28px); \"Tarot không phải lời tiên đoán Đọc bài như một h\" → 3 lines (14 words, 42px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "off-centre",
+   "width": 768,
+   "message": "The margins differ: 24px on the left, 48px on the right, at 768px.",
+   "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "5 headline(s) wrap past two lines at 390px: \"Xây trật tự bên trong để sống tự chủ.\" → 3 lines (9 words, 50px); \"Bốn tầng phản chiếu, một tiến trình tự chủ.\" → 4 lines (9 words, 47px); \"“Cấu trúc trước. Diễn giải sau. Con người luôn l\" → 3 lines (19 words, 25px, a paragraph set above 24px); \"Tarot không phải lời tiên đoán Đọc bài như một h\" → 4 lines (14 words, 44px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\desktop-fold.jpg",
+   "pages": [
+    "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\desktop-page-01.jpg",
+    "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\desktop-page-02.jpg",
+    "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\desktop-page-03.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\tablet-fold.jpg",
+   "pages": [
+    "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\tablet-page-01.jpg",
+    "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\mobile-fold.jpg",
+   "pages": [
+    "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\mobile-page-01.jpg",
+    "D:\\hackerrank\\inner-architect-figma-make\\.taste-skill\\editorial-v3-audit\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}
