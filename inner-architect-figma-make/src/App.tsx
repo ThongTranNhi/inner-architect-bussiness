@@ -1,18 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-
-gsap.registerPlugin(ScrollTrigger)
+import { useEffect, useMemo, useState, type CSSProperties } from "react"
+import { contactChannels, hasContactChannel } from "./config/contact"
+import { cuonDenPhanTu, Link } from "./dieu-huong"
+import { FounderPage } from "./founder/FounderPage"
+import { JournalPage } from "./journal/JournalPage"
 
 const IMG = {
-  homeHero: "/assets/homepage/tarot-table-candle-placeholder.jpeg",
-  homeTarotIntroduction: "/assets/homepage/home-tarot-introduction.webp",
-  homeAuthorCover: "/assets/homepage/home-author-cover.webp",
-  homeAuthorPortrait: "/assets/homepage/home-author-portrait.webp",
-  homeNewCafe: "/assets/home-new/cafe-tarot-Pn1YNV38.jpg",
-  homeNewSession: "/assets/home-new/intensive-session-CbAwiJs9.jpg",
-  homeNewWorkshop: "/assets/home-new/workshop-group-Ccj38COW.jpg",
-  homeNewSystem: "/assets/home-new/8c540421-3d9f-4c3b-bdc0-e0801d698b8f.jpg",
   homeCuratedHero:
     "/assets/homepage-curated/01-hero-ban-tarot-nen-am.jpg",
   homeCuratedWorkshop:
@@ -33,45 +25,26 @@ const IMG = {
     "/assets/homepage-curated/06-ranh-gioi-workshop-vong-tron-nhom.jpg",
   homeCuratedClosing:
     "/assets/homepage-curated/07-khong-gian-chiem-nghiem-cuoi-trang.jpg",
-  homeStorySession: "/assets/home-story/first-session.png",
-  homeStoryReflective: "/assets/home-story/reflective-practice.png",
-  homeStoryHermit: "/assets/home-story/the-hermit-room.png",
   workshopArt: "/assets/workshop/ws-cham-ve-diu-lai-CMQz-7CG.png",
   journalReading: "/assets/journal/journal-tarot-reading-horizontal.webp",
-  journalBox: "/assets/journal/journal-tarot-box-portrait.webp",
+  journalBox: "/assets/journal/goc/hinh07.jpg",
   journalFlatlay: "/assets/journal/journal-tarot-flatlay-vertical.webp",
   journalSpread: "/assets/journal/journal-tarot-spread-vertical.webp",
-  journalSelfDiscovery: "/assets/journal/doc-image1.jpg",
-  journalRelationships: "/assets/journal/doc-image2.jpg",
-  journalWisdom: "/assets/journal/doc-image3.jpg",
-  journalTarotHermit: "/assets/journal/doc-image4.jpg",
-  journalMindful: "/assets/journal/doc-image5.jpg",
-  journalHermitStories: "/assets/journal/doc-image6.jpg",
-  founderOffice: "/assets/system/founder-office-placeholder.webp",
-  founderGraphic: "/assets/homepage/home-author-portrait.webp",
+  journalBoundary: "/assets/journal/goc/hinh08.jpg",
+  journalSelfDiscovery: "/assets/journal/goc/hinh01.jpg",
+  journalRelationships: "/assets/journal/goc/hinh02.jpg",
+  journalWisdom: "/assets/journal/goc/hinh03.jpg",
+  journalTarotHermit: "/assets/journal/goc/hinh04.jpg",
+  journalMindful: "/assets/journal/goc/hinh05.jpg",
+  journalHermitStories: "/assets/journal/goc/hinh06.jpg",
   hermitStorefront: "/assets/the-hermit/storefront-placeholder.webp",
   hermitHall: "/assets/the-hermit/main-hall-placeholder.webp",
   hermitTeaRoom: "/assets/the-hermit/tea-room-placeholder.png",
   hermitTarotRoom: "/assets/the-hermit/tarot-room-placeholder.webp",
-  hermitLockup: "/assets/brand/the-hermit-lockup-source.webp",
-  laraHero: "/assets/lara/lara-autumn-collage-source.jpeg",
-  laraCollage: "/assets/lara/lara-product-collage.webp",
-  laraGourdDetails: "/assets/lara/lara-gourd-product-details.webp",
-  laraGourdUse: "/assets/lara/lara-gourd-use.webp",
   soulCleanse: "/assets/lara/lara-soul-cleanse.webp",
   sacredGround: "/assets/lara/lara-sacred-ground.webp",
   soulEmbrace: "/assets/lara/lara-soul-embrace.webp",
-  // Compatibility aliases retained for existing page modules while the asset
-  // vocabulary stays tied to the appropriate editorial context.
-  tarot: "/assets/journal/journal-tarot-reading-horizontal.webp",
   tarot2: "/assets/journal/journal-tarot-box-portrait.webp",
-  tarot3: "/assets/journal/journal-tarot-flatlay-vertical.webp",
-  tarot4: "/assets/journal/journal-tarot-spread-vertical.webp",
-  room: "/assets/the-hermit/main-hall-placeholder.webp",
-  hero: "/assets/system/founder-office-placeholder.webp",
-  stone: "/assets/the-hermit/storefront-placeholder.webp",
-  stair: "/assets/system/founder-office-placeholder.webp",
-  founder: "/assets/system/founder-office-placeholder.webp",
   lara: "/assets/lara/lara-autumn-collage-source.jpeg",
 }
 
@@ -182,7 +155,7 @@ const news: NewsItem[] = [
     italic: "Khi nào người đọc cần dừng lại?",
     summary:
       "Tarot không thay thế điều trị chuyên môn và không nên được dùng để quyết định thay một người.",
-    image: IMG.journalSpread,
+    image: IMG.journalBoundary,
     slug: "ranh-gioi-trong-phien-tarot",
   },
 ]
@@ -387,19 +360,6 @@ function layBanSaoBaiViet(slug: string): ArticleCopy {
 }
 
 /**
- * Đếm số lượng bài viết thuộc một chuyên mục cụ thể trong Journal.
- *
- * @param chuyenMuc - Tên chuyên mục cần lọc hoặc "Tất cả"
- * @returns Số lượng bài viết tương ứng
- */
-function demSoLuongBaiVietTheoChuyenMuc(chuyenMuc: string): number {
-  if (chuyenMuc === "Tất cả") return news.length
-  return news.filter(
-    (item) => item.category.toUpperCase() === chuyenMuc.toUpperCase(),
-  ).length
-}
-
-/**
  * Danh mục điều hướng chi tiết cho Menu Overlay toàn màn hình.
  * Bao gồm đường dẫn tới trang chủ, phụ đề gợi mở và ảnh đại diện tương ứng.
  */
@@ -436,69 +396,12 @@ const danhSachDieuHuongMenu: MucDieuHuongMenu[] = [
     anhPreview: IMG.hermitHall,
   },
   {
-    nhan: "Đặt lịch",
-    duongDan: "/booking",
-    moTa: "Phiên tiếp cận ban đầu 1:1",
+    nhan: "Liên hệ",
+    duongDan: "/lien-he",
+    moTa: "Một kênh Zalo / Facebook chung",
     anhPreview: IMG.homeGeneratedSessionEntry,
   },
 ]
-
-/**
- * Cuộn mượt màn hình đến phần tử có ID tương ứng trên trang.
- * @param {string} idPhanTu - ID của phần tử mục tiêu (không kèm dấu #)
- * @returns {void}
- */
-function cuonDenPhanTu(idPhanTu: string): void {
-  const element = document.getElementById(idPhanTu)
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" })
-  }
-}
-
-/**
- * Điều hướng người dùng tới đường dẫn hash tương ứng hoặc cuộn mượt đến phần tử.
- * @param {string} path - Đường dẫn mục tiêu
- * @returns {void}
- */
-function go(path: string): void {
-  if (path === "/he-thong" || path === "/#he-thong" || path === "#he-thong") {
-    if (window.location.hash === "" || window.location.hash === "#/") {
-      cuonDenPhanTu("he-thong")
-      return
-    }
-    window.location.hash = "/"
-    setTimeout(() => cuonDenPhanTu("he-thong"), 120)
-    return
-  }
-  window.location.hash = path
-  window.scrollTo({ top: 0, behavior: "smooth" })
-}
-
-function Link({
-  to,
-  children,
-  className = "",
-  onClick,
-}: {
-  to: string
-  children: React.ReactNode
-  className?: string
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
-}) {
-  return (
-    <a
-      href={`#${to}`}
-      className={className}
-      onClick={(e) => {
-        e.preventDefault()
-        onClick?.(e)
-        go(to)
-      }}
-    >
-      {children}
-    </a>
-  )
-}
 
 function Header({
   open,
@@ -553,13 +456,14 @@ function Header({
           INNER ARCHITECT<sup>™</sup>
         </Link>
         <nav className="context-nav">
+          <Link to="/vo-khiem">About me</Link>
           <Link to="/journal">Journal</Link>
           <Link to="/chuong-trinh">Chương trình</Link>
           <Link to="/the-hermit">The Hermit</Link>
         </nav>
         <span className="language">VI</span>
-        <Link to="/booking" className="book-link">
-          Đặt lịch
+        <Link to="/lien-he" className="book-link">
+          Liên hệ
         </Link>
       </header>
       <div
@@ -637,9 +541,13 @@ function Header({
                   <Link to="/he-thong" onClick={() => setOpen(false)}>
                     Đạo đức &amp; Ranh giới
                   </Link>
+                  <span>·</span>
+                  <Link to="/faq" onClick={() => setOpen(false)}>
+                    FAQ
+                  </Link>
                 </div>
                 <p className="menu-contact-info">
-                  info@innerarchitect.vn · TP. Hồ Chí Minh · VI / EN
+                  info@innerarchitect.vn · TP. Hồ Chí Minh
                 </p>
               </div>
             </div>
@@ -660,11 +568,11 @@ function Footer({ home = false }: { home?: boolean }) {
           Bắt đầu bằng việc nhìn rõ mình đang ở đâu.
         </div>
         <p>
-          Đặt lịch cho một phiên tiếp cận ban đầu để làm rõ trạng thái hiện tại,
-          nhu cầu và bước tiếp theo phù hợp.
+          Nhắn cho INNER ARCHITECT™ qua kênh liên hệ chung để làm rõ trạng thái
+          hiện tại, nhu cầu và bước tiếp theo phù hợp.
         </p>
-        <Link to="/booking" className="footer-cta">
-          Đặt lịch phiên tiếp cận
+        <Link to="/lien-he" className="footer-cta">
+          Liên hệ INNER ARCHITECT™
         </Link>
         <div className="home-footer-nav">
           <span>INNER ARCHITECT™</span>
@@ -672,14 +580,22 @@ function Footer({ home = false }: { home?: boolean }) {
           <Link to="/journal">Journal</Link>
           <Link to="/chuong-trinh">Chương trình</Link>
           <Link to="/the-hermit">The Hermit</Link>
-          <Link to="/booking">Đặt lịch</Link>
+          <Link to="/lien-he">Liên hệ</Link>
+          <Link to="/faq">FAQ</Link>
           <Link to="/vo-khiem">Võ Khiêm</Link>
           <Link to="/lara">LARA</Link>
-          <span>Instagram</span>
-          <span>Facebook</span>
-          <span>info@innerarchitect.vn</span>
-          <span>Chính sách bảo mật</span>
-          <span>Tuyên bố phạm vi hỗ trợ</span>
+          {contactChannels.facebook && (
+            <a
+              href={contactChannels.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook
+            </a>
+          )}
+          <a href="mailto:info@innerarchitect.vn">info@innerarchitect.vn</a>
+          <Link to="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
+          <Link to="/pham-vi-ho-tro">Tuyên bố phạm vi hỗ trợ</Link>
         </div>
       </footer>
     )
@@ -690,15 +606,6 @@ function Footer({ home = false }: { home?: boolean }) {
           INNER ARCHITECT™ hỗ trợ con người xây lại trật tự bên trong và trở về
           với khả năng tự dẫn dắt.
         </h2>
-        <div className="newsletter">
-          <label>Nhận bài viết mới từ Journal</label>
-          <div className="email-row">
-            Họ tên <span>→</span>
-          </div>
-          <div className="email-row">
-            Email <span>Đăng ký</span>
-          </div>
-        </div>
       </div>
       <div className="footer-links">
         <div>
@@ -726,9 +633,11 @@ function Footer({ home = false }: { home?: boolean }) {
         <div>
           <b>BẮT ĐẦU</b>
           <br />
-          <Link to="/booking">Đặt lịch phiên tiếp cận</Link>
+          <Link to="/lien-he">Liên hệ</Link>
           <br />
-          info@innerarchitect.vn
+          <Link to="/faq">Câu hỏi thường gặp</Link>
+          <br />
+          <a href="mailto:info@innerarchitect.vn">info@innerarchitect.vn</a>
           <br />
           637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh
         </div>
@@ -737,13 +646,13 @@ function Footer({ home = false }: { home?: boolean }) {
           <br />
           <Link to="/he-thong">Đạo đức và ranh giới</Link>
           <br />
-          Chính sách bảo mật
+          <Link to="/pham-vi-ho-tro">Tuyên bố phạm vi hỗ trợ</Link>
+          <br />
+          <Link to="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
           <br />
           CÔNG TY TNHH INNER ARCHITECT
           <br />
           MST: 0319353708
-          <br />
-          VI / EN
         </div>
       </div>
       <div className="footer-wordmark">
@@ -763,7 +672,10 @@ function NewsCard({
   const delayMs = (index % 4) * 120
 
   return (
-    <div className="inviewfade" style={{ transitionDelay: `${delayMs}ms` }}>
+    <div
+      className="inviewfade journal-card-reveal"
+      style={{ "--jr-delay": `${delayMs}ms` } as CSSProperties}
+    >
       <Link to={`/journal/${item.slug}`} className="ogata-news-card news-card">
         <div className="ogata-img-box news-image">
           <img src={item.image} alt={item.title} loading="lazy" />
@@ -935,8 +847,8 @@ function Home({ initialSection }: { initialSection?: string }) {
       copy: "Một cuộc gặp có giới hạn rõ ràng, dành cho lúc bạn cần một điểm bắt đầu chứ chưa cần một câu trả lời hoàn chỉnh.",
       image: IMG.homeGeneratedSessionSetup,
       imageAlt: "Bàn trà và sổ ghi chép được chuẩn bị cho phiên tiếp cận",
-      to: "/booking",
-      action: "Đặt lịch",
+      to: "/chuong-trinh/phien-tiep-can-ban-dau",
+      action: "Xem chi tiết",
     },
     {
       number: "02",
@@ -1002,7 +914,6 @@ function Home({ initialSection }: { initialSection?: string }) {
           ))}
         </div>
         <div className="home-v3-hero-scrim" />
-        <p className="home-v3-hero-brand">INNER ARCHITECT™</p>
         <div className="home-v3-hero-copy">
           <p className="home-v3-hero-kicker">
             Hệ thống tái cấu trúc nội tâm · TP. Hồ Chí Minh
@@ -1027,8 +938,8 @@ function Home({ initialSection }: { initialSection?: string }) {
             </span>
           </p>
           <div className="home-v3-hero-actions">
-            <Link to="/booking" className="home-v3-link home-v3-link-light">
-              Đặt lịch một phiên tiếp cận
+            <Link to="/lien-he" className="home-v3-link home-v3-link-light">
+              Liên hệ về phiên tiếp cận
             </Link>
             <button
               type="button"
@@ -1105,7 +1016,7 @@ function Home({ initialSection }: { initialSection?: string }) {
             điều bạn đang nghĩ được nhìn cùng nhau. Mục tiêu là giúp bạn có thêm
             cơ sở để tự chọn bước tiếp theo.
           </p>
-          <Link to="/booking" className="home-v3-link">
+          <Link to="/chuong-trinh/phien-tiep-can-ban-dau" className="home-v3-link">
             Xem thông tin phiên tiếp cận
           </Link>
         </div>
@@ -1151,8 +1062,8 @@ function Home({ initialSection }: { initialSection?: string }) {
               </p>
             </li>
           </ol>
-          <Link to="/booking" className="home-v3-link">
-            Đặt lịch phiên tiếp cận
+          <Link to="/lien-he" className="home-v3-link">
+            Liên hệ về phiên tiếp cận
           </Link>
         </div>
       </section>
@@ -1334,8 +1245,8 @@ function Home({ initialSection }: { initialSection?: string }) {
             hiện tại và giới hạn hỗ trợ phù hợp. Bạn không cần cam kết đi xa hơn
             sau cuộc gặp này.
           </p>
-          <Link to="/booking" className="home-v3-link home-v3-link-light">
-            Đặt lịch một phiên tiếp cận
+          <Link to="/lien-he" className="home-v3-link home-v3-link-light">
+            Liên hệ về phiên tiếp cận
           </Link>
         </div>
       </section>
@@ -1366,7 +1277,15 @@ function PageHero({
   )
 }
 
-function NewsArchive() {
+/**
+ * Hiện các phần tử `.inviewfade` (thẻ "Bài viết liên quan") khi chúng cuộn
+ * tới 75% chiều cao màn hình trên trang chi tiết bài viết, để các thẻ này không
+ * bị kẹt ở trạng thái ẩn.
+ *
+ * @param khoaLamMoi - Giá trị thay đổi khi nội dung trang đổi (ví dụ slug bài
+ *   viết) để kiểm tra lại các thẻ vừa được render
+ */
+function useOgataInview(khoaLamMoi?: string) {
   useEffect(() => {
     const triggerOgataInview = () => {
       const targets = document.getElementsByClassName("inviewfade")
@@ -1390,91 +1309,7 @@ function NewsArchive() {
       window.removeEventListener("resize", triggerOgataInview)
       clearTimeout(timer)
     }
-  }, [])
-
-  return (
-    <main className="cream-page journal-editorial-page">
-      <PageHero
-        eyebrow="JOURNAL · INNER ARCHITECT™"
-        title="Explore Within"
-        italic="Reflect Deeply · Transform Consciously"
-        intro="Thư viện tri thức và chiêm nghiệm chuyên sâu. Nơi tập hợp các bài viết giúp người đọc quan sát biểu tượng, mô thức tâm lý và trải nghiệm bên trong bằng ngôn ngữ rõ ràng, có ranh giới an toàn và gắn liền với đời sống thực tế."
-      />
-      <section className="featured-article">
-        <img src={news[0].image} alt={news[0].title} />
-        <div>
-          <p className="eyebrow">FEATURED · {news[0].category} · {news[0].date}</p>
-          <h2 className="serif">
-            {news[0].title}
-            <br />
-            <em>{news[0].italic}</em>
-          </h2>
-          <p className="featured-summary">{news[0].summary}</p>
-          <Link
-            to={`/journal/${news[0].slug}`}
-            className="underlink"
-          >
-            Đọc bài viết tiêu điểm →
-          </Link>
-        </div>
-      </section>
-
-      {/* SECTION: NEWS & WORKSHOPS (CHUẨN CẤU TRÚC & ANIMATION OGATA PARIS) */}
-      <section className="ogata-news-section" id="workshops">
-        <h2 className="ogata-section-heading inviewfade">CHUYÊN MỤC BÀI VIẾT</h2>
-
-        <div className="ogata-news-grid">
-          {news.map((item, idx) => (
-            <NewsCard key={item.slug} item={item} index={idx} />
-          ))}
-        </div>
-
-        <div
-          style={{ maxWidth: "500px", margin: "55px auto 0", padding: "0 50px" }}
-          className="inviewfade"
-        >
-          <button className="ogata-top-link2">XEM TOÀN BỘ BÀI VIẾT</button>
-        </div>
-      </section>
-
-      {/* Signature Series Spotlight */}
-      <section className="journal-series-section section-pad">
-        <div className="series-header">
-          <p className="eyebrow">SIGNATURE SERIES · CHUYÊN ĐỀ DÀI HẠN</p>
-          <h2 className="serif">Ba hành trình chiêm nghiệm chuyên sâu</h2>
-          <p className="series-intro">
-            Tạo bản sắc học thuật và chiều sâu cho Journal, giúp người đọc theo dõi theo chuỗi bài có hệ thống và chuyển hóa từng bước.
-          </p>
-        </div>
-        <div className="series-grid">
-          {signatureSeriesList.map((series) => (
-            <article key={series.id} className="series-card">
-              <div className="series-badge-row">
-                <span className="series-number">{series.count}</span>
-                <span className="series-tag">{series.tag}</span>
-              </div>
-              <h3 className="serif">{series.title}</h3>
-              <p className="series-sub">{series.subtitle}</p>
-              <p className="series-desc">{series.description}</p>
-              <div className="series-footer">
-                <span className="series-status-pill">Đang xuất bản định kỳ</span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="booking-invite section-pad">
-        <p className="eyebrow">NEWSLETTER · SLOW READING LIST</p>
-        <h2 className="serif">Nhận bài viết mới từ Journal</h2>
-        <p>Tuyển tập chiêm nghiệm chậm về Tarot, tâm lý học và đời sống nội tâm gửi tới bạn định kỳ.</p>
-        <div className="email-row">
-          Email của bạn <span>→</span>
-        </div>
-      </section>
-      <ParentLink to="/" label="Về trang chủ" />
-    </main>
-  )
+  }, [khoaLamMoi])
 }
 
 function Article({ slug }: { slug: string }) {
@@ -1486,6 +1321,7 @@ function Article({ slug }: { slug: string }) {
   const nextArticle =
     currentIndex < news.length - 1 ? news[currentIndex + 1] : news[0]
   const relatedArticles = news.filter((n) => n.slug !== current.slug).slice(0, 3)
+  useOgataInview(current.slug)
 
   return (
     <main className="article-page">
@@ -1581,298 +1417,6 @@ function Article({ slug }: { slug: string }) {
   )
 }
 
-const layers = [
-  [
-    "01",
-    "Tiếp cận ban đầu",
-    "Tạo một ảnh chụp có giới hạn về trạng thái hiện tại, nhu cầu và mức độ phù hợp trước khi đi sâu.",
-  ],
-  [
-    "02",
-    "Chữa lành và tái cấu trúc",
-    "Nhận diện mô thức, nguồn lực và xây dựng lại cách phản hồi trong một khung làm việc an toàn.",
-  ],
-  [
-    "03",
-    "Định hướng và giữ trục",
-    "Chuyển hiểu biết thành lựa chọn, ranh giới và nhịp sống có thể duy trì trong đời sống thật.",
-  ],
-  [
-    "04",
-    "Điều tiết thân và năng lượng",
-    "Làm việc với cơ thể, nhịp thở và cảm giác để mở lại khả năng tự điều chỉnh.",
-  ],
-]
-function SystemPage() {
-  const scroll = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
-  return (
-    <main>
-      <section className="project-hero">
-        <img src={IMG.stair} alt="" />
-        <div>
-          <p>THE INNER ARCHITECT SYSTEM®</p>
-          <h1 className="serif">
-            Tái cấu trúc nội tâm
-            <br />
-            <em>để sống tự chủ.</em>
-          </h1>
-        </div>
-      </section>
-      <nav className="local-nav">
-        <button onClick={() => scroll("tong-quan")}>Tổng quan</button>
-        <button onClick={() => scroll("bon-tang")}>Bốn tầng</button>
-        <button onClick={() => scroll("dao-duc")}>Đạo đức</button>
-        <button onClick={() => scroll("phu-hop")}>Phù hợp với ai</button>
-      </nav>
-      <section id="tong-quan" className="project-meta section-pad">
-        <p>
-          Loại hình
-          <br />
-          Integrated Healing System
-        </p>
-        <p>
-          Phạm vi
-          <br />
-          Nhận thức · Cảm xúc · Cơ thể
-        </p>
-        <p>
-          Địa điểm
-          <br />
-          TP. Hồ Chí Minh / Online
-        </p>
-        <h2 className="serif">
-          Một hệ thống tích hợp nhận thức, cảm xúc, thân thể và đời sống thực -
-          với phạm vi, ranh giới và điểm kết rõ ràng.
-        </h2>
-      </section>
-      <section className="system-narrative section-pad">
-        <div>
-          <p className="eyebrow">THE MISSING STRUCTURE</p>
-          <blockquote className="serif">
-            “Con người không thiếu thêm lời khuyên. Điều thường thiếu là một cấu
-            trúc đủ an toàn để tự nhìn rõ.”
-          </blockquote>
-        </div>
-        <div>
-          <h2 className="serif">
-            Từ chữa lành như một lời hứa đến tự chủ như một năng lực.
-          </h2>
-          <p>
-            INNER ARCHITECT™ được hình thành trước một thị trường dễ tạo phụ
-            thuộc vào chuyên gia, biểu tượng hoặc câu trả lời nhanh. Sứ mệnh của
-            hệ thống là nối nhận thức, cảm xúc, cơ thể và hành động thành một
-            tiến trình có điểm vào, điểm kết và chuyển pha rõ ràng.
-          </p>
-        </div>
-      </section>
-      <section id="bon-tang" className="layer-chapters">
-        {layers.map((l, i) => (
-          <article key={l[0]}>
-            <div>
-              <span>{l[0]}</span>
-              <h2 className="serif">{l[1]}</h2>
-              <p>{l[2]}</p>
-              {i < 3 && (
-                <small>
-                  Chuyển tầng chỉ diễn ra khi nền tảng trước đó đủ ổn định.
-                </small>
-              )}
-            </div>
-            <img src={[IMG.hero, IMG.tarot2, IMG.stone, IMG.room][i]} alt="" />
-          </article>
-        ))}
-      </section>
-      <section id="dao-duc" className="ethics section-pad">
-        <p className="eyebrow">ETHICS & BOUNDARIES</p>
-        <h2 className="serif">
-          An toàn đi trước
-          <br />
-          chiều sâu.
-        </h2>
-        <p>
-          Không hứa hẹn tuyệt đối. Không tiên đoán. Không quyết định thay. Không
-          xây dựng sự phụ thuộc. Hệ thống không chẩn đoán và không thay thế hỗ
-          trợ tâm lý, tâm thần hoặc y khoa; khi cần, người tham gia được đề xuất
-          hình thức hỗ trợ chuyên môn phù hợp hơn.
-        </p>
-      </section>
-      <section id="phu-hop" className="simple-content section-pad">
-        <div>
-          <p className="eyebrow">SUITABILITY</p>
-          <h2 className="serif">Phù hợp khi bạn sẵn sàng tham gia chủ động.</h2>
-        </div>
-        <div>
-          <p>
-            Phù hợp với người muốn nhìn lại mô thức và thử những thay đổi vừa
-            sức. Không phù hợp với tình trạng cấp cứu, nhu cầu chẩn đoán hoặc
-            mong muốn có người quyết định thay.
-          </p>
-          <p>
-            Mục tiêu dài hạn không phải ở lại trong hệ thống, mà là phục hồi khả
-            năng tự điều chỉnh và tự dẫn dắt.
-          </p>
-          <Link to="/booking" className="button-link">
-            Bắt đầu bằng phiên tiếp cận
-          </Link>
-        </div>
-      </section>
-      <ParentLink to="/" label="Về trang chủ" />
-    </main>
-  )
-}
-
-function Workshop({ detail = false }: { detail?: boolean }) {
-  if (detail)
-    return (
-      <main>
-        <PageHero
-          eyebrow="TRẢI NGHIỆM · [NGÀY TỔ CHỨC: CẬP NHẬT]"
-          title="Chạm -"
-          italic="Vẽ để dịu lại"
-          intro="Dành cho người muốn chậm nhịp và tiếp cận cảm giác qua màu sắc, không cần kinh nghiệm hội họa."
-        />
-        <section className="detail-lead">
-          <img src={IMG.tarot3} alt="" />
-          <div>
-            <p>
-              [Thời lượng: xác nhận]
-              <br />
-              [Địa điểm: xác nhận]
-              <br />
-              [Học phí: xác nhận]
-            </p>
-            <h2 className="serif">
-              Không cần biết vẽ.
-              <br />
-              Chỉ cần có mặt.
-            </h2>
-            <p>
-              Không gian nhóm nhỏ sử dụng hơi thở, sự chú ý vào cơ thể và vẽ
-              trực giác để hỗ trợ người tham gia trở về hiện tại mà không cần
-              phân tích quá nhiều.
-            </p>
-            <p>
-              <strong>Ranh giới:</strong> đây không phải liệu pháp nghệ thuật
-              hoặc hình thức điều trị.
-            </p>
-            <Link to="/booking" className="button-link">
-              Gửi yêu cầu đăng ký
-            </Link>
-          </div>
-        </section>
-        <ParentLink to="/chuong-trinh" label="Tất cả chương trình" />
-      </main>
-    )
-  return (
-    <main>
-      <PageHero
-        eyebrow="WORKSHOP & EXPERIENCES"
-        title="Những không gian"
-        italic="để thực hành cùng nhau"
-        intro="Các trải nghiệm có thời lượng, mục đích và ranh giới rõ ràng — từ một buổi chạm ngõ đến những chuỗi thực hành sâu."
-      />
-      <section className="irregular section-pad">
-        <Link to="/chuong-trinh/cham-ve-de-diu-lai" className="event large">
-          <img src={IMG.tarot3} alt="" />
-          <span>[NGÀY TỔ CHỨC: CẬP NHẬT]</span>
-          <h2 className="serif">Chạm — Vẽ để dịu lại</h2>
-        </Link>
-        <div className="event">
-          <img src={IMG.room} alt="" />
-          <span>PAST · THE HERMIT</span>
-          <h2 className="serif">Ngồi cùng sự im lặng</h2>
-        </div>
-        <div className="event">
-          <img src={IMG.stone} alt="" />
-          <span>PAST · INNER WORK</span>
-          <h2 className="serif">Ranh giới mềm, trục vững</h2>
-        </div>
-      </section>
-      <ParentLink to="/" label="Về trang chủ" />
-    </main>
-  )
-}
-
-function Academy({ detail = false }: { detail?: boolean }) {
-  if (detail)
-    return (
-      <main>
-        <PageHero
-          eyebrow="ACADEMY · FOUNDATION PROGRAMME"
-          title="Tarot"
-          italic="Căn Bản"
-          intro="Học cách đọc hình ảnh, đặt câu hỏi và giữ ranh giới đạo đức trước khi học cách diễn giải."
-        />
-        <section className="curriculum section-pad">
-          <div>
-            <p>
-              Dành cho người bắt đầu hoặc muốn xây lại nền tảng.
-              <br />
-              <br />
-              [Thời lượng: xác nhận]
-              <br />
-              [Lịch học: cập nhật]
-              <br />
-              [Học phí: xác nhận]
-            </p>
-            <Link to="/booking" className="button-link">
-              Nhận thông tin tuyển sinh
-            </Link>
-          </div>
-          <div>
-            <h2 className="serif">Nội dung chương trình</h2>
-            {[
-              "Ngôn ngữ biểu tượng",
-              "Cấu trúc một phiên đọc",
-              "Câu hỏi và phản hồi",
-              "Đạo đức & giới hạn",
-              "Thực hành có giám sát",
-            ].map((x, i) => (
-              <p className="course-row" key={x}>
-                <span>0{i + 1}</span>
-                {x}
-              </p>
-            ))}
-            <p>
-              <strong>Ranh giới chuyên môn</strong>
-              <br />
-              Chương trình không cấp năng lực chẩn đoán hay điều trị. Học viên
-              thực hành trong phạm vi được hướng dẫn và giám sát.
-            </p>
-          </div>
-        </section>
-        <ParentLink to="/chuong-trinh" label="Tất cả chương trình" />
-      </main>
-    )
-  return (
-    <main>
-      <PageHero
-        eyebrow="INNER ARCHITECT™ ACADEMY"
-        title="Học có cấu trúc."
-        italic="Thực hành có trách nhiệm."
-        intro="Chương trình dành cho người muốn xây nền tảng Tarot và tâm lý ứng dụng mà không tách rời đạo đức nghề nghiệp."
-      />
-      <section className="programmes section-pad">
-        {[
-          ["01", "Tarot Căn Bản", "Nền tảng"],
-          ["02", "Tarot Nâng Cao", "Diễn giải"],
-          ["03", "Tarot Healer", "Tích hợp"],
-          ["04", "Psychology Topics", "Chuyên đề"],
-        ].map((x, i) => (
-          <Link to={i === 0 ? "/academy/tarot-can-ban" : "/contact"} key={x[0]}>
-            <span>{x[0]}</span>
-            <h2 className="serif">{x[1]}</h2>
-            <em>{x[2]}</em>
-            <b>→</b>
-          </Link>
-        ))}
-      </section>
-      <ParentLink to="/" label="Về trang chủ" />
-    </main>
-  )
-}
-
 /**
  * Cấu trúc dữ liệu chi tiết cho từng trang con của hệ sinh thái Chương trình.
  */
@@ -1922,7 +1466,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     ranhGioi:
       "Không xử lý sang chấn, không định hướng cuộc đời hay đưa lời khuyên sống, không tạo cao trào cảm xúc hay hứa hẹn thay đổi.",
     chamNgon: "Tầng 1 tồn tại để chỉ ra, không phải để giải quyết.",
-    nutHanhDong: "Đặt lịch phiên tiếp cận",
+    nutHanhDong: "Liên hệ đặt phiên Tarot",
   },
   "nhan-dien-mo-thuc": {
     slug: "nhan-dien-mo-thuc",
@@ -1951,7 +1495,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
       "Không biến workshop nhóm thành phiên bộc lộ sang chấn cá nhân sâu; bảo mật tuyệt đối chia sẻ của các thành viên trong vòng tròn.",
     chamNgon:
       "Nhận ra một mô thức không buộc bạn phải thay đổi ngay. Nó cho bạn một khoảng dừng để chọn cách khác.",
-    nutHanhDong: "Đăng ký tham gia workshop",
+    nutHanhDong: "Hỏi / đăng ký workshop",
   },
   "cham-ve-de-diu-lai": {
     slug: "cham-ve-de-diu-lai",
@@ -1982,7 +1526,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
       "Đây không phải liệu pháp nghệ thuật (art therapy) lâm sàng hoặc hình thức điều trị tâm thần.",
     chamNgon:
       "Tầng 4 tồn tại để giữ thân an toàn, không phải để đẩy quá trình đi nhanh hơn.",
-    nutHanhDong: "Gửi yêu cầu đăng ký",
+    nutHanhDong: "Hỏi / đăng ký workshop",
   },
   "trai-nghiem-nhom-nho": {
     slug: "trai-nghiem-nhom-nho",
@@ -2011,7 +1555,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
       "Không tạo cao trào cảm xúc tập thể; không khuyến khích phơi bày đời tư khi chưa có sự chuẩn bị an toàn.",
     chamNgon:
       "Một tách trà, một khoảng lặng, một cuộc gặp gỡ bình yên với chính mình.",
-    nutHanhDong: "Đăng ký trải nghiệm nhóm",
+    nutHanhDong: "Hỏi về trải nghiệm nhóm",
   },
   "phien-tiep-can-ban-dau": {
     slug: "phien-tiep-can-ban-dau",
@@ -2040,7 +1584,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
       "Không chẩn đoán y khoa, không hứa hẹn kết quả thần tốc, không buộc bạn phải cam kết hành trình dài sau cuộc gặp.",
     chamNgon:
       "Nếu bạn không cần đi tiếp hoặc hệ thống không phù hợp, chúng tôi sẽ nói rõ.",
-    nutHanhDong: "Đặt lịch phiên tiếp cận",
+    nutHanhDong: "Liên hệ về phiên tiếp cận",
   },
   "phien-tai-cau-truc-chuyen-sau": {
     slug: "phien-tai-cau-truc-chuyen-sau",
@@ -2068,7 +1612,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     ranhGioi:
       "Không định hướng cuộc đời thay bạn, không tạo sự lệ thuộc vào Healer, không kéo dài liệu trình vô thời hạn.",
     chamNgon: "Không tìm cao trào cảm xúc — Xây nền cho thay đổi bền vững.",
-    nutHanhDong: "Đăng ký tham vấn chuyên sâu",
+    nutHanhDong: "Liên hệ chuyên gia",
   },
   "dong-hanh-chuyen-pha": {
     slug: "dong-hanh-chuyen-pha",
@@ -2096,7 +1640,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     ranhGioi:
       "Đây không phải là hỗ trợ tài chính đại trà, mà là sự đồng hành dựa trên cam kết nội tâm và trách nhiệm cá nhân.",
     chamNgon: "Chữa lành không phải nơi để ở lại, mà là nền tảng để tự bước tiếp.",
-    nutHanhDong: "Gửi thư bày tỏ nguyện vọng",
+    nutHanhDong: "Liên hệ chuyên gia",
   },
   "tarot-can-ban": {
     slug: "tarot-can-ban",
@@ -2126,7 +1670,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     ranhGioi:
       "Chương trình không cấp năng lực chẩn đoán hay điều trị y khoa. Học viên thực hành trong phạm vi giáo dục và phát triển bản thân.",
     chamNgon: "Đọc bài như một hình thức soi chiếu, không phải lời tiên đoán.",
-    nutHanhDong: "Nhận thông tin tuyển sinh",
+    nutHanhDong: "Nhận tư vấn khóa học",
   },
   "tarot-nang-cao": {
     slug: "tarot-nang-cao",
@@ -2154,7 +1698,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     ranhGioi:
       "Không dùng kỹ thuật nâng cao để thao túng tâm lý hay hù dọa thân chủ; nghiêm cấm bói toán số phận.",
     chamNgon: "Càng đi sâu vào biểu tượng, càng phải tỉnh táo với thực tại.",
-    nutHanhDong: "Đăng ký xét tuyển khóa nâng cao",
+    nutHanhDong: "Nhận tư vấn khóa học",
   },
   "tarot-healer": {
     slug: "tarot-healer",
@@ -2183,7 +1727,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
       "Healer không được đánh giá bằng khả năng tạo xúc động nhất thời, mà bằng năng lực giúp thân chủ tự đứng vững mà không cần phụ thuộc vào Healer.",
     chamNgon:
       "Tầm nhìn của hệ thống là đào tạo Healer để người khác không còn cần chữa lành nữa.",
-    nutHanhDong: "Nộp hồ sơ ứng tuyển Healer",
+    nutHanhDong: "Nhận tư vấn chương trình Healer",
   },
   "tam-ly-chuyen-de": {
     slug: "tam-ly-chuyen-de",
@@ -2212,7 +1756,7 @@ const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     ranhGioi:
       "Các chuyên đề mang tính giáo dục tâm lý nâng cao nhận thức, không thay thế trị liệu tâm lý cá nhân.",
     chamNgon: "Hiểu cơ chế để ngừng làm tổn thương chính mình.",
-    nutHanhDong: "Xem lịch các chuyên đề sắp tới",
+    nutHanhDong: "Nhận tư vấn chuyên đề",
   },
 }
 
@@ -2323,7 +1867,7 @@ function ProgramDetail({ slug }: { slug: string }) {
           </aside>
 
           <div className="program-actions">
-            <Link to="/booking" className="button-link">
+            <Link to="/lien-he" className="button-link">
               {p.nutHanhDong} →
             </Link>
             <Link to="/chuong-trinh" className="underlink">
@@ -2342,7 +1886,7 @@ function Programmes({ detail }: { detail?: string }) {
     return <ProgramDetail slug={detail} />
   }
 
-  const families = [
+  const families: [string, string[]][] = [
     [
       "A. TRẢI NGHIỆM",
       [
@@ -2414,91 +1958,9 @@ function Programmes({ detail }: { detail?: string }) {
         <p>
           Chúng không cấp quyền hành nghề khám, chữa bệnh hoặc trị liệu tâm lý.
         </p>
-        <Link to="/booking" className="button-link">
-          Đặt lịch phiên tiếp cận
+        <Link to="/lien-he" className="button-link">
+          Liên hệ về chương trình
         </Link>
-      </section>
-      <ParentLink to="/" label="Về trang chủ" />
-    </main>
-  )
-}
-
-function LegacyHermit() {
-  return (
-    <main>
-      <section className="project-hero">
-        <img src={IMG.stone} alt="" />
-        <div>
-          <p>THE HERMIT · TP. HỒ CHÍ MINH</p>
-          <h1 className="serif">
-            Một khoảng lặng
-            <br />
-            <em>có chủ đích.</em>
-          </h1>
-        </div>
-      </section>
-      <section className="space-story section-pad">
-        <img
-          className="space-overview"
-          src={IMG.hero}
-          alt="Hình minh họa sảnh chính The Hermit, cần xác minh trước khi xuất bản"
-        />
-        <div>
-          <p className="eyebrow">THE SPACE</p>
-          <h2 className="serif">
-            Không gian là một phần của cách chúng tôi làm việc.
-          </h2>
-        </div>
-        <p>
-          The Hermit là không gian café, trà đạo và Tarot thuộc hệ sinh thái
-          INNER ARCHITECT™ - nơi một người có thể bắt đầu bằng sự quan sát nhẹ
-          nhàng trước khi quyết định có cần một tiến trình sâu hơn hay không.
-        </p>
-      </section>
-      <section className="article-spread">
-        <img src={IMG.tarot2} alt="" />
-        <div>
-          <p className="eyebrow">TEA · TAROT · OBJECTS</p>
-          <h2 className="serif">Những điểm chạm đầu tiên.</h2>
-          <p>
-            Một ấm trà, một phiên Tarot tiếp cận ngắn, những bộ bài và nến được
-            chọn như một phần của thế giới The Hermit — không phải một cửa hàng
-            tách biệt.
-          </p>
-          <Link to="/lara" className="underlink">
-            Khám phá LARA →
-          </Link>
-        </div>
-      </section>
-      <div className="image-sequence">
-        <img src={IMG.stair} alt="" />
-        <img src={IMG.stone} alt="" />
-      </div>
-      <section className="practical section-pad">
-        <div>
-          <h2 className="serif">Ghé The Hermit</h2>
-          <p>
-            637/13/8 Quang Trung, Phường Thông Tây Hội
-            <br />
-            TP. Hồ Chí Minh
-            <br />
-            <br />
-            [Giờ mở cửa: xác nhận]
-          </p>
-          <p>
-            <Link to="/chuong-trinh" className="underlink">
-              Khám phá chương trình
-            </Link>
-          </p>
-          <Link to="/booking" className="button-link">
-            Đặt phiên tiếp cận
-          </Link>
-        </div>
-        <div className="map">
-          MAP
-          <br />
-          <span>Vị trí chính xác sẽ được cập nhật</span>
-        </div>
       </section>
       <ParentLink to="/" label="Về trang chủ" />
     </main>
@@ -2535,8 +1997,8 @@ function Hermit() {
             <br />
             <em>có chủ đích.</em>
           </h1>
-          <Link to="/booking" className="underlink">
-            Đặt một phiên tiếp cận →
+          <Link to="/lien-he" className="underlink">
+            Liên hệ The Hermit →
           </Link>
         </div>
       </section>
@@ -2600,8 +2062,8 @@ function Hermit() {
             thay bạn. Một phiên tiếp cận chỉ giúp làm rõ điều đang hiện diện và
             cân nhắc bước tiếp theo phù hợp.
           </p>
-          <Link to="/booking" className="button-link">
-            Đặt phiên tiếp cận
+          <Link to="/lien-he" className="button-link">
+            Liên hệ đặt phiên Tarot
           </Link>
         </div>
         <img src={IMG.hermitTarotRoom} alt="Không gian Tarot tại The Hermit" />
@@ -2623,257 +2085,6 @@ function Hermit() {
           THE HERMIT
           <br />
           <span>Vị trí chính xác sẽ được cập nhật</span>
-        </div>
-      </section>
-      <ParentLink to="/" label="Về trang chủ" />
-    </main>
-  )
-}
-
-function LegacyFounderPage() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="FOUNDER — INNER ARCHITECT™ SYSTEM"
-        title="Võ Khiêm"
-        italic="Tarot phản tư, giáo dục và phát triển bản thân."
-        intro="Võ Khiêm xây dựng những cấu trúc giúp người tham gia tự đặt câu hỏi, kiểm tra điều mình đang tin và giữ quyền quyết định đối với cuộc sống của mình."
-      />
-      <section className="profile-lead section-pad">
-        <img
-          src={IMG.founder}
-          alt="Hình minh họa chân dung trong không gian làm việc, cần xác minh trước khi xuất bản"
-        />
-        <div>
-          <h2 className="serif">
-            Một hệ thống được xây từ nhiều cách nhìn về con người.
-          </h2>
-          <p>
-            Võ Khiêm là người sáng lập INNER ARCHITECT™ System. Công việc tập
-            trung vào Tarot như một công cụ phản tư, hoạt động chia sẻ kiến thức
-            và những trải nghiệm giúp mỗi người quan sát rõ hơn cách mình suy
-            nghĩ, cảm nhận và lựa chọn.
-          </p>
-          <blockquote className="serif">
-            “Tôi không mong mọi người tin vào một bộ bài hay một lời giải thích
-            duy nhất. Tôi mong mỗi người có thêm kiến thức, biết đặt câu hỏi và
-            giữ quyền quyết định cuộc sống của chính mình.”
-          </blockquote>
-        </div>
-      </section>
-      <section className="profile-sections section-pad">
-        <article>
-          <h2 className="serif">Nền tảng học tập</h2>
-          <p>
-            Kỹ sư Công nghệ Thông tin — Đại học Công nghệ TP.HCM, 2004
-            <br />
-            Cử nhân Tài chính - Ngân hàng — Đại học Mở Hà Nội, 2015
-            <br />
-            Đã hoàn thành chương trình đào tạo Cử nhân Tâm lý học tại Đại học
-            Công nghệ TP.HCM; đang chờ nhận bằng.
-          </p>
-        </article>
-        <article>
-          <h2 className="serif">Triết lý thực hành</h2>
-          <p>
-            Tarot gợi mở câu hỏi, không bảo đảm dự đoán tương lai. Kiến thức tâm
-            lý được sử dụng trong giáo dục phổ thông, không thay thế thực hành
-            lâm sàng. Quyền tự quyết luôn thuộc về người tham gia.
-          </p>
-        </article>
-        <article>
-          <h2 className="serif">Giáo dục và sáng tạo</h2>
-          <p>
-            Võ Khiêm tổ chức các lớp Tarot, workshop và lớp học trực tuyến về tự
-            nhận thức, cảm xúc và mối quan hệ; đồng thời viết nội dung, phát
-            triển bộ bài Tarot và sản phẩm hương thơm LARA.
-          </p>
-        </article>
-      </section>
-      <section className="booking-invite section-pad">
-        <h2 className="serif">
-          Khám phá hệ thống hoặc bắt đầu bằng một cuộc gặp rõ ràng.
-        </h2>
-        <div>
-          <Link to="/he-thong" className="underlink">
-            Khám phá hệ thống
-          </Link>
-          <Link to="/booking" className="button-link">
-            Đặt lịch phiên tiếp cận
-          </Link>
-        </div>
-      </section>
-      <ParentLink to="/" label="Về trang chủ" />
-    </main>
-  )
-}
-
-function FounderPage() {
-  const principles = [
-    [
-      "01",
-      "Tự nhận thức",
-      "Quan sát giá trị, nhu cầu, cảm xúc và những phản ứng đang vận hành trong đời sống.",
-    ],
-    [
-      "02",
-      "Tư duy phản biện",
-      "Đặt câu hỏi, kiểm tra thông tin và phân biệt trải nghiệm chủ quan với kết luận có bằng chứng.",
-    ],
-    [
-      "03",
-      "Quyền tự quyết",
-      "Mọi công cụ chỉ gợi mở. Quyền lựa chọn và trách nhiệm với cuộc sống luôn thuộc về mỗi người.",
-    ],
-  ]
-
-  return (
-    <main className="about-page">
-      <PageHero
-        eyebrow="ABOUT · FOUNDER — INNER ARCHITECT™"
-        title="Võ Khiêm"
-        italic="Tarot Educator · Tác giả · Nhà sáng tạo"
-        intro="Võ Khiêm xây dựng những cấu trúc giúp người tham gia tự đặt câu hỏi, kiểm tra điều mình đang tin và giữ quyền quyết định đối với cuộc sống của mình."
-      />
-      <section className="profile-lead section-pad">
-        <img src={IMG.founderOffice} alt="Không gian làm việc của Võ Khiêm" />
-        <div>
-          <p className="eyebrow">GIỚI THIỆU</p>
-          <h2 className="serif">
-            Một góc nhìn đa ngành về cách con người nhận thức và lựa chọn.
-          </h2>
-          <p>
-            Võ Khiêm là người sáng lập INNER ARCHITECT™ System, hoạt động trong
-            lĩnh vực Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.
-            Nền tảng Công nghệ Thông tin, Tài chính - Ngân hàng và Tâm lý học
-            tạo nên một cách tiếp cận vừa hệ thống, vừa quan tâm đến trải nghiệm
-            riêng của mỗi người.
-          </p>
-          <blockquote className="serif">
-            “Thấu hiểu chính mình là một điểm khởi đầu để lựa chọn cách sống phù
-            hợp hơn.”
-          </blockquote>
-        </div>
-      </section>
-      <section className="profile-stats section-pad">
-        <div>
-          <strong className="serif">100+</strong>
-          <span>học viên Tarot</span>
-        </div>
-        <div>
-          <strong className="serif">3</strong>
-          <span>workshop đã tổ chức</span>
-        </div>
-        <div>
-          <strong className="serif">200+</strong>
-          <span>lượt người tham gia</span>
-        </div>
-      </section>
-      <section className="profile-journey section-pad">
-        <header>
-          <p className="eyebrow">HÀNH TRÌNH</p>
-          <h2 className="serif">
-            Từ những thay đổi cá nhân đến một hệ thống giúp người khác tự nhìn
-            lại.
-          </h2>
-        </header>
-        <div>
-          <p>
-            Trước khi lựa chọn hướng đi hiện tại, Võ Khiêm từng làm việc trong
-            nhiều lĩnh vực và trải qua những thay đổi lớn về sự nghiệp, tài
-            chính và các mối quan hệ. Những giai đoạn khó khăn dẫn đến các câu
-            hỏi về điều gì ảnh hưởng đến lựa chọn, vì sao một số phản ứng cứ lặp
-            lại và làm thế nào để sống chủ động hơn.
-          </p>
-          <p>
-            Từ Tarot, các truyền thống chiêm nghiệm và triết học phương Đông,
-            anh tiếp tục học Tâm lý học để bổ sung góc nhìn khoa học về con
-            người. Hành trình ấy hình thành mong muốn chia sẻ công cụ và kiến
-            thức giúp mỗi người tự tìm hiểu chính mình, thay vì phụ thuộc vào
-            một người hướng dẫn hay một lời tiên đoán.
-          </p>
-        </div>
-      </section>
-      <section className="profile-principles section-pad">
-        <p className="eyebrow">TRIẾT LÝ THỰC HÀNH</p>
-        <div>
-          {principles.map(([number, title, copy]) => (
-            <article key={number}>
-              <span>{number}</span>
-              <h3 className="serif">{title}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className="profile-education section-pad">
-        <div>
-          <p className="eyebrow">NỀN TẢNG HỌC VẤN</p>
-          <h2 className="serif">
-            Logic, phân tích và sự quan tâm đến khác biệt cá nhân.
-          </h2>
-        </div>
-        <div>
-          <p>
-            <strong>2004</strong>
-            <br />
-            Kỹ sư Công nghệ Thông tin
-            <br />
-            Đại học Công nghệ TP.HCM
-          </p>
-          <p>
-            <strong>2015</strong>
-            <br />
-            Cử nhân Tài chính - Ngân hàng
-            <br />
-            Đại học Mở Hà Nội
-          </p>
-          <p>
-            <strong>Đã hoàn thành chương trình</strong>
-            <br />
-            Cử nhân Tâm lý học, Đại học Công nghệ TP.HCM; đang chờ nhận bằng.
-          </p>
-        </div>
-      </section>
-      <section className="profile-scope section-pad">
-        <div>
-          <p className="eyebrow">GIÁO DỤC & SÁNG TẠO</p>
-          <h2 className="serif">
-            Tarot, lớp học, nội dung và những sản phẩm cho thời gian chiêm
-            nghiệm.
-          </h2>
-        </div>
-        <div>
-          <p>
-            Võ Khiêm tổ chức các lớp Tarot cơ bản, nâng cao và nội dung thực
-            hành mang tên Healer; đồng thời chia sẻ kiến thức tâm lý học phổ
-            thông, cảm xúc và mối quan hệ qua workshop và lớp trực tuyến.
-          </p>
-          <p>
-            Anh viết về Tarot, thiết kế bộ bài và phát triển sản phẩm hương thơm
-            LARA. Các hoạt động mang tính giáo dục, trải nghiệm và phát triển cá
-            nhân; không cấp quyền hành nghề khám, chữa bệnh hoặc trị liệu tâm
-            lý.
-          </p>
-          <Link to="/chuong-trinh" className="underlink">
-            Khám phá chương trình →
-          </Link>
-        </div>
-      </section>
-      <section className="profile-vision section-pad">
-        <p className="eyebrow">TẦM NHÌN</p>
-        <blockquote className="serif">
-          “Tôi không mong mọi người tin vào một bộ bài hay một lời giải thích
-          duy nhất. Tôi mong mỗi người có thêm kiến thức, biết đặt câu hỏi và
-          giữ quyền quyết định cuộc sống của chính mình.”
-        </blockquote>
-        <div>
-          <Link to="/he-thong" className="underlink">
-            Khám phá INNER ARCHITECT™
-          </Link>
-          <Link to="/booking" className="button-link">
-            Đặt lịch phiên tiếp cận
-          </Link>
         </div>
       </section>
       <ParentLink to="/" label="Về trang chủ" />
@@ -2956,264 +2167,133 @@ function LaraPage() {
   )
 }
 
-function Booking() {
-  const [step, setStep] = useState(1)
-  const labels = [
-    "Hình thức",
-    "Ngày",
-    "Giờ",
-    "Sàng lọc",
-    "Liên hệ",
-    "Đồng thuận",
-    "Gửi yêu cầu",
-    "Xác nhận",
-  ]
+/** Email liên hệ dự phòng đang dùng trong nội dung hiện có (chờ xác nhận). */
+const EMAIL_LIEN_HE = "info@innerarchitect.vn"
+
+/** Sáu nhánh nhu cầu khách có thể nhắn qua kênh liên hệ chung. */
+const danhSachNhuCauLienHe = [
+  "Trải nghiệm trà đạo có hướng dẫn (theo lịch hẹn)",
+  "Phiên Tarot online hoặc trực tiếp",
+  "Đồng hành 1:1",
+  "Workshop",
+  "Academy và các khóa học",
+  "Sản phẩm LARA",
+]
+
+/**
+ * Hiển thị nút mở Zalo/Facebook chung, hoặc trạng thái "đang cập nhật"
+ * khi chưa có URL chính thức.
+ *
+ * Không tạo link thay thế khi thiếu cấu hình. Link ngoài mở tab mới với
+ * `rel="noopener noreferrer"`; website không gửi bất kỳ dữ liệu nào kèm theo.
+ *
+ * @returns Nhóm nút kênh liên hệ hoặc thông báo trạng thái
+ */
+function KenhLienHeChung() {
+  if (!hasContactChannel)
+    return (
+      <p role="status">
+        <strong>Kênh Zalo / Facebook chính thức đang được cập nhật.</strong>
+        <br />
+        Trong thời gian này, bạn có thể gửi email tới{" "}
+        <a className="underlink" href={`mailto:${EMAIL_LIEN_HE}`}>
+          {EMAIL_LIEN_HE}
+        </a>
+        .
+      </p>
+    )
   return (
-    <main className="booking-page">
-      <header className="booking-intro">
-        <p className="eyebrow">PHIÊN TIẾP CẬN BAN ĐẦU</p>
-        <h1 className="serif">
-          Bắt đầu bằng một cuộc gặp
-          <br />
-          <em>có giới hạn rõ ràng.</em>
-        </h1>
-        <div>
-          <p>
-            Phiên giúp nhận diện trạng thái hiện tại, làm rõ nhu cầu và cân nhắc
-            bước tiếp theo. Phù hợp với người sẵn sàng tham gia chủ động và hiểu
-            rằng cuộc gặp có thể được dừng khi vượt ngoài phạm vi an toàn.
-          </p>
-          <p>
-            <strong>
-              Không phải dịch vụ cấp cứu, hoạt động chẩn đoán hoặc hình thức
-              thay thế hỗ trợ tâm lý, tâm thần và y khoa.
-            </strong>
-            <br />
-            <br />
-            [Thời lượng: xác nhận] · Trực tiếp hoặc online
-            <br />
-            [Chi phí: xác nhận]
-          </p>
-        </div>
-      </header>
-      <div className="booking-progress">
-        {labels.map((x, i) => (
-          <span className={i + 1 <= step ? "active" : ""} key={x}>
-            {String(i + 1).padStart(2, "0")}
-          </span>
-        ))}
-      </div>
-      <section className="booking-panel">
-        <p className="eyebrow">ĐẶT LỊCH · BƯỚC {step}/8</p>
-        <h2>{labels[step - 1]}</h2>
-        {step === 1 && (
-          <Choice items={["Trực tiếp tại The Hermit", "Trực tuyến"]} />
-        )}
-        {step === 2 && (
-          <Choice
-            items={[
-              "[Ngày khả dụng 01]",
-              "[Ngày khả dụng 02]",
-              "[Ngày khả dụng 03]",
-            ]}
-          />
-        )}
-        {step === 3 && (
-          <Choice
-            items={["[Khung giờ 01]", "[Khung giờ 02]", "[Khung giờ 03]"]}
-          />
-        )}
-        {step === 4 && (
-          <div className="form-lines">
-            <label>
-              Điều gì đưa bạn đến với INNER ARCHITECT™ vào thời điểm này?
-              <textarea />
-            </label>
-            <label>
-              Bạn muốn nhìn rõ hoặc thay đổi điều gì nhất?
-              <textarea />
-            </label>
-            <label>
-              Bạn đã từng nhận hỗ trợ tâm lý, trị liệu hoặc một hình thức đồng
-              hành tương tự chưa?
-              <textarea />
-            </label>
-            <label>
-              Hiện tại bạn có đang ở trong tình trạng khẩn cấp hoặc có nguy cơ
-              gây hại cho bản thân hay người khác không?
-              <select>
-                <option>Không</option>
-                <option>Có — tôi cần được hướng dẫn đến hỗ trợ phù hợp</option>
-              </select>
-            </label>
-            <label>
-              Điều gì sẽ giúp bạn cảm thấy an toàn hơn trong cuộc trao đổi đầu
-              tiên?
-              <textarea />
-            </label>
-          </div>
-        )}
-        {step === 5 && (
-          <div className="form-lines">
-            <label>
-              Họ và tên
-              <input />
-            </label>
-            <label>
-              Email
-              <input type="email" />
-            </label>
-            <label>
-              Số điện thoại
-              <input />
-            </label>
-          </div>
-        )}
-        {step === 6 && (
-          <div className="consent">
-            <label>
-              <input type="checkbox" />
-              Tôi hiểu rằng phiên tiếp cận ban đầu không phải dịch vụ cấp cứu,
-              không thay thế hỗ trợ tâm lý, tâm thần hoặc y khoa, và có thể được
-              dừng hoặc giới thiệu sang hình thức hỗ trợ khác nếu tình trạng nằm
-              ngoài phạm vi an toàn của INNER ARCHITECT™.
-            </label>
-          </div>
-        )}
-        {step === 7 && (
-          <div>
-            <p>
-              Vui lòng kiểm tra lựa chọn, thông tin liên hệ và đồng thuận trước
-              khi gửi. Đây là yêu cầu đặt lịch, chưa phải xác nhận một chương
-              trình đồng hành dài hạn.
-            </p>
-          </div>
-        )}
-        {step === 8 && (
-          <div className="confirmation">
-            <p className="serif">Yêu cầu của bạn đã được ghi nhận.</p>
-            <p>
-              Đây là yêu cầu đặt lịch, không phải xác nhận một chương trình chữa
-              lành dài hạn. INNER ARCHITECT™ sẽ liên hệ sau khi xem xét phạm vi
-              phù hợp.
-            </p>
-          </div>
-        )}
-        <div className="booking-actions">
-          {step > 1 && (
-            <button onClick={() => setStep(step - 1)}>← Quay lại</button>
-          )}
-          {step < 8 && (
-            <button className="next" onClick={() => setStep(step + 1)}>
-              {step === 7 ? "Gửi yêu cầu" : "Tiếp tục"} →
-            </button>
-          )}
-          {step === 8 && (
-            <Link to="/" className="next">
-              Về trang chủ
-            </Link>
-          )}
-        </div>
-      </section>
-      <section className="booking-contact">
-        <p className="eyebrow">LIÊN HỆ THAY THẾ</p>
-        <div>
-          [Hotline/Zalo: cần xác nhận]
-          <br />
-          info@innerarchitect.vn
-          <br />
-          637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh
-        </div>
-      </section>
-    </main>
-  )
-}
-function Choice({ items }: { items: string[] }) {
-  return (
-    <div className="choices">
-      {items.map((x) => (
-        <label key={x}>
-          <input type="radio" name="choice" />
-          {x}
-        </label>
-      ))}
+    <div className="program-actions">
+      {contactChannels.zalo && (
+        <a
+          className="button-link"
+          href={contactChannels.zalo}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Nhắn qua Zalo →
+        </a>
+      )}
+      {contactChannels.facebook && (
+        <a
+          className="underlink"
+          href={contactChannels.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Nhắn qua Facebook →
+        </a>
+      )}
     </div>
   )
 }
 
-function SimplePage({ type }: { type: "about" | "session" | "contact" }) {
-  const data = {
-    about: [
-      "VỀ CHÚNG TÔI & ĐẠO ĐỨC",
-      "Không đứng ở vị trí",
-      "biết thay bạn.",
-      "INNER ARCHITECT™ tạo cấu trúc để mỗi người giữ lại quyền quan sát, lựa chọn và chịu trách nhiệm cho đời sống của mình.",
-    ],
-    session: [
-      "PHIÊN TIẾP CẬN BAN ĐẦU",
-      "Một cuộc gặp",
-      "đủ rõ để bắt đầu.",
-      "[Thời lượng: xác nhận] để hiểu trạng thái hiện tại, nhu cầu, giới hạn và mức độ phù hợp — trước khi lựa chọn bất kỳ tiến trình nào.",
-    ],
-    contact: [
-      "CONTACT",
-      "Bắt đầu bằng",
-      "một câu hỏi rõ ràng.",
-      "Liên hệ về phiên tiếp cận, chương trình Academy, Workshop hoặc hợp tác biên tập.",
-    ],
-  }[type]
+/**
+ * Trang Liên hệ — thay cho form đặt lịch 8 bước trước đây (ngoài phạm vi MVP).
+ * Không thu thập dữ liệu; khách tự gửi nhu cầu qua kênh chung.
+ *
+ * @returns Trang liên hệ
+ */
+function ContactPage() {
   return (
-    <main>
+    <main className="cream-page contact-page">
       <PageHero
-        eyebrow={data[0]}
-        title={data[1]}
-        italic={data[2]}
-        intro={data[3]}
+        eyebrow="LIÊN HỆ · INNER ARCHITECT™"
+        title="Một kênh liên hệ"
+        italic="cho mọi nhu cầu."
+        intro="Trà đạo có hướng dẫn, Tarot, đồng hành 1:1, workshop, Academy và sản phẩm đều được tiếp nhận qua cùng một kênh Zalo / Facebook. Bạn tự gửi nhu cầu; đội ngũ phản hồi và xác nhận ngoài website."
       />
       <section className="simple-content section-pad">
         <div>
-          <p className="eyebrow">
-            {type === "contact" ? "CONTACT DETAILS" : "OUR POSITION"}
-          </p>
-          <h2 className="serif">
-            {type === "about"
-              ? "Cấu trúc trước. Diễn giải sau. Con người luôn là chủ thể."
-              : type === "session"
-                ? "Có điểm vào, điểm kết và bước tiếp theo."
-                : "hello@innerarchitect.vn"}
-          </h2>
+          <p className="eyebrow">KÊNH LIÊN HỆ CHUNG</p>
+          <h2 className="serif">Nhắn trực tiếp cho INNER ARCHITECT™.</h2>
         </div>
         <div>
-          {type === "contact" ? (
-            <>
-              <p>
-                TP. Hồ Chí Minh
-                <br />
-                Instagram · Facebook
-                <br />
-                <br />
-                Thứ Hai — Thứ Sáu
-                <br />
-                09:00 — 18:00
-              </p>
-              <Link to="/booking" className="button-link">
-                Đặt lịch
-              </Link>
-            </>
-          ) : (
-            <>
-              <p>
-                Chúng tôi không chẩn đoán, hứa hẹn kết quả hay sử dụng Tarot để
-                thay thế hỗ trợ chuyên môn. Mọi phiên làm việc đều có quyền dừng
-                lại và cơ chế chuyển gửi khi cần.
-              </p>
-              <Link to="/booking" className="button-link">
-                {type === "session"
-                  ? "Đặt lịch phiên tiếp cận"
-                  : "Tìm điểm bắt đầu"}
-              </Link>
-            </>
-          )}
+          <KenhLienHeChung />
+          <p>
+            Zalo và Facebook là nền tảng bên thứ ba với chính sách riêng. Website
+            không tự gửi tin nhắn thay bạn và không lưu nội dung bạn trao đổi ở
+            đó.
+          </p>
+        </div>
+      </section>
+      <section className="simple-content section-pad">
+        <div>
+          <p className="eyebrow">BẠN CÓ THỂ NHẮN VỀ</p>
+          <h2 className="serif">Ghi rõ nhu cầu để được phản hồi đúng người.</h2>
+        </div>
+        <div>
+          <ul className="program-bullet-list">
+            {danhSachNhuCauLienHe.map((nhuCau) => (
+              <li key={nhuCau}>{nhuCau}</li>
+            ))}
+          </ul>
+          <p>
+            Thời lượng, lịch và chi phí của từng chương trình sẽ được xác nhận
+            trực tiếp khi bạn nhắn.
+          </p>
+        </div>
+      </section>
+      <section className="simple-content section-pad">
+        <div>
+          <p className="eyebrow">ĐỊA CHỈ</p>
+          <h2 className="serif">The Hermit</h2>
+        </div>
+        <div>
+          <p>
+            637/13/8 Quang Trung, Phường Thông Tây Hội
+            <br />
+            TP. Hồ Chí Minh
+          </p>
+          <p>Giờ mở cửa và chỉ đường sẽ được cập nhật sau khi xác nhận.</p>
+          <aside className="program-boundary-aside">
+            <strong>KHÔNG DÀNH CHO TÌNH HUỐNG KHẨN CẤP</strong>
+            <p>
+              Nếu bạn hoặc người khác đang gặp nguy hiểm, hãy gọi 115 hoặc đến
+              cơ sở y tế gần nhất. INNER ARCHITECT™ không phải dịch vụ cấp cứu
+              và không thay thế hỗ trợ tâm lý, tâm thần hoặc y khoa.
+            </p>
+          </aside>
         </div>
       </section>
       <ParentLink to="/" label="Về trang chủ" />
@@ -3221,7 +2301,350 @@ function SimplePage({ type }: { type: "about" | "session" | "contact" }) {
   )
 }
 
-function ParentLink({ to, label }: { to: string label: string }) {
+/** Câu hỏi thường gặp, chỉ dùng thông tin đã có trên site hoặc đã chốt. */
+const danhSachCauHoiThuongGap: [string, string][] = [
+  [
+    "Làm sao để đặt trải nghiệm trà, phiên Tarot hoặc workshop?",
+    "Mọi nhu cầu đều được tiếp nhận qua một kênh Zalo / Facebook chung trên trang Liên hệ. Website không có hệ thống đặt lịch; đội ngũ sẽ phản hồi và xác nhận trực tiếp với bạn.",
+  ],
+  [
+    "Trải nghiệm trà đạo có cần hẹn trước không?",
+    "Có. Trà đạo tại INNER ARCHITECT™ diễn ra theo lịch hẹn và có người hướng dẫn.",
+  ],
+  [
+    "Tarot có hình thức online không?",
+    "Có. Tarot được thực hiện cả online và trực tiếp. Hãy nêu hình thức bạn muốn khi nhắn qua kênh liên hệ.",
+  ],
+  [
+    "Tarot ở đây có tiên đoán tương lai không?",
+    "Không. Tarot được dùng như một bề mặt biểu tượng để quan sát điều đang hiện diện — không tiên đoán, không chẩn đoán và không quyết định thay bạn.",
+  ],
+  [
+    "Các chương trình có thay thế trị liệu tâm lý hoặc y khoa không?",
+    "Không. Các hoạt động mang tính giáo dục, trải nghiệm và phát triển cá nhân; không chẩn đoán, không kê đơn và không thay thế can thiệp y khoa, tâm thần học hoặc tâm lý lâm sàng.",
+  ],
+  [
+    "Chi phí và lịch cụ thể xem ở đâu?",
+    "Thông tin được nêu trên trang chi tiết của từng chương trình khi đã xác nhận. Lịch và chi phí mới nhất sẽ được đội ngũ xác nhận khi bạn nhắn.",
+  ],
+  [
+    "Website có lưu thông tin cá nhân của tôi không?",
+    "Không. Website không có biểu mẫu thu thập thông tin. Nội dung bạn gửi qua Zalo / Facebook thuộc phạm vi của nền tảng đó.",
+  ],
+]
+
+/**
+ * Trang Câu hỏi thường gặp; dùng `<details>` gốc để mở/đóng bằng bàn phím.
+ *
+ * @returns Trang FAQ
+ */
+function FaqPage() {
+  return (
+    <main className="cream-page faq-page">
+      <PageHero
+        eyebrow="FAQ · CÂU HỎI THƯỜNG GẶP"
+        title="Trước khi"
+        italic="bạn nhắn cho chúng tôi."
+        intro="Những điều thường được hỏi về cách liên hệ, hình thức tham gia và giới hạn hỗ trợ của INNER ARCHITECT™."
+      />
+      <section className="faq-list section-pad">
+        {danhSachCauHoiThuongGap.map(([cauHoi, traLoi]) => (
+          <details key={cauHoi}>
+            <summary className="serif">{cauHoi}</summary>
+            <p>{traLoi}</p>
+          </details>
+        ))}
+      </section>
+      <section className="simple-content section-pad">
+        <div>
+          <h2 className="serif">Vẫn còn câu hỏi?</h2>
+        </div>
+        <div>
+          <KenhLienHeChung />
+          <Link to="/lien-he" className="underlink">
+            Xem trang liên hệ →
+          </Link>
+        </div>
+      </section>
+      <ParentLink to="/" label="Về trang chủ" />
+    </main>
+  )
+}
+
+/**
+ * Trang pháp lý dạng văn bản ngắn (Chính sách bảo mật, Phạm vi hỗ trợ).
+ * Nội dung đang là bản nháp mô tả đúng hành vi hiện tại của website và cần
+ * chủ thương hiệu / tư vấn pháp lý duyệt trước khi phát hành.
+ *
+ * @param props.loai - Loại trang pháp lý cần hiển thị
+ * @returns Trang pháp lý
+ */
+function LegalPage({ loai }: { loai: "bao-mat" | "pham-vi" }) {
+  const noiDung =
+    loai === "bao-mat"
+      ? {
+          eyebrow: "CHÍNH SÁCH BẢO MẬT",
+          title: "Chính sách",
+          italic: "bảo mật.",
+          intro:
+            "Mô tả cách website INNER ARCHITECT™ xử lý thông tin của người truy cập.",
+          muc: [
+            [
+              "Thông tin website thu thập",
+              "Website không có biểu mẫu, tài khoản, giỏ hàng hay hệ thống đặt lịch, và không yêu cầu bạn nhập thông tin cá nhân hoặc thông tin sức khỏe.",
+            ],
+            [
+              "Kênh liên hệ bên thứ ba",
+              "Khi bấm liên hệ, bạn được chuyển sang Zalo hoặc Facebook. Nội dung bạn gửi ở đó được xử lý theo chính sách của nền tảng tương ứng và được đội ngũ INNER ARCHITECT™ dùng để phản hồi yêu cầu của bạn.",
+            ],
+            [
+              "Đo lường truy cập",
+              "Hiện website chưa bật công cụ phân tích truy cập. Nếu bổ sung trong tương lai, chính sách này sẽ được cập nhật trước khi áp dụng.",
+            ],
+            [
+              "Liên hệ về quyền riêng tư",
+              `Gửi câu hỏi về quyền riêng tư tới ${EMAIL_LIEN_HE}.`,
+            ],
+          ],
+        }
+      : {
+          eyebrow: "TUYÊN BỐ PHẠM VI HỖ TRỢ",
+          title: "Phạm vi",
+          italic: "hỗ trợ.",
+          intro:
+            "Các nguyên tắc giới hạn áp dụng cho mọi hoạt động trong hệ sinh thái INNER ARCHITECT™.",
+          muc: [
+            [
+              "Không thay thế chuyên môn y tế",
+              "Hệ thống không chẩn đoán, không kê đơn và không thay thế can thiệp y khoa, tâm thần học hoặc tâm lý lâm sàng.",
+            ],
+            [
+              "Không tiên đoán, không quyết định thay",
+              "Tarot là bề mặt biểu tượng để quan sát điều đang hiện diện. Quyền lựa chọn và trách nhiệm luôn thuộc về chính bạn.",
+            ],
+            [
+              "Không hứa hẹn tuyệt đối, không tạo phụ thuộc",
+              "Phát triển bản thân là tiến trình thực hành trong đời sống thật. Mục tiêu là phục hồi khả năng tự điều chỉnh và tự dẫn dắt.",
+            ],
+            [
+              "Khi vượt ngoài phạm vi an toàn",
+              "Người điều phối sẽ dừng phiên và hướng dẫn chuyển gửi tới hỗ trợ phù hợp. Trong tình huống khẩn cấp, hãy gọi 115 hoặc đến cơ sở y tế gần nhất.",
+            ],
+          ],
+        }
+  return (
+    <main className="cream-page legal-page">
+      <PageHero
+        eyebrow={noiDung.eyebrow}
+        title={noiDung.title}
+        italic={noiDung.italic}
+        intro={noiDung.intro}
+      />
+      <section className="faq-list section-pad">
+        {noiDung.muc.map(([tieuDe, doan]) => (
+          <article key={tieuDe}>
+            <h2 className="serif">{tieuDe}</h2>
+            <p>{doan}</p>
+          </article>
+        ))}
+        <p className="legal-status">
+          Bản nháp — chờ chủ thương hiệu duyệt trước khi phát hành.
+        </p>
+      </section>
+      <ParentLink to="/" label="Về trang chủ" />
+    </main>
+  )
+}
+
+/**
+ * Trang 404 cho đường dẫn, bài viết hoặc chương trình không tồn tại.
+ *
+ * @returns Trang không tìm thấy
+ */
+function NotFoundPage() {
+  return (
+    <main className="cream-page not-found-page">
+      <PageHero
+        eyebrow="404 · KHÔNG TÌM THẤY TRANG"
+        title="Trang này"
+        italic="không còn ở đây."
+        intro="Đường dẫn có thể đã thay đổi hoặc chưa từng tồn tại. Bạn có thể quay về trang chủ, đọc Journal hoặc liên hệ trực tiếp với chúng tôi."
+      />
+      <section className="simple-content section-pad">
+        <div>
+          <Link to="/" className="button-link">
+            Về trang chủ
+          </Link>
+        </div>
+        <div>
+          <Link to="/journal" className="underlink">
+            Đọc Journal →
+          </Link>
+          <br />
+          <Link to="/lien-he" className="underlink">
+            Liên hệ →
+          </Link>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+/** Tiêu đề và mô tả SEO của một trang. */
+type ThongTinSeo = {
+  title: string
+  description: string
+}
+
+/** Tiêu đề và mô tả mặc định của site, dùng khi route không có SEO riêng. */
+const SEO_MAC_DINH = {
+  title: "INNER ARCHITECT™ — Xây trật tự bên trong",
+  description:
+    "INNER ARCHITECT™ — hệ sinh thái trà đạo có hướng dẫn, Tarot phản tư, đồng hành 1:1, workshop, Academy và sản phẩm LARA tại TP. Hồ Chí Minh.",
+}
+
+/** Tiêu đề và mô tả theo từng route tĩnh. */
+const seoTheoDuongDan: Record<
+  string,
+  ThongTinSeo & {
+    giuNguyenTieuDe?: boolean
+  }
+> =
+  {
+    "/journal": {
+      title: "Journal",
+      description:
+        "Thư viện chiêm nghiệm về Tarot, tâm lý học và đời sống nội tâm của INNER ARCHITECT™.",
+    },
+    "/chuong-trinh": {
+      title: "Chương trình",
+      description:
+        "Trải nghiệm, đồng hành cá nhân và Academy của INNER ARCHITECT™, thiết kế theo mức độ sẵn sàng và phạm vi hỗ trợ.",
+    },
+    "/the-hermit": {
+      title: "The Hermit",
+      description:
+        "The Hermit — không gian café, trà đạo và Tarot thuộc hệ sinh thái INNER ARCHITECT™ tại TP. Hồ Chí Minh.",
+    },
+    "/vo-khiem": {
+      title: "Võ Khiêm | Founder INNER ARCHITECT™",
+      description:
+        "Võ Khiêm — người sáng lập INNER ARCHITECT™ System, hoạt động trong lĩnh vực Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
+      giuNguyenTieuDe: true,
+    },
+    "/lara": {
+      title: "LARA",
+      description:
+        "LARA — nhánh sản phẩm hương thơm cho những khoảng nghỉ và nghi thức cá nhân.",
+    },
+    "/lien-he": {
+      title: "Liên hệ",
+      description:
+        "Liên hệ INNER ARCHITECT™ qua một kênh Zalo / Facebook chung cho trà đạo, Tarot, đồng hành 1:1, workshop, Academy và sản phẩm.",
+    },
+    "/faq": {
+      title: "Câu hỏi thường gặp",
+      description:
+        "Giải đáp về cách liên hệ, hình thức tham gia và giới hạn hỗ trợ của INNER ARCHITECT™.",
+    },
+    "/chinh-sach-bao-mat": {
+      title: "Chính sách bảo mật",
+      description: "Cách website INNER ARCHITECT™ xử lý thông tin người truy cập.",
+    },
+    "/pham-vi-ho-tro": {
+      title: "Tuyên bố phạm vi hỗ trợ",
+      description:
+        "Các nguyên tắc giới hạn áp dụng cho mọi hoạt động trong hệ sinh thái INNER ARCHITECT™.",
+    },
+  }
+
+/**
+ * Xác định tiêu đề và mô tả SEO cho một đường dẫn đã chuẩn hóa.
+ *
+ * @param duongDan - Đường dẫn hash đã chuẩn hóa, ví dụ `/journal/cham-ngo-tarot`
+ * @param laTrang404 - `true` nếu đường dẫn không khớp nội dung nào
+ * @returns Cặp `title` (đã gắn tên thương hiệu) và `description`
+ */
+function layThongTinSeo(
+  duongDan: string,
+  laTrang404: boolean,
+): ThongTinSeo {
+  const ganThuongHieu = (tieuDe: string) => `${tieuDe} — INNER ARCHITECT™`
+  if (laTrang404)
+    return {
+      title: ganThuongHieu("Không tìm thấy trang"),
+      description: SEO_MAC_DINH.description,
+    }
+  const baiViet = duongDan.startsWith("/journal/")
+    ? news.find((item) => `/journal/${item.slug}` === duongDan)
+    : undefined
+  if (baiViet)
+    return { title: ganThuongHieu(baiViet.title), description: baiViet.summary }
+  const chuongTrinh = duongDan.startsWith("/chuong-trinh/")
+    ? danhSachChiTietChuongTrinh[duongDan.slice("/chuong-trinh/".length)]
+    : undefined
+  if (chuongTrinh)
+    return {
+      title: ganThuongHieu(chuongTrinh.tieuDe),
+      description: chuongTrinh.doanDan,
+    }
+  const tinh = seoTheoDuongDan[duongDan]
+  if (tinh)
+    return {
+      title: tinh.giuNguyenTieuDe ? tinh.title : ganThuongHieu(tinh.title),
+      description: tinh.description,
+    }
+  return SEO_MAC_DINH
+}
+
+/**
+ * Ghi tiêu đề trang và các thẻ meta mô tả vào `<head>`.
+ * Tác dụng phụ: sửa `document.title`, tạo thẻ meta nếu chưa có.
+ *
+ * @param seo - Tiêu đề và mô tả cần áp dụng
+ */
+function capNhatThongTinSeo(seo: ThongTinSeo) {
+  document.title = seo.title
+  const thuocTinh: [string, string, string][] = [
+    ["name", "description", seo.description],
+    ["property", "og:title", seo.title],
+    ["property", "og:description", seo.description],
+  ]
+  thuocTinh.forEach(([khoa, ten, giaTri]) => {
+    let the = document.head.querySelector<HTMLMetaElement>(
+      `meta[${khoa}="${ten}"]`,
+    )
+    if (!the) {
+      the = document.createElement("meta")
+      the.setAttribute(khoa, ten)
+      document.head.appendChild(the)
+    }
+    the.content = giaTri
+  })
+}
+
+/**
+ * Chuẩn hóa đường dẫn hash: bỏ query, bỏ dấu `/` cuối và ánh xạ route cũ.
+ * `/booking` (form đặt lịch đã gỡ) được chuyển sang `/lien-he`.
+ *
+ * @param duongDanTho - Phần sau dấu `#` của URL
+ * @returns Đường dẫn chuẩn, luôn bắt đầu bằng `/`
+ */
+function chuanHoaDuongDan(duongDanTho: string): string {
+  let duongDan = duongDanTho.split("?")[0] || "/"
+  if (!duongDan.startsWith("/")) duongDan = `/${duongDan}`
+  if (duongDan.length > 1) duongDan = duongDan.replace(/\/+$/, "")
+  if (duongDan === "/booking") return "/lien-he"
+  return duongDan
+}
+
+// Kiểu props đặt tên riêng: oxfmt 0.2.0 gộp kiểu inline ngắn thành một dòng rồi bỏ `;`.
+type ParentLinkProps = {
+  to: string
+  label: string
+}
+
+function ParentLink({ to, label }: ParentLinkProps) {
   return (
     <div className="parent-link">
       <Link to={to}>← {label}</Link>
@@ -3229,14 +2652,59 @@ function ParentLink({ to, label }: { to: string label: string }) {
   )
 }
 
+/**
+ * Chọn component trang cho một đường dẫn đã chuẩn hóa.
+ *
+ * @param path - Đường dẫn hash đã qua `chuanHoaDuongDan`
+ * @returns Phần tử trang và cờ `laTrang404` khi không có nội dung tương ứng
+ */
+function chonTrang(path: string): {
+  trang: React.ReactNode
+  laTrang404: boolean
+} {
+  const trang = (node: React.ReactNode) => ({ trang: node, laTrang404: false })
+  if (path === "/") return trang(<Home />)
+  if (path === "/he-thong") return trang(<Home initialSection="he-thong" />)
+  if (path === "/journal")
+    return trang(
+      <JournalPage baiViet={news} chuyenDe={signatureSeriesList} />,
+    )
+  if (path.startsWith("/journal/")) {
+    const slug = path.slice("/journal/".length)
+    if (news.some((item) => item.slug === slug))
+      return trang(<Article slug={slug} />)
+  }
+  if (path === "/chuong-trinh") return trang(<Programmes />)
+  if (path.startsWith("/chuong-trinh/")) {
+    const slug = path.slice("/chuong-trinh/".length)
+    if (danhSachChiTietChuongTrinh[slug])
+      return trang(<Programmes detail={slug} />)
+  }
+  if (path === "/the-hermit") return trang(<Hermit />)
+  if (path === "/vo-khiem") return trang(<FounderPage />)
+  if (path === "/lara") return trang(<LaraPage />)
+  if (path === "/lien-he") return trang(<ContactPage />)
+  if (path === "/faq") return trang(<FaqPage />)
+  if (path === "/chinh-sach-bao-mat") return trang(<LegalPage loai="bao-mat" />)
+  if (path === "/pham-vi-ho-tro") return trang(<LegalPage loai="pham-vi" />)
+  return { trang: <NotFoundPage />, laTrang404: true }
+}
+
 function App() {
-  const [path, setPath] = useState(window.location.hash.slice(1) || "/")
+  const [path, setPath] = useState(() =>
+    chuanHoaDuongDan(window.location.hash.slice(1)),
+  )
   const [menu, setMenu] = useState(false)
   useEffect(() => {
     const f = () => {
-      setPath(window.location.hash.slice(1) || "/")
+      const tho = window.location.hash.slice(1)
+      const chuan = chuanHoaDuongDan(tho)
+      // Đường dẫn cũ (vd. #/booking) được thay trong lịch sử để không lưu URL lỗi thời.
+      if (tho.split("?")[0] === "/booking") window.location.replace(`#${chuan}`)
+      setPath(chuan)
       setMenu(false)
     }
+    f()
     addEventListener("hashchange", f)
     return () => removeEventListener("hashchange", f)
   }, [])
@@ -3244,7 +2712,7 @@ function App() {
     let observer: IntersectionObserver | undefined
     const frame = requestAnimationFrame(() => {
       const targets = document.querySelectorAll<HTMLElement>(
-        "main:not(.hermit-page) > section:not(.hero):not(.hermit-hero):not(.home-stage), .news-card, .profile-principles article",
+        "main:not(.hermit-page):not(.founder-page):not(.journal-page) > section:not(.hero):not(.hermit-hero):not(.home-stage), .news-card, .profile-principles article",
       )
       targets.forEach((target) => target.classList.add("reveal-on-scroll"))
       observer = new IntersectionObserver(
@@ -3265,22 +2733,10 @@ function App() {
       observer?.disconnect()
     }
   }, [path])
-  const page = useMemo(() => {
-    if (path === "/") return <Home />
-    if (path === "/he-thong") return <Home initialSection="he-thong" />
-    if (path === "/journal") return <NewsArchive />
-    if (path.startsWith("/journal/"))
-      return <Article slug={path.split("/").pop()!} />
-
-    if (path === "/chuong-trinh") return <Programmes />
-    if (path.startsWith("/chuong-trinh/"))
-      return <Programmes detail={path.split("/").pop()!} />
-    if (path === "/the-hermit") return <Hermit />
-    if (path === "/vo-khiem") return <FounderPage />
-    if (path === "/lara") return <LaraPage />
-    if (path === "/booking") return <Booking />
-    return <Home />
-  }, [path])
+  const { trang: page, laTrang404 } = useMemo(() => chonTrang(path), [path])
+  useEffect(() => {
+    capNhatThongTinSeo(layThongTinSeo(path, laTrang404))
+  }, [path, laTrang404])
   const isHomeView = path === "/" || path === "/he-thong"
   return (
     <>
@@ -3288,7 +2744,7 @@ function App() {
       <div key={isHomeView ? "home-view" : path} className="page-transition">
         {page}
       </div>
-      {path !== "/booking" && <Footer home={path === "/"} />}
+      <Footer home={path === "/"} />
     </>
   )
 }

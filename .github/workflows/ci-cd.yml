@@ -1,0 +1,123 @@
+name: CI and production deploy
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Ứng dụng Vite nằm trong thư mục con của repo; mọi lệnh `run` chạy tại đó.
+defaults:
+  run:
+    working-directory: inner-architect-figma-make
+
+concurrency:
+  group: inner-architect-production
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.16.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: inner-architect-figma-make/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Run lint when configured
+        run: |
+          if node -e "const s=require('./package.json').scripts || {}; process.exit(s.lint ? 0 : 1)"; then
+            pnpm lint
+          else
+            echo "No lint script is configured; skipping lint."
+          fi
+
+      - name: Build production bundle
+        env:
+          VITE_CONTACT_ZALO_URL: ${{ secrets.VITE_CONTACT_ZALO_URL }}
+          VITE_CONTACT_FACEBOOK_URL: ${{ secrets.VITE_CONTACT_FACEBOOK_URL }}
+        run: pnpm build
+
+      - name: Package static site
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: tar --directory=dist --create --gzip --file=inner-architect-${{ github.sha }}.tar.gz .
+
+      - name: Upload deploy artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-dist
+          path: inner-architect-figma-make/inner-architect-${{ github.sha }}.tar.gz
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    name: Deploy to VPS
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Check out deployment script
+        uses: actions/checkout@v4
+
+      - name: Download verified artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-dist
+          path: inner-architect-figma-make
+
+      - name: Configure SSH trust
+        env:
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Upload release archive
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          scp -P "$DEPLOY_PORT" -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes \
+            inner-architect-${{ github.sha }}.tar.gz \
+            "$DEPLOY_USER@$DEPLOY_HOST:/tmp/inner-architect-${{ github.sha }}.tar.gz"
+
+      - name: Atomically activate release
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_ROOT: ${{ secrets.DEPLOY_ROOT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh -p "$DEPLOY_PORT" -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "bash -s -- '$DEPLOY_ROOT' '${{ github.sha }}' '/tmp/inner-architect-${{ github.sha }}.tar.gz'" \
+            < scripts/deploy/activate-release.sh

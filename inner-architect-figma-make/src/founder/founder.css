@@ -1,0 +1,768 @@
+/*
+ * Trang Founder (/vo-khiem). Chỉ dùng token sẵn có của site:
+ * --paper, --ink, --olive, --earth, --line, --pad; font EB Garamond (.serif) và IBM Plex Sans.
+ * Mọi selector có tiền tố .founder-page để không ảnh hưởng trang khác.
+ */
+
+.founder-page {
+  --fp-max: 1240px;
+  --fp-gap: clamp(28px, 5vw, 96px);
+  --fp-section: clamp(96px, 12vw, 176px);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.founder-page > section {
+  max-width: var(--fp-max);
+  margin-inline: auto;
+  padding: var(--fp-section) var(--pad) 0;
+}
+
+.founder-page .fp-eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.founder-page h2.serif {
+  font-size: clamp(40px, 5vw, 68px);
+  line-height: 1.04;
+  font-weight: 400;
+  margin: 0;
+}
+
+.founder-page h3.serif {
+  font-weight: 400;
+  margin: 0;
+}
+
+.founder-page p {
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+/* Preflight bỏ margin mặc định; khôi phục khoảng cách giữa các đoạn văn. */
+.founder-page p + p {
+  margin-top: 1.1em;
+}
+
+/* Ảnh và placeholder */
+.founder-page .fp-media {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: rgba(63, 74, 54, 0.08);
+}
+
+.founder-page .fp-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.1s cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.founder-page .fp-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, transparent 49.6%, var(--line) 50%, transparent 50.4%),
+    rgba(63, 74, 54, 0.06);
+  color: var(--ink);
+}
+
+.founder-page .fp-placeholder span {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--paper);
+  padding: 6px 12px;
+}
+
+.founder-page .fp-placeholder small {
+  font-size: 13px;
+  background: var(--paper);
+  padding: 4px 10px;
+}
+
+/* 01 — Hero 40/60 */
+.founder-page .fp-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--fp-gap);
+  align-items: center;
+  padding-top: clamp(120px, 11vw, 160px);
+}
+
+.founder-page .fp-hero h1 {
+  font-size: clamp(64px, 9vw, 136px);
+  line-height: 0.9;
+  font-weight: 400;
+  margin: 0;
+}
+
+.founder-page .fp-hero-subtitle {
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-style: italic;
+  margin: 24px 0 0;
+}
+
+.founder-page .fp-hero-roles {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+}
+
+.founder-page .fp-hero-tagline {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/*
+ * Hero desktop: cột chữ rộng theo nội dung (tối đa 560px), cột ảnh theo kích
+ * thước ảnh, khoảng cách cố định; cả cụm căn giữa nên phần dư chia đều hai bên
+ * thay vì dồn vào giữa chữ và ảnh.
+ * Ảnh 3:4 co theo chiều cao màn hình để vừa màn hình đầu, nhưng không nhỏ hơn
+ * 440px (màn laptop thấp từng làm ảnh còn ~280px).
+ */
+.founder-page .fp-hero {
+  grid-template-columns: fit-content(560px) auto;
+  justify-content: center;
+  column-gap: clamp(56px, 6vw, 112px);
+}
+
+.founder-page .fp-hero-media {
+  width: min(620px, max(440px, calc((100vh - 280px) * 0.75)));
+}
+
+/* 02 — Giới thiệu, một cột trung tâm */
+.founder-page .fp-intro {
+  max-width: 760px;
+}
+
+.founder-page .fp-lead {
+  font-size: clamp(24px, 2.6vw, 32px);
+  line-height: 1.35;
+  font-style: italic;
+  margin: 28px 0 32px;
+}
+
+/* 03 — Hành trình */
+.founder-page .fp-journey {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--fp-gap);
+  align-items: start;
+}
+
+.founder-page .fp-journey-media {
+  max-width: 480px;
+}
+
+.founder-page .fp-journey-copy h2 {
+  margin-bottom: 32px;
+}
+
+.founder-page .fp-journey-copy p {
+  max-width: 600px;
+}
+
+/* 04 — Học vấn */
+.founder-page .fp-education header {
+  max-width: 760px;
+}
+
+.founder-page .fp-education-grid {
+  list-style: none;
+  padding: 0;
+  margin: 56px 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.founder-page .fp-education-grid li {
+  padding: 32px 32px 36px 0;
+}
+
+.founder-page .fp-education-grid li + li {
+  padding-left: 32px;
+  border-left: 1px solid var(--line);
+}
+
+.founder-page .fp-number {
+  display: block;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--earth);
+  margin-bottom: 24px;
+}
+
+.founder-page .fp-education-grid h3 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.founder-page .fp-education-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.founder-page .fp-education-grid .fp-education-moc {
+  margin-top: 16px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.founder-page .fp-education-note {
+  max-width: 760px;
+  margin-top: 40px;
+}
+
+/* 05 — Triết lý (nền olive) */
+.founder-page .fp-philosophy {
+  max-width: none;
+  margin-top: var(--fp-section);
+  padding: var(--fp-section) max(var(--pad), calc((100% - var(--fp-max)) / 2 + var(--pad)));
+  background: var(--olive);
+  color: var(--paper);
+}
+
+.founder-page .fp-philosophy p,
+.founder-page .fp-philosophy .fp-eyebrow,
+.founder-page .fp-philosophy h3 {
+  color: var(--paper);
+}
+
+.founder-page .fp-quote {
+  margin: 0;
+  max-width: 980px;
+}
+
+.founder-page .fp-quote blockquote {
+  margin: 0;
+  font-size: clamp(32px, 4.4vw, 60px);
+  line-height: 1.15;
+}
+
+.founder-page .fp-quote figcaption {
+  margin-top: 24px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+.founder-page .fp-values {
+  list-style: none;
+  padding: 0;
+  margin: 72px 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.founder-page .fp-values li {
+  border-top: 1px solid rgba(250, 243, 232, 0.35);
+  padding-top: 24px;
+}
+
+.founder-page .fp-values h3 {
+  font-size: 26px;
+  line-height: 1.2;
+}
+
+.founder-page .fp-values h3 span {
+  display: block;
+  font-style: italic;
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+.founder-page .fp-values p {
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.founder-page .fp-philosophy-body {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--fp-gap);
+}
+
+.founder-page .fp-philosophy-body h3 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+/* 06 — Selected works */
+.founder-page .fp-works header {
+  max-width: 760px;
+  margin-bottom: 64px;
+}
+
+.founder-page .fp-works-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: var(--fp-gap);
+  row-gap: 96px;
+  align-items: start;
+}
+
+/* Nhịp lệch kiểu tạp chí: cột phải thụt xuống, không ép chiều cao bằng nhau. */
+.founder-page .fp-work:nth-child(even) {
+  margin-top: 120px;
+}
+
+.founder-page .fp-work-key {
+  margin: 24px 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--earth);
+}
+
+.founder-page .fp-work h3 {
+  font-size: clamp(30px, 3vw, 40px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.founder-page .fp-work-points {
+  margin: 0 0 16px;
+  padding-left: 18px;
+}
+
+.founder-page .fp-work-points li {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.founder-page .fp-work-note {
+  font-size: 14px;
+  line-height: 1.6;
+  padding-left: 14px;
+  border-left: 2px solid var(--line);
+}
+
+.founder-page .fp-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.founder-page .fp-stats dt {
+  font-size: 40px;
+}
+
+.founder-page .fp-stats dd {
+  margin: 0;
+  font-size: 13px;
+}
+
+.founder-page .fp-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: 1px solid currentColor;
+  margin-top: 8px;
+}
+
+@media (hover: hover) {
+  .founder-page .fp-work:hover .fp-media img {
+    transform: scale(1.03);
+  }
+  .founder-page .fp-link:hover {
+    color: var(--earth);
+  }
+}
+
+/* 07 — Tầm nhìn */
+.founder-page .fp-vision-grid {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--fp-gap);
+}
+
+.founder-page .fp-quote-dark blockquote {
+  font-size: clamp(26px, 2.8vw, 38px);
+  line-height: 1.3;
+}
+
+.founder-page .fp-quote-dark {
+  margin-bottom: 32px;
+}
+
+.founder-page .fp-pillars {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+}
+
+.founder-page .fp-pillars li {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+/*
+ * 08 — Kết trang: một khung riêng trên nền sáng (không dùng nền tối vì footer
+ * bên dưới đã là nâu đậm). Nền kem pha olive, viền ngoài + khung lồng bên trong.
+ */
+.founder-page .fp-closing {
+  position: relative;
+  width: calc(100% - 2 * var(--pad));
+  max-width: var(--fp-max);
+  margin: var(--fp-section) auto;
+  padding: clamp(72px, 9vw, 136px) clamp(24px, 6vw, 96px);
+  text-align: center;
+  background: color-mix(in srgb, var(--olive) 9%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--olive) 28%, transparent);
+}
+
+.founder-page .fp-closing::before {
+  content: "";
+  position: absolute;
+  inset: clamp(8px, 1.2vw, 14px);
+  border: 1px solid color-mix(in srgb, var(--olive) 22%, transparent);
+  pointer-events: none;
+}
+
+.founder-page .fp-closing .fp-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--olive);
+}
+
+.founder-page .fp-closing .fp-eyebrow::before,
+.founder-page .fp-closing .fp-eyebrow::after {
+  content: "";
+  width: clamp(24px, 5vw, 56px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.founder-page .fp-closing h2 {
+  max-width: 820px;
+  margin-inline: auto;
+  color: var(--olive);
+}
+
+.founder-page .fp-closing > p:not(.fp-eyebrow) {
+  max-width: 560px;
+  margin: 24px auto 40px;
+}
+
+.founder-page .fp-closing-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}
+
+.founder-page .fp-closing .button-link {
+  background: var(--olive);
+  color: var(--paper);
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.founder-page .fp-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.founder-page a:focus-visible {
+  outline: 2px solid var(--earth);
+  outline-offset: 4px;
+}
+
+.founder-page .fp-philosophy a:focus-visible {
+  outline-color: var(--paper);
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .founder-page .fp-hero,
+  .founder-page .fp-journey,
+  .founder-page .fp-philosophy-body,
+  .founder-page .fp-vision-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .founder-page .fp-hero-media {
+    justify-self: start;
+    width: min(100%, 520px);
+  }
+  .founder-page .fp-values {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .founder-page .fp-work:nth-child(even) {
+    margin-top: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .founder-page .fp-education-grid,
+  .founder-page .fp-works-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .founder-page .fp-education-grid li,
+  .founder-page .fp-education-grid li + li {
+    padding: 28px 0;
+    border-left: 0;
+  }
+  .founder-page .fp-education-grid li + li {
+    border-top: 1px solid var(--line);
+  }
+  .founder-page .fp-hero-media {
+    width: 100%;
+    aspect-ratio: 4 / 5 !important;
+    max-height: 70vh;
+  }
+  .founder-page .fp-journey-media {
+    max-width: none;
+    aspect-ratio: 4 / 3 !important;
+  }
+  .founder-page .fp-works-grid {
+    row-gap: 72px;
+  }
+  .founder-page p {
+    font-size: 16px;
+  }
+  .founder-page .fp-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .founder-page .fp-media img {
+    transition: none;
+  }
+  .founder-page .fp-work:hover .fp-media img {
+    transform: none;
+  }
+}
+
+/*
+ * Hiệu ứng xuất hiện khi cuộn (xem hieu-ung.ts).
+ * Phần tử chỉ bị ẩn khi JS đã gắn .fp-motion — không JS / không IntersectionObserver /
+ * reduced motion thì nội dung luôn hiển thị. Chỉ animate opacity + transform.
+ */
+.founder-page {
+  --fp-dich: 28px;
+  --fp-dich-ngang: 40px;
+  --fp-thoi-gian: 0.9s;
+  --fp-easing: cubic-bezier(0.2, 0.75, 0.25, 1);
+  /* Ngăn chuyển động ngang tạo thanh cuộn tạm thời; clip không tạo vùng cuộn mới. */
+  overflow-x: clip;
+}
+
+.founder-page.fp-motion [data-reveal] {
+  opacity: 0;
+  transition:
+    opacity var(--fp-thoi-gian) var(--fp-easing),
+    transform var(--fp-thoi-gian) var(--fp-easing);
+  transition-delay: calc(var(--fp-i, 0) * 100ms);
+}
+
+.founder-page.fp-motion [data-reveal="len"] {
+  transform: translate3d(0, var(--fp-dich), 0);
+}
+
+.founder-page.fp-motion [data-reveal="trai"] {
+  transform: translate3d(calc(var(--fp-dich-ngang) * -1), 0, 0);
+}
+
+.founder-page.fp-motion [data-reveal="phai"] {
+  transform: translate3d(var(--fp-dich-ngang), 0, 0);
+}
+
+/* Ảnh: khung mờ dần vào, nội dung bên trong thu từ 1.03 về 1 (khung giữ nguyên kích thước). */
+.founder-page.fp-motion [data-reveal="anh"] > * {
+  transform: scale(1.03);
+  transition: transform 1.3s var(--fp-easing);
+  transition-delay: calc(var(--fp-i, 0) * 100ms);
+}
+
+.founder-page.fp-motion [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.founder-page.fp-motion [data-reveal="anh"].is-revealed > * {
+  transform: none;
+}
+
+/* Hover nhẹ, không đổi layout. */
+.founder-page .fp-link {
+  transition: color 0.3s ease;
+}
+
+.founder-page .fp-closing .button-link {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .founder-page .fp-closing .button-link:hover {
+    background: var(--brown);
+  }
+}
+
+/* Tablet: giảm quãng chuyển động. */
+@media (max-width: 1023px) {
+  .founder-page {
+    --fp-dich: 20px;
+    --fp-dich-ngang: 24px;
+  }
+}
+
+/* Mobile: chỉ fade-up ngắn, không trượt ngang. */
+@media (max-width: 767px) {
+  .founder-page {
+    --fp-dich: 16px;
+  }
+  .founder-page.fp-motion [data-reveal="trai"],
+  .founder-page.fp-motion [data-reveal="phai"] {
+    transform: translate3d(0, var(--fp-dich), 0);
+  }
+  .founder-page.fp-motion [data-reveal="trai"].is-revealed,
+  .founder-page.fp-motion [data-reveal="phai"].is-revealed {
+    transform: none;
+  }
+}
+
+/* Phòng hờ: nếu reduced motion được bật giữa phiên, hiện ngay mọi thứ. */
+@media (prefers-reduced-motion: reduce) {
+  .founder-page [data-reveal],
+  .founder-page [data-reveal] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile: eyebrow kết trang gọn một dòng, bỏ vạch trang trí. */
+@media (max-width: 767px) {
+  .founder-page .fp-closing .fp-eyebrow {
+    letter-spacing: 0.08em;
+    font-size: 12px;
+  }
+  .founder-page .fp-closing .fp-eyebrow::before,
+  .founder-page .fp-closing .fp-eyebrow::after {
+    display: none;
+  }
+}
+
+/*
+ * Xuống dòng & cỡ tiêu đề.
+ * balance: chia dòng tiêu đề đều nhau; pretty: tránh một từ trơ trọi ở dòng cuối đoạn văn.
+ * Từ ghép tiếng Việt được giữ liền bằng dấu cách không ngắt dòng (ngat-dong.ts).
+ */
+.founder-page h1,
+.founder-page h2,
+.founder-page h3,
+.founder-page blockquote,
+.founder-page .fp-hero-subtitle,
+.founder-page .fp-lead {
+  text-wrap: balance;
+}
+
+.founder-page p,
+.founder-page li {
+  text-wrap: pretty;
+}
+
+/* Tên nhà sáng lập luôn một dòng, cỡ chữ co theo cột 40%. */
+.founder-page .fp-hero h1 {
+  font-size: clamp(56px, 6.6vw, 96px);
+  white-space: nowrap;
+}
+
+/* Tiêu đề trong cột hẹp nhỏ hơn tiêu đề cột rộng để không dàn thành 4–5 dòng. */
+.founder-page .fp-journey-copy h2,
+.founder-page .fp-vision-grid h2 {
+  font-size: clamp(36px, 3.8vw, 52px);
+  line-height: 1.1;
+}
+
+/* Vai trò và tagline: mỗi cụm không bị cắt, dấu "·" không lơ lửng cuối dòng. */
+/* inline-block tạo điểm ngắt dòng giữa các cụm (React không chèn khoảng trắng). */
+.founder-page .fp-cum-wrap {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/*
+ * Dấu "·" đầu dòng bị cắt: danh sách lùi trái đúng bằng bề rộng một dấu, khung
+ * cha overflow: hidden. Dấu nằm giữa dòng vẫn hiển thị bình thường.
+ */
+.founder-page .fp-hero-roles {
+  --fp-sep-w: 1.6em;
+  overflow: hidden;
+}
+
+.founder-page .fp-cum-list {
+  display: block;
+  margin-left: calc(-1 * var(--fp-sep-w, 0px));
+}
+
+.founder-page .fp-cum-sep {
+  display: inline-block;
+  width: var(--fp-sep-w, 0px);
+  text-align: center;
+}
+
+/* Tagline: mỗi cụm một dòng ở mọi kích thước, không dùng dấu "·". */
+.founder-page .fp-hero-tagline .fp-cum-wrap {
+  display: block;
+}
+
+.founder-page .fp-hero-tagline .fp-cum-sep {
+  display: none;
+}
+
+/* Bốn trụ cột tầm nhìn: lưới 2×2 thay vì 3 + 1. */
+.founder-page .fp-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 8px 40px;
+}
+
+@media (max-width: 767px) {
+  .founder-page .fp-pillars {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

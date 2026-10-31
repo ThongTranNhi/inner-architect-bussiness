@@ -1,0 +1,14 @@
+# First-run HTTP-only Nginx configuration. Replace YOUR_DOMAIN and enable this
+# file before requesting the first Let's Encrypt certificate.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name YOUR_DOMAIN www.YOUR_DOMAIN;
+
+    root /var/www/inner-architect/current;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

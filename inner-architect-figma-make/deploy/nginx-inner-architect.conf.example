@@ -1,0 +1,36 @@
+# Replace YOUR_DOMAIN before enabling this file. Keep this file outside the
+# release directory: each release only contains static Vite output.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name YOUR_DOMAIN www.YOUR_DOMAIN;
+
+    # Enable this redirect after Certbot has created the HTTPS certificate.
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name YOUR_DOMAIN www.YOUR_DOMAIN;
+
+    ssl_certificate /etc/letsencrypt/live/YOUR_DOMAIN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/YOUR_DOMAIN/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    root /var/www/inner-architect/current;
+    index index.html;
+
+    # Hash URLs work client-side; this also preserves direct visits to any
+    # future history-style routes by falling back to the Vite entry point.
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~* \.(?:css|js|mjs|png|jpe?g|gif|svg|webp|ico|woff2?)$ {
+        try_files $uri =404;
+        expires 7d;
+        add_header Cache-Control "public";
+    }
+}

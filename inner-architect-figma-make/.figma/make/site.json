@@ -1,5 +1,10 @@
 {
-  "description": "Explore INNER ARCHITECT™’s inner-work system, Tarot journal, workshops, Academy, and The Hermit space, with clear guidance for booking an initial session.",
+  "title": "INNER ARCHITECT™ — Xây trật tự bên trong",
+  "description": "INNER ARCHITECT™ — hệ sinh thái trà đạo có hướng dẫn, Tarot phản tư, đồng hành 1:1, workshop, Academy và sản phẩm LARA tại TP. Hồ Chí Minh.",
+  "language": "vi",
+  "icons": {
+    "icon": "/logocongty.jpg"
+  },
   "robots": {
     "index": false
   },
