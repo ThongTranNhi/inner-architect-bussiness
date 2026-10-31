@@ -547,7 +547,7 @@ body:has(.home-page) .site-header{position:fixed;top:0;transition:transform .32s
 .home-v3-hero h1 {
   margin: 0;
   color: inherit;
-  font-size: clamp(62px, 7.2vw, 110px);
+  font-size: clamp(48px, 5.4vw, 84px);
   letter-spacing: -.035em;
   line-height: .92;
   animation: homeV3TextIn .9s .38s both;
@@ -566,7 +566,7 @@ body:has(.home-page) .site-header{position:fixed;top:0;transition:transform .32s
   margin: 34px auto 0;
   color: inherit;
   font-family: "EB Garamond", Georgia, serif;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1.42;
   animation: homeV3TextIn .75s .55s both;
 }
@@ -1450,13 +1450,13 @@ body:has(.home-page) .site-header{position:fixed;top:0;transition:transform .32s
     transform: none;
   }
   .home-v3-hero-kicker { margin-bottom: 18px; font-size: 10px; }
-  .home-v3-hero h1 { font-size: 50px; line-height: .95; }
+  .home-v3-hero h1 { font-size: 42px; line-height: .95; }
   .home-v3-mobile-break { display: block; }
   .home-v3-hero-intro {
     width: 100%;
     max-width: 100% !important;
     margin: 24px 0 0;
-    font-size: 17px;
+    font-size: 16px;
     overflow-wrap: anywhere;
   }
   .home-v3-intro-line { display: block; }
