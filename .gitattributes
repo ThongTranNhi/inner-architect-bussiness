@@ -144,3 +144,16 @@
 *.stl                filter=lfs diff=lfs merge=lfs -text
 *.nc                 filter=lfs diff=lfs merge=lfs -text
 *.mat                filter=lfs diff=lfs merge=lfs -text
+
+# ---------------------------------------------------------------------------
+# Root documents stored without LFS
+# ---------------------------------------------------------------------------
+# These rules lived in the app subfolder until the app moved to the repository
+# root. The files below were committed as regular blobs before that move;
+# keep them out of LFS so they do not show as modified.
+/Inner_Architect_Journal_Co_Hinh_Anh.docx       -filter -diff -merge
+/inner-architect-four-layer-gallery-desktop.png -filter -diff -merge
+/inner-architect-four-layer-gallery-mobile.png  -filter -diff -merge
+/inner-architect-home-desktop.png               -filter -diff -merge
+/inner-architect-home-session-desktop.png       -filter -diff -merge
+/inner-architect-home-session-mobile.png        -filter -diff -merge

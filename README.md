@@ -2,7 +2,28 @@
 
 Bộ tài liệu dành cho PM, thiết kế, nội dung và phát triển website INNER ARCHITECT.
 
-**Trạng thái:** Git repository đã tồn tại; chưa có mã ứng dụng, package manager manifest hoặc cấu hình deploy. Bộ tài liệu là nguồn chuẩn để chuẩn bị triển khai. Không có thay đổi nào được thực hiện trong Figma.
+**Trạng thái:** Website MVP (React 19 + Vite 8 + Tailwind CSS 4 + pnpm) chạy trực tiếp từ repository root; CI/CD nằm trong `.github/workflows/`. Bộ tài liệu trong `docs/` là nguồn chuẩn cho yêu cầu và quyết định.
+
+## Chạy website
+
+Mọi lệnh chạy tại repository root (phiên bản Node.js và pnpm khai báo trong `.mise.toml`):
+
+| Lệnh | Tác dụng |
+| --- | --- |
+| `pnpm install --frozen-lockfile` | Cài phụ thuộc vào `node_modules/` |
+| `pnpm dev` | Dev server Vite (mặc định cổng 8443; ví dụ `pnpm dev --host 127.0.0.1 --port 5173`) |
+| `pnpm typecheck` | `tsc --noEmit` |
+| `pnpm test` | Test `node --test` trong `tests/` |
+| `pnpm build` | Build production ra `dist/` |
+
+| Đường dẫn | Vai trò |
+| --- | --- |
+| `src/`, `index.html`, `vite.config.ts` | Mã nguồn và cấu hình website |
+| `public/` | Tài nguyên tĩnh duy nhất được đưa vào `dist/` (danh mục: `public/assets/README.md`) |
+| `tests/` | Test tự động |
+| `.figma/make/` | Cấu hình Figma Make (`site.json`: favicon, robots) |
+| `scripts/deploy/`, `deploy/`, [`docs/CI-CD.md`](docs/CI-CD.md) | Script, mẫu cấu hình và hướng dẫn deploy |
+| `information/`, `video/`, `journal/`, `fav-icon/`, `assets/`, `content/` | Tài liệu và asset nguồn; **không** được website phục vụ trừ khi đã chép vào `public/` |
 
 ## Tổng quan sản phẩm
 

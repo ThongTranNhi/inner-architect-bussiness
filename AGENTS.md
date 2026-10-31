@@ -42,6 +42,26 @@
 - Với thay đổi giao diện, kiểm tra desktop/mobile, điều hướng và CTA liên quan; ưu tiên kiểm tra gắn với rủi ro thực tế.
 - Bảo toàn dữ liệu và thay đổi đang có của người dùng; không reset hoặc xóa ngoài phạm vi.
 
+## Ứng dụng website (React + Vite tại repository root)
+
+Phần này được gộp từ `inner-architect-figma-make/AGENTS.md` (scaffold Figma Make) khi ứng dụng được đưa lên root. Repository root vừa là Git root vừa là application root.
+
+- Chạy tại root: `pnpm dev` (cổng mặc định 8443 theo `vite.config.ts`, đổi bằng `--port`), `pnpm typecheck`, `pnpm test`, `pnpm build` (xuất ra `dist/`). Khi chạy trong Figma Make, dev server đã chạy sẵn trên `$PORT`, không cần tự khởi động.
+- `src/main.tsx` — entrypoint React; import `src/index.css` và mount `src/App.tsx` vào `#root`.
+- `src/App.tsx` — component chính, điểm bắt đầu thường gặp cho việc sửa UI.
+- `src/index.css` — CSS toàn cục và `@import 'tailwindcss';` của Tailwind CSS v4.
+- `index.html` — HTML shell của Vite, chứa `#root` và nạp `src/main.tsx`.
+- `vite.config.ts` — React, Tailwind v4, các plugin Figma Make và alias `@` trỏ tới `src`; đọc `.figma/make/site.json` (favicon, robots).
+- `public/` — tài nguyên tĩnh duy nhất được đưa vào `dist/`; danh mục ở `public/assets/README.md`. Các thư mục nguồn ở root như `information/`, `video/`, `journal/`, `fav-icon/` không được phục vụ trực tiếp.
+- `.mise.toml` — phiên bản Node.js và pnpm; `tests/` — test `node --test`; `scripts/deploy/`, `deploy/` — script và mẫu cấu hình deploy (xem `docs/CI-CD.md`).
+- Phụ thuộc: React 19, React DOM 19, Tailwind CSS v4 qua `@tailwindcss/vite`, Vite 8, TypeScript 5.7, `@vitejs/plugin-react`, định dạng bằng oxfmt.
+
+### Styling
+
+- Dùng utility class của Tailwind trực tiếp trong JSX; CSS toàn cục và tùy biến theme Tailwind v4 đặt trong `src/index.css`. Không cần file cấu hình Tailwind hay PostCSS.
+- Giữ các câu lệnh CSS `@import` ở đầu `src/index.css`, sau đó mới tới `@font-face` và font mặc định.
+- Tailwind sinh utility trong `@layer utilities`; CSS nằm ngoài cascade layer sẽ thắng mọi layer bất kể specificity. Đặt style phần tử toàn cục (reset, mặc định cho `body`, heading, `button`, `input`) trong `@layer base { ... }`. Preflight đã có `box-sizing: border-box`, bỏ margin mặc định và `font: inherit` cho form control, không lặp lại.
+
 ## GitHub và deploy
 
 - Tuân thủ docs/03-engineering/github-rules.md và docs/04-delivery/deployment.md.

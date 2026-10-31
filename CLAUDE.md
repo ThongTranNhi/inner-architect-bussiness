@@ -2,12 +2,15 @@
 
 Đọc và tuân thủ `AGENTS.md` trước mọi thay đổi. File này chỉ là điểm vào cho Claude Code; `AGENTS.md` là nguồn quy tắc đầy đủ.
 
+@AGENTS.md
+
 ## Bối cảnh nhanh
 
 - INNER ARCHITECT có sáu nhánh: trà đạo có hướng dẫn theo lịch hẹn, Tarot online/offline, đồng hành 1:1, workshop, Academy và sản phẩm.
 - MVP chưa có booking/payment nội bộ; CTA chuyển sang một Zalo/Facebook chung đã được duyệt.
 - Thiết kế natural modern. Không bịa dữ liệu kinh doanh hoặc chỉnh Figma khi chưa được giao.
 - TypeScript + Next.js + Payload CMS + PostgreSQL là phương án mục tiêu nếu phù hợp; luôn đọc source thực tế và không ép chuyển framework.
+- Website hiện là React 19 + Vite 8 + Tailwind 4 + pnpm, chạy trực tiếp từ repository root (`src/`, `public/`, `tests/`); build ra `dist/`.
 
 ## Trước và sau khi làm
 

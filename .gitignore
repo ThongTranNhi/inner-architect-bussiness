@@ -26,6 +26,8 @@ Thumbs.db
 *.zip
 *.rar
 *.7z
+# Release archive produced by the CI/CD workflow
+inner-architect-*.tar.gz
 
 # Scratch, test artifacts & local caches
 tmp/
@@ -34,7 +36,22 @@ artifacts/
 .superpowers/
 .serena/
 
-# Raw image dump directories (curated assets are inside inner-architect-figma-make/public/)
+# Vite / TypeScript caches (merged from the former app-level .gitignore)
+.cache/
+.vite/
+vite.config.*.timestamp-*
+*.tsbuildinfo
+*-debug.log*
+logs/
+.claude-replay.*
+.tmp-*
+
+# Figma Make platform state, not project source
+/.figma/design-context/
+/.plugins/
+/.opencode-skills/
+
+# Raw image dump directories (curated assets are inside public/)
 TONG-HOP-HINH-ANH-THEO-TRANG/
 inner-architect-assets/
 inner-architect-images-2026-10-27/

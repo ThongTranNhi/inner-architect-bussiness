@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
+/* Scan only website code: the repo root also holds docs and notes whose words
+   would otherwise be turned into utility classes. */
+@source "../src";
+@source "../index.html";
 
 :root{--cream:#FAF3E8;--paper:#FAF3E8;--ink:#301F05;--brown:#402E0F;--rust:#C0814C;--olive:#3F4A36;--amber:#F3B163;--candle:#FBC976;--line:rgba(48,31,5,.25);--pad:clamp(32px,3vw,48px)}
 *{box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:clip}body{margin:0;overflow-x:clip;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",Arial,sans-serif;font-size:14px;font-weight:300;line-height:1.55}a{color:inherit;text-decoration:none;cursor:pointer}button,input,select,textarea{font:inherit;color:inherit}.serif{font-family:"EB Garamond",Georgia,serif;font-weight:400}.eyebrow,.meta{font-size:11px;letter-spacing:.12em;font-weight:500}.underlink{display:inline-block;border-bottom:1px solid;padding-bottom:3px}.section-pad{padding:clamp(80px,10vw,150px) var(--pad)}img{display:block;width:100%;object-fit:cover}
