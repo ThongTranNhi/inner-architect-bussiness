@@ -72,6 +72,7 @@ export function JournalPage({ baiViet, chuyenDe }: JournalPageProps) {
             <img
               src={tieuDiem.image}
               alt={tieuDiem.title}
+              fetchPriority="high"
               {...kichThuocAnh(tieuDiem.image)}
             />
           </figure>
@@ -120,6 +121,7 @@ export function JournalPage({ baiViet, chuyenDe }: JournalPageProps) {
                       src={bai.image}
                       alt={bai.title}
                       loading="lazy"
+                      decoding="async"
                       {...kichThuocAnh(bai.image)}
                     />
                   </figure>

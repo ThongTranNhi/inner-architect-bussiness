@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test tests/homepage-editorial.test.mjs tests/lien-he.test.mjs tests/founder.test.mjs tests/journal.test.mjs",
+    "test": "node --test tests/homepage-editorial.test.mjs tests/lien-he.test.mjs tests/founder.test.mjs tests/journal.test.mjs tests/hieu-nang.test.mjs",
     "typecheck": "tsc --noEmit",
     "format": "oxfmt"
   },

@@ -8,8 +8,9 @@ import {
   locBaiJournal,
   tenChuyenMuc,
 } from "../src/journal/loc-journal.ts"
+import { docNguonWebsite } from "./nguon-website.mjs"
 
-const appSource = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8")
+const appSource = docNguonWebsite()
 const pageSource = readFileSync(
   new URL("../src/journal/JournalPage.tsx", import.meta.url),
   "utf8",

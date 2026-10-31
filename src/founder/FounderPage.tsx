@@ -54,7 +54,13 @@ function KhungAnh({
       {...hieuUng(kieu, thuTu, { aspectRatio: anh.tiLe })}
     >
       {anh.src ? (
-        <img src={anh.src} alt={anh.alt} loading={uuTien ? "eager" : "lazy"} />
+        <img
+          src={anh.src}
+          alt={anh.alt}
+          loading={uuTien ? "eager" : "lazy"}
+          fetchPriority={uuTien ? "high" : "auto"}
+          decoding="async"
+        />
       ) : (
         <div className="fp-placeholder" role="img" aria-label={anh.alt}>
           <span>Ảnh chờ bổ sung</span>

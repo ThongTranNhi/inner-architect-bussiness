@@ -114,14 +114,14 @@ export function kieuHienAnh(viTri: number): KieuHienAnh {
 export const KICH_THUOC_ANH_JOURNAL: Readonly<
   Record<string, readonly [number, number]>
 > = {
-  "/assets/journal/goc/hinh01.jpg": [1536, 1024],
-  "/assets/journal/goc/hinh02.jpg": [1536, 1024],
-  "/assets/journal/goc/hinh03.jpg": [1536, 1024],
-  "/assets/journal/goc/hinh04.jpg": [1536, 1024],
-  "/assets/journal/goc/hinh05.jpg": [1536, 1024],
-  "/assets/journal/goc/hinh06.jpg": [1536, 1024],
-  "/assets/journal/goc/hinh07.jpg": [1536, 1024],
-  "/assets/journal/goc/hinh08.jpg": [2560, 1920],
+  "/assets/journal/goc/hinh01.webp": [1536, 1024],
+  "/assets/journal/goc/hinh02.webp": [1536, 1024],
+  "/assets/journal/goc/hinh03.webp": [1536, 1024],
+  "/assets/journal/goc/hinh04.webp": [1536, 1024],
+  "/assets/journal/goc/hinh05.webp": [1536, 1024],
+  "/assets/journal/goc/hinh06.webp": [1536, 1024],
+  "/assets/journal/goc/hinh07.webp": [1536, 1024],
+  "/assets/journal/goc/hinh08.webp": [1600, 1200],
   "/assets/journal/journal-tarot-reading-horizontal.webp": [2048, 1536],
   "/assets/journal/journal-tarot-flatlay-vertical.webp": [1536, 2048],
   "/assets/journal/journal-tarot-spread-vertical.webp": [1536, 2048],
@@ -130,7 +130,7 @@ export const KICH_THUOC_ANH_JOURNAL: Readonly<
 /**
  * Thuộc tính kích thước cho ảnh Journal.
  *
- * @param duongDan - Đường dẫn ảnh, ví dụ `/assets/journal/goc/hinh01.jpg`
+ * @param duongDan - Đường dẫn ảnh, ví dụ `/assets/journal/goc/hinh01.webp`
  * @returns `{ width, height }` theo kích thước gốc; object rỗng nếu chưa khai báo
  */
 export function kichThuocAnh(duongDan: string): {

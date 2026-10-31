@@ -22,15 +22,36 @@ server {
     root /var/www/inner-architect/current;
     index index.html;
 
+    # Text responses are compressed; images are already compressed formats.
+    gzip on;
+    gzip_vary on;
+    gzip_types text/css application/javascript image/svg+xml application/json text/plain;
+
+    # index.html must revalidate on every visit so an atomic switch of
+    # `current` to a new release is picked up immediately. try_files below
+    # falls back to this location, so the header covers every HTML response.
+    location = /index.html {
+        add_header Cache-Control "no-cache" always;
+    }
+
     # Hash URLs work client-side; this also preserves direct visits to any
     # future history-style routes by falling back to the Vite entry point.
     location / {
         try_files $uri $uri/ /index.html;
     }
 
-    location ~* \.(?:css|js|mjs|png|jpe?g|gif|svg|webp|ico|woff2?)$ {
+    # Vite bundles carry a content hash in the file name (for example
+    # /assets/index-B8NdnuuL.js); a changed file always gets a new URL, so
+    # browsers may keep them for a year without revalidating.
+    location ~* "^/assets/[^/]+-[A-Za-z0-9_-]{8}\.(?:js|css)$" {
         try_files $uri =404;
-        expires 7d;
-        add_header Cache-Control "public";
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+    }
+
+    # Files copied from public/ keep stable, unhashed names (images, favicon),
+    # so they get a shorter lifetime instead of immutable caching.
+    location ~* \.(?:png|jpe?g|gif|svg|webp|avif|ico|woff2?)$ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=604800" always;
     }
 }

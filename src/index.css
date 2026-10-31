@@ -2594,3 +2594,6 @@ body:has(.home-page) .site-header{position:fixed;top:0;transition:transform .32s
   }
   .journal-page [data-reveal]::before { transform: none !important; }
 }
+
+/* Chỗ giữ chỗ khi chunk của trang phụ đang tải: giữ chiều cao để footer không nhảy lên. */
+.trang-dang-tai{display:block;min-height:100vh;background:var(--paper)}

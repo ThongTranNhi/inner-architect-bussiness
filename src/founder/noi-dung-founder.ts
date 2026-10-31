@@ -38,7 +38,7 @@ export const anhFounder = {
     mucDich: "Ảnh đời thường hoặc khi làm việc · tối thiểu 1200 × 1600px",
   },
   heThong: {
-    src: "/assets/homepage-curated/04-the-lo-trinh-thuc-hanh-phan-tu.png",
+    src: "/assets/homepage-curated/04-the-lo-trinh-thuc-hanh-phan-tu.webp",
     alt: "Bàn ghi chép trong một buổi thực hành phản tư",
     tiLe: "4 / 3",
     mucDich: "Hoạt động INNER ARCHITECT™ · 1600 × 1200px",
@@ -50,13 +50,13 @@ export const anhFounder = {
     mucDich: "Trải nghiệm tại The Hermit · 1600 × 1200px",
   },
   giangDay: {
-    src: "/assets/homepage-curated/01-workshop-cham-ve-de-diu-lai.png",
+    src: "/assets/homepage-curated/01-workshop-cham-ve-de-diu-lai.webp",
     alt: "Màu vẽ và không gian workshop",
     tiLe: "4 / 3",
     mucDich: "Lớp Tarot / workshop · 1600 × 1200px",
   },
   sangTao: {
-    src: "/assets/lara/lara-autumn-collage-source.jpeg",
+    src: "/assets/lara/lara-autumn-collage-source.webp",
     alt: "Bộ sưu tập sản phẩm hương thơm",
     tiLe: "4 / 3",
     mucDich: "Sách, bộ bài và sản phẩm · 1600 × 1200px",

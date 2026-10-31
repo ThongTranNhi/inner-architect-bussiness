@@ -34,7 +34,7 @@ The supplied Tarot photographs are the strongest current editorial asset set:
 - `journal/journal-tarot-box-portrait.webp`: feature about the Huyền Giới Tarot deck or creator story, 4:5 crop.
 - `journal/journal-tarot-flatlay-vertical.webp`: long-form article opener, 4:5 or 3:4 crop.
 - `journal/journal-tarot-spread-vertical.webp`: secondary article image, 4:5 crop.
-- `journal/goc/hinh01.jpg` … `hinh08.jpg`: original-size article photographs used by the Journal library.
+- `journal/goc/hinh01.webp` … `hinh08.webp`: original-size article photographs used by the Journal library.
 
 Use an uneven two-column editorial composition. Keep captions outside the pictures and do not cover the card artwork with long text.
 
@@ -51,14 +51,14 @@ Suggested sequence for the Figma demo:
 
 1. `the-hermit/storefront-placeholder.webp` — full-screen chapter opening.
 2. `the-hermit/main-hall-placeholder.webp` — architectural overview.
-3. `the-hermit/tea-room-placeholder.png` — tea and slow-space section.
+3. `the-hermit/tea-room-placeholder.webp` — tea and slow-space section.
 4. `the-hermit/tarot-room-placeholder.webp` — Tarot consultation section.
 
 The four images share a coherent warm-wood and olive visual world. They are suitable for prototyping, but all must be verified as real photography versus visual renders before publication.
 
 ## LARA
 
-- Use `lara/lara-autumn-collage-source.jpeg` as an introduction to the product world.
+- Use `lara/lara-autumn-collage-source.webp` as an introduction to the product world.
 - Use the product photographs embedded in `lara-soul-cleanse.webp`, `lara-sacred-ground.webp` and `lara-soul-embrace.webp` only as temporary content because text is baked into the files.
 - `lara-product-collage`, `lara-gourd-product-details` and `lara-gourd-use` were removed on 2026-10-31 because nothing referenced them; restore from Git history if a product detail or Journal story needs them.
 - Request clean original candle photographs without text overlays for the final site: one 16:9 hero, three 4:5 product portraits and two 3:2 material/detail photographs.

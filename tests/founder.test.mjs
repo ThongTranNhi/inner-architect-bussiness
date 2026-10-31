@@ -3,15 +3,13 @@ import { readFile } from "node:fs/promises"
 import test from "node:test"
 
 import * as noiDung from "../src/founder/noi-dung-founder.ts"
+import { docNguonWebsite } from "./nguon-website.mjs"
 
 const pageSource = await readFile(
   new URL("../src/founder/FounderPage.tsx", import.meta.url),
   "utf8",
 )
-const appSource = await readFile(
-  new URL("../src/App.tsx", import.meta.url),
-  "utf8",
-)
+const appSource = docNguonWebsite()
 
 test("founder page renders the eight portfolio sections in order", () => {
   const order = [

@@ -3,11 +3,9 @@ import { readFile } from "node:fs/promises"
 import test from "node:test"
 
 import { kiemTraDuongDanLienHe } from "../src/lien-he/kiem-tra-duong-dan-lien-he.ts"
+import { docNguonWebsite } from "./nguon-website.mjs"
 
-const appSource = await readFile(
-  new URL("../src/App.tsx", import.meta.url),
-  "utf8",
-)
+const appSource = docNguonWebsite()
 const packageJson = JSON.parse(
   await readFile(new URL("../package.json", import.meta.url), "utf8"),
 )

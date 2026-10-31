@@ -77,6 +77,21 @@ replace the HTTP-only file with `deploy/nginx-inner-architect.conf.example`
 (using the same domain and root), then run `sudo nginx -t && sudo systemctl
 reload nginx`. Confirm automatic renewal with `sudo certbot renew --dry-run`.
 
+## Caching
+
+Both Nginx templates set the same cache policy:
+
+| Response | `Cache-Control` | Why |
+| --- | --- | --- |
+| `index.html` (and the history fallback) | `no-cache` | Revalidated on every visit, so a switch of `current` to a new release is seen immediately |
+| `/assets/<name>-<hash>.js` / `.css` (Vite bundles) | `public, max-age=31536000, immutable` | The hash changes whenever the content changes |
+| Images and icons copied from `public/` | `public, max-age=604800` | Stable, unhashed names; a replaced image may take up to 7 days to refresh |
+
+Text responses are gzip-compressed. If a visitor keeps an old tab open across a
+release, its old lazy chunk no longer exists; the app reloads the page once to
+pick up the new `index.html`. The templates have not yet been validated with
+`nginx -t`; run `sudo nginx -t` on the VPS before reloading Nginx.
+
 ## Deployment and rollback
 
 A successful `main` run uploads a tarball, extracts it into
