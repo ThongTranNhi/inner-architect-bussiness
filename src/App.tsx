@@ -415,33 +415,37 @@ function Footer({ home = false }: { home?: boolean }) {
 const danhSachBonTang = [
   {
     so: "01",
-    ten: "Tiếp cận ban đầu",
-    linhVuc: "Nhận thức & Thấu hiểu",
-    moTa: "Tạo một ảnh chụp có giới hạn về trạng thái hiện tại, nhu cầu và kiểm tra mức độ phù hợp trước khi đi sâu.",
+    ten: "Tiếp cận & Soi chiếu",
+    linhVuc: "The Hermit · Tarot",
+    moTa:
+      "Bắt đầu tại The Hermit qua không gian trà và các phiên Tarot soi chiếu.",
     anh: IMG.homeFemaleAdvisor,
     alt: "Nữ tư vấn trò chuyện cùng khách trong một phiên tiếp cận riêng",
   },
   {
     so: "02",
-    ten: "Chữa lành & Tái cấu trúc",
-    linhVuc: "Cảm xúc & Mô thức",
-    moTa: "Nhận diện mô thức quen thuộc (patterns), kích hoạt nguồn lực bên trong và xây dựng lại cách phản hồi cảm xúc.",
+    ten: "Khám phá & Thay đổi khuôn mẫu",
+    linhVuc: "Cảm xúc · Niềm tin",
+    moTa:
+      "Nhìn lại tổn thương, cảm xúc và niềm tin để hiểu những khuôn mẫu lặp lại, từng bước thay đổi cách phản ứng và lựa chọn trong cuộc sống.",
     anh: IMG.homeCuratedReflective,
     alt: "Bàn ghi chép trong một buổi thực hành phản tư",
   },
   {
     so: "03",
-    ten: "Định hướng & Giữ trục",
-    linhVuc: "Đời sống & Ranh giới",
-    moTa: "Chuyển hiểu biết thành lựa chọn, ranh giới và nhịp sống có thể duy trì bền vững trong đời sống thực tế.",
+    ten: "Định hướng & Phát triển",
+    linhVuc: "Giá trị · Hành động",
+    moTa:
+      "Làm rõ giá trị bản thân, xác định hướng đi và xây dựng mục tiêu phù hợp. Từng bước đưa định hướng thành hành động cụ thể trong công việc và cuộc sống.",
     anh: IMG.homeCuratedHermit,
     alt: "Góc thưởng trà định tâm tại The Hermit",
   },
   {
     so: "04",
-    ten: "Điều tiết thân & Năng lượng",
-    linhVuc: "Cơ thể & Hơi thở",
-    moTa: "Làm việc với cơ thể, nhịp thở và cảm giác thể chất để phục hồi cơ chế tự điều hòa tự nhiên của hệ thần kinh.",
+    ten: "Chăm sóc thân thể & Cân bằng",
+    linhVuc: "Cơ thể · Nhịp sống",
+    moTa:
+      "Lắng nghe cơ thể, thực hành thư giãn và xây dựng nhịp sống cân bằng.",
     anh: IMG.homeCuratedWorkshop,
     alt: "Màu vẽ và không gian workshop Chạm",
   },
@@ -555,59 +559,13 @@ function Home({ initialSection }: { initialSection?: string }) {
     }
   }
 
-  const pathways = [
-    {
-      number: "01",
-      category: "Cá nhân",
-      title: "Phiên tiếp cận 1:1",
-      copy: "Một cuộc gặp có giới hạn rõ ràng, dành cho lúc bạn cần một điểm bắt đầu chứ chưa cần một câu trả lời hoàn chỉnh.",
-      image: IMG.homeGeneratedSessionSetup,
-      imageAlt: "Bàn trà và sổ ghi chép được chuẩn bị cho phiên tiếp cận",
-      to: "/chuong-trinh/phien-tiep-can-ban-dau",
-      action: "Xem chi tiết",
-    },
-    {
-      number: "02",
-      category: "Không gian",
-      title: "The Hermit Space",
-      copy: "Không gian trà mộc, Tarot phản tư và khoảng nghỉ đủ yên tại Gò Vấp để quan sát chính mình.",
-      image: IMG.homeCuratedHermit,
-      imageAlt:
-        "Không gian trà yên tĩnh dành cho một khoảng dừng tại The Hermit",
-      to: "/the-hermit",
-      action: "Ghé The Hermit",
-    },
-    {
-      number: "03",
-      category: "Trải nghiệm",
-      title: "Workshop Chạm — Vẽ",
-      copy: "Không gian nhóm nhỏ dùng hơi thở và màu vẽ để tiếp cận cảm giác cơ thể mà không phán xét.",
-      image: IMG.homeCuratedWorkshop,
-      imageAlt: "Màu vẽ và không gian workshop Chạm",
-      to: "/chuong-trinh/cham-ve-de-diu-lai",
-      action: "Xem workshop",
-    },
-    {
-      number: "04",
-      category: "Đào tạo",
-      title: "Khóa Tarot Căn Bản",
-      copy: "Học cách đọc biểu tượng, đặt câu hỏi phản tư và rèn luyện đạo đức nghề trong thực hành.",
-      image: IMG.homeCuratedReflective,
-      imageAlt: "Bàn ghi chép và những lá bài trống",
-      to: "/chuong-trinh/tarot-can-ban",
-      action: "Xem giáo trình",
-    },
-  ]
-
-  const leadStory = pathways[0]
-  const secondaryStories = pathways.slice(1)
   const leadJournal = news[0]
   const journalRail = news.slice(1, 3)
 
   return (
-    <main className="home-page home-editorial-v3">
+    <main className="home-page home-editorial-v3 home-editorial-v4">
       <section
-        className={`home-v3-hero cursor-hero-${huongConTroHero}`}
+        className={"home-v3-hero cursor-hero-" + huongConTroHero}
         onMouseEnter={() => setHeroPaused(true)}
         onMouseLeave={() => setHeroPaused(false)}
         onMouseMove={xuLyDiChuyenChuotHero}
@@ -615,7 +573,7 @@ function Home({ initialSection }: { initialSection?: string }) {
       >
         <div className="home-v3-hero-slider" aria-hidden="true">
           <img
-            className={`home-v3-hero-image ${heroIndex === 0 ? "is-active" : ""}`}
+            className={"home-v3-hero-image " + (heroIndex === 0 ? "is-active" : "")}
             src={IMG.homeCuratedHero}
             alt="Bàn Tarot trong không gian ánh sáng ấm"
             loading="eager"
@@ -624,7 +582,10 @@ function Home({ initialSection }: { initialSection?: string }) {
           {danhSachAnhHero.slice(1).map((anh, idx) => (
             <img
               key={anh.src}
-              className={`home-v3-hero-image ${heroIndex === idx + 1 ? "is-active" : ""}`}
+              className={
+                "home-v3-hero-image " +
+                (heroIndex === idx + 1 ? "is-active" : "")
+              }
               src={anh.src}
               alt={anh.alt}
               loading="lazy"
@@ -635,280 +596,451 @@ function Home({ initialSection }: { initialSection?: string }) {
         <div className="home-v3-hero-scrim" />
         <div className="home-v3-hero-copy">
           <p className="home-v3-hero-kicker">
-            Hệ thống tái cấu trúc nội tâm · TP. Hồ Chí Minh
+            INNER ARCHITECT™ · KIẾN TRÚC SƯ NỘI TÂM
           </p>
           <h1 className="serif">
-            Xây trật tự <br className="home-v3-mobile-break" />bên trong
+            Xây trật tự bên trong,
             <br />
             <em>để sống tự chủ.</em>
           </h1>
-          <p className="home-v3-hero-intro">
-            <span className="home-v3-intro-line">
-              Một hệ thống tích hợp nhận thức,
-            </span>{" "}
-            <span className="home-v3-intro-line">
-              cảm xúc, thân thể và đời sống thực —
-            </span>{" "}
-            <span className="home-v3-intro-line">
-              với cấu trúc an toàn, ranh giới rõ ràng
-            </span>{" "}
-            <span className="home-v3-intro-line">
-              và điểm kết có thể nhìn thấy.
-            </span>
-          </p>
-          <div className="home-v3-hero-actions">
-            <Link to="/lien-he" className="home-v3-link home-v3-link-light">
-              Liên hệ về phiên tiếp cận
-            </Link>
-            <button
-              type="button"
-              onClick={() => cuonDenPhanTu("he-thong")}
-              className="home-v3-text-button"
-            >
-              Khám phá hệ thống
-            </button>
-          </div>
-        </div>
-        <p className="home-v3-hero-caption">
-          Không tiên đoán. Không quyết định thay. Phục hồi khả năng tự điều
-          chỉnh và tự dẫn dắt.
-        </p>
-      </section>
-
-      <section id="he-thong" className="home-v3-system">
-        <header className="home-v3-system-intro">
-          <p className="home-v3-label reveal-child">
-            The Inner Architect System®
-          </p>
-          <h2 className="serif reveal-child">
-            Bốn tầng phản chiếu,
-            <br />
-            một tiến trình tự chủ.
-          </h2>
-          <div className="home-v3-system-copy reveal-child">
-            <blockquote className="serif">
-              “Con người không thiếu thêm lời khuyên. Điều thường thiếu là một
-              cấu trúc đủ an toàn để tự nhìn rõ.”
-            </blockquote>
+          <div className="home-v3-hero-intro home-v4-hero-intro">
             <p>
-              Bốn tầng không phải thứ bậc ép buộc. Đây là bản đồ để nhận ra nơi
-              bạn đang đứng và bắt đầu từ phần đang cần được nhìn thấy.
+              Inner Architect™ là hệ thống đồng hành giúp bạn khám phá bản
+              thân, hiểu những khuôn mẫu đang lặp lại và từng bước xây dựng
+              cách sống phù hợp với giá trị của mình.
+            </p>
+            <p>
+              Qua các phiên soi chiếu, workshop và thực hành trong đời sống,
+              chúng tôi cùng bạn nuôi dưỡng sự rõ ràng, xây dựng ranh giới và
+              khả năng tự đứng vững.
             </p>
           </div>
-        </header>
-
-        <div className="home-v3-system-gallery">
-          {danhSachBonTang.map((tang) => (
-            <article className="home-v3-layer reveal-child" key={tang.so}>
-              <figure className="home-v3-media">
-                <img src={tang.anh} alt={tang.alt} loading="lazy" decoding="async" />
-              </figure>
-              <p>
-                <span>{tang.so}</span>
-                {tang.linhVuc}
-              </p>
-              <h3 className="serif">{tang.ten}</h3>
-            </article>
-          ))}
+          <div className="home-v3-hero-actions">
+            <Link to="/he-thong" className="home-v3-link home-v3-link-light">
+              Khám phá Inner Architect™
+            </Link>
+            <Link
+              to="/chuong-trinh"
+              className="home-v3-link home-v3-link-light"
+            >
+              Xem các hoạt động
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="home-v3-opening">
-        <div className="home-v3-opening-heading reveal-child">
-          <p className="home-v3-label">
-            Nếu bạn đang tìm hỗ trợ cho chính mình
-          </p>
+      <section id="gioi-thieu" className="home-v4-intro">
+        <header className="home-v4-chapter-heading reveal-child">
+          <p className="home-v3-label">INNER ARCHITECT™ LÀ GÌ?</p>
           <h2 className="serif">
-            Bắt đầu từ
-            <br />
-            điều đang lặp lại.
+            Kiến trúc sư nội tâm — xây nền từ sự thấu hiểu chính mình.
           </h2>
-        </div>
-        <div className="home-v3-opening-copy reveal-child">
-          <p>
-            Có thể bạn đã hiểu vấn đề bằng lý trí nhưng phản ứng cũ vẫn quay
-            lại. Có thể một mối quan hệ, một lựa chọn hay một nỗi bất an cứ lặp
-            lại mà bạn chưa biết bắt đầu quan sát từ đâu.
+        </header>
+        <div className="home-v4-intro-copy reveal-child">
+          <p className="home-v4-lead serif">
+            Có những lúc bạn hiểu vấn đề của mình nhưng vẫn khó thay đổi: tiếp
+            tục làm hài lòng người khác, khó đặt giới hạn, hoặc lặp lại những
+            lựa chọn khiến bản thân mệt mỏi.
           </p>
           <p>
-            INNER ARCHITECT™ tạo một điểm dừng có cấu trúc: cảm xúc, cơ thể và
-            điều bạn đang nghĩ được nhìn cùng nhau. Mục tiêu là giúp bạn có thêm
-            cơ sở để tự chọn bước tiếp theo.
+            Inner Architect™ được Khiêm Võ sáng lập để đồng hành cùng bạn trong
+            khoảng cách giữa <strong>“hiểu mình” và “sống khác đi”</strong>.
           </p>
-          <Link to="/chuong-trinh/phien-tiep-can-ban-dau" className="home-v3-link">
-            Xem thông tin phiên tiếp cận
-          </Link>
+          <p>
+            Tên gọi “Kiến trúc sư nội tâm” thể hiện cách chúng tôi tiếp cận
+            hành trình ấy: cùng nhìn lại những niềm tin, cảm xúc và khuôn mẫu
+            đang ảnh hưởng đến cuộc sống; từ đó từng bước xây dựng nền tảng phù
+            hợp với con người và giá trị của bạn.
+          </p>
+          <p>
+            Mỗi điều nhận ra được kết nối với thực hành cụ thể — nói rõ nhu
+            cầu, thiết lập ranh giới và lựa chọn có ý thức hơn trong các mối
+            quan hệ, công việc và đời sống.
+          </p>
+          <p className="home-v4-statement serif">
+            Bạn là người kiến tạo cuộc đời mình. Inner Architect™ đồng hành
+            cùng bạn xây nền.
+          </p>
         </div>
-        <figure className="home-v3-opening-image home-v3-media reveal-child">
+        <figure className="home-v4-intro-image home-v3-media reveal-child">
           <img
             src={IMG.homeGeneratedSessionEntry}
-            alt="Không gian phòng Tarot và Trà đạo riêng tư tại The Hermit"
+            alt="Nữ tư vấn trò chuyện cùng khách trong không gian ấm và riêng tư"
             loading="lazy"
             decoding="async"
           />
-          <figcaption>Một không gian riêng để quan sát</figcaption>
         </figure>
       </section>
 
-      <section className="home-v3-session">
-        <figure className="home-v3-session-image home-v3-media reveal-child">
-          <img
-            src={IMG.homeGeneratedSessionProcess}
-            alt="Không gian The Hermit được chuẩn bị cho phiên tiếp cận 1:1"
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption>Một cuộc gặp có điểm vào và điểm kết rõ ràng</figcaption>
-        </figure>
-        <div className="home-v3-session-copy reveal-child">
-          <p className="home-v3-label">Phiên đầu tiên diễn ra như thế nào?</p>
-          <h2 className="serif">Nhìn rõ trước khi đi tiếp.</h2>
-          <ol>
-            <li>
-              <span>Gọi tên</span>
-              <p>Bạn mang đến điều đang chiếm nhiều năng lượng nhất lúc này.</p>
-            </li>
-            <li>
-              <span>Quan sát</span>
+      <section id="he-thong" className="home-v4-companion">
+        <div className="home-v4-companion-inner">
+          <header className="home-v4-chapter-heading reveal-child">
+            <p className="home-v3-label">TRIẾT LÝ ĐỒNG HÀNH</p>
+            <h2 className="serif">
+              Hiểu mình sâu hơn. Từng bước tự đứng vững.
+            </h2>
+            <p>
+              Inner Architect™ tin rằng sự đồng hành có ý nghĩa khi giúp bạn
+              hiểu bản thân và chủ động hơn trong cuộc sống. Bốn giá trị định
+              hướng cách chúng tôi làm việc:
+            </p>
+          </header>
+
+          <div className="home-v4-values">
+            <article className="reveal-child">
+              <span>01</span>
+              <h3 className="serif">Rõ ràng — Hiểu mình trước khi thay đổi</h3>
               <p>
-                Tarot và câu hỏi phản tư mở thêm góc nhìn, không đưa ra mệnh
-                lệnh.
+                Cùng nhìn lại cảm xúc, nhu cầu và những khuôn mẫu đang lặp lại,
+                để hiểu điều gì đang ảnh hưởng đến cách bạn phản ứng và lựa
+                chọn.
               </p>
-            </li>
-            <li>
-              <span>Chọn bước</span>
+            </article>
+            <article className="reveal-child">
+              <span>02</span>
+              <h3 className="serif">
+                Ranh giới — Tôn trọng giới hạn của mỗi người
+              </h3>
               <p>
-                Cuộc gặp khép lại bằng một bước nhỏ phù hợp với đời sống thực
-                tế.
+                Bạn được lựa chọn điều muốn chia sẻ, nhịp độ tham gia và thời
+                điểm dừng lại. Mỗi hoạt động có mục tiêu, phạm vi và giới hạn
+                rõ ràng.
               </p>
-            </li>
-          </ol>
-          <Link to="/lien-he" className="home-v3-link">
-            Liên hệ về phiên tiếp cận
-          </Link>
+            </article>
+            <article className="reveal-child">
+              <span>03</span>
+              <h3 className="serif">
+                Trách nhiệm — Đưa điều nhận ra vào đời sống
+              </h3>
+              <p>
+                Thay đổi bắt đầu từ những thực hành vừa sức: nói rõ một nhu
+                cầu, giữ một giới hạn hoặc thử cách ứng xử mới trong tình huống
+                quen thuộc.
+              </p>
+            </article>
+            <article className="reveal-child">
+              <span>04</span>
+              <h3 className="serif">Tự chủ — Giữ quyền lựa chọn của bạn</h3>
+              <p>
+                Chúng tôi hỗ trợ bạn nhìn rõ các khả năng và cân nhắc bước tiếp
+                theo. Bạn giữ quyền quyết định, đồng thời chủ động tìm kiếm hỗ
+                trợ khi cần.
+              </p>
+            </article>
+          </div>
+
+          <p className="home-v4-companion-note serif reveal-child">
+            Điều chúng tôi hướng đến là khả năng bạn tự mang những gì đã học
+            vào cuộc sống của chính mình.
+          </p>
+
+          <div className="home-v4-layers-heading reveal-child">
+            <p className="home-v3-label">HỆ THỐNG BỐN TẦNG</p>
+            <h2 className="serif">
+              Từ soi chiếu bản thân đến thay đổi trong đời sống.
+            </h2>
+            <p>
+              Inner Architect™ được xây dựng theo bốn tầng chức năng, mỗi tầng
+              có mục tiêu và phạm vi riêng. Việc lựa chọn hoạt động phù hợp dựa
+              trên nhu cầu, mức độ sẵn sàng và khả năng hỗ trợ của đội ngũ.
+            </p>
+          </div>
+
+          <div className="home-v3-system-gallery home-v4-layers">
+            {danhSachBonTang.map((tang) => (
+              <article className="home-v3-layer reveal-child" key={tang.so}>
+                <figure className="home-v3-media">
+                  <img
+                    src={tang.anh}
+                    alt={tang.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <p>
+                  <span>{tang.so}</span>
+                  {tang.linhVuc}
+                </p>
+                <h3 className="serif">{tang.ten}</h3>
+                <p className="home-v4-layer-copy">{tang.moTa}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="home-v4-layers-closing reveal-child">
+            <p className="serif">
+              Mỗi tầng cùng hướng đến một mục tiêu: giúp bạn hiểu mình và từng
+              bước sống tự chủ.
+            </p>
+            <Link to="/he-thong" className="home-v3-link">
+              Tìm hiểu hệ thống bốn tầng
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="home-v3-stories">
-        <header className="home-v3-section-heading">
-          <p className="home-v3-label reveal-child">Những lối đi tiếp theo</p>
-          <h2 className="serif reveal-child">Đi tiếp theo nhịp riêng.</h2>
-          <p className="reveal-child">
-            Đây không phải các gói buộc phải đi qua theo thứ tự. Bạn chỉ chọn
-            điều đang phù hợp với trạng thái hiện tại của mình.
+      <section id="phien-dong-hanh" className="home-v4-sessions">
+        <header className="home-v4-chapter-heading reveal-child">
+          <p className="home-v3-label">CÁC PHIÊN ĐỒNG HÀNH</p>
+          <h2 className="serif">
+            Dành thời gian cho điều bạn đang cần nhìn lại.
+          </h2>
+          <p>
+            Có thể bạn đang bối rối trước một lựa chọn, mang theo những cảm xúc
+            khó gọi tên hoặc muốn hiểu vì sao mình cứ lặp lại một trải nghiệm.
+            Các phiên đồng hành tại Inner Architect™ tạo không gian để bạn chia
+            sẻ, soi chiếu và làm rõ bước tiếp theo.
           </p>
         </header>
 
-        <div className="home-v3-story-layout">
-          <Link to={leadStory.to} className="home-story-feature reveal-child">
+        <div className="home-v4-session-grid">
+          <article className="reveal-child">
             <figure className="home-v3-media">
               <img
-                src={leadStory.image}
-                alt={leadStory.imageAlt}
+                src={IMG.hermitTarotRoom}
+                alt="Không gian Tarot riêng tư tại The Hermit"
                 loading="lazy"
                 decoding="async"
               />
             </figure>
-            <div className="home-v3-story-meta">
-              <span>
-                {leadStory.number} · {leadStory.category}
-              </span>
-              <span>{leadStory.action}</span>
-            </div>
-            <h3 className="serif">{leadStory.title}</h3>
-            <p>{leadStory.copy}</p>
-          </Link>
-
-          <div className="home-story-rail">
-            {secondaryStories.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="home-story-secondary reveal-child"
-              >
-                <figure className="home-v3-media">
-                  <img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" />
-                </figure>
-                <div className="home-v3-story-meta">
-                  <span>
-                    {item.number} · {item.category}
-                  </span>
-                  <span>{item.action}</span>
-                </div>
-                <h3 className="serif">{item.title}</h3>
-                <p>{item.copy}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="home-v3-ethics">
-        <div className="home-v3-ethics-statement reveal-child">
-          <p className="home-v3-label">Ethics & integrity</p>
-          <h2 className="serif">An toàn đi trước chiều sâu.</h2>
-          <blockquote className="serif">
-            “Cấu trúc trước. Diễn giải sau. Con người luôn là chủ thể duy nhất
-            quyết định cuộc đời mình.”
-          </blockquote>
-        </div>
-        <div className="home-v3-ethics-list">
-          <article className="reveal-child">
-            <span>01</span>
-            <h3>Không tiên đoán số mệnh</h3>
-            <p>Tarot là bề mặt biểu tượng để quan sát điều đang hiện diện.</p>
-          </article>
-          <article className="reveal-child">
-            <span>02</span>
-            <h3>Không quyết định thay</h3>
-            <p>Quyền lựa chọn và trách nhiệm luôn thuộc về chính bạn.</p>
-          </article>
-          <article className="reveal-child">
-            <span>03</span>
-            <h3>Không hứa hẹn tuyệt đối</h3>
+            <h3 className="serif">Tarot soi chiếu tại The Hermit</h3>
             <p>
-              Phát triển bản thân là tiến trình thực hành trong đời sống thật.
+              Dành cho những ai muốn khám phá một vấn đề cụ thể trong cuộc
+              sống. Hình ảnh và biểu tượng Tarot gợi mở câu hỏi, giúp bạn nhìn
+              trải nghiệm từ nhiều góc độ và hiểu rõ hơn suy nghĩ, cảm xúc của
+              mình.
             </p>
           </article>
           <article className="reveal-child">
-            <span>04</span>
-            <h3>Không tạo sự phụ thuộc</h3>
-            <p>Mục tiêu là phục hồi khả năng tự điều chỉnh và tự dẫn dắt.</p>
+            <figure className="home-v3-media">
+              <img
+                src={IMG.homeGeneratedSessionProcess}
+                alt="Phiên đồng hành chuyên sâu trong không gian riêng tư"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <h3 className="serif">Phiên chuyên sâu cùng Khiêm Võ</h3>
+            <p>
+              Dành cho những ai muốn dành nhiều thời gian hơn để tìm hiểu khó
+              khăn đang gặp phải, những niềm tin và khuôn mẫu đang ảnh hưởng
+              đến bản thân. Bạn cùng người đồng hành xác định điều muốn thay
+              đổi và xây dựng những bước thực hành phù hợp trong đời sống.
+            </p>
           </article>
         </div>
-        <figure className="home-v3-ethics-image home-v3-media reveal-child">
+
+        <div className="home-v4-session-note reveal-child">
+          <p>
+            Trước khi đặt lịch, bạn được trao đổi về nhu cầu, nội dung và phạm
+            vi của phiên để lựa chọn hình thức phù hợp.
+          </p>
+          <p>
+            <strong>Lưu ý:</strong> Các phiên đồng hành hướng đến soi chiếu,
+            khám phá bản thân và phát triển kỹ năng sống; không thực hiện chẩn
+            đoán, can thiệp điều trị rối loạn tâm lý, tâm thần và không thay thế
+            dịch vụ khám, chữa bệnh.
+          </p>
+          <div className="home-v4-actions">
+            <Link to="/chuong-trinh" className="home-v3-link">
+              Xem nội dung &amp; bảng giá
+            </Link>
+            <Link to="/lien-he" className="home-v3-link">
+              Trao đổi trước khi đặt lịch
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="workshop" className="home-v4-feature home-v4-workshop">
+        <figure className="home-v4-feature-image home-v3-media reveal-child">
           <img
-            src={IMG.homeCuratedBoundary}
-            alt="Một vòng tròn workshop giữ khoảng cách và ranh giới an toàn"
+            src={IMG.homeCuratedWorkshop}
+            alt="Màu vẽ và không gian workshop trải nghiệm"
             loading="lazy"
             decoding="async"
           />
-          <figcaption>Không gian nhóm nhỏ với ranh giới được giữ rõ</figcaption>
         </figure>
-        <p className="home-v3-ethics-note reveal-child">
-          <strong>Ranh giới chuyên môn:</strong> Hệ thống không chẩn đoán, không
-          kê đơn và không thay thế can thiệp y khoa, tâm thần học hoặc tâm lý
-          lâm sàng. Khi vượt ngoài phạm vi an toàn, người điều phối sẽ hướng dẫn
-          chuyển gửi tới hỗ trợ phù hợp.
-        </p>
+        <div className="home-v4-feature-copy reveal-child">
+          <p className="home-v3-label">WORKSHOP &amp; TRẢI NGHIỆM</p>
+          <h2 className="serif">Gặp gỡ, khám phá và thực hành cùng nhau.</h2>
+          <p>
+            Các workshop tại Inner Architect™ mở ra không gian để bạn tìm hiểu
+            bản thân qua những chủ đề gần gũi: cảm xúc, các mối quan hệ, ranh
+            giới và định hướng sống.
+          </p>
+          <p>
+            Thông qua chia sẻ, viết phản tư, Tarot và các hoạt động trải nghiệm
+            theo từng chủ đề, bạn có cơ hội nhìn lại câu chuyện của mình, lắng
+            nghe những góc nhìn khác và thực hành điều có thể áp dụng vào cuộc
+            sống.
+          </p>
+          <p>
+            Bạn được lựa chọn mức độ tham gia và chia sẻ phù hợp với mình.
+          </p>
+          <Link to="/chuong-trinh" className="home-v3-link">
+            Khám phá workshop sắp tới
+          </Link>
+        </div>
       </section>
 
-      <section className="home-v3-journal">
+      <section id="san-pham" className="home-v4-products">
+        <header className="home-v4-chapter-heading reveal-child">
+          <p className="home-v3-label">SẢN PHẨM TỪ INNER ARCHITECT™</p>
+          <h2 className="serif">Một khoảng dừng, một góc nhìn mới.</h2>
+          <p>
+            Những sản phẩm được phát triển để bạn mang tinh thần khám phá bản
+            thân vào đời sống hằng ngày.
+          </p>
+        </header>
+        <div className="home-v4-product-grid">
+          <article className="reveal-child">
+            <figure className="home-v3-media">
+              <img
+                src={IMG.soulCleanse}
+                alt="Nến thơm LARA Soul Cleanse"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <h3 className="serif">Nến thơm — Không gian cho riêng mình</h3>
+            <p>
+              Hương thơm nhẹ nhàng cho những lúc nghỉ ngơi, thưởng trà hay viết
+              nhật ký. Một lời nhắc dành thời gian chăm sóc bản thân giữa nhịp
+              sống bận rộn.
+            </p>
+            <Link to="/lara" className="home-v3-link">
+              Khám phá nến thơm
+            </Link>
+          </article>
+          <article className="reveal-child">
+            <figure className="home-v3-media">
+              <img
+                src={IMG.tarot2}
+                alt="Bộ bài Tarot dùng cho thực hành phản tư"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <h3 className="serif">Bộ bài Tarot — Gợi mở từ hình ảnh</h3>
+            <p>
+              Mỗi lá bài mở ra những câu hỏi về cảm xúc, trải nghiệm và lựa
+              chọn. Bạn có thể sử dụng để viết phản tư, khám phá góc nhìn mới
+              và lắng nghe chính mình.
+            </p>
+            <Link to="/lien-he" className="home-v3-link">
+              Khám phá bộ bài Tarot
+            </Link>
+          </article>
+        </div>
+      </section>
+
+      <section id="the-hermit" className="home-v4-hermit">
+        <img
+          src={IMG.hermitHall}
+          alt="Sảnh chính The Hermit với ánh sáng ấm"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="home-v4-hermit-scrim" />
+        <div className="home-v4-hermit-copy reveal-child">
+          <p className="home-v3-label">
+            THE HERMIT · TAROT · HEALING · TRÀ ĐẠO
+          </p>
+          <h2 className="serif">Một khoảng dừng để trở về với mình.</h2>
+          <p>
+            The Hermit là không gian gặp gỡ và trải nghiệm thuộc hệ thống Inner
+            Architect™, nơi bạn có thể thưởng trà, khám phá Tarot và tham gia
+            những hoạt động kết nối, phát triển bản thân.
+          </p>
+          <p>
+            Giữa sắc gỗ ấm, hương trà và tiếng nhạc dịu nhẹ, bạn có thể dành
+            thời gian đọc sách, trò chuyện hoặc đơn giản là ngồi yên cùng chính
+            mình.
+          </p>
+          <p>
+            Các phiên Tarot tại đây sử dụng hình ảnh và biểu tượng như một
+            chiếc gương soi, gợi mở góc nhìn về cảm xúc, trải nghiệm và những
+            lựa chọn của bạn.
+          </p>
+          <p className="home-v4-statement serif">
+            Ghé uống một tách trà. Dành cho mình một chút thời gian.
+          </p>
+          <div className="home-v4-actions">
+            <Link to="/the-hermit" className="home-v3-link home-v3-link-light">
+              Khám phá The Hermit
+            </Link>
+            <Link to="/lien-he" className="home-v3-link home-v3-link-light">
+              Chỉ đường đến quán
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="nguoi-sang-lap" className="home-v4-founder">
+        <div className="home-v4-founder-copy reveal-child">
+          <p className="home-v3-label">Khiêm Võ · NGƯỜI SÁNG LẬP</p>
+          <h2 className="serif">
+            Từ hành trình tìm lại mình đến mong muốn đồng hành cùng người khác.
+          </h2>
+          <p>
+            Sau những biến cố trong công việc, tài chính và hôn nhân, Khiêm Võ
+            bắt đầu hành trình nhìn lại bản thân, tìm hiểu Tarot, thực hành nội
+            tâm và theo học Tâm lý học.
+          </p>
+          <p>
+            Những trải nghiệm ấy đặt nền móng cho Inner Architect™ — nơi Khiêm
+            kết nối ngôn ngữ biểu tượng của Tarot với kiến thức tâm lý và những
+            thực hành gần gũi trong đời sống.
+          </p>
+          <p>
+            Trong các phiên đồng hành và hoạt động đào tạo, Khiêm hướng đến
+            việc giúp mỗi người hiểu rõ trải nghiệm của mình, nhận diện những
+            khuôn mẫu đang lặp lại và chủ động lựa chọn hướng đi phù hợp.
+          </p>
+          <blockquote className="serif">
+            “Tôi mong mỗi người có thể hiểu mình hơn, tin vào khả năng lựa chọn
+            và từng bước tự đứng vững trong cuộc sống.”
+          </blockquote>
+          <Link to="/vo-khiem" className="home-v3-link">
+            Tìm hiểu về Khiêm Võ
+          </Link>
+        </div>
+        <figure className="home-v4-founder-image home-v3-media reveal-child">
+          <img
+            src={IMG.homeCuratedReflective}
+            alt="Bàn ghi chép trong một buổi thực hành phản tư"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </section>
+
+      <section id="journal" className="home-v3-journal home-v4-journal">
         <header className="home-v3-journal-heading">
           <div>
-            <p className="home-v3-label reveal-child">Journal</p>
+            <p className="home-v3-label reveal-child">
+              JOURNAL · GÓC CHIÊM NGHIỆM
+            </p>
             <h2 className="serif reveal-child">
-              Đọc để hiểu điều đang xảy ra.
+              Đọc để hiểu mình, dừng lại để nhìn sâu hơn.
             </h2>
+            <p className="home-v4-journal-intro reveal-child">
+              Những bài viết về cảm xúc, các mối quan hệ, ranh giới và hành
+              trình phát triển bản thân — kết nối góc nhìn tâm lý, biểu tượng
+              Tarot và trải nghiệm đời sống. Mỗi bài viết mở ra một câu hỏi để
+              bạn suy ngẫm, nhìn lại câu chuyện của mình và tìm điều có thể thực
+              hành trong cuộc sống hằng ngày.
+            </p>
           </div>
           <Link to="/journal" className="home-v3-link reveal-child">
-            Xem tất cả bài viết
+            Khám phá Journal
           </Link>
         </header>
 
         <div className="home-v3-journal-layout">
           <article className="home-journal-feature reveal-child">
-            <Link to={`/journal/${leadJournal.slug}`}>
+            <Link to={"/journal/" + leadJournal.slug}>
               <figure className="home-v3-media">
                 <img
                   src={leadJournal.image}
@@ -935,9 +1067,14 @@ function Home({ initialSection }: { initialSection?: string }) {
                 className="home-journal-secondary reveal-child"
                 key={item.slug}
               >
-                <Link to={`/journal/${item.slug}`}>
+                <Link to={"/journal/" + item.slug}>
                   <figure className="home-v3-media">
-                    <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </figure>
                   <div className="home-v3-story-meta">
                     <span>{item.category}</span>
@@ -954,25 +1091,38 @@ function Home({ initialSection }: { initialSection?: string }) {
         </div>
       </section>
 
-      <section className="home-v3-closing">
+      <section id="lien-he" className="home-v3-closing home-v4-contact">
         <img
           src={IMG.homeCuratedClosing}
-          alt="Hình ảnh biểu tượng về một tiến trình có tâm điểm và nhiều lớp"
+          alt="Không gian chiêm nghiệm với ánh sáng ấm"
           loading="lazy"
           decoding="async"
         />
         <div className="home-v3-closing-scrim" />
         <div className="home-v3-closing-copy reveal-child">
-          <p className="home-v3-label">Nếu đây có thể là điểm bắt đầu</p>
-          <h2 className="serif">Bắt đầu từ một cuộc gặp nhỏ.</h2>
+          <p className="home-v3-label">KẾT NỐI VỚI INNER ARCHITECT™</p>
+          <h2 className="serif">Bắt đầu từ điều bạn đang quan tâm.</h2>
           <p>
-            Phiên tiếp cận ban đầu giúp làm rõ điều bạn đang mang theo, nhu cầu
-            hiện tại và giới hạn hỗ trợ phù hợp. Bạn không cần cam kết đi xa hơn
-            sau cuộc gặp này.
+            Bạn muốn tìm hiểu một phiên đồng hành, tham gia workshop, lựa chọn
+            sản phẩm hay ghé The Hermit? Hãy nhắn cho chúng tôi để được cung
+            cấp thông tin và trao đổi về nhu cầu của bạn.
           </p>
-          <Link to="/lien-he" className="home-v3-link home-v3-link-light">
-            Liên hệ về phiên tiếp cận
-          </Link>
+          <div className="home-v4-actions">
+            <Link to="/lien-he" className="home-v3-link home-v3-link-light">
+              Liên hệ với chúng tôi
+            </Link>
+            <Link
+              to="/chuong-trinh/phien-tiep-can-ban-dau"
+              className="home-v3-link home-v3-link-light"
+            >
+              Đặt lịch đồng hành
+            </Link>
+          </div>
+          <p className="home-v4-contact-note">
+            Các hoạt động hướng đến soi chiếu, khám phá bản thân và phát triển
+            kỹ năng sống; không cung cấp chẩn đoán, điều trị và không thay thế
+            dịch vụ khám, chữa bệnh.
+          </p>
         </div>
       </section>
     </main>

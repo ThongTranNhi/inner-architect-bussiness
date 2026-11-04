@@ -62,8 +62,12 @@ test("psychology degree is not presented as awarded", () => {
     (muc) => muc.linhVuc === "Tâm lý học",
   )
   assert.ok(tamLy)
-  assert.equal(tamLy.moc, "Đang chờ nhận bằng")
+  assert.equal(tamLy.moc, "2027")
   assert.match(tamLy.bang, /^Đã hoàn thành chương trình đào tạo/)
+  assert.doesNotMatch(
+    JSON.stringify(noiDung.hocVanFounder),
+    /Đang chờ nhận bằng/,
+  )
 })
 
 test("founder portraits use placeholders, never another person's photo", () => {
@@ -225,4 +229,31 @@ test("brand name is always INNER ARCHITECT™ on the founder page", () => {
   assert.doesNotMatch(copy, /Inner Architect/)
   assert.doesNotMatch(copy, /INNER ARCHITECT(?!™)/)
   assert.match(copy, /INNER ARCHITECT™ System/)
+})
+
+test("founder headings fit their editorial columns on desktop and mobile", () => {
+  assert.match(
+    founderCss,
+    /\.founder-page \.fp-hero h1\s*\{[^}]*font-size:\s*clamp\(50px,\s*5\.6vw,\s*80px\);[^}]*white-space:\s*nowrap;/s,
+  )
+  assert.match(
+    founderCss,
+    /\.founder-page h2\.serif\s*\{[^}]*font-size:\s*clamp\(36px,\s*4\.2vw,\s*56px\);[^}]*line-height:\s*1\.08;/s,
+  )
+  assert.match(
+    founderCss,
+    /\.founder-page \.fp-journey-copy h2,[\s\S]*?\.founder-page \.fp-vision-grid h2\s*\{[^}]*font-size:\s*clamp\(32px,\s*3\.2vw,\s*46px\)/,
+  )
+  assert.match(
+    founderCss,
+    /@media\s*\(max-width:\s*767px\)[\s\S]*\.founder-page \.fp-hero h1\s*\{[^}]*font-size:\s*clamp\(40px,\s*12vw,\s*48px\);[^}]*white-space:\s*normal;/s,
+  )
+  assert.match(
+    founderCss,
+    /@media\s*\(max-width:\s*767px\)[\s\S]*\.founder-page h2\.serif\s*\{[^}]*font-size:\s*42px;/s,
+  )
+  assert.match(
+    founderCss,
+    /@media\s*\(max-width:\s*767px\)[\s\S]*\.founder-page \.fp-work-large h3\s*\{[^}]*font-size:\s*24px;/s,
+  )
 })
