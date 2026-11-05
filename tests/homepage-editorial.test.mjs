@@ -194,3 +194,33 @@ test("homepage display headings stay within the approved editorial scale", () =>
   )
 })
 
+test("companion session heading uses a compact desktop scale", () => {
+  assert.match(
+    cssSource,
+    /@media\s*\(min-width:\s*761px\)[\s\S]*?\.home-v4-sessions \.home-v4-chapter-heading h2\s*\{[^}]*font-size:\s*clamp\(38px,\s*3\.8vw,\s*54px\);/s,
+  )
+})
+
+test("homepage intro uses an editorial mosaic without changing mobile reading order", () => {
+  assert.match(
+    cssSource,
+    /\.home-v4-intro\s*\{[^}]*grid-template-rows:\s*auto auto;[^}]*padding:\s*112px var\(--home-v3-gutter\) 128px;/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v4-intro \.home-v4-chapter-heading\s*\{[^}]*grid-column:\s*1 \/ 7;[^}]*grid-row:\s*1;/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v4-intro-copy\s*\{[^}]*grid-column:\s*8 \/ 13;[^}]*grid-row:\s*1 \/ 3;/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v4-intro-image\s*\{[^}]*grid-column:\s*1 \/ 7;[^}]*grid-row:\s*2;[^}]*margin:\s*56px 0 0;/s,
+  )
+  assert.match(
+    cssSource,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.home-v4-intro-image,[\s\S]*?\.home-v4-founder-image\s*\{[^}]*grid-column:\s*1 \/ -1;[^}]*grid-row:\s*auto;/s,
+  )
+})
+
