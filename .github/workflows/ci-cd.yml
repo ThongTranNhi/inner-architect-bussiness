@@ -1,3 +1,4 @@
+
 name: CI and production deploy
 
 on:
@@ -5,6 +6,7 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,12 +19,12 @@ jobs:
   verify:
     name: Verify
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out source
         uses: actions/checkout@v4
         with:
-          # Ảnh trong public/ được lưu bằng Git LFS; thiếu bước này bản build
-          # sẽ chứa file con trỏ LFS thay cho ảnh thật.
+          # Public images use Git LFS.
           lfs: true
 
       - name: Set up pnpm
@@ -51,7 +53,7 @@ jobs:
           if node -e "const s=require('./package.json').scripts || {}; process.exit(s.lint ? 0 : 1)"; then
             pnpm lint
           else
-            echo "No lint script is configured; skipping lint."
+            echo "No lint script configured; skipping."
           fi
 
       - name: Build production bundle
@@ -61,11 +63,23 @@ jobs:
         run: pnpm build
 
       - name: Package static site
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: tar --directory=dist --create --gzip --file=inner-architect-${{ github.sha }}.tar.gz .
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' ||
+           github.event_name == 'workflow_dispatch')
+        run: |
+          tar \
+            --directory=dist \
+            --create \
+            --gzip \
+            --file="inner-architect-${{ github.sha }}.tar.gz" \
+            .
 
       - name: Upload deploy artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' ||
+           github.event_name == 'workflow_dispatch')
         uses: actions/upload-artifact@v4
         with:
           name: production-dist
@@ -75,10 +89,18 @@ jobs:
 
   deploy:
     name: Deploy to VPS
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: verify
     runs-on: ubuntu-latest
+
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' ||
+       github.event_name == 'workflow_dispatch')
+
     environment: production
+
+    timeout-minutes: 15
+
     steps:
       - name: Check out deployment script
         uses: actions/checkout@v4
@@ -89,15 +111,119 @@ jobs:
           name: production-dist
           path: .
 
+      # Check that all required configuration exists.
+      - name: Validate deployment configuration
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_ROOT: ${{ secrets.DEPLOY_ROOT }}
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+
+          for name in \
+            DEPLOY_HOST \
+            DEPLOY_PORT \
+            DEPLOY_USER \
+            DEPLOY_ROOT \
+            DEPLOY_SSH_PRIVATE_KEY \
+            DEPLOY_SSH_KNOWN_HOSTS
+          do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::$name is missing"
+              exit 1
+            fi
+          done
+
+          if ! [[ "$DEPLOY_PORT" =~ ^[0-9]+$ ]]; then
+            echo "::error::DEPLOY_PORT must be numeric"
+            exit 1
+          fi
+
+          echo "Deployment configuration is present."
+
+      # Check network connectivity before running SCP.
+      - name: Diagnose VPS network connectivity
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        run: |
+          set -euo pipefail
+
+          echo "Checking GitHub runner outbound SSH..."
+
+          python3 - <<'PY'
+          import os
+          import socket
+          import sys
+
+          host = os.environ["DEPLOY_HOST"]
+          port = int(os.environ["DEPLOY_PORT"])
+
+          try:
+              with socket.create_connection(
+                  (host, port),
+                  timeout=12
+              ):
+                  print("SUCCESS: VPS SSH port is reachable.")
+          except (OSError, ValueError) as error:
+              print(
+                  f"ERROR: SSH connection failed: "
+                  f"{type(error).__name__}",
+                  file=sys.stderr
+              )
+              print(
+                  "Check DEPLOY_HOST, DEPLOY_PORT, "
+                  "provider firewall, network ACL "
+                  "and SSH access rules.",
+                  file=sys.stderr
+              )
+              sys.exit(1)
+          PY
+
       - name: Configure SSH trust
         env:
           DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
         run: |
+          set -euo pipefail
+
           install -d -m 700 ~/.ssh
-          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" \
+            > ~/.ssh/id_ed25519
+
+          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" \
+            > ~/.ssh/known_hosts
+
+          chmod 600 ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/known_hosts
+
+          ssh-keygen -y -f ~/.ssh/id_ed25519 \
+            > /dev/null
+
+          echo "SSH private key format is valid."
+
+      - name: Test SSH authentication
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          set -euo pipefail
+
+          ssh \
+            -p "$DEPLOY_PORT" \
+            -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=12 \
+            -o ConnectionAttempts=1 \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "echo 'SSH authentication successful'"
 
       - name: Upload release archive
         env:
@@ -105,9 +231,24 @@ jobs:
           DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
-          scp -P "$DEPLOY_PORT" -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes \
-            inner-architect-${{ github.sha }}.tar.gz \
-            "$DEPLOY_USER@$DEPLOY_HOST:/tmp/inner-architect-${{ github.sha }}.tar.gz"
+          set -euo pipefail
+
+          ARCHIVE="inner-architect-${{ github.sha }}.tar.gz"
+
+          test -f "$ARCHIVE"
+
+          scp \
+            -P "$DEPLOY_PORT" \
+            -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=12 \
+            -o ConnectionAttempts=1 \
+            "$ARCHIVE" \
+            "$DEPLOY_USER@$DEPLOY_HOST:/tmp/$ARCHIVE"
+
+          echo "Release archive uploaded."
 
       - name: Atomically activate release
         env:
@@ -116,7 +257,28 @@ jobs:
           DEPLOY_ROOT: ${{ secrets.DEPLOY_ROOT }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
-          ssh -p "$DEPLOY_PORT" -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes \
+          set -euo pipefail
+
+          ssh \
+            -p "$DEPLOY_PORT" \
+            -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=12 \
+            -o ConnectionAttempts=1 \
             "$DEPLOY_USER@$DEPLOY_HOST" \
             "bash -s -- '$DEPLOY_ROOT' '${{ github.sha }}' '/tmp/inner-architect-${{ github.sha }}.tar.gz'" \
             < scripts/deploy/activate-release.sh
+
+          echo "Release activation command completed."
+
+      - name: Deployment summary
+        if: success()
+        run: |
+          echo "## INNER ARCHITECT Deployment" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Branch: main" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commit: \`${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Release activation: successful" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Verify production content separately." >> "$GITHUB_STEP_SUMMARY"
