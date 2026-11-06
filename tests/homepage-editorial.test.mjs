@@ -9,10 +9,13 @@ const cssSource = await readFile(
   "utf8",
 )
 
-test("homepage uses the isolated editorial v3 structure", () => {
-  assert.match(appSource, /className="home-page home-editorial-v3"/)
-  assert.match(appSource, /className="[^"]*home-story-feature[^"]*"/)
-  assert.match(appSource, /className="[^"]*home-story-secondary[^"]*"/)
+test("homepage uses the isolated editorial v4 structure", () => {
+  assert.match(
+    appSource,
+    /className="home-page home-editorial-v3 home-editorial-v4"/,
+  )
+  assert.match(appSource, /className="home-v4-feature home-v4-workshop"/)
+  assert.match(appSource, /className="home-v4-product-grid"/)
   assert.doesNotMatch(appSource, /className="home-pathway-card"/)
 })
 
@@ -45,24 +48,18 @@ test("motion is orchestrated and has a complete reduced-motion fallback", () => 
   )
 })
 
-test("homepage responsive contract avoids fixed desktop-only story columns", () => {
-  assert.match(appSource, /className="home-v3-mobile-break"/)
-  assert.match(
-    cssSource,
-    /@media\s*\(max-width:\s*600px\)[\s\S]*\.home-v3-mobile-break\s*\{[^}]*display:\s*block/,
-  )
+test("homepage responsive contract collapses the new editorial chapters", () => {
   assert.match(
     cssSource,
     /@media\s*\(max-width:\s*600px\)[\s\S]*\.home-v3-hero-intro\s*\{[^}]*max-width:\s*100%\s*!important;[^}]*overflow-wrap:\s*anywhere/,
   )
-  assert.match(appSource, /className="home-v3-intro-line"/)
   assert.match(
     cssSource,
-    /@media\s*\(max-width:\s*600px\)[\s\S]*\.home-v3-intro-line\s*\{[^}]*display:\s*block/,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*\.home-v4-intro,[\s\S]*?\.home-v4-founder\s*\{[^}]*grid-template-columns:\s*1fr/,
   )
   assert.match(
     cssSource,
-    /@media\s*\(max-width:\s*600px\)[\s\S]*\.home-story-feature[\s\S]*grid-column:\s*1\s*\/\s*-1/,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*\.home-v4-session-grid,[\s\S]*?\.home-v4-product-grid\s*\{[^}]*grid-template-columns:\s*1fr/,
   )
   assert.match(
     cssSource,
@@ -72,14 +69,15 @@ test("homepage responsive contract avoids fixed desktop-only story columns", () 
 
 test("homepage serves the curated page-specific image collection", async () => {
   const curatedAssets = [
+    "01-chan-dung-nha-sang-lap-vo-khiem.webp",
     "01-hero-ban-tarot-nen-am.jpg",
     "01-workshop-cham-ve-de-diu-lai.webp",
     "02-loi-vao-phien-chuyen-sau-1-1.jpg",
-    "03-the-lo-trinh-phien-dau-tien.webp",
     "04-the-lo-trinh-thuc-hanh-phan-tu.webp",
-    "05-the-lo-trinh-the-hermit-room.webp",
     "06-ranh-gioi-workshop-vong-tron-nhom.jpg",
     "07-khong-gian-chiem-nghiem-cuoi-trang.jpg",
+    "10-nu-tu-van-don-khach.webp",
+    "11-phien-1-1-the-hermit.webp",
   ]
 
   await Promise.all(
@@ -94,15 +92,30 @@ test("homepage serves the curated page-specific image collection", async () => {
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionEntry\}/)
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionProcess\}/)
   assert.match(appSource, /src=\{IMG\.homeCuratedClosing\}/)
-  assert.match(appSource, /image: IMG\.homeCuratedHermit/)
-  assert.match(appSource, /image: IMG\.homeCuratedWorkshop/)
-  assert.match(appSource, /image: IMG\.homeCuratedReflective/)
   assert.match(appSource, /src=\{IMG\.homeCuratedBoundary\}/)
+  assert.match(appSource, /anh: IMG\.homeCuratedReflective/)
+  assert.match(appSource, /src=\{IMG\.homeFounderPortrait\}/)
+  assert.match(appSource, /src=\{IMG\.hermitStorefront\}/)
+  assert.match(appSource, /src=\{IMG\.soulCleanse\}/)
+  assert.match(appSource, /src=\{IMG\.tarot2\}/)
+})
+
+test("workshop section uses the approved boundary circle image", async () => {
+  await access(
+    new URL(
+      "../public/assets/homepage-curated/06-ranh-gioi-workshop-vong-tron-nhom.jpg",
+      import.meta.url,
+    ),
+  )
+
+  assert.match(
+    appSource,
+    /<section id="workshop"[\s\S]*?src=\{IMG\.homeCuratedBoundary\}[\s\S]*?alt="Nhóm người ngồi thành vòng tròn trong workshop về ranh giới"/,
+  )
 })
 
 test("homepage uses one female-advisor portrait and distinct later session scenes", async () => {
   const sessionAssets = [
-    "09-khong-gian-chuan-bi-phien.webp",
     "10-nu-tu-van-don-khach.webp",
     "11-phien-1-1-the-hermit.webp",
   ]
@@ -117,7 +130,6 @@ test("homepage uses one female-advisor portrait and distinct later session scene
 
   assert.doesNotMatch(appSource, /IMG\.homeCuratedSession/)
   assert.match(appSource, /anh: IMG\.homeFemaleAdvisor/)
-  assert.match(appSource, /image: IMG\.homeGeneratedSessionSetup/)
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionEntry\}/)
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionProcess\}/)
 })
@@ -130,6 +142,102 @@ test("four-layer gallery preserves the full landscape images", () => {
   assert.match(
     cssSource,
     /\.home-v3-layer img\s*\{[^}]*height:\s*auto;[^}]*aspect-ratio:\s*auto;[^}]*object-fit:\s*contain;/s,
+  )
+})
+
+test("homepage follows the approved Inner Architect content architecture", () => {
+  const sectionMarkers = [
+    'id="gioi-thieu"',
+    'id="he-thong"',
+    'id="phien-dong-hanh"',
+    'id="workshop"',
+    'id="san-pham"',
+    'id="the-hermit"',
+    'id="nguoi-sang-lap"',
+    'id="journal"',
+    'id="lien-he"',
+  ]
+  const sectionPositions = sectionMarkers.map((marker) => appSource.indexOf(marker))
+
+  assert.ok(sectionPositions.every((position) => position >= 0))
+  assert.deepEqual(sectionPositions, [...sectionPositions].sort((a, b) => a - b))
+  assert.match(appSource, /INNER ARCHITECT™ · KIẾN TRÚC SƯ NỘI TÂM/)
+  assert.match(appSource, /Xây trật tự bên trong,/)
+  assert.match(appSource, /để sống tự chủ\./)
+  assert.match(appSource, /Kiến trúc sư nội tâm — xây nền từ sự thấu hiểu chính mình\./)
+  assert.match(appSource, /Hiểu mình sâu hơn\. Từng bước tự đứng vững\./)
+  assert.match(appSource, /Từ soi chiếu bản thân đến thay đổi trong đời sống\./)
+  assert.match(appSource, /Dành thời gian cho điều bạn đang cần nhìn lại\./)
+  assert.match(appSource, /Gặp gỡ, khám phá và thực hành cùng nhau\./)
+  assert.match(appSource, /Một khoảng dừng, một góc nhìn mới\./)
+  assert.match(appSource, /Một khoảng dừng để trở về với mình\./)
+  assert.match(appSource, /Từ hành trình tìm lại mình đến mong muốn đồng hành cùng người khác\./)
+  assert.match(appSource, /Đọc để hiểu mình, dừng lại để nhìn sâu hơn\./)
+  assert.match(appSource, /Bắt đầu từ điều bạn đang quan tâm\./)
+  assert.match(appSource, /ten: "Tiếp cận & Soi chiếu"/)
+  assert.match(appSource, /ten: "Khám phá & Thay đổi khuôn mẫu"/)
+  assert.match(appSource, /ten: "Định hướng & Phát triển"/)
+  assert.match(appSource, /ten: "Chăm sóc thân thể & Cân bằng"/)
+})
+
+test("homepage display headings stay within the approved editorial scale", () => {
+  assert.match(
+    cssSource,
+    /\.home-v3-hero h1\s*\{[^}]*font-size:\s*clamp\(44px,\s*4\.8vw,\s*72px\);[^}]*line-height:\s*\.96/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v3-opening-heading h2,[\s\S]*?\.home-v3-journal-heading h2\s*\{[^}]*font-size:\s*clamp\(42px,\s*4\.2vw,\s*64px\);[^}]*line-height:\s*1;/,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v3-ethics-statement h2\s*\{[^}]*font-size:\s*clamp\(46px,\s*5\.1vw,\s*76px\);[^}]*line-height:\s*\.98/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v3-closing h2\s*\{[^}]*font-size:\s*clamp\(48px,\s*5\.2vw,\s*80px\);[^}]*line-height:\s*\.98/s,
+  )
+  assert.match(
+    cssSource,
+    /@media\s*\(max-width:\s*600px\)[\s\S]*\.home-v3-opening-heading h2,[\s\S]*?\.home-v3-journal-heading h2\s*\{\s*font-size:\s*40px;/,
+  )
+  assert.match(
+    cssSource,
+    /@media\s*\(max-width:\s*600px\)[\s\S]*\.home-v3-ethics-statement h2\s*\{\s*font-size:\s*44px;/,
+  )
+  assert.match(
+    cssSource,
+    /@media\s*\(max-width:\s*600px\)[\s\S]*\.home-v3-closing h2\s*\{\s*font-size:\s*48px;/,
+  )
+})
+
+test("companion session heading uses a compact desktop scale", () => {
+  assert.match(
+    cssSource,
+    /@media\s*\(min-width:\s*761px\)[\s\S]*?\.home-v4-sessions \.home-v4-chapter-heading h2\s*\{[^}]*font-size:\s*clamp\(38px,\s*3\.8vw,\s*54px\);/s,
+  )
+})
+
+test("homepage intro uses an editorial mosaic without changing mobile reading order", () => {
+  assert.match(
+    cssSource,
+    /\.home-v4-intro\s*\{[^}]*grid-template-rows:\s*auto auto;[^}]*padding:\s*112px var\(--home-v3-gutter\) 128px;/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v4-intro \.home-v4-chapter-heading\s*\{[^}]*grid-column:\s*1 \/ 7;[^}]*grid-row:\s*1;/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v4-intro-copy\s*\{[^}]*grid-column:\s*8 \/ 13;[^}]*grid-row:\s*1 \/ 3;/s,
+  )
+  assert.match(
+    cssSource,
+    /\.home-v4-intro-image\s*\{[^}]*grid-column:\s*1 \/ 7;[^}]*grid-row:\s*2;[^}]*margin:\s*56px 0 0;/s,
+  )
+  assert.match(
+    cssSource,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.home-v4-intro-image,[\s\S]*?\.home-v4-founder-image\s*\{[^}]*grid-column:\s*1 \/ -1;[^}]*grid-row:\s*auto;/s,
   )
 })
 

@@ -35,6 +35,8 @@ artifacts/
 .playwright-mcp/
 .superpowers/
 .serena/
+.impeccable/
+Danh-sach-website-Netlify.docx
 
 # Vite / TypeScript caches (merged from the former app-level .gitignore)
 .cache/

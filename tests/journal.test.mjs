@@ -96,3 +96,26 @@ test("adjacent journal images never share the same reveal animation", () => {
   assert.match(pageSource, /data-anh="tren"/)
   assert.match(pageSource, /data-anh=\{kieuHienAnh\(i\)\}/)
 })
+
+test("journal headings keep the approved readable display scale", () => {
+  assert.match(
+    css,
+    /\.journal-page \.jr-masthead h1\s*\{[^}]*font-size:\s*clamp\(54px,\s*7\.5vw,\s*108px\)/s,
+  )
+  assert.match(
+    css,
+    /\.journal-page \.jr-featured h2\s*\{[^}]*font-size:\s*clamp\(34px,\s*3\.6vw,\s*54px\)/s,
+  )
+  assert.match(
+    css,
+    /\.journal-page \.jr-library-head h2\s*\{[^}]*font-size:\s*clamp\(32px,\s*3\.4vw,\s*48px\)/s,
+  )
+  assert.match(
+    css,
+    /\.journal-page \.jr-series-head h2\s*\{[^}]*font-size:\s*clamp\(32px,\s*3\.4vw,\s*48px\)/s,
+  )
+  assert.match(
+    css,
+    /@media\s*\(max-width:\s*600px\)[\s\S]*\.journal-page \.jr-masthead h1\s*\{\s*font-size:\s*52px;/,
+  )
+})

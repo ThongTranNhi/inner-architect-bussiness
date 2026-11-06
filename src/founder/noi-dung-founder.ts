@@ -140,7 +140,7 @@ export const hocVanFounder = {
       linhVuc: "Tâm lý học",
       bang: "Đã hoàn thành chương trình đào tạo Cử nhân Tâm lý học",
       truong: "Đại học Công nghệ TP.HCM (HUTECH)",
-      moc: "Đang chờ nhận bằng",
+      moc: "2027",
     },
   ],
   ketNoi:
