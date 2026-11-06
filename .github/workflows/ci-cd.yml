@@ -98,7 +98,6 @@ jobs:
        github.event_name == 'workflow_dispatch')
 
     environment: production
-
     timeout-minutes: 15
 
     steps:
@@ -111,7 +110,7 @@ jobs:
           name: production-dist
           path: .
 
-      # Check that all required configuration exists.
+      # Validate required deployment configuration.
       - name: Validate deployment configuration
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
@@ -144,7 +143,41 @@ jobs:
 
           echo "Deployment configuration is present."
 
-      # Check network connectivity before running SCP.
+      # NEW: Show public IP used by the deployment runner.
+      # Compare this IP with incoming packets on the VPS.
+      - name: Show GitHub runner public IP
+        run: |
+          echo "=== GitHub Runner Public IP ==="
+          if curl -fsS --max-time 10 https://api.ipify.org; then
+            echo
+            echo "Runner public IP lookup succeeded."
+          else
+            echo
+            echo "::warning::Could not determine runner public IP."
+          fi
+
+      # NEW: Verify the configured host and port
+      # without printing secret values.
+      - name: Verify expected VPS target
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        run: |
+          set -euo pipefail
+
+          if [ "$DEPLOY_HOST" != "103.7.41.157" ]; then
+            echo "::error::DEPLOY_HOST does not match the expected VPS."
+            exit 1
+          fi
+
+          if [ "$DEPLOY_PORT" != "22" ]; then
+            echo "::error::DEPLOY_PORT does not match SSH port 22."
+            exit 1
+          fi
+
+          echo "Deployment host and SSH port verified."
+
+      # Check TCP connectivity before attempting SSH.
       - name: Diagnose VPS network connectivity
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
@@ -170,15 +203,15 @@ jobs:
                   print("SUCCESS: VPS SSH port is reachable.")
           except (OSError, ValueError) as error:
               print(
-                  f"ERROR: SSH connection failed: "
+                  "ERROR: SSH connection failed: "
                   f"{type(error).__name__}",
-                  file=sys.stderr
+                  file=sys.stderr,
               )
               print(
                   "Check DEPLOY_HOST, DEPLOY_PORT, "
                   "provider firewall, network ACL "
                   "and SSH access rules.",
-                  file=sys.stderr
+                  file=sys.stderr,
               )
               sys.exit(1)
           PY
