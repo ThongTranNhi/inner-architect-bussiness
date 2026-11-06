@@ -437,8 +437,8 @@ const danhSachBonTang = [
     linhVuc: "Giá trị · Hành động",
     moTa:
       "Làm rõ giá trị bản thân, xác định hướng đi và xây dựng mục tiêu phù hợp. Từng bước đưa định hướng thành hành động cụ thể trong công việc và cuộc sống.",
-    anh: IMG.homeCuratedHermit,
-    alt: "Góc thưởng trà định tâm tại The Hermit",
+    anh: IMG.homeCuratedRoadmap,
+    alt: "Thẻ lộ trình các bước định hướng và hành động",
   },
   {
     so: "04",
@@ -446,8 +446,8 @@ const danhSachBonTang = [
     linhVuc: "Cơ thể · Nhịp sống",
     moTa:
       "Lắng nghe cơ thể, thực hành thư giãn và xây dựng nhịp sống cân bằng.",
-    anh: IMG.homeCuratedWorkshop,
-    alt: "Màu vẽ và không gian workshop Chạm",
+    anh: IMG.hermitTeaRoom,
+    alt: "Không gian thưởng trà và cân bằng nhịp sống thân tâm",
   },
 ]
 
@@ -665,7 +665,7 @@ function Home({ initialSection }: { initialSection?: string }) {
         <figure className="home-v4-intro-image home-v3-media reveal-child">
           <img
             src={IMG.homeGeneratedSessionEntry}
-            alt="Nữ tư vấn trò chuyện cùng khách trong không gian ấm và riêng tư"
+            alt="Lối vào không gian tĩnh lặng và ấm áp của Inner Architect™"
             loading="lazy"
             decoding="async"
           />
@@ -898,7 +898,7 @@ function Home({ initialSection }: { initialSection?: string }) {
             <figure className="home-v3-media">
               <img
                 src={IMG.soulCleanse}
-                alt="Nến thơm LARA Soul Cleanse"
+                alt="Bộ ba sản phẩm nến thơm LARA"
                 loading="lazy"
                 decoding="async"
               />
@@ -937,8 +937,8 @@ function Home({ initialSection }: { initialSection?: string }) {
 
       <section id="the-hermit" className="home-v4-hermit">
         <img
-          src={IMG.hermitHall}
-          alt="Sảnh chính The Hermit với ánh sáng ấm"
+          src={IMG.hermitStorefront}
+          alt="Mặt tiền không gian The Hermit"
           loading="lazy"
           decoding="async"
         />
@@ -1008,8 +1008,8 @@ function Home({ initialSection }: { initialSection?: string }) {
         </div>
         <figure className="home-v4-founder-image home-v3-media reveal-child">
           <img
-            src={IMG.homeCuratedReflective}
-            alt="Bàn ghi chép trong một buổi thực hành phản tư"
+            src={IMG.homeFounderPortrait}
+            alt="Chân dung nhà sáng lập Khiêm Võ"
             loading="lazy"
             decoding="async"
           />

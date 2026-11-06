@@ -4,13 +4,15 @@ export const IMG = {
   homeCuratedWorkshop:
     "/assets/homepage-curated/01-workshop-cham-ve-de-diu-lai.webp",
   homeFemaleAdvisor:
-    "/assets/homepage-curated/02-loi-vao-phien-chuyen-sau-1-1.jpg",
+    "/assets/homepage-curated/10-nu-tu-van-don-khach.webp",
   homeGeneratedSessionSetup:
     "/assets/homepage-curated/09-khong-gian-chuan-bi-phien.webp",
   homeGeneratedSessionEntry:
-    "/assets/homepage-curated/10-nu-tu-van-don-khach.webp",
+    "/assets/homepage-curated/02-loi-vao-phien-chuyen-sau-1-1.jpg",
   homeGeneratedSessionProcess:
     "/assets/homepage-curated/11-phien-1-1-the-hermit.webp",
+  homeCuratedRoadmap:
+    "/assets/homepage-curated/03-the-lo-trinh-phien-dau-tien.webp",
   homeCuratedReflective:
     "/assets/homepage-curated/04-the-lo-trinh-thuc-hanh-phan-tu.webp",
   homeCuratedHermit:
@@ -19,6 +21,8 @@ export const IMG = {
     "/assets/homepage-curated/06-ranh-gioi-workshop-vong-tron-nhom.jpg",
   homeCuratedClosing:
     "/assets/homepage-curated/07-khong-gian-chiem-nghiem-cuoi-trang.jpg",
+  homeFounderPortrait:
+    "/assets/homepage-curated/01-chan-dung-nha-sang-lap-vo-khiem.webp",
   workshopArt: "/assets/workshop/ws-cham-ve-diu-lai-CMQz-7CG.webp",
   journalReading: "/assets/journal/journal-tarot-reading-horizontal.webp",
   journalBox: "/assets/journal/goc/hinh07.webp",
@@ -31,11 +35,11 @@ export const IMG = {
   journalTarotHermit: "/assets/journal/goc/hinh04.webp",
   journalMindful: "/assets/journal/goc/hinh05.webp",
   journalHermitStories: "/assets/journal/goc/hinh06.webp",
-  hermitStorefront: "/assets/the-hermit/storefront-placeholder.webp",
+  hermitStorefront: "/assets/the-hermit/01-mat-tien-cua-tiem-storefront.webp",
   hermitHall: "/assets/the-hermit/main-hall-placeholder.webp",
   hermitTeaRoom: "/assets/the-hermit/tea-room-placeholder.webp",
   hermitTarotRoom: "/assets/the-hermit/tarot-room-placeholder.webp",
-  soulCleanse: "/assets/lara/lara-soul-cleanse.webp",
+  soulCleanse: "/assets/lara/05-bo-ba-san-pham-lara-collage.webp",
   sacredGround: "/assets/lara/lara-sacred-ground.webp",
   soulEmbrace: "/assets/lara/lara-soul-embrace.webp",
   tarot2: "/assets/journal/journal-tarot-box-portrait.webp",

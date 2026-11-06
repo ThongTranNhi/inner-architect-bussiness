@@ -69,6 +69,7 @@ test("homepage responsive contract collapses the new editorial chapters", () => 
 
 test("homepage serves the curated page-specific image collection", async () => {
   const curatedAssets = [
+    "01-chan-dung-nha-sang-lap-vo-khiem.webp",
     "01-hero-ban-tarot-nen-am.jpg",
     "01-workshop-cham-ve-de-diu-lai.webp",
     "02-loi-vao-phien-chuyen-sau-1-1.jpg",
@@ -92,8 +93,9 @@ test("homepage serves the curated page-specific image collection", async () => {
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionProcess\}/)
   assert.match(appSource, /src=\{IMG\.homeCuratedClosing\}/)
   assert.match(appSource, /src=\{IMG\.homeCuratedBoundary\}/)
-  assert.match(appSource, /src=\{IMG\.homeCuratedReflective\}/)
-  assert.match(appSource, /src=\{IMG\.hermitHall\}/)
+  assert.match(appSource, /anh: IMG\.homeCuratedReflective/)
+  assert.match(appSource, /src=\{IMG\.homeFounderPortrait\}/)
+  assert.match(appSource, /src=\{IMG\.hermitStorefront\}/)
   assert.match(appSource, /src=\{IMG\.soulCleanse\}/)
   assert.match(appSource, /src=\{IMG\.tarot2\}/)
 })
