@@ -185,8 +185,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          echo "Checking GitHub runner outbound SSH..."
+          echo "=== GitHub Runner Public IP ==="
+          curl -fsS --max-time 10 https://api.ipify.org
+          echo
 
+          echo "=== VPS SSH Connectivity ==="
           python3 - <<'PY'
           import os
           import socket
@@ -196,22 +199,12 @@ jobs:
           port = int(os.environ["DEPLOY_PORT"])
 
           try:
-              with socket.create_connection(
-                  (host, port),
-                  timeout=12
-              ):
-                  print("SUCCESS: VPS SSH port is reachable.")
-          except (OSError, ValueError) as error:
+              with socket.create_connection((host, port), timeout=12):
+                  print("SUCCESS: VPS SSH port reachable")
+          except OSError as error:
               print(
-                  "ERROR: SSH connection failed: "
-                  f"{type(error).__name__}",
-                  file=sys.stderr,
-              )
-              print(
-                  "Check DEPLOY_HOST, DEPLOY_PORT, "
-                  "provider firewall, network ACL "
-                  "and SSH access rules.",
-                  file=sys.stderr,
+                  f"ERROR: {type(error).__name__}: {error}",
+                  file=sys.stderr
               )
               sys.exit(1)
           PY
