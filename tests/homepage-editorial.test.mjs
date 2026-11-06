@@ -73,6 +73,7 @@ test("homepage serves the curated page-specific image collection", async () => {
     "01-workshop-cham-ve-de-diu-lai.webp",
     "02-loi-vao-phien-chuyen-sau-1-1.jpg",
     "04-the-lo-trinh-thuc-hanh-phan-tu.webp",
+    "06-ranh-gioi-workshop-vong-tron-nhom.jpg",
     "07-khong-gian-chiem-nghiem-cuoi-trang.jpg",
     "10-nu-tu-van-don-khach.webp",
     "11-phien-1-1-the-hermit.webp",
@@ -90,11 +91,25 @@ test("homepage serves the curated page-specific image collection", async () => {
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionEntry\}/)
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionProcess\}/)
   assert.match(appSource, /src=\{IMG\.homeCuratedClosing\}/)
-  assert.match(appSource, /src=\{IMG\.homeCuratedWorkshop\}/)
+  assert.match(appSource, /src=\{IMG\.homeCuratedBoundary\}/)
   assert.match(appSource, /src=\{IMG\.homeCuratedReflective\}/)
   assert.match(appSource, /src=\{IMG\.hermitHall\}/)
   assert.match(appSource, /src=\{IMG\.soulCleanse\}/)
   assert.match(appSource, /src=\{IMG\.tarot2\}/)
+})
+
+test("workshop section uses the approved boundary circle image", async () => {
+  await access(
+    new URL(
+      "../public/assets/homepage-curated/06-ranh-gioi-workshop-vong-tron-nhom.jpg",
+      import.meta.url,
+    ),
+  )
+
+  assert.match(
+    appSource,
+    /<section id="workshop"[\s\S]*?src=\{IMG\.homeCuratedBoundary\}[\s\S]*?alt="Nhóm người ngồi thành vòng tròn trong workshop về ranh giới"/,
+  )
 })
 
 test("homepage uses one female-advisor portrait and distinct later session scenes", async () => {

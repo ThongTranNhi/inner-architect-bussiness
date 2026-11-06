@@ -855,8 +855,8 @@ function Home({ initialSection }: { initialSection?: string }) {
       <section id="workshop" className="home-v4-feature home-v4-workshop">
         <figure className="home-v4-feature-image home-v3-media reveal-child">
           <img
-            src={IMG.homeCuratedWorkshop}
-            alt="Màu vẽ và không gian workshop trải nghiệm"
+            src={IMG.homeCuratedBoundary}
+            alt="Nhóm người ngồi thành vòng tròn trong workshop về ranh giới"
             loading="lazy"
             decoding="async"
           />
