@@ -223,7 +223,9 @@ function FounderTrietLy() {
       </h2>
       <figure className="fp-quote" {...hieuUng("len", 1)}>
         <blockquote className="serif">
-          “{g(trietLyFounder.trichDan)}”
+          “Thấu hiểu chính mình là một điểm khởi đầu
+          <br />
+          để lựa chọn cách sống phù hợp hơn.”
         </blockquote>
         <figcaption>— {heroFounder.ten}</figcaption>
       </figure>
@@ -362,27 +364,71 @@ function FounderTamNhin() {
 function FounderKetTrang() {
   return (
     <section className="fp-closing" aria-labelledby="fp-ket-trang">
-      <p className="fp-eyebrow" lang="en" {...hieuUng("len", 0)}>
+      <div
+        className="fp-closing-badge"
+        aria-hidden="true"
+        {...hieuUng("len", 0)}
+      >
+        <svg
+          width="36"
+          height="36"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          className="fp-closing-crest"
+        >
+          <circle cx="12" cy="12" r="9" strokeDasharray="2 2" opacity="0.6" />
+          <path d="M12 2v20M2 12h20" strokeWidth="0.75" opacity="0.4" />
+          <polygon
+            points="12,5 14,10 19,12 14,14 12,19 10,14 5,12 10,10"
+            fill="currentColor"
+            fillOpacity="0.25"
+          />
+        </svg>
+      </div>
+      <p className="fp-eyebrow" lang="en" {...hieuUng("len", 1)}>
         {ketTrangFounder.eyebrow}
       </p>
-      <h2 id="fp-ket-trang" className="serif" {...hieuUng("len", 1)}>
+      <h2 id="fp-ket-trang" className="serif" {...hieuUng("len", 2)}>
         {g(ketTrangFounder.tieuDe)}
       </h2>
-      <p {...hieuUng("len", 2)}>{g(ketTrangFounder.moTa)}</p>
-      <div className="fp-closing-actions" {...hieuUng("len", 3)}>
-        <Link to={ketTrangFounder.ctaChinh.to} className="button-link">
-          {ketTrangFounder.ctaChinh.nhan}
+      <p {...hieuUng("len", 3)}>{g(ketTrangFounder.moTa)}</p>
+      <div className="fp-closing-actions" {...hieuUng("len", 4)}>
+        <Link
+          to={ketTrangFounder.ctaChinh.to}
+          className="button-link fp-closing-btn-main"
+        >
+          <span>{ketTrangFounder.ctaChinh.nhan}</span>
+          <span className="fp-btn-shine" aria-hidden="true" />
         </Link>
-        <Link to={ketTrangFounder.ctaPhu.to} className="fp-link">
-          {ketTrangFounder.ctaPhu.nhan} →
+        <Link
+          to={ketTrangFounder.ctaPhu.to}
+          className="fp-link fp-closing-btn-sub"
+        >
+          <span>{ketTrangFounder.ctaPhu.nhan}</span>
+          <span className="fp-arrow-move" aria-hidden="true">
+            →
+          </span>
         </Link>
+      </div>
+      <div className="fp-closing-pillars" {...hieuUng("len", 5)}>
+        <span className="fp-pillar-pill">✦ Tự nhận thức</span>
+        <span className="fp-pillar-dot" aria-hidden="true">
+          ·
+        </span>
+        <span className="fp-pillar-pill">✦ Tư duy phản biện</span>
+        <span className="fp-pillar-dot" aria-hidden="true">
+          ·
+        </span>
+        <span className="fp-pillar-pill">✦ Quyền tự quyết</span>
       </div>
     </section>
   )
 }
 
 /**
- * Trang giới thiệu nhà sáng lập Võ Khiêm (`/vo-khiem`), gồm 8 section theo
+ * Trang giới thiệu nhà sáng lập Khiêm Võ (`/vo-khiem`), gồm 8 section theo
  * portfolio cá nhân. Dữ liệu nằm ở `noi-dung-founder.ts`; hiệu ứng cuộn ở
  * `hieu-ung.ts` (một IntersectionObserver dùng chung cho cả trang).
  *

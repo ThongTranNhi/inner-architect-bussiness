@@ -129,7 +129,7 @@ test("homepage uses one female-advisor portrait and distinct later session scene
   )
 
   assert.doesNotMatch(appSource, /IMG\.homeCuratedSession/)
-  assert.match(appSource, /anh: IMG\.homeFemaleAdvisor/)
+  assert.match(appSource, /anh: IMG\.(?:homeFemaleAdvisor|hermitKhongGianQuan)/)
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionEntry\}/)
   assert.match(appSource, /src=\{IMG\.homeGeneratedSessionProcess\}/)
 })

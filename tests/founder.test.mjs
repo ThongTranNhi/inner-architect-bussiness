@@ -39,7 +39,10 @@ test("founder page has exactly one h1 and is routed at /vo-khiem", () => {
     appSource,
     /path === "\/vo-khiem"\) return trang\(<FounderPage \/>\)/,
   )
-  assert.match(appSource, /title: "Võ Khiêm \| Founder INNER ARCHITECT™"/)
+  assert.match(
+    appSource,
+    /title: "(?:Võ Khiêm|Khiêm Võ) \| Founder INNER ARCHITECT™"/,
+  )
 })
 
 test("unverified participation figures stay hidden until confirmed", () => {
@@ -70,12 +73,11 @@ test("psychology degree is not presented as awarded", () => {
   )
 })
 
-test("founder portraits use placeholders, never another person's photo", () => {
+test("founder portraits use authentic photos from founder image directory", () => {
   for (const key of ["chanDungHero", "hanhTrinh", "ketThuc"]) {
-    assert.equal(
+    assert.ok(
       noiDung.anhFounder[key].src,
-      null,
-      `${key} must stay a placeholder`,
+      `${key} must have authentic photo src`,
     )
   }
   for (const anh of Object.values(noiDung.anhFounder)) {

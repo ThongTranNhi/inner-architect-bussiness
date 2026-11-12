@@ -59,7 +59,7 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     phuDe: "Mô thức lặp trong tình yêu & cuộc sống",
     doanDan:
       "Không gian trải nghiệm theo nhóm nhỏ, nơi bạn có thể quan sát các mô thức cảm xúc và hành vi đang lặp lại trong cuộc sống, trong một khung an toàn và được nâng đỡ.",
-    hinhAnh: IMG.homeCuratedWorkshop,
+    hinhAnh: IMG.workshopNhanDienMoThuc,
     thoiLuong: "2 – 2.5 tiếng (20:00 – 22:00)",
     hinhThuc: "Offline hoặc Online nhóm nhỏ",
     quyMo: "Nhóm nhỏ 8 – 12 người · Định kỳ hàng tháng",
@@ -119,7 +119,7 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     phuDe: "Vòng tròn tĩnh lặng & Trà thất The Hermit",
     doanDan:
       "Không gian thực hành hiện diện có ranh giới dành cho nhóm nhỏ, nơi mỗi người được nghỉ ngơi, lắng nghe mà không chịu áp lực phải chia sẻ hay làm vừa lòng người khác.",
-    hinhAnh: IMG.hermitTeaRoom,
+    hinhAnh: IMG.workshopTraiNghiemNhomNho,
     thoiLuong: "2 tiếng",
     hinhThuc: "Offline tại không gian trà The Hermit",
     quyMo: "Giới hạn 4 – 6 người",
@@ -177,7 +177,7 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     phuDe: "1:1 Deep Restructuring · Tháo gỡ mô thức gốc",
     doanDan:
       "Tiến trình làm việc chuyên sâu 1:1, tập trung tháo gỡ một mô thức cốt lõi, diễn ra trong khung thời gian và cấu trúc rõ ràng, đủ sâu để chuyển hóa nhưng không kéo dài quá mức cần thiết.",
-    hinhAnh: IMG.homeGeneratedSessionProcess,
+    hinhAnh: IMG.hermitKhongGianQuan,
     thoiLuong: "60 – 90 phút / phiên · Tiến trình có điểm kết rõ ràng",
     hinhThuc: "Làm việc 1:1 chuyên biệt",
     quyMo: "Cá nhân 1:1",
@@ -233,7 +233,7 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     phuDe: "Nhập môn Tarot dưới góc nhìn nhận thức & biểu tượng",
     doanDan:
       "Học cách đọc hình ảnh, đặt câu hỏi phản tư và giữ ranh giới đạo đức trước khi học cách diễn giải bài Tarot.",
-    hinhAnh: IMG.journalReading,
+    hinhAnh: IMG.academyTarotCanBanPicture,
     thoiLuong: "5 buổi học chuyên sâu (20:00 – 22:00)",
     hinhThuc: "Online tương tác trực tiếp qua Zoom",
     quyMo: "Lớp học tiêu chuẩn có trợ giảng đồng hành",
@@ -263,7 +263,7 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     phuDe: "Liên kết biểu tượng & Thao trường nhận thức chuyên sâu",
     doanDan:
       "Đào sâu vào các trải bài phức tạp, kỹ năng đọc liên kết đa tầng và ứng dụng Tarot trong việc hỗ trợ người khác tháo gỡ bế tắc.",
-    hinhAnh: IMG.journalSpread,
+    hinhAnh: IMG.academyTarotNangCao,
     thoiLuong: "6 buổi chuyên sâu (20:00 – 22:00)",
     hinhThuc: "Online chuyên đề có case study thực tế",
     quyMo: "Học viên đã hoàn tất khóa Căn bản hoặc có nền tảng tương đương",
@@ -291,7 +291,7 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     phuDe: "Chương trình đào tạo Healer hệ thống INNER ARCHITECT™",
     doanDan:
       "Chương trình đào tạo chuyên sâu kéo dài 6 tháng dành cho những người muốn trở thành người đồng hành (Healer) trong hệ thống INNER ARCHITECT™.",
-    hinhAnh: IMG.homeFemaleAdvisor,
+    hinhAnh: IMG.academyTarotHealer,
     thoiLuong: "Lộ trình 6 tháng tích hợp",
     hinhThuc: "Lý thuyết, thực hành lâm sàng có giám sát và tu tập nội tâm",
     quyMo: "Tuyển chọn khắt khe qua phỏng vấn đầu vào",
@@ -303,7 +303,7 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
     ],
     hoatDong: [
       "Học thuyết về hệ thần kinh, sang chấn và cơ chế bảo vệ tâm lý",
-      "Thực tập có giám sát trực tiếp từ Founder Võ Khiêm",
+      "Thực tập có giám sát trực tiếp từ Founder Khiêm Võ",
       "Đánh giá năng lực tự quản trị bản thân trước khi tiếp nhận thân chủ thực tế",
     ],
     ranhGioi:
@@ -340,5 +340,32 @@ export const danhSachChiTietChuongTrinh: Record<string, ChiTietChuongTrinh> = {
       "Các chuyên đề mang tính giáo dục tâm lý nâng cao nhận thức, không thay thế trị liệu tâm lý cá nhân.",
     chamNgon: "Hiểu cơ chế để ngừng làm tổn thương chính mình.",
     nutHanhDong: "Nhận tư vấn chuyên đề",
+  },
+  "lich-day-hoc": {
+    slug: "lich-day-hoc",
+    nhom: "C. ACADEMY",
+    tang: "LỊCH ĐÀO TẠO & WORKSHOP",
+    tieuDe: "Lịch Dạy Học & Workshop",
+    phuDe: "Hành trình khai mở & thực hành chữa lành (Coming Soon)",
+    doanDan:
+      "Tổng hợp các phiên học tương tác trực tuyến và workshop chuyên đề tại Inner Architect™. Mọi khung giờ đều được bố trí để người tham dự có không gian chiêm nghiệm sâu sắc nhất.",
+    hinhAnh: IMG.lichDayHocPoster,
+    thoiLuong: "20:00 – 22:00 & 14:00 – 16:00",
+    hinhThuc: "Online qua Zoom & Offline tại The Hermit",
+    quyMo: "Giới hạn 10 – 15 học viên / buổi",
+    chiPhi: "Tùy duyên trao gởi & 499.000đ",
+    mucTieu: [
+      "Khám phá biểu tượng Tarot và kết nối trực giác cá nhân",
+      "Thực hành giải tỏa áp lực, ngừng gồng và hạ tải hệ thần kinh",
+      "Tái cấu trúc nhận thức và phục hồi năng lượng sống",
+    ],
+    hoatDong: [
+      "Học tương tác trực tiếp qua Zoom",
+      "Workshop thực hành trải nghiệm trực tiếp",
+      "Hỏi đáp và phản chiếu tình huống thực tế cùng người hướng dẫn",
+    ],
+    ranhGioi:
+      "Các chương trình mang tính giáo dục, trải nghiệm và tự thấu hiểu. Không mang tính bói toán hay điều trị y khoa.",
+    nutHanhDong: "Đăng ký nhận lịch sớm",
   },
 }

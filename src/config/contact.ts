@@ -11,10 +11,17 @@ import {
  * (decision-log D01), giá trị là `null` và giao diện hiển thị trạng thái
  * "đang cập nhật" — không tự tạo link thay thế.
  */
+/** Số điện thoại hotline / Zalo tiếp nhận liên hệ chính thức */
+export const SO_DIEN_THOAI_ZALO = "0868 554 141"
+
 export const contactChannels: Record<KenhLienHe, string | null> = {
-  zalo: kiemTraDuongDanLienHe(import.meta.env.VITE_CONTACT_ZALO_URL, "zalo"),
+  zalo: kiemTraDuongDanLienHe(
+    import.meta.env.VITE_CONTACT_ZALO_URL || "https://zalo.me/0868554141",
+    "zalo",
+  ),
   facebook: kiemTraDuongDanLienHe(
-    import.meta.env.VITE_CONTACT_FACEBOOK_URL,
+    import.meta.env.VITE_CONTACT_FACEBOOK_URL ||
+      "https://www.facebook.com/profile.php?id=61595962709692",
     "facebook",
   ),
 }

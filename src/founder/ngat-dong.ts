@@ -31,7 +31,7 @@ const CUM_TU_GIU: readonly string[] = [
   "đa chiều",
   "nền tảng",
   "hành trình",
-  "Võ Khiêm",
+  "Khiêm Võ",
   "kiến thức",
   "lời giải thích",
   "bộ bài",

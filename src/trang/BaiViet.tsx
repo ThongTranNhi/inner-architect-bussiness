@@ -306,9 +306,9 @@ export function Article({ slug }: { slug: string }) {
         </div>
         <footer className="author-block">
           <p className="eyebrow">TÁC GIẢ</p>
-          <h2 className="serif">Võ Khiêm — Founder, INNER ARCHITECT™ System</h2>
+          <h2 className="serif">Khiêm Võ — Founder, INNER ARCHITECT™ System</h2>
           <p>
-            Võ Khiêm viết về Tarot phản tư, tự nhận thức, tư duy phản biện và
+            Khiêm Võ viết về Tarot phản tư, tự nhận thức, tư duy phản biện và
             ranh giới trong các hoạt động phát triển bản thân.
           </p>
           <Link to="/vo-khiem" className="underlink">

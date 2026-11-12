@@ -23,7 +23,7 @@ export function cuonDenPhanTu(idPhanTu: string): void {
  * @returns {void}
  */
 export function go(path: string): void {
-  if (path === "/he-thong" || path === "/#he-thong" || path === "#he-thong") {
+  if (path === "/#he-thong" || path === "#he-thong") {
     if (window.location.hash === "" || window.location.hash === "#/") {
       cuonDenPhanTu("he-thong")
       return
@@ -51,6 +51,7 @@ export function Link({
   to,
   children,
   className = "",
+  style,
   onClick,
   onMouseEnter,
   onMouseLeave,
@@ -58,6 +59,7 @@ export function Link({
   to: string
   children: React.ReactNode
   className?: string
+  style?: React.CSSProperties
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
   onMouseEnter?: (e: React.MouseEvent<HTMLAnchorElement>) => void
   onMouseLeave?: (e: React.MouseEvent<HTMLAnchorElement>) => void
@@ -66,6 +68,7 @@ export function Link({
     <a
       href={`#${to}`}
       className={className}
+      style={style}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={(e) => {
