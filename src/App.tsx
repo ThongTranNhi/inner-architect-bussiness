@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { contactChannels } from "./config/contact"
-import { cuonDenPhanTu, Link } from "./dieu-huong"
+import { laDuongDanQuanTri } from "./admin/duong-dan-quan-tri"
+import { cuonDenPhanTu, Link, SU_KIEN_DIEU_HUONG } from "./dieu-huong"
 import { news, signatureSeriesList } from "./du-lieu/bai-viet"
 import { danhSachChiTietChuongTrinh } from "./du-lieu/chuong-trinh"
 import { IMG } from "./du-lieu/hinh-anh"
@@ -76,6 +77,8 @@ const LaraPage = lazy(() =>
     default: m.LaraPage,
   })),
 )
+// Trang quản trị Customer Care: chunk riêng, không tải với website công khai.
+const UngDungQuanTri = lazy(() => napModule(() => import("./admin/UngDungQuanTri")))
 const ContactPage = lazy(() =>
   napModule(() => import("./trang/LienHe")).then((m) => ({
     default: m.ContactPage,
@@ -1268,10 +1271,10 @@ function capNhatThongTinSeo(seo: ThongTinSeo) {
 }
 
 /**
- * Chuẩn hóa đường dẫn hash: bỏ query, bỏ dấu `/` cuối và ánh xạ route cũ.
+ * Chuẩn hóa đường dẫn: bỏ query, bỏ dấu `/` cuối và ánh xạ route cũ.
  * `/booking` (form đặt lịch đã gỡ) được chuyển sang `/lien-he`.
  *
- * @param duongDanTho - Phần sau dấu `#` của URL
+ * @param duongDanTho - `location.pathname` (có thể kèm query)
  * @returns Đường dẫn chuẩn, luôn bắt đầu bằng `/`
  */
 function chuanHoaDuongDan(duongDanTho: string): string {
@@ -1285,7 +1288,7 @@ function chuanHoaDuongDan(duongDanTho: string): string {
 /**
  * Chọn component trang cho một đường dẫn đã chuẩn hóa.
  *
- * @param path - Đường dẫn hash đã qua `chuanHoaDuongDan`
+ * @param path - Đường dẫn đã qua `chuanHoaDuongDan`
  * @returns Phần tử trang và cờ `laTrang404` khi không có nội dung tương ứng
  */
 function chonTrang(path: string): {
@@ -1342,25 +1345,42 @@ function TinHieuTrangSanSang({ duongDan, onSanSang }: TinHieuTrangSanSangProps) 
   return null
 }
 
+/**
+ * Đọc đường dẫn hiện tại và thay URL cũ trong lịch sử (không tải lại trang):
+ * - Liên kết hash routing cũ `/#/lien-he?x=1` → `/lien-he?x=1` (giữ link đã chia sẻ còn dùng được).
+ * - `/booking` → `/lien-he`.
+ * Anchor trong trang như `#chuong-01` (không bắt đầu bằng `#/`) được giữ nguyên.
+ *
+ * @returns Đường dẫn đã chuẩn hóa để chọn trang
+ */
+function docDuongDanHienTai(): string {
+  // Hai bước tuần tự: `/#/booking` → `/booking` → `/lien-he` trong cùng một lần gọi.
+  if (window.location.hash.startsWith("#/")) window.history.replaceState(null, "", window.location.hash.slice(1))
+  const { pathname, search, hash } = window.location
+  if (pathname === "/booking") window.history.replaceState(null, "", `/lien-he${search}${hash}`)
+  return chuanHoaDuongDan(window.location.pathname)
+}
+
 function App() {
-  const [path, setPath] = useState(() =>
-    chuanHoaDuongDan(window.location.hash.slice(1)),
-  )
+  const [path, setPath] = useState(docDuongDanHienTai)
   const [menu, setMenu] = useState(false)
   // Đường dẫn của trang đã mount xong; hiệu ứng reveal chờ giá trị này.
   const [trangSanSang, setTrangSanSang] = useState<string | null>(null)
   useEffect(() => {
     const f = () => {
-      const tho = window.location.hash.slice(1)
-      const chuan = chuanHoaDuongDan(tho)
-      // Đường dẫn cũ (vd. #/booking) được thay trong lịch sử để không lưu URL lỗi thời.
-      if (tho.split("?")[0] === "/booking") window.location.replace(`#${chuan}`)
-      setPath(chuan)
+      setPath(docDuongDanHienTai())
       setMenu(false)
     }
-    f()
+    // popstate: nút Back/Forward; SU_KIEN_DIEU_HUONG: go()/thayDuongDan().
+    // hashchange: người dùng sửa tay URL cũ dạng #/… trên trang đang mở.
+    addEventListener("popstate", f)
     addEventListener("hashchange", f)
-    return () => removeEventListener("hashchange", f)
+    addEventListener(SU_KIEN_DIEU_HUONG, f)
+    return () => {
+      removeEventListener("popstate", f)
+      removeEventListener("hashchange", f)
+      removeEventListener(SU_KIEN_DIEU_HUONG, f)
+    }
   }, [])
   useEffect(() => {
     // Trang lazy chưa có trong DOM thì chưa gắn observer.
@@ -1390,9 +1410,17 @@ function App() {
     }
   }, [path, trangSanSang])
   const { trang: page, laTrang404 } = useMemo(() => chonTrang(path), [path])
+  const laTrangQuanTri = laDuongDanQuanTri(path)
   useEffect(() => {
-    capNhatThongTinSeo(layThongTinSeo(path, laTrang404))
-  }, [path, laTrang404])
+    // Trang quản trị tự đặt tiêu đề riêng.
+    if (!laTrangQuanTri) capNhatThongTinSeo(layThongTinSeo(path, laTrang404))
+  }, [path, laTrang404, laTrangQuanTri])
+  if (laTrangQuanTri)
+    return (
+      <Suspense fallback={<main className="trang-dang-tai" aria-busy="true" />}>
+        <UngDungQuanTri duongDan={path} />
+      </Suspense>
+    )
   const isHomeView = path === "/"
   const isHeroHeader = path === "/" || path === "/the-hermit"
   return (

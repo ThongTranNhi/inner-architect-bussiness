@@ -7,9 +7,20 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test tests/homepage-editorial.test.mjs tests/lien-he.test.mjs tests/founder.test.mjs tests/journal.test.mjs tests/hieu-nang.test.mjs",
+    "test": "node --test tests/homepage-editorial.test.mjs tests/lien-he.test.mjs tests/founder.test.mjs tests/journal.test.mjs tests/hieu-nang.test.mjs tests/bieu-mau-lien-he.test.mjs tests/dieu-huong.test.mjs",
     "typecheck": "tsc --noEmit",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "dev:frontend": "vite",
+    "dev:backend": "pnpm --dir server dev",
+    "dev:all": "node scripts/chay-dev-tat-ca.mjs",
+    "db:migrate": "pnpm --dir server db:migrate",
+    "admin:create": "pnpm --dir server admin:create",
+    "typecheck:server": "pnpm --dir server typecheck",
+    "test:server": "pnpm --dir server test",
+    "build:server": "pnpm --dir server build",
+    "typecheck:all": "pnpm typecheck && pnpm typecheck:server",
+    "test:all": "pnpm test && pnpm test:server",
+    "build:all": "pnpm build && pnpm build:server"
   },
   "dependencies": {
     "react": "^19.0.0",

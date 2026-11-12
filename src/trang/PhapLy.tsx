@@ -20,7 +20,11 @@ export function LegalPage({ loai }: { loai: "bao-mat" | "pham-vi" }) {
           muc: [
             [
               "Thông tin website thu thập",
-              "Website không có biểu mẫu, tài khoản, giỏ hàng hay hệ thống đặt lịch, và không yêu cầu bạn nhập thông tin cá nhân hoặc thông tin sức khỏe.",
+              "Biểu mẫu trên trang Liên hệ chỉ nhận họ và tên, số điện thoại, dịch vụ quan tâm và email (không bắt buộc), kèm thời điểm bạn đồng ý gửi. Website không có tài khoản khách hàng, giỏ hàng, thanh toán hay đặt lịch trực tuyến, và không yêu cầu thông tin sức khỏe.",
+            ],
+            [
+              "Mục đích và người được xem",
+              "Thông tin được lưu trên máy chủ của INNER ARCHITECT™ và chỉ nhân viên chăm sóc khách hàng đã đăng nhập mới xem được, để gọi điện hoặc gửi email tư vấn theo nhu cầu bạn đã chọn. Hệ thống không tự động tư vấn, không gửi email quảng cáo và không tự động chuyển thông tin này cho bên thứ ba.",
             ],
             [
               "Kênh liên hệ bên thứ ba",

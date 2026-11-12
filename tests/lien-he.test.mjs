@@ -65,7 +65,10 @@ test("contact page replaces the out-of-scope booking form", () => {
   assert.doesNotMatch(appSource, /Yêu cầu của bạn đã được ghi nhận/)
 })
 
-test("no sensitive screening questions or data-collection fields remain", () => {
+// Phạm vi đã đổi (PM duyệt 2026-11-13): website có đúng một biểu mẫu liên hệ
+// bốn trường trong src/lien-he/BieuMauLienHe.tsx. Các trang khác vẫn không có
+// trường nhập liệu; không có câu hỏi sàng lọc sức khỏe hay ô ghi chú tự do.
+test("only the approved contact form collects data; no sensitive screening questions", async () => {
   assert.doesNotMatch(appSource, /<textarea/)
   assert.doesNotMatch(appSource, /<select/)
   assert.doesNotMatch(appSource, /<input/)
@@ -74,6 +77,27 @@ test("no sensitive screening questions or data-collection fields remain", () => 
     appSource,
     /hỗ trợ tâm lý, trị liệu hoặc một hình thức đồng\s+hành tương tự/,
   )
+
+  const formSource = await readFile(
+    new URL("../src/lien-he/BieuMauLienHe.tsx", import.meta.url),
+    "utf8",
+  )
+  assert.doesNotMatch(formSource, /<textarea/)
+  const tenTruong = [...formSource.matchAll(/\bname="([A-Za-z]+)"/g)].map((m) => m[1])
+  assert.deepEqual(
+    [...new Set(tenTruong)].sort(),
+    ["consent", "email", "fullName", "phone", "service", "website"].sort(),
+    "chỉ bốn trường nghiệp vụ + consent + honeypot",
+  )
+  assert.match(formSource, /href="\/chinh-sach-bao-mat"/)
+  const contactSection = await readFile(
+    new URL("../src/components/ContactThreeColumnSection.tsx", import.meta.url),
+    "utf8",
+  )
+  assert.match(contactSection, /<BieuMauLienHe xuatHien=\{xuatHien\} \/>/)
+  assert.match(appSource, /<ContactThreeColumnSection \/>/)
+  assert.equal((appSource.match(/<BieuMauLienHe\b/g) ?? []).length, 0, "chỉ một biểu mẫu trên trang Liên hệ")
+  assert.doesNotMatch(appSource, /Không lưu trữ dữ liệu/)
 })
 
 test("decorative newsletter and dead load-more controls are removed", () => {
