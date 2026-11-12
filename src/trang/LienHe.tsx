@@ -1,17 +1,13 @@
 import { ContactThreeColumnSection } from "../components/ContactThreeColumnSection"
 import { contactChannels, hasContactChannel, SO_DIEN_THOAI_ZALO } from "../config/contact"
 import { IMG } from "../du-lieu/hinh-anh"
+import { DANH_SACH_DICH_VU_LIEN_HE } from "../lien-he/dich-vu-lien-he"
 import { EMAIL_LIEN_HE, KenhLienHeChung, PageHero, ParentLink } from "./chung"
 
-/** Sáu nhánh nhu cầu khách có thể nhắn qua kênh liên hệ chung. */
-export const danhSachNhuCauLienHe = [
-  "Trải nghiệm trà đạo có hướng dẫn (theo lịch hẹn)",
-  "Phiên Tarot online hoặc trực tiếp",
-  "Đồng hành 1:1",
-  "Workshop",
-  "Academy và các khóa học",
-  "Sản phẩm LARA",
-]
+/** Sáu nhánh nhu cầu (lấy từ danh mục dịch vụ của biểu mẫu, bỏ "Nhu cầu khác"). */
+export const danhSachNhuCauLienHe: string[] = DANH_SACH_DICH_VU_LIEN_HE.filter(
+  (dichVu) => dichVu.ma !== "other",
+).map((dichVu) => dichVu.nhan)
 
 /** Thông tin bổ trợ chi tiết cho từng nhánh nhu cầu trên trang liên hệ. */
 const thongTinNhuCau: Record<
@@ -63,8 +59,8 @@ const thongTinNhuCau: Record<
 
 /**
  * Trang Liên hệ — diện mạo mới ấn tượng, biên tập kiến trúc và hiệu ứng chuyển động mượt mà.
- * Tiếp nhận mọi nhu cầu qua một cổng chung Zalo / Facebook / Email.
- * Không thu thập dữ liệu; khách chủ động gửi nhu cầu qua kênh chính thức.
+ * Tiếp nhận mọi nhu cầu qua một cổng chung Zalo / Facebook / Email, hoặc qua biểu mẫu
+ * để lại thông tin (họ tên, số điện thoại, dịch vụ, email) để Customer Care liên hệ lại.
  *
  * @returns Trang liên hệ biên tập
  */
@@ -76,7 +72,7 @@ export function ContactPage() {
           eyebrow="LIÊN HỆ · INNER ARCHITECT™"
           title="Một kênh liên hệ"
           italic="cho mọi nhu cầu."
-          intro="Trà đạo có hướng dẫn, Tarot, đồng hành 1:1, workshop, Academy và sản phẩm đều được tiếp nhận qua cùng một kênh Zalo / Facebook. Bạn tự gửi nhu cầu; đội ngũ phản hồi và xác nhận ngoài website."
+          intro="Trà đạo có hướng dẫn, Tarot, đồng hành 1:1, workshop, Academy và sản phẩm đều được tiếp nhận qua cùng một kênh Zalo / Facebook. Bạn có thể nhắn trực tiếp hoặc để lại thông tin để đội ngũ chủ động liên hệ; mọi xác nhận được thực hiện ngoài website."
         />
       </div>
 
@@ -92,11 +88,11 @@ export function ContactPage() {
         </div>
         <div className="contact-summary-pill">
           <span className="contact-pill-dot" />
-          <span>Riêng tư &amp; Không lưu trữ dữ liệu</span>
+          <span>Thông tin chỉ dùng để liên hệ tư vấn</span>
         </div>
       </section>
 
-      {/* Khối liên hệ 3 cột cao cấp: Bộ chọn ngày tương tác, giờ mở cửa & thẻ kết nối trượt kép */}
+      {/* Khối liên hệ 3 cột: giới thiệu, biểu mẫu "Liên hệ để đặt lịch" & kênh liên hệ trực tiếp */}
       <div className="contact-fade-in contact-delay-2 w-full">
         <ContactThreeColumnSection />
       </div>

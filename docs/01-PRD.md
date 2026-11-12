@@ -33,7 +33,9 @@ MVP gồm trang chủ, giới thiệu, dịch vụ/chi tiết, hồ sơ người
 
 ## Ngoài phạm vi
 
-Booking/lịch trống, thanh toán/giỏ hàng, tài khoản, CRM, chatbot, newsletter thu thập dữ liệu, biểu mẫu sức khỏe/tâm lý và hệ thống nhắn tin nội bộ. Muốn thêm phải có yêu cầu, đánh giá bảo mật và phê duyệt riêng.
+Booking/lịch trống, thanh toán/giỏ hàng, tài khoản khách hàng, CRM nâng cao, chatbot, newsletter/email marketing, biểu mẫu sức khỏe/tâm lý và hệ thống nhắn tin nội bộ. Muốn thêm phải có yêu cầu, đánh giá bảo mật và phê duyệt riêng.
+
+> Cập nhật 2026-11-13 (decision-log D10): biểu mẫu liên hệ 4 trường lưu MySQL + trang quản trị Customer Care tối giản đã được PM đưa vào phạm vi. Xem `docs/backend/`.
 
 ## Yêu cầu chất lượng
 

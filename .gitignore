@@ -22,6 +22,12 @@ Thumbs.db
 *.tmp
 ~$*
 
+# Database dumps/backups (migrations in server/database/migrations/ are tracked)
+*.sql.gz
+*.dump
+server/database/backups/
+backups/
+
 # Large archives and binary bundles
 *.zip
 *.rar

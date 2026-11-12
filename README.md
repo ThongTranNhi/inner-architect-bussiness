@@ -15,10 +15,14 @@ Mọi lệnh chạy tại repository root (phiên bản Node.js và pnpm khai b�
 | `pnpm typecheck` | `tsc --noEmit` |
 | `pnpm test` | Test `node --test` trong `tests/` |
 | `pnpm build` | Build production ra `dist/` |
+| `pnpm dev:all` | Chạy backend `server/` (cổng 3001) + frontend (8443); cần MySQL — xem [docs/backend](docs/backend/README.md) |
+| `pnpm db:migrate` / `pnpm admin:create` | Migration MySQL / tạo tài khoản nhân viên Customer Care |
+| `pnpm typecheck:all` · `pnpm test:all` · `pnpm build:all` | Kiểm tra cả frontend và backend |
 
 | Đường dẫn | Vai trò |
 | --- | --- |
-| `src/`, `index.html`, `vite.config.ts` | Mã nguồn và cấu hình website |
+| `src/`, `index.html`, `vite.config.ts` | Mã nguồn và cấu hình website (gồm trang quản trị `src/admin/`) |
+| `server/` | Backend Express + MySQL tiếp nhận khách hàng ([docs/backend](docs/backend/README.md)) |
 | `public/` | Tài nguyên tĩnh duy nhất được đưa vào `dist/` (danh mục: `public/assets/README.md`) |
 | `tests/` | Test tự động |
 | `.figma/make/` | Cấu hình Figma Make (`site.json`: favicon, robots) |

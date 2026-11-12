@@ -10,6 +10,14 @@ import siteConfiguration from "./.figma/make/site.json" with { type: "json" }
 export default defineConfig(({ mode }) => {
   // .figma/make/deploy-preview passes `--mode development` for cached-preview builds.
   const emitSourcemaps = mode === "development"
+  // Backend Express chạy riêng (server/); frontend gọi đường dẫn tương đối /api/v1
+  // nên dev/preview proxy sang backend thay vì bật CORS.
+  const apiProxy = {
+    "/api": {
+      target: process.env.API_PROXY_TARGET || "http://127.0.0.1:3001",
+      changeOrigin: false,
+    },
+  }
 
   return {
     base: process.env.FIGMA_PUBLIC_URL
@@ -37,8 +45,10 @@ export default defineConfig(({ mode }) => {
       host: process.env.FIGMA_DEV_SERVER_HOST || "0.0.0.0",
       port: parseInt(process.env.PORT || "8443"),
       strictPort: true,
+      proxy: apiProxy,
       watch: {
         ignored: [
+          "**/server/**",
           "**/.figma/**",
           "**/TONG-HOP-HINH-ANH-THEO-TRANG/**",
           "**/*.pdf",
@@ -49,6 +59,7 @@ export default defineConfig(({ mode }) => {
     preview: {
       host: process.env.FIGMA_DEV_SERVER_HOST || "0.0.0.0",
       port: parseInt(process.env.PORT || "8443"),
+      proxy: apiProxy,
     },
   }
 })

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "../dieu-huong"
+import { go, Link } from "../dieu-huong"
 
 interface WorkshopItem {
   id: string
@@ -96,7 +96,7 @@ export function WorkshopPage() {
     if (window.history.length > 1) {
       window.history.back()
     } else {
-      window.location.hash = "/"
+      go("/")
     }
   }
 
