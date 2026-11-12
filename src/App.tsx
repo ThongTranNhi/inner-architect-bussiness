@@ -45,6 +45,7 @@ function napModule<T>(nap: () => Promise<T>): Promise<T> {
     },
   )
 }
+
 const JournalPage = lazy(() =>
   napModule(() => import("./journal/JournalPage")).then((m) => ({
     default: m.JournalPage,
