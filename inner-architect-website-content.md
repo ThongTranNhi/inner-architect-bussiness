@@ -175,7 +175,7 @@ Thông tin ngắn:
 - Café và trà đạo
 - Tarot soi chiếu
 - Workshop nhóm nhỏ
-- Không gian gặp gỡ tại Quang Trung, TP. Hồ Chí Minh
+- Không gian gặp gỡ tại Hoà Hưng, TP. Hồ Chí Minh
 
 Liên kết: **Khám phá The Hermit**
 
@@ -622,8 +622,8 @@ Bộ bài thuộc thế giới hình ảnh của INNER ARCHITECT™ và The Herm
 
 ## Thông tin thực tế
 
-- Địa chỉ: 637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh
-- Giờ mở cửa: **[CẦN CẬP NHẬT]**
+- Địa chỉ: 595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh
+- Giờ mở cửa: **08:00 – 22:00**
 - Hướng dẫn đến địa điểm: **[CẦN BỔ SUNG]**
 - Hotline/Zalo: **[CẦN XÁC NHẬN]**
 
@@ -843,7 +843,7 @@ Không tìm bình an. Xây trật tự bên trong.
 - Đặt lịch phiên tiếp cận
 - Hotline/Zalo: **[CẦN XÁC NHẬN]**
 - Email: info@innerarchitect.vn
-- Địa chỉ: 637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh
+- Địa chỉ: 595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh
 
 ### Thông tin
 

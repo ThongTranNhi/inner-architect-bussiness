@@ -68,7 +68,7 @@
 - **Lời mời:**  
   *“Đặt lịch cho một phiên tiếp cận ban đầu để làm rõ trạng thái hiện tại, nhu cầu và bước tiếp theo phù hợp.”*
 - **Khám phá:** Hệ thống · Journal · Chương trình · The Hermit · Võ Khiêm · LARA
-- **Bắt đầu:** Đặt lịch phiên tiếp cận · Email: `info@innerarchitect.vn` · Địa chỉ: `637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh`
+- **Bắt đầu:** Đặt lịch phiên tiếp cận · Email: `info@innerarchitect.vn` · Địa chỉ: `595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh`
 - **Thông tin doanh nghiệp:**  
   CÔNG TY TNHH INNER ARCHITECT — MST: 0319353708 — Đạo đức & ranh giới — Chính sách bảo mật — Tuyên bố phạm vi hỗ trợ
 
@@ -410,8 +410,8 @@
 - **Hình ảnh:** Không gian phòng Tarot (`/assets/the-hermit/tarot-room-placeholder.webp`)
 
 ### 6. Thông tin ghé thăm (Visit)
-- **Địa chỉ:** 637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh
-- **Giờ mở cửa:** Theo lịch hẹn và thông báo đợt đón khách
+- **Địa chỉ:** 595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh
+- **Giờ mở cửa:** 08:00 – 22:00 (mở lúc 8h, đóng lúc 22h / 10h tối)
 - **Ghi chú:** Vị trí yên tĩnh trong hẻm, thuận tiện đỗ xe và nghỉ chân.
 
 ---
@@ -514,7 +514,7 @@
 ### 2. Chi tiết Toàn bộ 8 Bước Trong Biểu Mẫu (Step-by-Step Flow)
 
 - **Bước 01 — Hình thức gặp gỡ (Format):**
-  - `Trực tiếp tại The Hermit` (637/13/8 Quang Trung, Gò Vấp, TP.HCM)
+  - `Trực tiếp tại The Hermit` (595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP.HCM)
   - `Trực tuyến` (Qua Google Meet / Không gian bảo mật)
 
 - **Bước 02 — Chọn ngày (Date):**
@@ -564,7 +564,7 @@
 ### 3. Thông tin pháp nhân doanh nghiệp
 - **Đơn vị chủ quản:** CÔNG TY TNHH INNER ARCHITECT
 - **Mã số thuế (MST):** 0319353708
-- **Địa chỉ trụ sở:** 637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh
+- **Địa chỉ trụ sở:** 595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh
 - **Email liên hệ:** `info@innerarchitect.vn` / `hello@innerarchitect.vn`
 - **Giờ làm việc:** Thứ Hai — Thứ Sáu | 09:00 — 18:00
 

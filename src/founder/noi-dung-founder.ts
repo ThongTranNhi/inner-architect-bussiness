@@ -6,7 +6,7 @@
  *
  * Quy ước đã duyệt: eyebrow section bằng tiếng Anh; nội dung, tiêu đề, CTA bằng
  * tiếng Việt; tên thương hiệu luôn viết `INNER ARCHITECT™` / `INNER ARCHITECT™ System`.
- * Portfolio không dùng đại từ nhân xưng cho Võ Khiêm — giữ nguyên cách gọi bằng tên.
+ * Portfolio không dùng đại từ nhân xưng cho Khiêm Võ — giữ nguyên cách gọi bằng tên.
  */
 
 /** Ảnh của trang. `src: null` nghĩa là chưa có ảnh thật → hiển thị placeholder. */
@@ -21,51 +21,51 @@ export type AnhFounder = {
 
 /**
  * Hệ thống ảnh tập trung. Thay ảnh bằng cách điền `src` (đường dẫn trong `public/`).
- * Ảnh chân dung bắt buộc là ảnh thật của Võ Khiêm — không dùng ảnh người khác.
+ * Ảnh chân dung bắt buộc là ảnh thật của Khiêm Võ — không dùng ảnh người khác.
  * Ảnh dự án đang dùng lại ảnh có sẵn trên site; quyền sử dụng vẫn chờ xác nhận (D04).
  */
 export const anhFounder = {
   chanDungHero: {
-    src: null,
-    alt: "Chân dung Võ Khiêm, người sáng lập INNER ARCHITECT™",
-    tiLe: "3 / 4",
-    mucDich: "Chân dung chính thức · tối thiểu 1200 × 1600px",
+    src: "/assets/founder/01-chan-dung-nha-sang-lap-khiem-vo.webp",
+    alt: "Chân dung Khiêm Võ, người sáng lập INNER ARCHITECT™",
+    tiLe: "1 / 1",
+    mucDich: "Chân dung chính thức · 1080 × 1080px",
   },
   hanhTrinh: {
-    src: null,
-    alt: "Võ Khiêm trong không gian làm việc hằng ngày",
+    src: "/assets/founder/02-ban-lam-viec-va-khong-gian-sang-lap.webp",
+    alt: "Khiêm Võ trong không gian làm việc hằng ngày",
     tiLe: "3 / 4",
-    mucDich: "Ảnh đời thường hoặc khi làm việc · tối thiểu 1200 × 1600px",
+    mucDich: "Ảnh đời thường hoặc khi làm việc · 1086 × 1448px",
   },
   heThong: {
-    src: "/assets/homepage-curated/04-the-lo-trinh-thuc-hanh-phan-tu.webp",
-    alt: "Bàn ghi chép trong một buổi thực hành phản tư",
-    tiLe: "4 / 3",
-    mucDich: "Hoạt động INNER ARCHITECT™ · 1600 × 1200px",
+    src: "/assets/founder/04-he-thong-inner-architect-system.jpg",
+    alt: "Không gian thực hành và hệ thống INNER ARCHITECT™",
+    tiLe: "1 / 1",
+    mucDich: "Hoạt động INNER ARCHITECT™ · 500 × 500px",
   },
   theHermit: {
-    src: "/assets/the-hermit/main-hall-placeholder.webp",
-    alt: "Sảnh chính The Hermit với ánh sáng ấm",
-    tiLe: "4 / 3",
-    mucDich: "Trải nghiệm tại The Hermit · 1600 × 1200px",
+    src: "/assets/the-hermit/05-logo-bieu-trung-the-hermit.webp",
+    alt: "Logo biểu trưng The Hermit",
+    tiLe: "1 / 1",
+    mucDich: "Biểu trưng The Hermit · 2000 × 2000px",
   },
   giangDay: {
-    src: "/assets/homepage-curated/01-workshop-cham-ve-de-diu-lai.webp",
-    alt: "Màu vẽ và không gian workshop",
+    src: "/assets/journal/01-bai-1-tarot-khong-phai-tien-doan-reading-horizontal.webp",
+    alt: "Phiên làm việc và đào tạo Tarot phản tư",
     tiLe: "4 / 3",
-    mucDich: "Lớp Tarot / workshop · 1600 × 1200px",
+    mucDich: "Lớp Tarot / workshop · 2048 × 1536px",
   },
   sangTao: {
-    src: "/assets/lara/lara-autumn-collage-source.webp",
-    alt: "Bộ sưu tập sản phẩm hương thơm",
-    tiLe: "4 / 3",
-    mucDich: "Sách, bộ bài và sản phẩm · 1600 × 1200px",
+    src: "/assets/founder/05-tac-gia-va-sang-tao-khiem-vo.jpg",
+    alt: "Khiêm Võ trong hoạt động sáng tác, sách và bộ bài Tarot",
+    tiLe: "3 / 4",
+    mucDich: "Sách, bộ bài và sản phẩm sáng tạo · 960 × 1280px",
   },
   ketThuc: {
-    src: null,
-    alt: "Võ Khiêm trong không gian làm việc hoặc tại The Hermit",
+    src: "/assets/founder/07-khong-gian-chiem-nghiem-cuoi-trang.jpg",
+    alt: "Không gian chiêm nghiệm và tĩnh lặng",
     tiLe: "16 / 9",
-    mucDich: "Ảnh ngang kết trang · tối thiểu 2400 × 1350px",
+    mucDich: "Ảnh ngang kết trang · 1200 × 672px",
   },
 } satisfies Record<string, AnhFounder>
 
@@ -87,7 +87,7 @@ export const soLieuFounder = [
 
 export const heroFounder = {
   eyebrow: "THE FOUNDER",
-  ten: "Võ Khiêm",
+  ten: "Khiêm Võ",
   phuDe: "Founder – INNER ARCHITECT™ System",
   vaiTro: "Tarot Educator · Tác giả & Nhà sáng tạo · Phát triển bản thân",
   tagline: "Khám phá bản thân · Thấu hiểu nội tâm · Phát triển chính mình",
@@ -95,24 +95,24 @@ export const heroFounder = {
 
 export const gioiThieuFounder = {
   eyebrow: "INTRODUCTION",
-  tieuDe: "Võ Khiêm là ai?",
+  tieuDe: "Khiêm Võ là ai?",
   dan: "Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
   doan: [
-    "Võ Khiêm là người sáng lập INNER ARCHITECT™ System, hoạt động trong lĩnh vực Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
-    "Với nền tảng đào tạo đại học trong ba lĩnh vực Công nghệ Thông tin, Tài chính – Ngân hàng và Tâm lý học, Võ Khiêm hướng đến cách tiếp cận đa chiều: kết hợp tư duy hệ thống, kinh nghiệm sống và kiến thức về nhận thức, cảm xúc, hành vi.",
+    "Khiêm Võ là người sáng lập INNER ARCHITECT™ System, hoạt động trong lĩnh vực Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
+    "Với nền tảng đào tạo đại học trong ba lĩnh vực Công nghệ Thông tin, Tài chính – Ngân hàng và Tâm lý học, Khiêm Võ hướng đến cách tiếp cận đa chiều: kết hợp tư duy hệ thống, kinh nghiệm sống và kiến thức về nhận thức, cảm xúc, hành vi.",
   ],
   /** Đoạn chứa số liệu chưa xác nhận — chỉ hiển thị khi `soLieuDaXacNhan`. */
   doanSoLieu:
-    "Bên cạnh việc phát triển The Hermit, Võ Khiêm đã đào tạo hơn 100 học viên Tarot, tổ chức 3 workshop thu hút tổng cộng hơn 200 lượt người tham gia, đồng thời triển khai các lớp học trực tuyến về tâm lý học phổ thông, khám phá nội tâm và chủ đề chữa lành theo hướng phát triển cá nhân.",
+    "Bên cạnh việc phát triển The Hermit, Khiêm Võ đã đào tạo hơn 100 học viên Tarot, tổ chức 3 workshop thu hút tổng cộng hơn 200 lượt người tham gia, đồng thời triển khai các lớp học trực tuyến về tâm lý học phổ thông, khám phá nội tâm và chủ đề chữa lành theo hướng phát triển cá nhân.",
 }
 
 export const hanhTrinhFounder = {
   eyebrow: "THE JOURNEY",
   tieuDe: "Hành trình từ trải nghiệm đến thấu hiểu",
   doan: [
-    "Trước khi lựa chọn hướng đi hiện tại, Võ Khiêm từng làm việc trong nhiều lĩnh vực và trải qua những thay đổi lớn về sự nghiệp, tài chính và các mối quan hệ.",
+    "Trước khi lựa chọn hướng đi hiện tại, Khiêm Võ từng làm việc trong nhiều lĩnh vực và trải qua những thay đổi lớn về sự nghiệp, tài chính và các mối quan hệ.",
     "Những giai đoạn khó khăn đã thôi thúc một hành trình tự nhìn lại: điều gì ảnh hưởng đến lựa chọn của con người, vì sao một số cách phản ứng lặp đi lặp lại và làm thế nào để sống chủ động hơn?",
-    "Từ việc tìm hiểu Tarot, các truyền thống chiêm nghiệm và triết học phương Đông, Võ Khiêm tiếp tục học Tâm lý học nhằm bổ sung góc nhìn khoa học về con người.",
+    "Từ việc tìm hiểu Tarot, các truyền thống chiêm nghiệm và triết học phương Đông, Khiêm Võ tiếp tục học Tâm lý học nhằm bổ sung góc nhìn khoa học về con người.",
     "Hành trình ấy hình thành mong muốn chia sẻ công cụ và kiến thức giúp người khác có thêm cơ hội tự tìm hiểu chính mình, thay vì phụ thuộc vào một người hướng dẫn hay một lời tiên đoán.",
   ],
 }
@@ -144,7 +144,7 @@ export const hocVanFounder = {
     },
   ],
   ketNoi:
-    "Ba lĩnh vực học tập góp phần hình thành góc nhìn vừa logic, vừa phân tích, đồng thời quan tâm đến trải nghiệm và sự khác biệt của mỗi cá nhân. Đây là nền tảng tư duy mà Võ Khiêm tiếp tục vận dụng khi phát triển các hoạt động chia sẻ và sáng tạo.",
+    "Ba lĩnh vực học tập góp phần hình thành góc nhìn vừa logic, vừa phân tích, đồng thời quan tâm đến trải nghiệm và sự khác biệt của mỗi cá nhân. Đây là nền tảng tư duy mà Khiêm Võ tiếp tục vận dụng khi phát triển các hoạt động chia sẻ và sáng tạo.",
 }
 
 export const trietLyFounder = {
@@ -170,10 +170,10 @@ export const trietLyFounder = {
     },
   ],
   doanTrietLy:
-    "Võ Khiêm đề cao sự tự nhận thức, tư duy phản biện và quyền tự quyết. Tarot được tiếp cận như một phương tiện gợi mở câu hỏi và phản tư, không phải công cụ bảo đảm dự đoán tương lai. Kiến thức tâm lý học được sử dụng trong hoạt động chia sẻ và giáo dục phổ thông, không đồng nhất với chẩn đoán hoặc điều trị tâm lý lâm sàng.",
+    "Khiêm Võ đề cao sự tự nhận thức, tư duy phản biện và quyền tự quyết. Tarot được tiếp cận như một phương tiện gợi mở câu hỏi và phản tư, không phải công cụ bảo đảm dự đoán tương lai. Kiến thức tâm lý học được sử dụng trong hoạt động chia sẻ và giáo dục phổ thông, không đồng nhất với chẩn đoán hoặc điều trị tâm lý lâm sàng.",
   tieuDeTamLinh: "Góc nhìn tâm linh và khoa học",
   doanTamLinh: [
-    "Một định hướng xuyên suốt trong các chương trình chia sẻ là tạo điều kiện để người tham gia đối chiếu những trải nghiệm tâm linh, quan điểm triết học và kiến thức khoa học mà không đánh đồng chúng. Võ Khiêm mong muốn người học có thể tiếp cận các câu hỏi về cuộc sống với sự cởi mở, đồng thời biết phân biệt trải nghiệm chủ quan, niềm tin cá nhân và kết luận có bằng chứng kiểm chứng.",
+    "Một định hướng xuyên suốt trong các chương trình chia sẻ là tạo điều kiện để người tham gia đối chiếu những trải nghiệm tâm linh, quan điểm triết học và kiến thức khoa học mà không đánh đồng chúng. Khiêm Võ mong muốn người học có thể tiếp cận các câu hỏi về cuộc sống với sự cởi mở, đồng thời biết phân biệt trải nghiệm chủ quan, niềm tin cá nhân và kết luận có bằng chứng kiểm chứng.",
     "Thay vì khuyến khích sự lệ thuộc hoặc tin tưởng tuyệt đối vào huyền học, các hoạt động hướng đến việc phát triển khả năng suy xét độc lập, hiểu giới hạn của từng cách lý giải và tránh bị dẫn dắt bởi thông tin thiếu căn cứ hoặc mê tín dị đoan.",
   ],
 }
@@ -205,7 +205,7 @@ export const duAnFounder: {
       ky: "A",
       tieuDe: "INNER ARCHITECT™ System",
       doan: [
-        "INNER ARCHITECT™ System là định hướng do Võ Khiêm xây dựng, lấy cảm hứng từ hình ảnh mỗi người là “kiến trúc sư” của cuộc sống bên trong mình. Các hoạt động được phát triển theo bốn hướng:",
+        "INNER ARCHITECT™ System là định hướng do Khiêm Võ xây dựng, lấy cảm hứng từ hình ảnh mỗi người là “kiến trúc sư” của cuộc sống bên trong mình. Các hoạt động được phát triển theo bốn hướng:",
       ],
       diem: [
         "Khám phá bản thân: Nhận diện những giá trị, nhu cầu và cảm xúc cá nhân.",
@@ -223,7 +223,7 @@ export const duAnFounder: {
       ky: "B",
       tieuDe: "The Hermit",
       doan: [
-        "The Hermit là không gian trải nghiệm do Võ Khiêm phát triển, kết hợp thưởng trà, Tarot và những hoạt động khám phá bản thân. Lấy cảm hứng từ hình tượng The Hermit trong Tarot, không gian hướng đến sự tĩnh tại, riêng tư và cơ hội dành thời gian cho chính mình.",
+        "The Hermit là không gian trải nghiệm do Khiêm Võ phát triển, kết hợp thưởng trà, Tarot và những hoạt động khám phá bản thân. Lấy cảm hứng từ hình tượng The Hermit trong Tarot, không gian hướng đến sự tĩnh tại, riêng tư và cơ hội dành thời gian cho chính mình.",
         "Tại đây, khách hàng có thể thưởng trà, trải nghiệm Tarot phản tư, tìm hiểu sách, bộ bài và sản phẩm sáng tạo.",
       ],
       ghiChu:
@@ -235,9 +235,9 @@ export const duAnFounder: {
       ky: "C",
       tieuDe: "Đào tạo Tarot & chương trình chia sẻ",
       doan: [
-        "Võ Khiêm có kinh nghiệm tổ chức và giảng dạy các lớp Tarot cơ bản, Tarot nâng cao và các nội dung thực hành được giới thiệu dưới tên Healer, với trọng tâm là kiến thức, trải nghiệm cá nhân và trách nhiệm khi sử dụng công cụ chiêm nghiệm.",
+        "Khiêm Võ có kinh nghiệm tổ chức và giảng dạy các lớp Tarot cơ bản, Tarot nâng cao và các nội dung thực hành được giới thiệu dưới tên Healer, với trọng tâm là kiến thức, trải nghiệm cá nhân và trách nhiệm khi sử dụng công cụ chiêm nghiệm.",
         "Các lớp học qua Zoom chia sẻ kiến thức tâm lý học phổ thông, cảm xúc, mối quan hệ và những chủ đề chữa lành theo hướng tự khám phá, không phải chương trình đào tạo chuyên môn y tế.",
-        "Trong giảng dạy, Võ Khiêm khuyến khích học viên tìm hiểu bản chất của biểu tượng, đặt câu hỏi, kiểm tra thông tin và tôn trọng lựa chọn cá nhân.",
+        "Trong giảng dạy, Khiêm Võ khuyến khích học viên tìm hiểu bản chất của biểu tượng, đặt câu hỏi, kiểm tra thông tin và tôn trọng lựa chọn cá nhân.",
       ],
       ghiChu:
         "Các lớp học không cấp quyền hành nghề khám, chữa bệnh hoặc trị liệu tâm lý.",
@@ -248,7 +248,7 @@ export const duAnFounder: {
       ky: "D",
       tieuDe: "Tác giả & nhà sáng tạo",
       doan: [
-        "Võ Khiêm viết nội dung và sách về Tarot, thiết kế các bộ bài Tarot mang dấu ấn riêng, đồng thời phát triển sản phẩm nến thơm. Những hoạt động này kết nối tri thức, biểu tượng, thiết kế và trải nghiệm thường ngày, tạo thêm lựa chọn cho người quan tâm đến Tarot và những khoảng thời gian chiêm nghiệm.",
+        "Khiêm Võ viết nội dung và sách về Tarot, thiết kế các bộ bài Tarot mang dấu ấn riêng, đồng thời phát triển sản phẩm nến thơm. Những hoạt động này kết nối tri thức, biểu tượng, thiết kế và trải nghiệm thường ngày, tạo thêm lựa chọn cho người quan tâm đến Tarot và những khoảng thời gian chiêm nghiệm.",
       ],
       ghiChu:
         "Các ấn phẩm và sản phẩm được giới thiệu theo tình trạng phát hành thực tế; không gắn với tuyên bố về công dụng chữa bệnh hoặc hiệu quả tâm lý được bảo đảm.",
@@ -264,7 +264,7 @@ export const tamNhinFounder = {
   tieuDe: "Giữ quyền quyết định cuộc sống của chính mình",
   trichDan:
     "Tôi không mong mọi người tin vào một bộ bài hay một lời giải thích duy nhất. Tôi mong mỗi người có thêm kiến thức, biết đặt câu hỏi và giữ quyền quyết định cuộc sống của chính mình.",
-  doan: "Võ Khiêm mong muốn tiếp tục phát triển INNER ARCHITECT™ thành một hệ sinh thái kết nối nội dung giáo dục, trải nghiệm phản tư, hoạt động cộng đồng và sản phẩm sáng tạo; qua đó góp phần khuyến khích tự nhận thức, tư duy phản biện và lựa chọn có trách nhiệm.",
+  doan: "Khiêm Võ mong muốn tiếp tục phát triển INNER ARCHITECT™ thành một hệ sinh thái kết nối nội dung giáo dục, trải nghiệm phản tư, hoạt động cộng đồng và sản phẩm sáng tạo; qua đó góp phần khuyến khích tự nhận thức, tư duy phản biện và lựa chọn có trách nhiệm.",
   truCot: [
     "Nội dung giáo dục",
     "Trải nghiệm phản tư",

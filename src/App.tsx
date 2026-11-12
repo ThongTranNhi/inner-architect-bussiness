@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { contactChannels } from "./config/contact"
 import { cuonDenPhanTu, Link } from "./dieu-huong"
 import { news, signatureSeriesList } from "./du-lieu/bai-viet"
 import { danhSachChiTietChuongTrinh } from "./du-lieu/chuong-trinh"
 import { IMG } from "./du-lieu/hinh-anh"
+import { LuxuryResortFooter } from "./components/LuxuryResortFooter"
 
 // Trang chủ (Home) nằm trong file này và tải ngay; mọi trang phụ được tách
 // thành chunk riêng và chỉ tải khi người dùng mở route tương ứng.
@@ -92,6 +93,26 @@ const LegalPage = lazy(() =>
 const NotFoundPage = lazy(() =>
   napModule(() => import("./trang/KhongTimThay")).then((m) => ({
     default: m.NotFoundPage,
+  })),
+)
+const HeThongPage = lazy(() =>
+  napModule(() => import("./trang/HeThong")).then((m) => ({
+    default: m.HeThongPage,
+  })),
+)
+const GioiThieuPage = lazy(() =>
+  napModule(() => import("./trang/GioiThieu")).then((m) => ({
+    default: m.GioiThieuPage,
+  })),
+)
+const WorkshopPage = lazy(() =>
+  napModule(() => import("./trang/Workshop")).then((m) => ({
+    default: m.WorkshopPage,
+  })),
+)
+const BoBaiTarotPage = lazy(() =>
+  napModule(() => import("./trang/BoBaiTarot")).then((m) => ({
+    default: m.BoBaiTarotPage,
   })),
 )
 
@@ -197,12 +218,6 @@ function Header({
         <Link to="/" className="wordmark">
           INNER ARCHITECT<sup>™</sup>
         </Link>
-        <nav className="context-nav">
-          <Link to="/vo-khiem">About me</Link>
-          <Link to="/journal">Journal</Link>
-          <Link to="/chuong-trinh">Chương trình</Link>
-          <Link to="/the-hermit">The Hermit</Link>
-        </nav>
         <span className="language">VI</span>
         <Link to="/lien-he" className="book-link">
           Liên hệ
@@ -277,7 +292,7 @@ function Header({
               <div className="menu-contact">
                 <div className="menu-contact-links">
                   <Link to="/vo-khiem" onClick={() => setOpen(false)}>
-                    Võ Khiêm
+                    Khiêm Võ
                   </Link>
                   <span>·</span>
                   <Link to="/lara" onClick={() => setOpen(false)}>
@@ -305,107 +320,7 @@ function Header({
 }
 
 function Footer({ home = false }: { home?: boolean }) {
-  if (home)
-    return (
-      <footer className="home-footer">
-        <div className="home-footer-statement serif">
-          Bắt đầu không phải bằng một câu trả lời.
-          <br />
-          Bắt đầu bằng việc nhìn rõ mình đang ở đâu.
-        </div>
-        <p>
-          Nhắn cho INNER ARCHITECT™ qua kênh liên hệ chung để làm rõ trạng thái
-          hiện tại, nhu cầu và bước tiếp theo phù hợp.
-        </p>
-        <Link to="/lien-he" className="footer-cta">
-          Liên hệ INNER ARCHITECT™
-        </Link>
-        <div className="home-footer-nav">
-          <span>INNER ARCHITECT™</span>
-          <Link to="/he-thong">Hệ thống</Link>
-          <Link to="/journal">Journal</Link>
-          <Link to="/chuong-trinh">Chương trình</Link>
-          <Link to="/the-hermit">The Hermit</Link>
-          <Link to="/lien-he">Liên hệ</Link>
-          <Link to="/faq">FAQ</Link>
-          <Link to="/vo-khiem">Võ Khiêm</Link>
-          <Link to="/lara">LARA</Link>
-          {contactChannels.facebook && (
-            <a
-              href={contactChannels.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Facebook
-            </a>
-          )}
-          <a href="mailto:info@innerarchitect.vn">info@innerarchitect.vn</a>
-          <Link to="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
-          <Link to="/pham-vi-ho-tro">Tuyên bố phạm vi hỗ trợ</Link>
-        </div>
-      </footer>
-    )
-  return (
-    <footer>
-      <div className="footer-intro">
-        <h2 className="serif">
-          INNER ARCHITECT™ hỗ trợ con người xây lại trật tự bên trong và trở về
-          với khả năng tự dẫn dắt.
-        </h2>
-      </div>
-      <div className="footer-links">
-        <div>
-          <b>INNER ARCHITECT™</b>
-          <br />
-          Integrated Healing System
-          <br />
-          Không tìm bình an. Xây trật tự bên trong.
-        </div>
-        <div>
-          <b>KHÁM PHÁ</b>
-          <br />
-          <Link to="/he-thong">Hệ thống</Link>
-          <br />
-          <Link to="/journal">Journal</Link>
-          <br />
-          <Link to="/chuong-trinh">Chương trình</Link>
-          <br />
-          <Link to="/the-hermit">The Hermit</Link>
-          <br />
-          <Link to="/vo-khiem">Võ Khiêm</Link>
-          <br />
-          <Link to="/lara">LARA</Link>
-        </div>
-        <div>
-          <b>BẮT ĐẦU</b>
-          <br />
-          <Link to="/lien-he">Liên hệ</Link>
-          <br />
-          <Link to="/faq">Câu hỏi thường gặp</Link>
-          <br />
-          <a href="mailto:info@innerarchitect.vn">info@innerarchitect.vn</a>
-          <br />
-          637/13/8 Quang Trung, Phường Thông Tây Hội, TP. Hồ Chí Minh
-        </div>
-        <div>
-          <b>THÔNG TIN</b>
-          <br />
-          <Link to="/he-thong">Đạo đức và ranh giới</Link>
-          <br />
-          <Link to="/pham-vi-ho-tro">Tuyên bố phạm vi hỗ trợ</Link>
-          <br />
-          <Link to="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
-          <br />
-          CÔNG TY TNHH INNER ARCHITECT
-          <br />
-          MST: 0319353708
-        </div>
-      </div>
-      <div className="footer-wordmark">
-        INNER ARCHITECT<sup>™</sup>
-      </div>
-    </footer>
-  )
+  return <LuxuryResortFooter />
 }
 
 /**
@@ -419,8 +334,8 @@ const danhSachBonTang = [
     linhVuc: "The Hermit · Tarot",
     moTa:
       "Bắt đầu tại The Hermit qua không gian trà và các phiên Tarot soi chiếu.",
-    anh: IMG.homeFemaleAdvisor,
-    alt: "Nữ tư vấn trò chuyện cùng khách trong một phiên tiếp cận riêng",
+    anh: IMG.hermitKhongGianQuan,
+    alt: "Không gian quán The Hermit trong một phiên tiếp cận và soi chiếu",
   },
   {
     so: "02",
@@ -446,8 +361,8 @@ const danhSachBonTang = [
     linhVuc: "Cơ thể · Nhịp sống",
     moTa:
       "Lắng nghe cơ thể, thực hành thư giãn và xây dựng nhịp sống cân bằng.",
-    anh: IMG.hermitTeaRoom,
-    alt: "Không gian thưởng trà và cân bằng nhịp sống thân tâm",
+    anh: IMG.hermitTangTren,
+    alt: "Không gian tầng trên The Hermit dành cho thực hành và chăm sóc thân thể",
   },
 ]
 
@@ -506,6 +421,45 @@ function Home({ initialSection }: { initialSection?: string }) {
     const timer = window.setTimeout(() => cuonDenPhanTu(initialSection), 150)
     return () => window.clearTimeout(timer)
   }, [initialSection])
+
+  const dongDauSpanRef = useRef<HTMLSpanElement>(null)
+  const [chieuRongAnhChon, setChieuRongAnhChon] = useState<number | undefined>(undefined)
+
+  useEffect(() => {
+    /**
+     * Đo khoảng cách chính xác từ mép trái chữ 'Trước' đến mép phải chữ 'chọn'
+     * (nằm ở cuối dòng đầu tiên của đoạn văn) để gán cho chiều rộng hình ảnh bên dưới.
+     */
+    function doChieuRongDongDau(): void {
+      if (!dongDauSpanRef.current) return
+      const el = dongDauSpanRef.current
+      const rects = el.getClientRects()
+      const chieuRong = rects.length > 0 ? rects[0].width : el.getBoundingClientRect().width
+      if (chieuRong > 0) {
+        setChieuRongAnhChon(Math.round(chieuRong))
+      }
+    }
+
+    doChieuRongDongDau()
+
+    window.addEventListener("resize", doChieuRongDongDau)
+    const observer =
+      typeof ResizeObserver !== "undefined" && dongDauSpanRef.current
+        ? new ResizeObserver(doChieuRongDongDau)
+        : null
+    if (observer && dongDauSpanRef.current) {
+      observer.observe(dongDauSpanRef.current)
+    }
+
+    if (typeof document !== "undefined" && document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(doChieuRongDongDau)
+    }
+
+    return () => {
+      window.removeEventListener("resize", doChieuRongDongDau)
+      observer?.disconnect()
+    }
+  }, [])
 
   const [huongConTroHero, setHuongConTroHero] = useState<"phai" | "trai">("phai")
 
@@ -661,6 +615,11 @@ function Home({ initialSection }: { initialSection?: string }) {
             Bạn là người kiến tạo cuộc đời mình. Inner Architect™ đồng hành
             cùng bạn xây nền.
           </p>
+          <div className="home-v4-intro-more" style={{ marginTop: "24px" }}>
+            <Link to="/gioi-thieu" className="home-v3-link">
+              Tìm hiểu thêm
+            </Link>
+          </div>
         </div>
         <figure className="home-v4-intro-image home-v3-media reveal-child">
           <img
@@ -729,15 +688,22 @@ function Home({ initialSection }: { initialSection?: string }) {
             </article>
           </div>
 
-          <p className="home-v4-companion-note serif reveal-child">
-            Điều chúng tôi hướng đến là khả năng bạn tự mang những gì đã học
-            vào cuộc sống của chính mình.
+          <p className="home-v4-companion-note serif italic reveal-child">
+            Điều chúng tôi hướng đến là khả năng
+            <br />
+            bạn tự mang những gì đã học vào cuộc sống của chính mình.
           </p>
 
           <div className="home-v4-layers-heading reveal-child">
-            <p className="home-v3-label">HỆ THỐNG BỐN TẦNG</p>
+            <p className="home-v3-label">
+              <Link to="/he-thong" className="text-inherit no-underline hover:opacity-80">
+                HỆ THỐNG BỐN TẦNG
+              </Link>
+            </p>
             <h2 className="serif">
-              Từ soi chiếu bản thân đến thay đổi trong đời sống.
+              <Link to="/he-thong" className="text-inherit no-underline hover:opacity-85">
+                Từ soi chiếu bản thân đến thay đổi trong đời sống.
+              </Link>
             </h2>
             <p>
               Inner Architect™ được xây dựng theo bốn tầng chức năng, mỗi tầng
@@ -831,20 +797,36 @@ function Home({ initialSection }: { initialSection?: string }) {
         </div>
 
         <div className="home-v4-session-note reveal-child">
-          <p>
-            Trước khi đặt lịch, bạn được trao đổi về nhu cầu, nội dung và phạm
-            vi của phiên để lựa chọn hình thức phù hợp.
-          </p>
-          <p>
+          <div className="home-v4-session-brief">
+            <p>
+              <span ref={dongDauSpanRef}>
+                Trước khi đặt lịch, bạn được trao đổi về nhu cầu, nội dung và phạm
+                vi của phiên để lựa chọn
+              </span>{" "}
+              hình thức phù hợp.
+            </p>
+            <Link
+              to="/lien-he"
+              className="home-v4-session-inline-media"
+              style={{
+                width: chieuRongAnhChon ? `${chieuRongAnhChon}px` : undefined,
+              }}
+            >
+              <img
+                src={IMG.sessionExchange}
+                alt="Không gian trao đổi trước khi đặt lịch phiên đồng hành"
+                loading="lazy"
+                decoding="async"
+              />
+            </Link>
+          </div>
+          <p className="home-v4-session-disclaimer">
             <strong>Lưu ý:</strong> Các phiên đồng hành hướng đến soi chiếu,
             khám phá bản thân và phát triển kỹ năng sống; không thực hiện chẩn
             đoán, can thiệp điều trị rối loạn tâm lý, tâm thần và không thay thế
             dịch vụ khám, chữa bệnh.
           </p>
           <div className="home-v4-actions">
-            <Link to="/chuong-trinh" className="home-v3-link">
-              Xem nội dung &amp; bảng giá
-            </Link>
             <Link to="/lien-he" className="home-v3-link">
               Trao đổi trước khi đặt lịch
             </Link>
@@ -878,7 +860,7 @@ function Home({ initialSection }: { initialSection?: string }) {
           <p>
             Bạn được lựa chọn mức độ tham gia và chia sẻ phù hợp với mình.
           </p>
-          <Link to="/chuong-trinh" className="home-v3-link">
+          <Link to="/workshop" className="home-v3-link">
             Khám phá workshop sắp tới
           </Link>
         </div>
@@ -928,7 +910,7 @@ function Home({ initialSection }: { initialSection?: string }) {
               chọn. Bạn có thể sử dụng để viết phản tư, khám phá góc nhìn mới
               và lắng nghe chính mình.
             </p>
-            <Link to="/lien-he" className="home-v3-link">
+            <Link to="/bo-bai-tarot" className="home-v3-link">
               Khám phá bộ bài Tarot
             </Link>
           </article>
@@ -936,13 +918,20 @@ function Home({ initialSection }: { initialSection?: string }) {
       </section>
 
       <section id="the-hermit" className="home-v4-hermit">
-        <img
-          src={IMG.hermitStorefront}
-          alt="Mặt tiền không gian The Hermit"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className="home-v4-hermit-scrim" />
+        <div className="home-v4-hermit-media-wrapper reveal-child">
+          <div className="home-v4-hermit-frame">
+            <img
+              src={IMG.hermitStorefront}
+              alt="Mặt tiền không gian The Hermit"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="home-v4-hermit-badge">
+              <span className="hermit-badge-dot" />
+              <span>595/18 Cách Mạng Tháng 8 · Mở cửa 08:00 – 22:00</span>
+            </div>
+          </div>
+        </div>
         <div className="home-v4-hermit-copy reveal-child">
           <p className="home-v3-label">
             THE HERMIT · TAROT · HEALING · TRÀ ĐẠO
@@ -967,10 +956,10 @@ function Home({ initialSection }: { initialSection?: string }) {
             Ghé uống một tách trà. Dành cho mình một chút thời gian.
           </p>
           <div className="home-v4-actions">
-            <Link to="/the-hermit" className="home-v3-link home-v3-link-light">
+            <Link to="/the-hermit" className="home-v3-link home-hermit-cta-primary">
               Khám phá The Hermit
             </Link>
-            <Link to="/lien-he" className="home-v3-link home-v3-link-light">
+            <Link to="/lien-he" className="home-v3-link home-hermit-cta-secondary">
               Chỉ đường đến quán
             </Link>
           </div>
@@ -1166,9 +1155,9 @@ const seoTheoDuongDan: Record<
         "The Hermit — không gian café, trà đạo và Tarot thuộc hệ sinh thái INNER ARCHITECT™ tại TP. Hồ Chí Minh.",
     },
     "/vo-khiem": {
-      title: "Võ Khiêm | Founder INNER ARCHITECT™",
+      title: "Khiêm Võ | Founder INNER ARCHITECT™",
       description:
-        "Võ Khiêm — người sáng lập INNER ARCHITECT™ System, hoạt động trong lĩnh vực Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
+        "Khiêm Võ — người sáng lập INNER ARCHITECT™ System, hoạt động trong lĩnh vực Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
       giuNguyenTieuDe: true,
     },
     "/lara": {
@@ -1194,6 +1183,21 @@ const seoTheoDuongDan: Record<
       title: "Tuyên bố phạm vi hỗ trợ",
       description:
         "Các nguyên tắc giới hạn áp dụng cho mọi hoạt động trong hệ sinh thái INNER ARCHITECT™.",
+    },
+    "/he-thong": {
+      title: "Hệ thống bốn tầng",
+      description:
+        "Tài liệu định hướng và cấu trúc vận hành hệ thống bốn tầng của INNER ARCHITECT™.",
+    },
+    "/gioi-thieu": {
+      title: "Giới thiệu & Triết lý đồng hành",
+      description:
+        "Hồ sơ giới thiệu, tầm nhìn, sứ mệnh và nguyên tắc vận hành cốt lõi của INNER ARCHITECT™.",
+    },
+    "/workshop": {
+      title: "Workshop & Trải nghiệm",
+      description:
+        "Các workshop sắp diễn ra tại INNER ARCHITECT™ — không gian gặp gỡ, soi chiếu và thực hành trong nhóm nhỏ.",
     },
   }
 
@@ -1289,7 +1293,9 @@ function chonTrang(path: string): {
 } {
   const trang = (node: React.ReactNode) => ({ trang: node, laTrang404: false })
   if (path === "/") return trang(<Home />)
-  if (path === "/he-thong") return trang(<Home initialSection="he-thong" />)
+  if (path === "/he-thong") return trang(<HeThongPage />)
+  if (path === "/gioi-thieu") return trang(<GioiThieuPage />)
+  if (path === "/workshop") return trang(<WorkshopPage />)
   if (path === "/journal")
     return trang(
       <JournalPage baiViet={news} chuyenDe={signatureSeriesList} />,
@@ -1308,6 +1314,7 @@ function chonTrang(path: string): {
   if (path === "/the-hermit") return trang(<Hermit />)
   if (path === "/vo-khiem") return trang(<FounderPage />)
   if (path === "/lara") return trang(<LaraPage />)
+  if (path === "/bo-bai-tarot") return trang(<BoBaiTarotPage />)
   if (path === "/lien-he") return trang(<ContactPage />)
   if (path === "/faq") return trang(<FaqPage />)
   if (path === "/chinh-sach-bao-mat") return trang(<LegalPage loai="bao-mat" />)
@@ -1385,10 +1392,11 @@ function App() {
   useEffect(() => {
     capNhatThongTinSeo(layThongTinSeo(path, laTrang404))
   }, [path, laTrang404])
-  const isHomeView = path === "/" || path === "/he-thong"
+  const isHomeView = path === "/"
+  const isHeroHeader = path === "/" || path === "/the-hermit"
   return (
     <>
-      <Header open={menu} setOpen={setMenu} home={path === "/"} />
+      <Header open={menu} setOpen={setMenu} home={isHeroHeader} />
       <div key={isHomeView ? "home-view" : path} className="page-transition">
         <Suspense fallback={<main className="trang-dang-tai" aria-busy="true" />}>
           {page}
