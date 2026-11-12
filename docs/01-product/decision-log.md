@@ -7,6 +7,7 @@
 - Trà đạo theo lịch hẹn, có người hướng dẫn; Tarot cả online và trực tiếp.
 - Giữ toàn bộ hệ sinh thái; phong cách tinh tế, thiên nhiên và hiện đại.
 - Không chỉnh sửa Figma khi chưa được yêu cầu.
+- **D10 (PM duyệt 2026-11-13):** Website có biểu mẫu tiếp nhận thông tin khách hàng gồm 4 trường — họ tên, số điện thoại, dịch vụ quan tâm (`tea`, `tarot`, `healing` = Đồng hành 1:1, `workshop`, `academy`, `products` = Sản phẩm LARA, `other` = Nhu cầu khác), email không bắt buộc — kèm đồng ý chính sách bảo mật; lưu MySQL và hiển thị trong trang quản trị nội bộ cho Customer Care chủ động liên hệ. Stack: Node.js + Express + TypeScript + MySQL. Vẫn ngoài phạm vi: booking, thanh toán, tài khoản khách, chatbot, đồng bộ Facebook/Instagram, CRM nâng cao, email marketing. Quyết định này thay thế phần "không thu thập dữ liệu/không CRM" trong PRD, `04-DATABASE.md` và nội dung trang Liên hệ/Chính sách bảo mật. Chi tiết: `docs/backend/`.
 
 ## Chưa chốt
 

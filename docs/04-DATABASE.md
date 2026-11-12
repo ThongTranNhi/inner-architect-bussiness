@@ -2,7 +2,9 @@
 
 ## Trạng thái
 
-Chưa có database. Mô hình này là đề xuất cho Payload/PostgreSQL hoặc CMS tương đương; không tạo migration đến khi stack được duyệt.
+> Cập nhật 2026-11-13 (decision-log D10): đã có database MySQL cho tiếp nhận khách hàng (`customers`, `admins`, `sessions`). Schema và migration thực tế: [`docs/backend/database.md`](backend/database.md). Phần dưới đây vẫn là đề xuất cho nội dung/CMS, chưa triển khai.
+
+Mô hình nội dung bên dưới là đề xuất cho Payload/PostgreSQL hoặc CMS tương đương; không tạo migration đến khi stack được duyệt.
 
 ## Collections đề xuất
 
@@ -27,7 +29,7 @@ Chưa có database. Mô hình này là đề xuất cho Payload/PostgreSQL hoặ
 
 ## Không lưu trong MVP
 
-Lịch trống, booking, payment, hồ sơ khách, hội thoại ngoài nền tảng, dữ liệu sức khỏe/tâm lý và dữ liệu thẻ.
+Lịch trống, booking, payment, hồ sơ khách ngoài 4 trường của biểu mẫu liên hệ (D10), hội thoại ngoài nền tảng, dữ liệu sức khỏe/tâm lý và dữ liệu thẻ.
 
 ## Migration/backup
 
