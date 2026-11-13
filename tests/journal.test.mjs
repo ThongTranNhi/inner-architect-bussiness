@@ -62,15 +62,16 @@ test("journal route renders the new page with the existing articles and series",
   assert.match(appSource, /:not\(\.journal-page\) > section/)
 })
 
-test("featured is text-left/image-right and article rows alternate sides", () => {
+test("featured showcase has primary and secondary articles, library uses editorial grid with filter tabs", () => {
   assert.match(css, /\.jr-featured-link \{[^}]*grid-template-areas: "chu anh"/s)
-  assert.match(pageSource, /const anhBenTrai = i % 2 === 0/)
-  assert.match(css, /\.jr-row a \{[^}]*grid-template-areas: "anh chu"/s)
-  assert.match(css, /\.jr-row--anh-phai a \{[^}]*grid-template-areas: "chu anh"/s)
-  // Mobile: image on top, text directly below.
+  assert.match(css, /\.jr-featured-sub-grid \{[^}]*grid-template-columns:/s)
+  assert.match(css, /\.jr-grid \{[^}]*grid-template-columns:\s*repeat\(3,/s)
+  assert.match(pageSource, /<nav className="jr-filter"/)
+  assert.match(pageSource, /layBaiTieuBieu\(baiViet/)
+  // Mobile: grid collapses to 1 column.
   assert.match(
     css,
-    /@media \(max-width: 600px\)[\s\S]*\.jr-row--anh-phai a \{ grid-template-columns: 1fr; grid-template-areas: "anh" "chu"/,
+    /@media \(max-width: 600px\)[\s\S]*\.jr-grid \{ grid-template-columns: 1fr; \}/,
   )
 })
 

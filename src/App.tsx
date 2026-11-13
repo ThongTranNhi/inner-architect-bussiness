@@ -5,7 +5,6 @@ import { cuonDenPhanTu, Link, SU_KIEN_DIEU_HUONG } from "./dieu-huong"
 import { news, signatureSeriesList } from "./du-lieu/bai-viet"
 import { danhSachChiTietChuongTrinh } from "./du-lieu/chuong-trinh"
 import { IMG } from "./du-lieu/hinh-anh"
-import { LuxuryResortFooter } from "./components/LuxuryResortFooter"
 
 // Trang chủ (Home) nằm trong file này và tải ngay; mọi trang phụ được tách
 // thành chunk riêng và chỉ tải khi người dùng mở route tương ứng.
@@ -324,7 +323,107 @@ function Header({
 }
 
 function Footer({ home = false }: { home?: boolean }) {
-  return <LuxuryResortFooter />
+  if (home)
+    return (
+      <footer className="home-footer">
+        <div className="home-footer-statement serif">
+          Bắt đầu không phải bằng một câu trả lời.
+          <br />
+          Bắt đầu bằng việc nhìn rõ mình đang ở đâu.
+        </div>
+        <p>
+          Nhắn cho INNER ARCHITECT™ qua kênh liên hệ chung để làm rõ trạng thái
+          hiện tại, nhu cầu và bước tiếp theo phù hợp.
+        </p>
+        <Link to="/lien-he" className="footer-cta">
+          Liên hệ INNER ARCHITECT™
+        </Link>
+        <div className="home-footer-nav">
+          <span>INNER ARCHITECT™</span>
+          <Link to="/he-thong">Hệ thống</Link>
+          <Link to="/journal">Journal</Link>
+          <Link to="/chuong-trinh">Chương trình</Link>
+          <Link to="/the-hermit">The Hermit</Link>
+          <Link to="/lien-he">Liên hệ</Link>
+          <Link to="/faq">FAQ</Link>
+          <Link to="/vo-khiem">Khiêm Võ</Link>
+          <Link to="/lara">LARA</Link>
+          {contactChannels.facebook && (
+            <a
+              href={contactChannels.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook
+            </a>
+          )}
+          <a href="mailto:info@innerarchitect.vn">info@innerarchitect.vn</a>
+          <Link to="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
+          <Link to="/pham-vi-ho-tro">Tuyên bố phạm vi hỗ trợ</Link>
+        </div>
+      </footer>
+    )
+  return (
+    <footer>
+      <div className="footer-intro">
+        <h2 className="serif">
+          INNER ARCHITECT™ hỗ trợ con người xây lại trật tự bên trong và trở về
+          với khả năng tự dẫn dắt.
+        </h2>
+      </div>
+      <div className="footer-links">
+        <div>
+          <b>INNER ARCHITECT™</b>
+          <br />
+          Integrated Healing System
+          <br />
+          Không tìm bình an. Xây trật tự bên trong.
+        </div>
+        <div>
+          <b>KHÁM PHÁ</b>
+          <br />
+          <Link to="/he-thong">Hệ thống</Link>
+          <br />
+          <Link to="/journal">Journal</Link>
+          <br />
+          <Link to="/chuong-trinh">Chương trình</Link>
+          <br />
+          <Link to="/the-hermit">The Hermit</Link>
+          <br />
+          <Link to="/vo-khiem">Khiêm Võ</Link>
+          <br />
+          <Link to="/lara">LARA</Link>
+        </div>
+        <div>
+          <b>BẮT ĐẦU</b>
+          <br />
+          <Link to="/lien-he">Liên hệ</Link>
+          <br />
+          <Link to="/faq">Câu hỏi thường gặp</Link>
+          <br />
+          <a href="mailto:info@innerarchitect.vn">info@innerarchitect.vn</a>
+          <br />
+          595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh
+        </div>
+        <div>
+          <b>THÔNG TIN</b>
+          <br />
+          <Link to="/he-thong">Đạo đức và ranh giới</Link>
+          <br />
+          <Link to="/pham-vi-ho-tro">Tuyên bố phạm vi hỗ trợ</Link>
+          <br />
+          <Link to="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
+          <br />
+          CÔNG TY TNHH INNER ARCHITECT
+          <br />
+          MST: 0319353708
+        </div>
+      </div>
+      <div className="footer-wordmark">
+        INNER ARCHITECT<sup>™</sup>
+      </div>
+    </footer>
+  )
 }
 
 /**

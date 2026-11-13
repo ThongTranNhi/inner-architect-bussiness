@@ -217,20 +217,56 @@ export function Hermit() {
         )}
       </section>
 
-      <section className="hermit-tarot section-pad">
-        <div>
-          <p className="eyebrow">TAROT AT THE HERMIT</p>
-          <h2 className="serif">Đọc bài như một hình thức soi chiếu.</h2>
-          <p>
-            Tarot không dự đoán tương lai, không chẩn đoán và không quyết định
-            thay bạn. Một phiên tiếp cận chỉ giúp làm rõ điều đang hiện diện và
-            cân nhắc bước tiếp theo phù hợp.
-          </p>
-          <Link to="/lien-he" className="button-link">
-            Liên hệ đặt phiên Tarot
-          </Link>
+      {/* PHIÊN SOI CHIẾU TAROT & THÔNG TIN ĐẶT LỊCH */}
+      <section id="tarot-the-hermit" className="hermit-tarot-showcase section-pad">
+        <div className="hermit-tarot-container">
+          <div className="hermit-tarot-copy">
+            <p className="eyebrow">TAROT AT THE HERMIT</p>
+            <h2 className="serif">Đọc bài như một hình thức soi chiếu.</h2>
+            <p className="hermit-tarot-desc">
+              Tarot tại The Hermit không dự đoán tương lai, không mang tính bói toán và không quyết định thay bạn. Mỗi phiên là một không gian đối thoại riêng tư 1:1, giúp bạn nhìn rõ những cảm xúc đang hiện diện, quan sát mô thức tâm lý và cân nhắc hướng đi phù hợp.
+            </p>
+
+            <div className="hermit-tarot-meta-card">
+              <div className="hermit-meta-row">
+                <span className="hermit-meta-label">Hình thức:</span>
+                <span className="hermit-meta-val">Đối thoại trực tiếp 1:1 trong phòng riêng</span>
+              </div>
+              <div className="hermit-meta-row">
+                <span className="hermit-meta-label">Thời lượng:</span>
+                <span className="hermit-meta-val">30 – 90 phút (tuỳ nhu cầu phiên)</span>
+              </div>
+              <div className="hermit-meta-row">
+                <span className="hermit-meta-label">Biểu phí:</span>
+                <span className="hermit-meta-val">Trao đổi trực tiếp qua kênh kết nối</span>
+              </div>
+              <p className="hermit-meta-note">
+                * Thức uống tính riêng theo thực đơn đồ uống tại quán.
+              </p>
+            </div>
+
+            <div className="hermit-tarot-action">
+              <Link to="/lien-he" className="button-link">
+                Liên hệ nhận biểu phí & đặt lịch →
+              </Link>
+              <p className="hermit-action-hint">
+                Trao đổi nhanh qua Zalo hoặc Fanpage chính thức
+              </p>
+            </div>
+          </div>
+
+          <figure className="hermit-tarot-media">
+            <img
+              src="/assets/journal/01-bai-1-tarot-khong-phai-tien-doan-reading-horizontal.webp"
+              alt="Phiên đọc bài Tarot tại The Hermit"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              Không gian trải nghiệm Tarot tĩnh lặng tại The Hermit
+            </figcaption>
+          </figure>
         </div>
-        <img src={IMG.hermitTarotRoom} alt="Không gian Tarot tại The Hermit" loading="lazy" decoding="async" />
       </section>
 
       <section className="hermit-visit section-pad">

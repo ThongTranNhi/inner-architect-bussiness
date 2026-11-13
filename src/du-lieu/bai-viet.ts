@@ -8,6 +8,7 @@ export type NewsItem = {
   summary: string
   image: string
   slug: string
+  tieuBieu?: boolean
 }
 
 export const news: NewsItem[] = [
@@ -20,6 +21,7 @@ export const news: NewsItem[] = [
       "Một cách tiếp cận Tarot dựa trên nhận thức, trách nhiệm và quyền tự lựa chọn.",
     image: IMG.journalReading,
     slug: "tarot-khong-phai-loi-tien-doan",
+    tieuBieu: true,
   },
   {
     category: "HIỂU MÌNH",
@@ -30,6 +32,7 @@ export const news: NewsItem[] = [
       "Quan sát cảm xúc, niềm tin cốt lõi và nhận diện các khuôn mẫu hành vi quen thuộc để tìm lại sự tự do bên trong.",
     image: IMG.journalSelfDiscovery,
     slug: "ban-that-su-la-ai-khi-khong-con-phai-lam-hai-long-nguoi-khac",
+    tieuBieu: true,
   },
   {
     category: "MỐI QUAN HỆ",
@@ -40,6 +43,7 @@ export const news: NewsItem[] = [
       "Khám phá các cơ chế gắn bó tâm lý, ranh giới an toàn và cách tháo gỡ vòng lặp tổn thương trong tình cảm.",
     image: IMG.journalRelationships,
     slug: "vi-sao-chung-ta-cu-yeu-nhung-nguoi-khien-minh-dau-kho",
+    tieuBieu: true,
   },
   {
     category: "MINH TRIẾT",

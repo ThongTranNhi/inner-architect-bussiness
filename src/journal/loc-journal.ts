@@ -12,6 +12,7 @@ export type BaiJournal = {
   summary: string
   image: string
   slug: string
+  tieuBieu?: boolean
 }
 
 /** Một chuyên đề dài hạn (Signature Series). */
@@ -53,24 +54,49 @@ export function tenChuyenMuc(danhMuc: string): string {
 }
 
 /**
+ * Lấy danh sách bài tiêu biểu hiển thị ở phần trên cùng.
+ * Ưu tiên các bài có cờ `tieuBieu: true`; nếu chưa đủ số lượng thì lấy các bài đầu tiên.
+ *
+ * @param baiViet - Toàn bộ bài viết
+ * @param toiDa - Số lượng bài tiêu biểu tối đa cần lấy (mặc định 3 bài)
+ * @returns Mảng các bài viết tiêu biểu
+ */
+export function layBaiTieuBieu(
+  baiViet: readonly BaiJournal[],
+  toiDa = 3,
+): BaiJournal[] {
+  const ghim = baiViet.filter((b) => Boolean(b.tieuBieu))
+  if (ghim.length >= toiDa) {
+    return ghim.slice(0, toiDa)
+  }
+  const slugsDaCo = new Set(ghim.map((b) => b.slug))
+  const conLai = baiViet.filter((b) => !slugsDaCo.has(b.slug))
+  return [...ghim, ...conLai].slice(0, toiDa)
+}
+
+/**
  * Lọc bài viết cho thư viện.
  *
- * Ở chế độ "Tất cả", bài tiêu điểm đã nằm trên dải nâu nên không lặp lại trong
- * lưới. Khi chọn một chuyên mục, mọi bài thuộc chuyên mục đó đều hiện, kể cả bài
- * tiêu điểm, để không bài nào bị mất khỏi kết quả lọc.
+ * Ở chế độ "Tất cả", các bài tiêu điểm đã nằm trên khu vực tiêu biểu phía trên
+ * nên không lặp lại trong lưới. Khi chọn một chuyên mục, mọi bài thuộc chuyên mục
+ * đó đều hiện để không bài nào bị mất khỏi kết quả lọc.
  *
  * @param baiViet - Toàn bộ bài viết theo thứ tự hiển thị
  * @param danhMuc - Chuyên mục cần lọc; `null` là "Tất cả"
- * @param slugTieuDiem - Slug của bài tiêu điểm
+ * @param slugTieuDiem - Slug hoặc danh sách slug của bài tiêu điểm cần ẩn khi ở chế độ "Tất cả"
  * @returns Danh sách bài cần hiện trong lưới, giữ nguyên thứ tự gốc
  */
 export function locBaiJournal(
   baiViet: readonly BaiJournal[],
   danhMuc: string | null,
-  slugTieuDiem: string,
+  slugTieuDiem?: string | readonly string[],
 ): BaiJournal[] {
   if (danhMuc === null) {
-    return baiViet.filter((bai) => bai.slug !== slugTieuDiem)
+    if (!slugTieuDiem) return [...baiViet]
+    const boQua = new Set(
+      typeof slugTieuDiem === "string" ? [slugTieuDiem] : slugTieuDiem,
+    )
+    return baiViet.filter((bai) => !boQua.has(bai.slug))
   }
   return baiViet.filter((bai) => bai.category === danhMuc)
 }

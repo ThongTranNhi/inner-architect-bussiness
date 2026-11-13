@@ -6,7 +6,7 @@ import { KICH_THUOC_ANH_JOURNAL } from "../src/journal/loc-journal.ts"
 import { docNguonWebsite } from "./nguon-website.mjs"
 
 const doc = (duongDan) =>
-  readFileSync(new URL(`../${duongDan}`, import.meta.url), "utf8")
+  readFileSync(new URL(`../${duongDan}`, import.meta.url), "utf8").replace(/\r\n/g, "\n")
 const appSource = doc("src/App.tsx")
 const nguon = [
   docNguonWebsite(),
