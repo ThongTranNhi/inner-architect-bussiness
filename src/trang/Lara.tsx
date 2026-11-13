@@ -1,6 +1,7 @@
 import { Link } from "../dieu-huong"
 import { IMG } from "../du-lieu/hinh-anh"
 import { ParentLink } from "./chung"
+import { LaraServices } from "../components/LaraServices"
 
 export function LaraPage() {
   const products = [
@@ -180,6 +181,9 @@ export function LaraPage() {
         ))}
       </section>
 
+      {/* LARA INFINITY — Interactive Services / Products Grid */}
+      <LaraServices />
+
       {/* Safe Usage Section */}
       <section className="simple-content section-pad">
         <div>
@@ -187,13 +191,10 @@ export function LaraPage() {
         </div>
         <div>
           <p>
-            Đặt nến trên bề mặt phẳng, cách vật dễ cháy và luồng gió mạnh. Không
-            để nến cháy khi không có người quan sát. Dừng sử dụng nếu mùi hương
-            gây khó chịu.
+            Đặt nến và đế cắm nhang/lư xông trên bề mặt phẳng, chịu nhiệt, cách vật dễ cháy và luồng gió mạnh. Không để nến hay nhang cháy khi không có người quan sát. Dừng sử dụng nếu mùi hương gây khó chịu.
           </p>
           <p>
-            Tình trạng hàng, giá và địa điểm mua chỉ được công bố sau khi xác
-            nhận.
+            Tình trạng hàng, giá và địa điểm mua chỉ được công bố sau khi xác nhận.
           </p>
           <Link to="/the-hermit" className="underlink">
             Trải nghiệm tại The Hermit →
