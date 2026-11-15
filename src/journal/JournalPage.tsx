@@ -5,7 +5,6 @@ import {
   useHieuUngCuon,
 } from "../founder/hieu-ung"
 import {
-  BO_LOC_JOURNAL,
   kichThuocAnh,
   kieuHienAnh,
   layBaiTieuBieu,
@@ -22,9 +21,8 @@ import {
  * - Masthead: Tiêu đề Explore Within & lời tựa triết lý
  * - Cụm tiêu biểu (Featured Showcase): 1 bài tiêu điểm chính (khổ lớn sang trọng,
  *   nền nâu dải tràn viền) + 2 bài tiêu biểu phụ bên dưới.
- * - Thư viện bài viết: Thanh lọc theo chuyên mục (Tất cả, Hiểu mình, Mối quan hệ,
- *   Minh triết, Tarot, Sống tỉnh thức, The Hermit) + Lưới 3 cột dạng tạp chí
- *   (Editorial Grid) + Nút Xem thêm khi có nhiều bài.
+ * - Thư viện bài viết: Lưới 3 cột dạng tạp chí (Editorial Grid) + Nút Xem thêm
+ *   khi có nhiều bài.
  * - Signature Series: 3 chuyên đề dài hạn chuyên sâu.
  *
  * Dễ dàng mở rộng cho nhân viên: khi thêm bài viết mới vào dữ liệu, chỉ cần gắn
@@ -41,7 +39,6 @@ export function JournalPage({ baiViet, chuyenDe }: JournalPageProps) {
   const trangRef = useRef<HTMLElement>(null)
   useHieuUngCuon(trangRef, { hienNgay: ".jr-masthead [data-reveal]" })
 
-  const [chuyenMucChon, setChuyenMucChon] = useState<string | null>(null)
   const [soLuongHienThi, setSoLuongHienThi] = useState<number>(6)
 
   // 3 bài tiêu biểu phía trên
@@ -51,7 +48,7 @@ export function JournalPage({ baiViet, chuyenDe }: JournalPageProps) {
 
   // Lọc bài cho thư viện phía dưới
   const slugsTieuBieu = tieuBieu.map((b) => b.slug)
-  const baiDaLoc = locBaiJournal(baiViet, chuyenMucChon, slugsTieuBieu)
+  const baiDaLoc = locBaiJournal(baiViet, null, slugsTieuBieu)
   const baiHienThi = baiDaLoc.slice(0, soLuongHienThi)
   const conLai = baiDaLoc.length - soLuongHienThi
 
@@ -169,25 +166,6 @@ export function JournalPage({ baiViet, chuyenDe }: JournalPageProps) {
               {baiDaLoc.length} bài viết
             </span>
           </div>
-
-          <nav className="jr-filter" aria-label="Lọc bài viết theo chuyên mục">
-            {BO_LOC_JOURNAL.map((loc) => {
-              const dangChon = chuyenMucChon === loc.danhMuc
-              return (
-                <button
-                  key={loc.nhan}
-                  type="button"
-                  className={`jr-filter-btn ${dangChon ? "is-active" : ""}`}
-                  onClick={() => {
-                    setChuyenMucChon(loc.danhMuc)
-                    setSoLuongHienThi(6)
-                  }}
-                >
-                  {loc.nhan}
-                </button>
-              )
-            })}
-          </nav>
         </header>
 
         {baiHienThi.length > 0 ? (

@@ -66,6 +66,7 @@ function kiemTraCoNenChayHieuUng(): boolean {
  *   (phím End, link neo) mà không phần tử nào lọt vào viewport, observer vẫn
  *   nhận được thay đổi trạng thái và nội dung không bị kẹt ẩn.
  * - Khi một phần tử hiện, mọi phần tử đứng trước nó trong DOM cũng được hiện.
+ * - Phần tử được thêm vào sau (MutationObserver) cũng được theo dõi.
  * - Dọn observer và gỡ class khi component unmount.
  *
  * Tác dụng phụ: thêm/bớt class trên container và các phần tử con.
@@ -88,23 +89,28 @@ export function useHieuUngCuon(
     const container = containerRef.current
     if (!container || !kiemTraCoNenChayHieuUng()) return
 
-    const danhSach = Array.from(
-      container.querySelectorAll<HTMLElement>("[data-reveal]"),
-    )
-    const viTri = new Map(danhSach.map((phanTu, i) => [phanTu, i]))
-    let daHienDen = -1
+    /** Danh sách `[data-reveal]` theo thứ tự DOM; dựng lại khi DOM đổi. */
+    let danhSach: HTMLElement[] = []
+    let viTri = new Map<HTMLElement, number>()
+    const daTheoDoi = new WeakSet<HTMLElement>()
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return
           const i = viTri.get(entry.target as HTMLElement) ?? -1
-          // Hiện phần tử này và mọi phần tử đứng trước còn đang ẩn.
-          for (let j = daHienDen + 1; j <= i; j++) {
-            danhSach[j].classList.add(CLASS_DA_HIEN)
-            observer.unobserve(danhSach[j])
+          const hien = (phanTu: HTMLElement) => {
+            if (phanTu.classList.contains(CLASS_DA_HIEN)) return
+            phanTu.classList.add(CLASS_DA_HIEN)
+            observer.unobserve(phanTu)
           }
-          daHienDen = Math.max(daHienDen, i)
+          // Hiện phần tử này và mọi phần tử đứng trước còn đang ẩn.
+          for (let j = 0; j <= i; j++) hien(danhSach[j])
+          // Ảnh lồng bên trong cũng hiện theo: ảnh đang bị clip-path cắt về 0px
+          // được trình duyệt coi là không giao viewport nên tự nó không bao giờ kích hoạt.
+          entry.target
+            .querySelectorAll<HTMLElement>('[data-reveal="anh"]')
+            .forEach(hien)
         })
       },
       {
@@ -117,9 +123,23 @@ export function useHieuUngCuon(
     const phanTuHienNgay = new Set(
       hienNgay ? container.querySelectorAll<HTMLElement>(hienNgay) : [],
     )
-    danhSach.forEach((phanTu) => {
-      if (!phanTuHienNgay.has(phanTu)) observer.observe(phanTu)
-    })
+
+    /** Dựng lại danh sách và theo dõi các phần tử mới (ví dụ bài hiện sau khi bấm "Xem thêm"). */
+    const capNhatDanhSach = () => {
+      danhSach = Array.from(container.querySelectorAll<HTMLElement>("[data-reveal]"))
+      viTri = new Map(danhSach.map((phanTu, i) => [phanTu, i]))
+      danhSach.forEach((phanTu) => {
+        if (daTheoDoi.has(phanTu) || phanTuHienNgay.has(phanTu)) return
+        daTheoDoi.add(phanTu)
+        observer.observe(phanTu)
+      })
+    }
+    capNhatDanhSach()
+
+    // Phần tử được React thêm sau lần render đầu cũng phải được theo dõi,
+    // nếu không chúng giữ trạng thái ẩn (opacity 0) mãi mãi.
+    const mutationObserver = new MutationObserver(capNhatDanhSach)
+    mutationObserver.observe(container, { childList: true, subtree: true })
 
     // Chờ 2 frame để trạng thái ẩn ban đầu được vẽ, nhờ đó transition chạy.
     let frame = requestAnimationFrame(() => {
@@ -130,6 +150,7 @@ export function useHieuUngCuon(
 
     return () => {
       cancelAnimationFrame(frame)
+      mutationObserver.disconnect()
       observer.disconnect()
       container.classList.remove(CLASS_BAT_HIEU_UNG)
     }
