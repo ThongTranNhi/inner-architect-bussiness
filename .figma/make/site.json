@@ -6,7 +6,8 @@
     "icon": "/logocongty.jpg"
   },
   "robots": {
-    "index": false
+    "index": true,
+    "disallow": ["/jathong", "/api/"]
   },
   "accessibility": {
     "addBypassLinks": false,
