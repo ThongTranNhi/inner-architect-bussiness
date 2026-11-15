@@ -2,10 +2,11 @@ import { useCallback, useEffect, useState } from "react"
 import { Link } from "../../dieu-huong"
 import { GOC_QUAN_TRI } from "../duong-dan-quan-tri"
 import { DANH_SACH_DICH_VU_LIEN_HE, layNhanDichVu } from "../../lien-he/dich-vu-lien-he"
+import { NutXoaKhachHang } from "../components/NutXoaKhachHang"
 import { ChonTrangThai, NhanTrangThai } from "../components/TrangThaiKhachHang"
 import { DANH_SACH_TRANG_THAI, dinhDangThoiGian, NHAN_TRANG_THAI } from "../dinh-dang"
 import { usePhienQuanTri } from "../hooks/usePhienQuanTri"
-import { capNhatTrangThai, LoiApi, layDanhSachKhachHang } from "../services/api-quan-tri"
+import { capNhatTrangThai, LoiApi, layDanhSachKhachHang, xoaKhachHang } from "../services/api-quan-tri"
 import type { BoLocKhachHang, KhachHang, PhanTrang, TrangThaiKhachHang } from "../types/quan-tri"
 
 /**
@@ -43,11 +44,13 @@ function ghiBoLocVaoUrl(boLoc: BoLocKhachHang) {
 /**
  * Danh sách khách hàng: tìm theo tên/SĐT/email, lọc dịch vụ và trạng thái,
  * phân trang ở backend, cập nhật trạng thái ngay trên dòng (có nút xác nhận).
+ * Vai trò admin có thêm nút xóa (hai bước xác nhận).
  *
  * @returns Trang quản lý khách hàng
  */
 export function DanhSachKhachHang() {
-  const { xuLyHetPhien } = usePhienQuanTri()
+  const { xuLyHetPhien, quanTriVien } = usePhienQuanTri()
+  const laAdmin = quanTriVien?.role === "admin"
   const [boLoc, setBoLoc] = useState<BoLocKhachHang>(docBoLocTuUrl)
   const [tuKhoaNhap, setTuKhoaNhap] = useState(boLoc.q)
   const [ketQua, setKetQua] = useState<{ data: KhachHang[]; pagination: PhanTrang } | null>(null)
@@ -99,6 +102,25 @@ export function DanhSachKhachHang() {
       const moi = await capNhatTrangThai(khachHang.id, trangThai)
       setKetQua((cu) => cu && { ...cu, data: cu.data.map((kh) => (kh.id === moi.id ? moi : kh)) })
       setThongBao(`Đã cập nhật #${moi.id} ${moi.fullName}: ${NHAN_TRANG_THAI[moi.status]}.`)
+    } catch (e) {
+      xuLyLoi(e)
+      throw e
+    }
+  }
+
+  /**
+   * Xóa một khách hàng rồi tải lại trang hiện tại (để dòng của trang sau dồn lên).
+   * Trang hiện tại trống sau khi xóa thì lùi về trang trước.
+   *
+   * @param khachHang - Khách hàng cần xóa
+   */
+  async function xoaDong(khachHang: KhachHang) {
+    setThongBao(null)
+    try {
+      await xoaKhachHang(khachHang.id)
+      setThongBao(`Đã xóa #${khachHang.id} ${khachHang.fullName}.`)
+      if (ketQua && ketQua.data.length === 1 && boLoc.page > 1) setBoLoc((cu) => ({ ...cu, page: cu.page - 1 }))
+      else setLanTai((n) => n + 1)
     } catch (e) {
       xuLyLoi(e)
       throw e
@@ -196,7 +218,8 @@ export function DanhSachKhachHang() {
                   <th scope="col" className="py-3 pr-3 font-medium">Dịch vụ quan tâm</th>
                   <th scope="col" className="py-3 pr-3 font-medium">Trạng thái</th>
                   <th scope="col" className="py-3 pr-3 font-medium">Ngày gửi</th>
-                  <th scope="col" className="py-3 font-medium">Cập nhật trạng thái</th>
+                  <th scope="col" className="py-3 pr-3 font-medium">Cập nhật trạng thái</th>
+                  {laAdmin && <th scope="col" className="py-3 font-medium"><span className="sr-only">Xóa</span></th>}
                 </tr>
               </thead>
               <tbody>
@@ -221,9 +244,14 @@ export function DanhSachKhachHang() {
                     <td className="py-3 pr-3">{layNhanDichVu(kh.service)}</td>
                     <td className="py-3 pr-3"><NhanTrangThai trangThai={kh.status} /></td>
                     <td className="whitespace-nowrap py-3 pr-3 tabular-nums">{dinhDangThoiGian(kh.createdAt)}</td>
-                    <td className="py-3">
+                    <td className="py-3 pr-3">
                       <ChonTrangThai trangThai={kh.status} nhanPhu={kh.fullName} onLuu={(tt) => luuTrangThai(kh, tt)} />
                     </td>
+                    {laAdmin && (
+                      <td className="py-3 text-right">
+                        <NutXoaKhachHang ma={kh.id} ten={kh.fullName} onXoa={() => xoaDong(kh)} />
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -256,6 +284,11 @@ export function DanhSachKhachHang() {
                   <NhanTrangThai trangThai={kh.status} />
                   <ChonTrangThai trangThai={kh.status} nhanPhu={kh.fullName} onLuu={(tt) => luuTrangThai(kh, tt)} />
                 </div>
+                {laAdmin && (
+                  <div className="mt-3 border-t border-[var(--line)] pt-3">
+                    <NutXoaKhachHang ma={kh.id} ten={kh.fullName} onXoa={() => xoaDong(kh)} />
+                  </div>
+                )}
               </li>
             ))}
           </ul>

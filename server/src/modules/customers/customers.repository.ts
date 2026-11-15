@@ -215,3 +215,16 @@ export async function layThongKeKhachHang(pool: Pool): Promise<ThongKeKhachHang>
     completed: Number(ketQua?.hoan_tat ?? 0),
   }
 }
+
+/**
+ * Xóa vĩnh viễn một khách hàng (dùng khi nhân viên quản trị xác nhận xóa, ví dụ khách
+ * yêu cầu xóa dữ liệu hoặc bản ghi rác). Không thể hoàn tác.
+ *
+ * @param pool - Pool MySQL
+ * @param maKhachHang - ID khách hàng
+ * @returns `true` nếu có bản ghi bị xóa
+ */
+export async function xoaKhachHang(pool: Pool, maKhachHang: number): Promise<boolean> {
+  const [ketQua] = await pool.execute<ResultSetHeader>("DELETE FROM customers WHERE id = ?", [maKhachHang])
+  return ketQua.affectedRows > 0
+}

@@ -326,3 +326,56 @@ describe("database không khả dụng", { skip: lyDoBoQua }, () => {
     }
   })
 })
+
+describe("xóa khách hàng", { skip: lyDoBoQua }, () => {
+  const cfg = cauHinh!
+  let ungDung: ReturnType<typeof taoUngDungTest>
+  before(async () => {
+    await chuanBiSchemaTest(cfg)
+    ungDung = taoUngDungTest(cfg, { bieuMau: 1000, dangNhap: 1000, chung: 10_000, cuaSoMs: 60_000 })
+  })
+  after(async () => {
+    await donDuLieuTest(ungDung.pool)
+    await ungDung.dongTatCa()
+  })
+  beforeEach(async () => {
+    await donDuLieuTest(ungDung.pool)
+  })
+
+  /** Tạo một khách hàng giả qua API công khai và trả ID. */
+  async function taoKhachHang(): Promise<number> {
+    await request(ungDung.app).post("/api/v1/customers").send(KHACH_HANG_MAU).expect(201)
+    const [dong] = await ungDung.pool.query<RowDataPacket[]>("SELECT MAX(id) AS id FROM customers")
+    return Number(dong[0]?.id)
+  }
+
+  test("admin xóa được (cần CSRF); bản ghi biến mất khỏi MySQL; xóa lại trả 404", async () => {
+    await taoTaiKhoanThu(ungDung.pool, "ad.thu", "admin")
+    const id = await taoKhachHang()
+    const agent = request.agent(ungDung.app)
+    const csrf = await dangNhap(agent, "ad.thu")
+
+    const thieuCsrf = await agent.delete(`/api/v1/admin/customers/${id}`).expect(403)
+    assert.equal(thieuCsrf.body.error.code, "CSRF_INVALID")
+
+    const res = await agent.delete(`/api/v1/admin/customers/${id}`).set("X-CSRF-Token", csrf).expect(200)
+    assert.deepEqual(res.body, { success: true, message: "Đã xóa khách hàng." })
+    const [dong] = await ungDung.pool.query<RowDataPacket[]>("SELECT COUNT(*) AS n FROM customers WHERE id = ?", [id])
+    assert.equal(Number(dong[0]?.n), 0)
+
+    await agent.delete(`/api/v1/admin/customers/${id}`).set("X-CSRF-Token", csrf).expect(404)
+    await agent.delete("/api/v1/admin/customers/khong-phai-so").set("X-CSRF-Token", csrf).expect(400)
+  })
+
+  test("customer_care và người chưa đăng nhập không xóa được", async () => {
+    await taoTaiKhoanThu(ungDung.pool, "cc.thu", "customer_care")
+    const id = await taoKhachHang()
+    await request(ungDung.app).delete(`/api/v1/admin/customers/${id}`).expect(401)
+    const agent = request.agent(ungDung.app)
+    const csrf = await dangNhap(agent, "cc.thu")
+    const res = await agent.delete(`/api/v1/admin/customers/${id}`).set("X-CSRF-Token", csrf).expect(403)
+    assert.equal(res.body.error.code, "FORBIDDEN")
+    const [dong] = await ungDung.pool.query<RowDataPacket[]>("SELECT COUNT(*) AS n FROM customers WHERE id = ?", [id])
+    assert.equal(Number(dong[0]?.n), 1)
+  })
+})
