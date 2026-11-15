@@ -1,12 +1,12 @@
 import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
 import test from "node:test"
+import { dinhDangNgayJournal } from "../src/journal/du-lieu-journal.ts"
 import {
-  BO_LOC_JOURNAL,
   KIEU_HIEN_ANH,
   kieuHienAnh,
+  layBaiTieuBieu,
   locBaiJournal,
-  tenChuyenMuc,
 } from "../src/journal/loc-journal.ts"
 import { docNguonWebsite } from "./nguon-website.mjs"
 
@@ -16,29 +16,28 @@ const pageSource = readFileSync(
   "utf8",
 )
 const css = readFileSync(new URL("../src/index.css", import.meta.url), "utf8")
+const seed = JSON.parse(
+  readFileSync(new URL("../server/database/seed/journal-ban-dau.json", import.meta.url), "utf8"),
+)
 
 const baiMau = [
-  { category: "TAROT", slug: "a", title: "A" },
-  { category: "HIỂU MÌNH", slug: "b", title: "B" },
-  { category: "TAROT", slug: "c", title: "C" },
-  { category: "THE HERMIT", slug: "d", title: "D" },
+  { categoryId: 4, slug: "a", title: "A" },
+  { categoryId: 1, slug: "b", title: "B", featured: true },
+  { categoryId: 4, slug: "c", title: "C" },
+  { categoryId: 6, slug: "d", title: "D" },
 ]
 
-test("journal filter bar follows the DOCX category labels in order", () => {
+test("dữ liệu Journal ban đầu (seed MySQL) giữ đủ 6 chuyên mục theo thứ tự và 28 bài", () => {
   assert.deepEqual(
-    BO_LOC_JOURNAL.map((loc) => loc.nhan),
-    [
-      "Tất cả",
-      "Hiểu mình",
-      "Mối quan hệ",
-      "Minh triết",
-      "Tarot",
-      "Sống tỉnh thức",
-      "The Hermit",
-    ],
+    seed.categories.map((m) => m.label),
+    ["Hiểu mình", "Mối quan hệ", "Minh triết", "Tarot", "Sống tỉnh thức", "The Hermit"],
   )
-  assert.equal(tenChuyenMuc("SỐNG TỈNH THỨC"), "Sống tỉnh thức")
-  assert.equal(tenChuyenMuc("KHÁC"), "KHÁC")
+  assert.equal(seed.articles.length, 28)
+  assert.equal(new Set(seed.articles.map((b) => b.slug)).size, 28)
+  assert.equal(seed.articles[0].slug, "ban-la-ai-khi-khong-con-phai-lam-hai-long-tat-ca")
+  // Chuyên mục và bài không còn viết cứng trong bundle website.
+  assert.doesNotMatch(appSource, /export const news\b/)
+  assert.doesNotMatch(pageSource, /SAU_CHUYEN_MUC_JOURNAL/)
 })
 
 test("'Tất cả' hides only the featured article; a category shows all its articles", () => {
@@ -47,16 +46,21 @@ test("'Tất cả' hides only the featured article; a category shows all its art
     ["b", "c", "d"],
   )
   assert.deepEqual(
-    locBaiJournal(baiMau, "TAROT", "a").map((bai) => bai.slug),
+    locBaiJournal(baiMau, 4, "a").map((bai) => bai.slug),
     ["a", "c"],
   )
+  assert.deepEqual(layBaiTieuBieu(baiMau, 2).map((b) => b.slug), ["b", "a"])
 })
 
-test("journal route renders the new page with the existing articles and series", () => {
-  assert.match(
-    appSource,
-    /<JournalPage baiViet=\{news\} chuyenDe=\{signatureSeriesList\} \/>/,
-  )
+test("ngày xuất bản hiển thị YYYY.MM.DD theo giờ Việt Nam", () => {
+  assert.equal(dinhDangNgayJournal("2025-03-10T00:00:00.000Z"), "2025.03.10")
+  assert.equal(dinhDangNgayJournal("2025-03-10T18:30:00.000Z"), "2025.03.11")
+  assert.equal(dinhDangNgayJournal(null), "")
+})
+
+test("journal route renders the new page with API data and the series", () => {
+  assert.match(appSource, /<JournalPage chuyenDe=\{signatureSeriesList\} \/>/)
+  assert.match(pageSource, /useDuLieuJournal\(\)/)
   assert.doesNotMatch(appSource, /function NewsArchive\(/)
   // The App-wide section reveal must not double-animate Journal sections.
   assert.match(appSource, /:not\(\.journal-page\) > section/)
@@ -133,4 +137,19 @@ test("ảnh lồng trong thẻ hiện theo thẻ (ảnh bị clip-path cắt v�
   const { readFile } = await import("node:fs/promises")
   const hook = await readFile(new URL("../src/founder/hieu-ung.ts", import.meta.url), "utf8")
   assert.match(hook, /entry\.target\s*\.querySelectorAll<HTMLElement>\('\[data-reveal="anh"\]'\)\s*\.forEach\(hien\)/)
+})
+
+test("mỗi chuyên mục hiện sẵn 3 bài, phần còn lại mở bằng nút Xem thêm / Thu gọn", () => {
+  assert.match(pageSource, /const SO_BAI_HIEN_SAN = 3/)
+  assert.match(pageSource, /baiTrongMuc\.slice\(0, SO_BAI_HIEN_SAN\)/)
+  assert.match(pageSource, /\{baiHien\.map\(/)
+  assert.match(pageSource, /aria-expanded=\{moRong\}/)
+  assert.match(pageSource, /Xem thêm \$\{soBaiAn\} bài viết/)
+  assert.match(css, /\.journal-page \.jr-more-btn \{/)
+})
+
+test("khung đọc nhanh có CSS lớp phủ cố định và dùng chung bộ hiển thị nội dung", () => {
+  assert.match(css, /\.journal-page \.jr-reader-backdrop \{[^}]*position: fixed/s)
+  assert.match(pageSource, /<HienThiNoiDung noiDung=\{noiDungDoc\.bai\.content\}/)
+  assert.match(pageSource, /useBaiJournal\(baiDangDoc\?\.slug \?\? null\)/)
 })

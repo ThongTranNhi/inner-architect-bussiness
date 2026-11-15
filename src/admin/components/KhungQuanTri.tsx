@@ -16,6 +16,9 @@ export function KhungQuanTri({ duongDan, children }: { duongDan: string; childre
   const mucMenu = [
     { href: GOC_QUAN_TRI, nhan: "Tổng quan", dangMo: duongDan === GOC_QUAN_TRI },
     { href: `${GOC_QUAN_TRI}/customers`, nhan: "Khách hàng", dangMo: duongDan.startsWith(`${GOC_QUAN_TRI}/customers`) },
+    ...(quanTriVien?.canManageJournal
+      ? [{ href: `${GOC_QUAN_TRI}/journal`, nhan: "Journal", dangMo: duongDan.startsWith(`${GOC_QUAN_TRI}/journal`) }]
+      : []),
     { href: `${GOC_QUAN_TRI}/bao-mat`, nhan: "Bảo mật tài khoản", dangMo: duongDan === `${GOC_QUAN_TRI}/bao-mat` },
   ]
 
@@ -29,7 +32,7 @@ export function KhungQuanTri({ duongDan, children }: { duongDan: string; childre
             </span>
             <span className="text-[11px] tracking-[.12em] opacity-75">CUSTOMER CARE</span>
           </div>
-          <nav aria-label="Điều hướng quản trị" className="flex gap-6 text-[13px]">
+          <nav aria-label="Điều hướng quản trị" className="flex flex-wrap gap-x-6 gap-y-2 text-[13px]">
             {mucMenu.map((muc) => (
               <Link
                 key={muc.href}

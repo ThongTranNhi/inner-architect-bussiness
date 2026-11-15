@@ -12,11 +12,12 @@ export default defineConfig(({ mode }) => {
   const emitSourcemaps = mode === "development"
   // Backend Express chạy riêng (server/); frontend gọi đường dẫn tương đối /api/v1
   // nên dev/preview proxy sang backend thay vì bật CORS.
+  // /media (ảnh Journal tải lên) và /sitemap.xml cũng do backend phục vụ; production dùng Nginx.
+  const dichBackend = { target: process.env.API_PROXY_TARGET || "http://127.0.0.1:3001", changeOrigin: false }
   const apiProxy = {
-    "/api": {
-      target: process.env.API_PROXY_TARGET || "http://127.0.0.1:3001",
-      changeOrigin: false,
-    },
+    "/api": dichBackend,
+    "/media": dichBackend,
+    "/sitemap.xml": dichBackend,
   }
 
   return {
@@ -70,6 +71,7 @@ type FigmaSiteConfiguration = {
   language?: string
   robots?: {
     index?: boolean
+    disallow?: string[]
   }
   icons?: {
     icon?: string
@@ -123,8 +125,10 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
   const headEnd = config.customScripts?.headEnd ?? ""
   const bodyStart = config.customScripts?.bodyStart ?? ""
   const bodyEnd = config.customScripts?.bodyEnd ?? ""
-  const robotsTxt =
-    config.robots?.index === false ? "User-agent: *\nDisallow: /\n" : ""
+  const disallow = config.robots?.index === false ? ["/"] : config.robots?.disallow ?? []
+  const robotsTxt = disallow.length
+    ? ["User-agent: *", ...disallow.map((route) => `Disallow: ${route}`), ""].join("\n")
+    : ""
 
   return {
     name: "figma-site-configuration",

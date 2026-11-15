@@ -26,6 +26,8 @@ Thumbs.db
 *.sql.gz
 *.dump
 server/database/backups/
+# Ảnh Journal tải lên khi chạy local (production nằm ngoài repo)
+server/storage/
 backups/
 
 # Large archives and binary bundles

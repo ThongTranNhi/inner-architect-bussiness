@@ -97,6 +97,32 @@ export function kiemTraQuyen(...vaiTro: VaiTroQuanTri[]): RequestHandler {
 }
 
 /**
+ * Tài khoản có quyền quản lý Journal không: vai trò `admin` luôn có; nhân viên khác
+ * cần được admin cấp quyền (`admins.can_manage_journal`).
+ *
+ * @param quanTriVien - Tài khoản đang đăng nhập
+ * @returns `true` nếu được tạo, sửa, sắp xếp và xuất bản Journal
+ */
+export function coQuyenJournal(quanTriVien: QuanTriVien): boolean {
+  return quanTriVien.role === "admin" || quanTriVien.canManageJournal
+}
+
+/**
+ * Chỉ cho phép tài khoản có quyền Journal (kiểm tra tại backend trên mọi API Journal).
+ * Quyền đọc lại từ MySQL mỗi request nên thu hồi quyền có hiệu lực ngay.
+ *
+ * @returns Middleware Express (đặt sau `yeuCauDangNhap`)
+ * @throws LoiUngDung 403 khi tài khoản chưa được cấp quyền Journal
+ */
+export function kiemTraQuyenJournal(): RequestHandler {
+  return (_req, res, next) => {
+    if (!coQuyenJournal(layQuanTriVienHienTai(res)))
+      throw new LoiUngDung(403, "FORBIDDEN", "Tài khoản chưa được cấp quyền quản lý Journal.")
+    next()
+  }
+}
+
+/**
  * Kiểm tra CSRF token cho request thay đổi dữ liệu dùng cookie session.
  * So sánh hằng thời gian giữa header `X-CSRF-Token` và token lưu trong phiên.
  *

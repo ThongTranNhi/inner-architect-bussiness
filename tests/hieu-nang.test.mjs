@@ -11,6 +11,7 @@ const appSource = doc("src/App.tsx")
 const nguon = [
   docNguonWebsite(),
   doc("src/journal/JournalPage.tsx"),
+  doc("src/journal/BaiJournalHienThi.tsx"),
   doc("src/founder/FounderPage.tsx"),
 ].join("\n")
 const nguonCoDuongDanAnh = [
@@ -104,7 +105,8 @@ test("lazy pages render inside Suspense and scroll reveal waits for the mounted 
 
 test("hash routes keep 404 detection outside the lazy chunks", () => {
   assert.match(appSource, /return \{ trang: <NotFoundPage \/>, laTrang404: true \}/)
-  assert.match(appSource, /news\.some\(\(item\) => item\.slug === slug\)/)
+  // Bài Journal lấy từ API: App chỉ kiểm tra định dạng slug, trang bài tự báo 404 khi API không có bài.
+  assert.match(appSource, /if \(MAU_SLUG_JOURNAL\.test\(slug\)\) return trang\(<Article slug=\{slug\} \/>\)/)
   assert.match(appSource, /danhSachChiTietChuongTrinh\[slug\]/)
 })
 

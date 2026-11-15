@@ -1,3 +1,4 @@
+import { mkdirSync } from "node:fs"
 import express, { type Express } from "express"
 import session from "express-session"
 import MySQLStoreFactory from "express-mysql-session"
@@ -14,6 +15,7 @@ import {
   type CauHinhGioiHan,
 } from "./middleware/rate-limiter.ts"
 import { ganNguCanhYeuCau } from "./middleware/request-context.ts"
+import { taoXuLySitemap } from "./modules/journal/journal.routes.ts"
 import { taoRouterApiV1 } from "./routes/index.ts"
 import { taoGhiNhatKyBaoMat } from "./utils/nhat-ky-bao-mat.ts"
 
@@ -76,6 +78,21 @@ export function taoUngDung(tuyChon: {
     },
   })
 
+  // Ảnh Journal: tên file ngẫu nhiên, không đổi → cache dài hạn. Production nên để Nginx
+  // phục vụ trực tiếp thư mục này (xem docs/backend/deployment.md); route này là dự phòng/dev.
+  mkdirSync(cauHinh.JOURNAL_UPLOAD_DIR, { recursive: true })
+  app.use(
+    "/media/journal",
+    express.static(cauHinh.JOURNAL_UPLOAD_DIR, {
+      index: false,
+      dotfiles: "deny",
+      immutable: true,
+      maxAge: "365d",
+      redirect: false,
+    }),
+  )
+  app.get("/sitemap.xml", taoXuLySitemap(pool, cauHinh.SITE_URL))
+
   app.use(
     "/api/v1",
     taoRouterApiV1({
@@ -86,6 +103,8 @@ export function taoUngDung(tuyChon: {
       originChoPhep: cauHinh.ALLOWED_ORIGINS,
       pinKhoiTao: cauHinh.ADMIN_UNLOCK_PIN,
       ghiNhatKyBaoMat: taoGhiNhatKyBaoMat(tuyChon.batLog ?? true),
+      thuMucAnhJournal: cauHinh.JOURNAL_UPLOAD_DIR,
+      dungLuongAnhToiDa: cauHinh.JOURNAL_MAX_UPLOAD_MB * 1024 * 1024,
     }),
   )
   app.use(xuLyKhongTimThay)

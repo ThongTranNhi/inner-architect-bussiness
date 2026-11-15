@@ -7,6 +7,8 @@ import { BaoMatTaiKhoan } from "./pages/BaoMatTaiKhoan"
 import { ChiTietKhachHang } from "./pages/ChiTietKhachHang"
 import { DangNhapQuanTri } from "./pages/DangNhapQuanTri"
 import { DanhSachKhachHang } from "./pages/DanhSachKhachHang"
+import { QuanLyJournal } from "./pages/QuanLyJournal"
+import { SoanBaiJournal } from "./pages/SoanBaiJournal"
 import { TongQuanQuanTri } from "./pages/TongQuanQuanTri"
 
 /** Tiêu đề tab trình duyệt cho từng màn quản trị. */
@@ -15,7 +17,12 @@ const TIEU_DE: Record<string, string> = {
   [GOC_QUAN_TRI]: "Tổng quan",
   [`${GOC_QUAN_TRI}/customers`]: "Khách hàng",
   [`${GOC_QUAN_TRI}/bao-mat`]: "Bảo mật tài khoản",
+  [`${GOC_QUAN_TRI}/journal`]: "Journal",
+  [`${GOC_QUAN_TRI}/journal/bai/moi`]: "Viết bài Journal",
 }
+
+/** Khớp trang soạn bài Journal, ví dụ `/jathong/journal/bai/12`. */
+const MAU_SOAN_BAI = new RegExp(`^${GOC_QUAN_TRI}/journal/bai/(\\d+)$`)
 
 /** Khớp trang chi tiết khách hàng, ví dụ `/jathong/customers/12`. */
 const MAU_CHI_TIET = new RegExp(`^${GOC_QUAN_TRI}/customers/(\\d+)$`)
@@ -31,7 +38,11 @@ function DinhTuyenQuanTri({ duongDan }: { duongDan: string }) {
   const { quanTriVien } = usePhienQuanTri()
 
   useEffect(() => {
-    const tieuDe = MAU_CHI_TIET.test(duongDan) ? "Chi tiết khách hàng" : (TIEU_DE[duongDan] ?? "Quản trị")
+    const tieuDe = MAU_CHI_TIET.test(duongDan)
+      ? "Chi tiết khách hàng"
+      : MAU_SOAN_BAI.test(duongDan)
+        ? "Soạn bài Journal"
+        : (TIEU_DE[duongDan] ?? "Quản trị")
     document.title = `${tieuDe} — INNER ARCHITECT™ Customer Care`
   }, [duongDan])
 
@@ -50,10 +61,17 @@ function DinhTuyenQuanTri({ duongDan }: { duongDan: string }) {
 
   let noiDung: ReactNode
   const khopChiTiet = duongDan.match(MAU_CHI_TIET)
+  const khopSoanBai = duongDan.match(MAU_SOAN_BAI)
+  const laTrangJournal = duongDan === `${GOC_QUAN_TRI}/journal` || duongDan.startsWith(`${GOC_QUAN_TRI}/journal/`)
   if (duongDan === GOC_QUAN_TRI || duongDan === `${GOC_QUAN_TRI}/login`) noiDung = <TongQuanQuanTri />
   else if (duongDan === `${GOC_QUAN_TRI}/customers`) noiDung = <DanhSachKhachHang />
   else if (duongDan === `${GOC_QUAN_TRI}/bao-mat`) noiDung = <BaoMatTaiKhoan />
   else if (khopChiTiet) noiDung = <ChiTietKhachHang key={khopChiTiet[1]} id={Number(khopChiTiet[1])} />
+  else if (laTrangJournal && !quanTriVien.canManageJournal)
+    noiDung = <p role="alert">Tài khoản chưa được cấp quyền quản lý Journal. Liên hệ admin để được cấp quyền.</p>
+  else if (duongDan === `${GOC_QUAN_TRI}/journal`) noiDung = <QuanLyJournal />
+  else if (duongDan === `${GOC_QUAN_TRI}/journal/bai/moi`) noiDung = <SoanBaiJournal key="soan" id={null} />
+  else if (khopSoanBai) noiDung = <SoanBaiJournal key="soan" id={Number(khopSoanBai[1])} />
   else
     noiDung = (
       <p>

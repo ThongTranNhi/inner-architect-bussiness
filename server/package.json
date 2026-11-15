@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test --test-concurrency=1 \"tests/**/*.test.ts\"",
     "db:migrate": "tsx scripts/chay-migration.ts",
-    "admin:create": "tsx scripts/tao-quan-tri-vien.ts"
+    "admin:create": "tsx scripts/tao-quan-tri-vien.ts",
+    "journal:import": "tsx scripts/nhap-journal.ts"
   },
   "dependencies": {
     "argon2": "0.45.2",

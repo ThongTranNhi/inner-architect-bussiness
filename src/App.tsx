@@ -1,8 +1,15 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { contactChannels } from "./config/contact"
 import { laDuongDanQuanTri } from "./admin/duong-dan-quan-tri"
-import { cuonDenPhanTu, Link, SU_KIEN_DIEU_HUONG } from "./dieu-huong"
-import { news, signatureSeriesList } from "./du-lieu/bai-viet"
+import { choPhepRoiTrang, cuonDenPhanTu, Link, SU_KIEN_DIEU_HUONG } from "./dieu-huong"
+import { signatureSeriesList } from "./du-lieu/bai-viet"
+import {
+  dinhDangNgayJournal,
+  layDuLieuJournalDaTai,
+  nhanChuyenMuc,
+  useDuLieuJournal,
+} from "./journal/du-lieu-journal"
+import { MAU_SLUG_JOURNAL } from "./journal/loc-journal"
 import { danhSachChiTietChuongTrinh } from "./du-lieu/chuong-trinh"
 import { IMG } from "./du-lieu/hinh-anh"
 
@@ -632,8 +639,12 @@ function Home({ initialSection }: { initialSection?: string }) {
     }
   }
 
-  const leadJournal = news[0]
-  const journalRail = news.slice(1, 3)
+  // Ba bài Journal đầu tiên (đã xuất bản) theo thứ tự nhân viên sắp xếp.
+  const { duLieu: duLieuJournal } = useDuLieuJournal()
+  const leadJournal = duLieuJournal?.articles[0]
+  const journalRail = duLieuJournal?.articles.slice(1, 3) ?? []
+  const nhanJournal = (maChuyenMuc: number) =>
+    nhanChuyenMuc(duLieuJournal?.categories ?? [], maChuyenMuc)
 
   return (
     <main className="home-page home-editorial-v3 home-editorial-v4">
@@ -1147,27 +1158,31 @@ function Home({ initialSection }: { initialSection?: string }) {
         </header>
 
         <div className="home-v3-journal-layout">
+          {leadJournal && (
           <article className="home-journal-feature reveal-child">
             <Link to={"/journal/" + leadJournal.slug}>
               <figure className="home-v3-media">
-                <img
-                  src={leadJournal.image}
-                  alt={leadJournal.title}
-                  loading="lazy"
-                  decoding="async"
-                />
+                {leadJournal.image && (
+                  <img
+                    src={leadJournal.image}
+                    alt={leadJournal.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
               </figure>
               <div className="home-v3-story-meta">
-                <span>{leadJournal.category}</span>
-                <time>{leadJournal.date}</time>
+                <span>{nhanJournal(leadJournal.categoryId)}</span>
+                <time>{dinhDangNgayJournal(leadJournal.date)}</time>
               </div>
               <h3 className="serif">
                 {leadJournal.title}
-                <em>{leadJournal.italic}</em>
+                <em>{leadJournal.dek}</em>
               </h3>
               <p>{leadJournal.summary}</p>
             </Link>
           </article>
+          )}
 
           <div className="home-journal-rail">
             {journalRail.map((item) => (
@@ -1177,20 +1192,22 @@ function Home({ initialSection }: { initialSection?: string }) {
               >
                 <Link to={"/journal/" + item.slug}>
                   <figure className="home-v3-media">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      decoding="async"
-                    />
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt={item.imageAlt}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
                   </figure>
                   <div className="home-v3-story-meta">
-                    <span>{item.category}</span>
-                    <time>{item.date}</time>
+                    <span>{nhanJournal(item.categoryId)}</span>
+                    <time>{dinhDangNgayJournal(item.date)}</time>
                   </div>
                   <h3 className="serif">
                     {item.title}
-                    <em>{item.italic}</em>
+                    <em>{item.dek}</em>
                   </h3>
                 </Link>
               </article>
@@ -1337,8 +1354,9 @@ function layThongTinSeo(
       title: ganThuongHieu("Không tìm thấy trang"),
       description: SEO_MAC_DINH.description,
     }
+  // Bài Journal đã có trong bộ nhớ (trang bài viết tự cập nhật tiêu đề khi tải xong).
   const baiViet = duongDan.startsWith("/journal/")
-    ? news.find((item) => `/journal/${item.slug}` === duongDan)
+    ? layDuLieuJournalDaTai()?.articles.find((item) => `/journal/${item.slug}` === duongDan)
     : undefined
   if (baiViet)
     return { title: ganThuongHieu(baiViet.title), description: baiViet.summary }
@@ -1417,12 +1435,12 @@ function chonTrang(path: string): {
   if (path === "/workshop") return trang(<WorkshopPage />)
   if (path === "/journal")
     return trang(
-      <JournalPage baiViet={news} chuyenDe={signatureSeriesList} />,
+      <JournalPage chuyenDe={signatureSeriesList} />,
     )
   if (path.startsWith("/journal/")) {
+    // Bài có tồn tại / đã xuất bản hay không do trang bài viết hỏi API rồi tự báo 404.
     const slug = path.slice("/journal/".length)
-    if (news.some((item) => item.slug === slug))
-      return trang(<Article slug={slug} />)
+    if (MAU_SLUG_JOURNAL.test(slug)) return trang(<Article slug={slug} />)
   }
   if (path === "/chuong-trinh") return trang(<Programmes />)
   if (path.startsWith("/chuong-trinh/")) {
@@ -1482,7 +1500,14 @@ function App() {
   // Đường dẫn của trang đã mount xong; hiệu ứng reveal chờ giá trị này.
   const [trangSanSang, setTrangSanSang] = useState<string | null>(null)
   useEffect(() => {
-    const f = () => {
+    // URL đang hiển thị: dùng để quay lại khi người dùng hủy rời trang (Back trong lúc còn thay đổi chưa lưu).
+    let urlDangMo = window.location.pathname + window.location.search + window.location.hash
+    const f = (e: Event) => {
+      if (e.type === "popstate" && !choPhepRoiTrang()) {
+        window.history.pushState(null, "", urlDangMo)
+        return
+      }
+      urlDangMo = window.location.pathname + window.location.search + window.location.hash
       setPath(docDuongDanHienTai())
       setMenu(false)
     }

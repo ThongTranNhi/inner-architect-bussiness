@@ -2,6 +2,7 @@ import { Router, type RequestHandler, type Request, type Response } from "expres
 import type { Pool } from "mysql2/promise"
 import { z } from "zod"
 import {
+  coQuyenJournal,
   kiemTraCsrf,
   layQuanTriVienHienTai,
   taoCsrfToken,
@@ -44,6 +45,7 @@ function hienThiQuanTriVien(quanTriVien: QuanTriVien) {
     username: quanTriVien.username,
     displayName: quanTriVien.displayName,
     role: quanTriVien.role,
+    canManageJournal: coQuyenJournal(quanTriVien),
   }
 }
 

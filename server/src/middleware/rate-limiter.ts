@@ -13,6 +13,8 @@ export type CauHinhGioiHan = {
   cuaSoMs: number
   /** Số lần xác minh PIN/mật khẩu hiện tại thất bại mỗi tài khoản trong cửa sổ (mặc định 5). */
   xacMinh?: number
+  /** Số request API quản trị Journal mỗi IP trong cửa sổ (mặc định 1000; tách khỏi giới hạn chung). */
+  quanTriJournal?: number
 }
 
 export const GIOI_HAN_MAC_DINH: CauHinhGioiHan = {
@@ -21,6 +23,7 @@ export const GIOI_HAN_MAC_DINH: CauHinhGioiHan = {
   chung: 300,
   cuaSoMs: 15 * 60 * 1000,
   xacMinh: 5,
+  quanTriJournal: 1000,
 }
 
 const THONG_BAO_KHOA_IP = "Địa chỉ IP tạm bị khóa do nhập sai quá nhiều lần. Vui lòng thử lại sau."
@@ -100,6 +103,13 @@ export function taoBoGioiHan(cauHinh: CauHinhGioiHan = GIOI_HAN_MAC_DINH) {
       res.status(429).json({ success: false, error: { code: "RATE_LIMITED", message: THONG_BAO_KHOA_IP } })
       return true
     },
+    // Trình soạn thảo Journal gọi API nhiều hơn biểu mẫu thường (mở thư viện ảnh, sắp xếp, lưu);
+    // giới hạn riêng để nhân viên không chạm giới hạn chung dùng cho trang công khai.
+    quanTriJournal: taoGioiHan(
+      cauHinh.quanTriJournal ?? 1000,
+      cauHinh.cuaSoMs,
+      "Bạn thao tác quá nhanh. Vui lòng thử lại sau ít phút.",
+    ),
     // Khóa theo tài khoản đang đăng nhập; chỉ đếm lần thất bại (sai PIN/mật khẩu hiện tại).
     // Gắn sau yeuCauDangNhap nên luôn có adminId trong phiên.
     xacMinh: taoGioiHan(

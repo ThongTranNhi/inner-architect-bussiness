@@ -3,6 +3,8 @@
  * (`TEST_DB_NAME`), áp dụng migration, dọn dữ liệu và tạo tài khoản thử.
  * Toàn bộ dữ liệu là dữ liệu giả; không dùng thông tin khách hàng thật.
  */
+import { tmpdir } from "node:os"
+import path from "node:path"
 import mysql, { type Pool } from "mysql2/promise"
 import { taoUngDung } from "../src/app.ts"
 import { taoPoolKetNoi } from "../src/config/database.ts"
@@ -25,7 +27,15 @@ export function docCauHinhTest(): CauHinh | null {
   try {
     const cauHinh = docCauHinh()
     if (!cauHinh.TEST_DB_NAME) return null
-    return { ...cauHinh, NODE_ENV: "test", DB_NAME: cauHinh.TEST_DB_NAME }
+    return {
+      ...cauHinh,
+      NODE_ENV: "test",
+      DB_NAME: cauHinh.TEST_DB_NAME,
+      // Ảnh test ghi vào thư mục tạm, không lẫn vào thư mục ảnh của môi trường dev.
+      JOURNAL_UPLOAD_DIR: path.join(tmpdir(), "inner-architect-journal-test"),
+      JOURNAL_MAX_UPLOAD_MB: 1,
+      SITE_URL: "https://innerarchitect.test",
+    }
   } catch {
     return null
   }
@@ -85,6 +95,9 @@ export async function donDuLieuTest(pool: Pool): Promise<void> {
   if (!(await pool.query<mysql.RowDataPacket[]>("SELECT DATABASE() AS db"))[0][0]?.db?.includes("test"))
     throw new Error("Từ chối dọn dữ liệu: database hiện tại không phải database test.")
   await pool.query("DELETE FROM sessions")
+  await pool.query("DELETE FROM journal_articles")
+  await pool.query("DELETE FROM journal_categories")
+  await pool.query("DELETE FROM journal_media")
   await pool.query("DELETE FROM admin_settings")
   await pool.query("DELETE FROM customers")
   await pool.query("DELETE FROM admins")

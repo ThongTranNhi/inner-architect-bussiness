@@ -46,6 +46,21 @@ const schemaMoiTruong = z.object({
         .filter(Boolean),
     ),
   TRUST_PROXY: boolTuChuoi,
+
+  // Thư mục lưu ảnh Journal tải lên. Production: thư mục dữ liệu bền vững NGOÀI thư mục
+  // từng bản phát hành (vd. /var/lib/inner-architect/uploads/journal) và có trong backup.
+  // Bỏ trống (hoặc chuỗi rỗng trong .env) = server/storage/journal, chỉ dùng khi dev.
+  JOURNAL_UPLOAD_DIR: z
+    .string()
+    .optional()
+    .transform((thuMuc) => path.resolve(thuMuc?.trim() || path.join(thuMucGocServer(), "storage", "journal"))),
+  // Dung lượng tối đa mỗi ảnh (MB). Nginx `client_max_body_size` cho /api/v1/admin/journal/media phải >= giá trị này.
+  JOURNAL_MAX_UPLOAD_MB: z.coerce.number().int().min(1).max(20).default(5),
+  // Địa chỉ công khai của website, dùng để tạo sitemap.xml.
+  SITE_URL: z
+    .url({ protocol: /^https?$/, error: "SITE_URL phải là URL http(s)" })
+    .default("http://localhost:8443")
+    .transform((url) => url.replace(/\/+$/, "")),
 })
 
 /** Cấu hình đã kiểm tra của backend. */
