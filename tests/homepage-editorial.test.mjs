@@ -183,7 +183,12 @@ test("homepage follows the approved Inner Architect content architecture", () =>
 test("homepage display headings stay within the approved editorial scale", () => {
   assert.match(
     cssSource,
-    /\.home-v3-hero h1\s*\{[^}]*font-size:\s*clamp\(44px,\s*4\.8vw,\s*72px\);[^}]*line-height:\s*\.96/s,
+    /\.home-v3-hero h1\s*\{[^}]*font-size:\s*clamp\(44px,\s*4\.8vw,\s*72px\);[^}]*line-height:\s*1\.08/s,
+  )
+  // Dòng nghiêng có dấu chồng (ể, ố) được chừa khoảng phía trên để không chạm dấu nặng (ậ, ự) dòng trên.
+  assert.match(
+    cssSource,
+    /\.home-v3-hero h1 em\s*\{[^}]*display:\s*inline-block;[^}]*padding-top:\s*\.2em/s,
   )
   assert.match(
     cssSource,
