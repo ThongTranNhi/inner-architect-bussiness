@@ -1125,13 +1125,17 @@ body:has(.home-page) .site-header{position:fixed;top:0;transition:transform .32s
   margin: 0;
   color: inherit;
   font-size: clamp(44px, 4.8vw, 72px);
-  letter-spacing: -.035em;
-  line-height: .96;
+  /* Tiếng Việt có dấu chồng (ậ, ể, ủ): cần khoảng dòng và khoảng chữ rộng hơn để dấu không chạm dòng trên. */
+  letter-spacing: -.005em;
+  line-height: 1.08;
   animation: homeV3TextIn .9s .38s both;
 }
 
 .home-v3-hero h1 em {
   font-weight: 400;
+  /* Dòng nghiêng có dấu chồng cao (ể, ố): chừa thêm khoảng phía trên để không chạm dấu nặng (ậ, ự) dòng trên. */
+  display: inline-block;
+  padding-top: .2em;
 }
 
 .home-v3-mobile-break {
@@ -2054,7 +2058,7 @@ h2.serif.menu-link-title,
     transform: none;
   }
   .home-v3-hero-kicker { margin-bottom: 18px; font-size: 16px; }
-  .home-v3-hero h1 { font-size: 42px; line-height: .95; }
+  .home-v3-hero h1 { font-size: 42px; line-height: 1.08; }
   .home-v3-mobile-break { display: block; }
   .home-v3-hero-intro {
     width: 100%;
