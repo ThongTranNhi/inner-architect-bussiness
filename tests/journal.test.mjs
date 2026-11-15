@@ -62,11 +62,11 @@ test("journal route renders the new page with the existing articles and series",
   assert.match(appSource, /:not\(\.journal-page\) > section/)
 })
 
-test("featured showcase has primary and secondary articles, library uses editorial grid with filter tabs", () => {
+test("featured showcase has primary and secondary articles, library uses editorial grid without filter tabs", () => {
   assert.match(css, /\.jr-featured-link \{[^}]*grid-template-areas: "chu anh"/s)
   assert.match(css, /\.jr-featured-sub-grid \{[^}]*grid-template-columns:/s)
   assert.match(css, /\.jr-grid \{[^}]*grid-template-columns:\s*repeat\(3,/s)
-  assert.match(pageSource, /<nav className="jr-filter"/)
+  assert.doesNotMatch(pageSource, /jr-filter/)
   assert.match(pageSource, /layBaiTieuBieu\(baiViet/)
   // Mobile: grid collapses to 1 column.
   assert.match(
@@ -119,4 +119,18 @@ test("journal headings keep the approved readable display scale", () => {
     css,
     /@media\s*\(max-width:\s*600px\)[\s\S]*\.journal-page \.jr-masthead h1\s*\{\s*font-size:\s*52px;/,
   )
+})
+
+test("bài hiện thêm sau khi bấm 'Xem thêm' vẫn được hiệu ứng cuộn theo dõi (không bị kẹt ẩn)", async () => {
+  const { readFile } = await import("node:fs/promises")
+  const hook = await readFile(new URL("../src/founder/hieu-ung.ts", import.meta.url), "utf8")
+  assert.match(hook, /new MutationObserver\(capNhatDanhSach\)/)
+  assert.match(hook, /mutationObserver\.observe\(container, \{ childList: true, subtree: true \}\)/)
+  assert.match(hook, /mutationObserver\.disconnect\(\)/)
+})
+
+test("ảnh lồng trong thẻ hiện theo thẻ (ảnh bị clip-path cắt về 0px không tự kích hoạt observer)", async () => {
+  const { readFile } = await import("node:fs/promises")
+  const hook = await readFile(new URL("../src/founder/hieu-ung.ts", import.meta.url), "utf8")
+  assert.match(hook, /entry\.target\s*\.querySelectorAll<HTMLElement>\('\[data-reveal="anh"\]'\)\s*\.forEach\(hien\)/)
 })

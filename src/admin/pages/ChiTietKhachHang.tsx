@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { Link } from "../../dieu-huong"
+import { go, Link } from "../../dieu-huong"
 import { GOC_QUAN_TRI } from "../duong-dan-quan-tri"
 import { layNhanDichVu } from "../../lien-he/dich-vu-lien-he"
+import { NutXoaKhachHang } from "../components/NutXoaKhachHang"
 import { ChonTrangThai, NhanTrangThai } from "../components/TrangThaiKhachHang"
 import { dinhDangThoiGian, NHAN_TRANG_THAI } from "../dinh-dang"
 import { usePhienQuanTri } from "../hooks/usePhienQuanTri"
-import { capNhatTrangThai, LoiApi, layChiTietKhachHang } from "../services/api-quan-tri"
+import { capNhatTrangThai, LoiApi, layChiTietKhachHang, xoaKhachHang } from "../services/api-quan-tri"
 import type { KhachHang } from "../types/quan-tri"
 
 /**
@@ -16,7 +17,7 @@ import type { KhachHang } from "../types/quan-tri"
  * @returns Trang chi tiết
  */
 export function ChiTietKhachHang({ id }: { id: number }) {
-  const { xuLyHetPhien } = usePhienQuanTri()
+  const { xuLyHetPhien, quanTriVien } = usePhienQuanTri()
   const [khachHang, setKhachHang] = useState<KhachHang | null>(null)
   const [loi, setLoi] = useState<string | null>(null)
   const [thongBao, setThongBao] = useState<string | null>(null)
@@ -118,6 +119,34 @@ export function ChiTietKhachHang({ id }: { id: number }) {
               {thongBao}
             </p>
           </section>
+
+          {quanTriVien?.role === "admin" && (
+            <section className="mt-12 max-w-[760px] border-t border-[var(--line)] pt-8" aria-labelledby="tieu-de-xoa">
+              <h2 id="tieu-de-xoa" className="serif m-0 text-[26px] leading-[1.2]">
+                Xóa khách hàng
+              </h2>
+              <p className="mt-1 text-[13px] text-[#6b5f4f]">
+                Xóa vĩnh viễn thông tin của khách hàng này khỏi hệ thống, ví dụ khi khách yêu cầu xóa dữ liệu. Không thể hoàn tác.
+              </p>
+              <div className="mt-4">
+                <NutXoaKhachHang
+                  lon
+                  ma={khachHang.id}
+                  ten={khachHang.fullName}
+                  onXoa={async () => {
+                    try {
+                      await xoaKhachHang(khachHang.id)
+                      go(`${GOC_QUAN_TRI}/customers`)
+                    } catch (e) {
+                      if (e instanceof LoiApi && e.status === 401) xuLyHetPhien()
+                      else setLoi(e instanceof Error ? e.message : "Không xóa được khách hàng.")
+                      throw e
+                    }
+                  }}
+                />
+              </div>
+            </section>
+          )}
         </article>
       )}
     </>

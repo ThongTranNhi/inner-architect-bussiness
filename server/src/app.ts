@@ -15,6 +15,7 @@ import {
 } from "./middleware/rate-limiter.ts"
 import { ganNguCanhYeuCau } from "./middleware/request-context.ts"
 import { taoRouterApiV1 } from "./routes/index.ts"
+import { taoGhiNhatKyBaoMat } from "./utils/nhat-ky-bao-mat.ts"
 
 /** Tên cookie session; chỉ gửi kèm đường dẫn `/api`. */
 export const TEN_COOKIE_SESSION = "ia_sid"
@@ -83,6 +84,8 @@ export function taoUngDung(tuyChon: {
       tenCookie: TEN_COOKIE_SESSION,
       gioiHan: taoBoGioiHan(tuyChon.gioiHan ?? GIOI_HAN_MAC_DINH),
       originChoPhep: cauHinh.ALLOWED_ORIGINS,
+      pinKhoiTao: cauHinh.ADMIN_UNLOCK_PIN,
+      ghiNhatKyBaoMat: taoGhiNhatKyBaoMat(tuyChon.batLog ?? true),
     }),
   )
   app.use(xuLyKhongTimThay)

@@ -130,51 +130,65 @@ function FounderHero() {
   )
 }
 
-/** Section 02 — Giới thiệu con người và tư duy. */
+/**
+ * Section 02 — Giới thiệu con người và tư duy: ảnh bên trái trượt vào từ trái,
+ * chữ bên phải trượt vào từ phải (cùng nhịp với section Hành trình).
+ */
 function FounderGioiThieu() {
   return (
     <section className="fp-intro" aria-labelledby="fp-gioi-thieu">
-      <p className="fp-eyebrow" lang="en" {...hieuUng("len", 0)}>
-        {gioiThieuFounder.eyebrow}
-      </p>
-      <h2 id="fp-gioi-thieu" className="serif" {...hieuUng("len", 1)}>
-        {g(gioiThieuFounder.tieuDe)}
-      </h2>
-      <p className="fp-lead serif" {...hieuUng("len", 2)}>
-        {g(gioiThieuFounder.dan)}
-      </p>
-      {gioiThieuFounder.doan.map((doan, i) => (
-        <p key={doan} {...hieuUng("len", i + 3)}>
-          {doan}
+      <KhungAnh
+        anh={anhFounder.gioiThieu}
+        className="fp-intro-media"
+        kieu="trai"
+      />
+      <div className="fp-intro-copy">
+        <p className="fp-eyebrow" lang="en" {...hieuUng("phai", 1)}>
+          {gioiThieuFounder.eyebrow}
         </p>
-      ))}
-      {soLieuDaXacNhan && <p>{gioiThieuFounder.doanSoLieu}</p>}
+        <h2 id="fp-gioi-thieu" className="serif" {...hieuUng("phai", 2)}>
+          {g(gioiThieuFounder.tieuDe)}
+        </h2>
+        <p className="fp-lead serif" {...hieuUng("phai", 3)}>
+          {g(gioiThieuFounder.dan)}
+        </p>
+        {gioiThieuFounder.doan.map((doan, i) => (
+          <p key={doan} {...hieuUng("phai", i + 4)}>
+            {doan}
+          </p>
+        ))}
+        {soLieuDaXacNhan && <p>{gioiThieuFounder.doanSoLieu}</p>}
+      </div>
     </section>
   )
 }
 
-/** Section 03 — Hành trình cá nhân (ảnh + kể chuyện). */
+/**
+ * Section 03 — Hành trình cá nhân: chữ bên trái trượt vào từ trái, ảnh bên
+ * phải trượt vào từ phải (đối xứng với section Giới thiệu phía trên).
+ */
 function FounderHanhTrinh() {
   return (
     <section className="fp-journey" aria-labelledby="fp-hanh-trinh">
-      <KhungAnh
-        anh={anhFounder.hanhTrinh}
-        className="fp-journey-media"
-        kieu="trai"
-      />
       <div className="fp-journey-copy">
-        <p className="fp-eyebrow" lang="en" {...hieuUng("phai", 1)}>
+        <p className="fp-eyebrow" lang="en" {...hieuUng("trai", 0)}>
           {hanhTrinhFounder.eyebrow}
         </p>
-        <h2 id="fp-hanh-trinh" className="serif" {...hieuUng("phai", 2)}>
+        <h2 id="fp-hanh-trinh" className="serif" {...hieuUng("trai", 1)}>
           {g(hanhTrinhFounder.tieuDe)}
         </h2>
         {hanhTrinhFounder.doan.map((doan, i) => (
-          <p key={doan} {...hieuUng("phai", i + 3)}>
+          <p key={doan} {...hieuUng("trai", i + 2)}>
             {doan}
           </p>
         ))}
       </div>
+      <KhungAnh
+        anh={anhFounder.hanhTrinh}
+        className="fp-journey-media"
+        kieu="phai"
+        thuTu={1}
+      />
     </section>
   )
 }

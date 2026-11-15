@@ -45,6 +45,19 @@ Pipeline `ci-cd.yml` deploy frontend mỗi khi có commit vào `main`. Nếu mer
 9. **Backup tự động** hằng ngày bằng `mysqldump` (xem [database.md](database.md)), lưu ngoài thư mục web, giữ theo chính sách PM quy định; thử restore định kỳ.
 10. **Smoke test:** `curl https://innerarchitect.vn/api/v1/health`, gửi biểu mẫu thử bằng dữ liệu giả rồi xóa, đăng nhập/đăng xuất admin, kiểm tra `/jathong` không lộ dữ liệu khi chưa đăng nhập.
 
+## Cập nhật: mục Bảo mật tài khoản (migration 002)
+
+Áp dụng cho bản có `/account/pin`, `/account/password` và PIN mở khóa:
+
+1. **Backup** database trước (`mysqldump`, xem [database.md](database.md)).
+2. Build và chép mã nguồn backend mới như bước 3, gồm `server/database/migrations/002_admin_account_security.sql`.
+3. **Chạy migration trước khi khởi động lại backend:** `node dist/scripts/chay-migration.js` (tài khoản migrator cần quyền `CREATE`, `ALTER`). Code mới đọc cột `admins.credential_version` nên backend mới sẽ lỗi đăng nhập nếu chưa chạy migration.
+4. Nếu muốn bật PIN: thêm `ADMIN_UNLOCK_PIN=<6–8 chữ số>` vào `/etc/inner-architect/api.env` (quyền 600) làm PIN khởi tạo, rồi đổi ngay ở `/jathong/bao-mat` để PIN được lưu dạng Argon2id trong MySQL. Sau đó có thể xóa biến này khỏi file env (MySQL vẫn là nguồn chính).
+5. `sudo systemctl restart inner-architect-api`. Phiên đăng nhập hiện có vẫn hợp lệ (coi như version 1).
+6. Smoke test: `/jathong` hỏi PIN (nếu đã bật) → đăng nhập → mục **Bảo mật tài khoản** hiển thị; `journalctl -u inner-architect-api` chỉ có dòng `"loai":"security"` không chứa bí mật.
+
+Rate limit PIN/xác minh lưu trong bộ nhớ tiến trình: khởi động lại backend sẽ reset bộ đếm.
+
 ## Việc cần PM quyết định trước deploy
 
 - Chính sách bảo mật bản chính thức (thời gian lưu trữ, quyền yêu cầu xóa dữ liệu) — bản hiện tại vẫn là nháp.

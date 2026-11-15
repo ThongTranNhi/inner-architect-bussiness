@@ -34,6 +34,7 @@ const schemaMoiTruong = z.object({
     .string()
     .min(32, "SESSION_SECRET cần tối thiểu 32 ký tự ngẫu nhiên"),
   SESSION_MAX_AGE_HOURS: z.coerce.number().min(1).max(72).default(8),
+  ADMIN_UNLOCK_PIN: z.string().regex(/^[0-9]{6,8}$/, "PIN cần có 6–8 chữ số").optional(),
 
   ALLOWED_ORIGINS: z
     .string()

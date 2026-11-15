@@ -42,9 +42,15 @@ Rate limit 5 lần/15 phút/IP. Không tạo session/cookie.
 
 Thành công `201`: `{"success":true,"message":"Thông tin của bạn đã được tiếp nhận. Đội ngũ INNER ARCHITECT sẽ chủ động liên hệ."}` — chỉ trả sau khi MySQL ghi xong; không trả lại dữ liệu cá nhân.
 
+### `POST /auth/unlock`
+
+Body `{"pin":"012345"}` (6–8 chữ số, **chuỗi**). Bước 1 của luồng đăng nhập khi đã bật PIN. Đúng → phiên được mở khóa 5 phút, gắn version của PIN hiện hành. Sai → `403`. Chưa bật PIN → `404`.
+
 ### `POST /auth/login`
 
-Body `{"username","password"}` (strict). Rate limit 10 lần sai/15 phút theo IP + username. Thành công: đặt cookie `ia_sid`, trả `{"data":{"admin":{id,username,displayName,role},"csrfToken"}}`. Sai → `401` với cùng một thông điệp cho mọi trường hợp.
+Khi đã bật PIN, phải `/auth/unlock` trước, nếu không trả `401 ADMIN_PIN_REQUIRED` (cũng trả khi PIN vừa bị đổi sau lúc mở khóa). Body `{"username","password"}` (strict). Thành công: đặt cookie `ia_sid`, trả `{"data":{"admin":{id,username,displayName,role},"csrfToken"}}`. Sai → `401` với cùng một thông điệp cho mọi trường hợp.
+
+`/auth/unlock` và `/auth/login` dùng chung bộ đếm theo IP. Sau 5 lần nhập sai trong cửa sổ 15 phút, cả hai endpoint trả `429` kèm `Retry-After` đến khi hết cửa sổ. Đổi tên đăng nhập không làm mới bộ đếm. Bộ đếm nằm trong bộ nhớ của tiến trình Express.
 
 ## Cần đăng nhập (cookie `ia_sid`)
 
@@ -57,6 +63,12 @@ Request thay đổi dữ liệu phải gửi header `X-CSRF-Token: <csrfToken>`.
 | GET | `/admin/customers?q=&service=&status=&page=1&pageSize=20` | Danh sách mới nhất trước; `q` tìm trong tên/SĐT/email; `pageSize` ≤ 100 |
 | GET | `/admin/customers/:id` | Chi tiết |
 | PATCH | `/admin/customers/:id/status` | Body `{"status":"new"|"contacted"|"completed"}` (cần CSRF) |
+| DELETE | `/admin/customers/:id` | **Chỉ `admin`.** Xóa vĩnh viễn (cần CSRF). `404` nếu không tồn tại. Ghi log `{"loai":"security","thaoTac":"xoa_khach_hang","maDoiTuong":<id>}` — chỉ ID, không có dữ liệu cá nhân |
 | GET | `/admin/statistics` | `{"total","new","contacted","completed"}` |
+| GET | `/account/security` | `{"pinEnabled","canChangePin"}` — không trả PIN hay bản băm |
+| POST | `/account/pin` | **Chỉ `admin`.** Body `{"currentPin","password","newPin","confirmPin"}` (cần CSRF). `currentPin` bỏ trống chỉ khi chưa bật PIN. Sai PIN/mật khẩu → `403` (thông điệp chung); đổi đồng thời → `409 CONFLICT` |
+| POST | `/account/password` | Đổi mật khẩu **của chính mình** (ID lấy từ phiên). Body `{"currentPassword","newPassword","confirmPassword"}` (cần CSRF, mật khẩu mới ≥ 12 ký tự). Thành công: thu hồi mọi phiên của tài khoản, kể cả phiên hiện tại |
+
+`/account/pin` và `/account/password`: 5 lần xác minh sai/15 phút mỗi tài khoản → `429`. Mỗi lần đổi ghi một dòng log JSON `{"loai":"security","thaoTac","maQuanTriVien","ketQua","thoiDiem"}` — không có PIN, mật khẩu hay bản băm.
 
 Danh sách trả `{"data":[KhachHang], "pagination":{page,pageSize,total,totalPages}}`. `KhachHang`: `id, fullName, phone, email, service, source, status, consentAt, createdAt, updatedAt` (ISO 8601 UTC).

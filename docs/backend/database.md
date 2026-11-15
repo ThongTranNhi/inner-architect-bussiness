@@ -25,7 +25,11 @@ Index: `status`, `service`, `phone`, `created_at`.
 
 ### `admins`
 
-`id`, `username` (UNIQUE), `password_hash` (Argon2id PHC), `display_name`, `role` (`admin` | `customer_care`), `is_active`, `created_at`, `updated_at`. Chỉ tạo bằng `pnpm admin:create`.
+`id`, `username` (UNIQUE), `password_hash` (Argon2id PHC), `display_name`, `role` (`admin` | `customer_care`), `is_active`, `credential_version` (tăng mỗi lần đổi mật khẩu; phiên lưu version lúc đăng nhập, lệch là bị thu hồi — migration 002), `created_at`, `updated_at`. Chỉ tạo bằng `pnpm admin:create`.
+
+### `admin_settings` (migration 002)
+
+`setting_key` PK, `value_hash` (Argon2id), `version`, `updated_by`, `updated_at`. Hiện có một khóa `unlock_pin` — PIN mở khóa `/jathong`. Chưa có dòng này thì backend dùng `ADMIN_UNLOCK_PIN` làm PIN khởi tạo; có rồi thì bản ghi MySQL là nguồn chính. Xóa dòng này = quay về PIN trong `.env` (hoặc tắt PIN nếu biến trống).
 
 ### `sessions`
 

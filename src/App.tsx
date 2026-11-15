@@ -138,6 +138,12 @@ const danhSachDieuHuongMenu: MucDieuHuongMenu[] = [
     anhPreview: IMG.homeCuratedHero,
   },
   {
+    nhan: "About Khiêm Võ",
+    duongDan: "/vo-khiem",
+    moTa: "Người sáng lập INNER ARCHITECT™ System",
+    anhPreview: IMG.homeFounderPortrait,
+  },
+  {
     nhan: "Journal",
     duongDan: "/journal",
     moTa: "Thư viện tri thức & chiêm nghiệm",

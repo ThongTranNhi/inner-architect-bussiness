@@ -21,6 +21,7 @@ export class LoiApi extends Error {
   readonly status: number
   readonly ma: string
   readonly truong: Record<string, string> | undefined
+  readonly choDen: number | undefined
 
   /**
    * @param status - HTTP status, 0 khi không kết nối được
@@ -28,12 +29,13 @@ export class LoiApi extends Error {
    * @param thongDiep - Thông điệp tiếng Việt để hiển thị
    * @param truong - Lỗi theo trường
    */
-  constructor(status: number, ma: string, thongDiep: string, truong?: Record<string, string>) {
+  constructor(status: number, ma: string, thongDiep: string, truong?: Record<string, string>, choDen?: number) {
     super(thongDiep)
     this.name = "LoiApi"
     this.status = status
     this.ma = ma
     this.truong = truong
+    this.choDen = choDen
   }
 }
 
@@ -47,7 +49,7 @@ export class LoiApi extends Error {
  */
 async function goiApi<T>(
   duongDan: string,
-  tuyChon: { method?: "GET" | "POST" | "PATCH"; body?: unknown } = {},
+  tuyChon: { method?: "GET" | "POST" | "PATCH" | "DELETE"; body?: unknown } = {},
 ): Promise<T> {
   const method = tuyChon.method ?? "GET"
   const headers: Record<string, string> = { Accept: "application/json" }
@@ -71,6 +73,7 @@ async function goiApi<T>(
     | null
   if (!phanHoi.ok) {
     const loi = noiDung?.error
+    const giayCho = Number(phanHoi.headers.get("Retry-After"))
     throw new LoiApi(
       phanHoi.status,
       loi?.code ?? "HTTP_ERROR",
@@ -79,12 +82,18 @@ async function goiApi<T>(
           ? "Máy chủ đang gặp sự cố. Vui lòng thử lại sau."
           : "Yêu cầu không thành công."),
       loi?.fields,
+      Number.isFinite(giayCho) && giayCho > 0 ? Date.now() + giayCho * 1000 : undefined,
     )
   }
   return noiDung as T
 }
 
 type DuLieuPhien = { data: { admin: QuanTriVien; csrfToken: string } }
+
+/** Mở khóa bước đăng nhập trên máy chủ bằng PIN vừa nhập. */
+export async function moKhoaQuanTri(pin: string): Promise<void> {
+  await goiApi("/auth/unlock", { method: "POST", body: { pin } })
+}
 
 /**
  * Lấy phiên đăng nhập hiện tại (dùng khi mở trang quản trị).
@@ -173,10 +182,70 @@ export async function capNhatTrangThai(id: number, status: TrangThaiKhachHang): 
 }
 
 /**
+ * Xóa vĩnh viễn một khách hàng (chỉ vai trò admin; backend kiểm tra quyền).
+ *
+ * @param id - ID khách hàng
+ * @returns Thông điệp thành công từ server
+ */
+export async function xoaKhachHang(id: number): Promise<string> {
+  return (await goiApi<{ message: string }>(`/admin/customers/${id}`, { method: "DELETE" })).message
+}
+
+/**
  * Lấy số liệu tổng hợp cho dashboard.
  *
  * @returns Tổng số và số lượng theo trạng thái
  */
 export async function layThongKe(): Promise<ThongKeKhachHang> {
   return (await goiApi<{ data: ThongKeKhachHang }>("/admin/statistics")).data
+}
+
+/** Trạng thái mục "Bảo mật tài khoản" (không chứa PIN hay bản băm). */
+export type TrangThaiBaoMat = { pinEnabled: boolean; canChangePin: boolean }
+
+/**
+ * Lấy trạng thái bảo mật: đã bật PIN mở khóa chưa, tài khoản có quyền đổi PIN không.
+ *
+ * @returns Trạng thái bảo mật
+ */
+export async function layTrangThaiBaoMat(): Promise<TrangThaiBaoMat> {
+  return (await goiApi<{ data: TrangThaiBaoMat }>("/account/security")).data
+}
+
+/**
+ * Đổi PIN mở khóa chung của trang quản trị (chỉ vai trò admin; backend kiểm tra quyền).
+ * PIN và mật khẩu chỉ gửi qua body, không lưu ở client.
+ *
+ * @param duLieu.currentPin - PIN hiện tại; bỏ trống khi chưa bật PIN
+ * @param duLieu.password - Mật khẩu tài khoản đang đăng nhập
+ * @param duLieu.newPin - PIN mới (6–8 chữ số, dạng chuỗi)
+ * @param duLieu.confirmPin - Nhập lại PIN mới
+ * @returns Thông điệp thành công từ server
+ */
+export async function doiPinMoKhoa(duLieu: {
+  currentPin?: string
+  password: string
+  newPin: string
+  confirmPin: string
+}): Promise<string> {
+  return (await goiApi<{ message: string }>("/account/pin", { method: "POST", body: duLieu })).message
+}
+
+/**
+ * Đổi mật khẩu của chính tài khoản đang đăng nhập. Thành công thì server thu hồi mọi
+ * phiên của tài khoản (kể cả phiên hiện tại) nên CSRF token trong bộ nhớ cũng bị xóa.
+ *
+ * @param duLieu.currentPassword - Mật khẩu hiện tại
+ * @param duLieu.newPassword - Mật khẩu mới (tối thiểu 12 ký tự)
+ * @param duLieu.confirmPassword - Nhập lại mật khẩu mới
+ * @returns Thông điệp thành công từ server
+ */
+export async function doiMatKhau(duLieu: {
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}): Promise<string> {
+  const ketQua = await goiApi<{ message: string }>("/account/password", { method: "POST", body: duLieu })
+  csrfToken = null
+  return ketQua.message
 }
