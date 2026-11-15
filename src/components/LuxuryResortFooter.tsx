@@ -163,7 +163,7 @@ export function LuxuryResortFooter() {
               { nhan: "Chương trình", duongDan: "/chuong-trinh" },
               { nhan: "The Hermit", duongDan: "/the-hermit" },
               { nhan: "Khiêm Võ", duongDan: "/vo-khiem" },
-              { nhan: "LARA", duongDan: "/lara" },
+              { nhan: "Lara Infinity", duongDan: "/lara" },
               { nhan: "Liên hệ", duongDan: "/lien-he" },
               { nhan: "FAQ", duongDan: "/faq" },
             ].map((muc) => (

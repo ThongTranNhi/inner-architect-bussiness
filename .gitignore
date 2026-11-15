@@ -43,6 +43,7 @@ artifacts/
 .serena/
 .impeccable/
 Danh-sach-website-Netlify.docx
+*.docx
 
 # Vite / TypeScript caches (merged from the former app-level .gitignore)
 .cache/

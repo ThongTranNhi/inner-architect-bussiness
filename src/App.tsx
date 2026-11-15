@@ -193,11 +193,20 @@ function Header({
 
   useEffect(() => {
     let previous = window.scrollY
+    let ticking = false
     const onScroll = () => {
-      const current = window.scrollY
-      setHidden(!home && current > previous && current > 120)
-      setOverHero(home && current < window.innerHeight * 0.82)
-      previous = current
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const current = window.scrollY
+          const shouldHide = !home && current > previous && current > 120
+          const shouldOverHero = home && current < window.innerHeight * 0.82
+          setHidden((prev) => (prev !== shouldHide ? shouldHide : prev))
+          setOverHero((prev) => (prev !== shouldOverHero ? shouldOverHero : prev))
+          previous = current
+          ticking = false
+        })
+        ticking = true
+      }
     }
     onScroll()
     addEventListener("scroll", onScroll, { passive: true })
@@ -257,7 +266,7 @@ function Header({
               >
                 <span className="menu-link-index">0{i + 1}</span>
                 <div className="menu-link-text">
-                  <h2 className="serif menu-link-title">{item.nhan}</h2>
+                  <h2 className="menu-link-title font-sans font-bold">{item.nhan}</h2>
                   <p className="menu-link-desc">{item.moTa}</p>
                 </div>
                 <span className="menu-link-arrow" aria-hidden="true">
@@ -299,7 +308,7 @@ function Header({
                   </Link>
                   <span>·</span>
                   <Link to="/lara" onClick={() => setOpen(false)}>
-                    LARA
+                    Lara Infinity
                   </Link>
                   <span>·</span>
                   <Link to="/he-thong" onClick={() => setOpen(false)}>
@@ -347,7 +356,7 @@ function Footer({ home = false }: { home?: boolean }) {
           <Link to="/lien-he">Liên hệ</Link>
           <Link to="/faq">FAQ</Link>
           <Link to="/vo-khiem">Khiêm Võ</Link>
-          <Link to="/lara">LARA</Link>
+          <Link to="/lara">Lara Infinity</Link>
           {contactChannels.facebook && (
             <a
               href={contactChannels.facebook}
@@ -392,7 +401,7 @@ function Footer({ home = false }: { home?: boolean }) {
           <br />
           <Link to="/vo-khiem">Khiêm Võ</Link>
           <br />
-          <Link to="/lara">LARA</Link>
+          <Link to="/lara">Lara Infinity</Link>
         </div>
         <div>
           <b>BẮT ĐẦU</b>
@@ -539,7 +548,8 @@ function Home({ initialSection }: { initialSection?: string }) {
       const rects = el.getClientRects()
       const chieuRong = rects.length > 0 ? rects[0].width : el.getBoundingClientRect().width
       if (chieuRong > 0) {
-        setChieuRongAnhChon(Math.round(chieuRong))
+        const lamTron = Math.round(chieuRong)
+        setChieuRongAnhChon((prev) => (prev !== lamTron ? lamTron : prev))
       }
     }
 
@@ -1264,9 +1274,9 @@ const seoTheoDuongDan: Record<
       giuNguyenTieuDe: true,
     },
     "/lara": {
-      title: "LARA",
+      title: "Lara Infinity",
       description:
-        "LARA — nhánh sản phẩm hương thơm cho những khoảng nghỉ và nghi thức cá nhân.",
+        "Lara Infinity — nhánh sản phẩm hương thơm cho những khoảng nghỉ và nghi thức cá nhân.",
     },
     "/lien-he": {
       title: "Liên hệ",

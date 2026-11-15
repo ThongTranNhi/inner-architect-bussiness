@@ -1,106 +1,154 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { go, Link } from "../dieu-huong"
 
-/** Dữ liệu 6 trang portfolio chuẩn từ tài liệu Inner Architect Portfolio.pdf. */
-interface MucTrangPortfolio {
-  soTrang: string
-  tenNgan: string
-  tieuDe: string
-  phuDe: string
-  chamNgon: string
-  moTa: string
-  src: string
-  alt: string
+/**
+ * Cấu trúc dữ liệu chi tiết cho từng tầng kiến trúc
+ * Trích xuất nguyên bản từ tài liệu gốc Inner_Architect_Noi_Dung_Website_4_Tang.docx
+ */
+interface TangKienTruc {
+  id: string
+  soThuTu: string
+  soLaMa: string
+  tenTang: string
+  tenTiengAnh: string
+  loiMo: string
+  noiDung: string
+  traiNghiemTieuBieu: {
+    ten: string
+    moTa?: string
+  }[]
+  diemNhan: string
 }
 
-const danhSachAnhPortfolio: MucTrangPortfolio[] = [
+const danhSachBonTang: TangKienTruc[] = [
   {
-    soTrang: "06",
-    tenNgan: "Tổng quan 4 tầng",
-    tieuDe: "Giải pháp: Hệ thống tích hợp 4 tầng",
-    phuDe: "INNER ARCHITECT™ SYSTEM",
-    chamNgon: "Mỗi tầng có điểm bắt đầu & điểm kết rõ ràng",
-    moTa: "Hệ thống vận hành thông qua 4 tầng chức năng, được thiết kế nhằm bảo đảm sự rõ ràng, an toàn và khả năng hoàn tất tiến trình.",
-    src: "/assets/he-thong/06-giai-phap-he-thong-tich-hop-4-tang.webp",
-    alt: "Trang 06 Portfolio - Giải pháp: Hệ thống tích hợp 4 tầng",
+    id: "tang-1",
+    soThuTu: "01",
+    soLaMa: "TẦNG I",
+    tenTang: "Khám phá & Phản tư",
+    tenTiengAnh: "Explore & Reflect",
+    loiMo:
+      "Đôi khi, điều chúng ta cần không phải là một câu trả lời có sẵn, mà là một khoảng lặng để nhìn vấn đề từ góc độ khác.",
+    noiDung:
+      "Tại The Hermit, Tarot được sử dụng như công cụ gợi mở câu hỏi và phản tư, kết hợp với không gian trà đạo và chiêm nghiệm. Mỗi trải nghiệm khuyến khích bạn nhận diện điều mình đang quan tâm, lắng nghe cảm xúc và tự tìm ra góc nhìn phù hợp.",
+    traiNghiemTieuBieu: [
+      {
+        ten: "Tarot Mini",
+        moTa: "Gợi mở câu hỏi và phản tư ban đầu qua góc nhìn biểu tượng.",
+      },
+      {
+        ten: "Tarot Discovery",
+        moTa: "Khám phá bối cảnh hiện tại và nhận diện các góc nhìn mới.",
+      },
+      {
+        ten: "Tarot Guidance",
+        moTa: "Định vị thấu suốt cảm xúc và lắng nghe tiếng nói nội tâm.",
+      },
+      {
+        ten: "Không gian trà đạo",
+        moTa: "Khoảng lặng tĩnh tại để nhấp chén trà và chiêm nghiệm cuộc sống.",
+      },
+    ],
+    diemNhan: "Gợi mở nhận thức · Khoảng lặng phản tư · Lắng nghe cảm xúc",
   },
   {
-    soTrang: "07",
-    tenNgan: "Cấu trúc & Logic",
-    tieuDe: "Cấu trúc & Logic vận hành hệ thống 4 tầng",
-    phuDe: "OPERATIONAL LOGIC",
-    chamNgon: "An toàn luôn đặt trước chiều sâu – Tự chủ là mục tiêu tối thượng",
-    moTa: "Các tầng đại diện cho phạm vi chức năng riêng biệt, không thay thế nhau và được liên kết bằng logic chuyển tầng rõ ràng.",
-    src: "/assets/he-thong/07-cau-truc-va-logic-van-hanh-he-thong-4-tang.webp",
-    alt: "Trang 07 Portfolio - Cấu trúc & Logic vận hành hệ thống 4 tầng",
+    id: "tang-2",
+    soThuTu: "02",
+    soLaMa: "TẦNG II",
+    tenTang: "Nhận diện & Phản tư chuyên sâu",
+    tenTiengAnh: "Self-Awareness & Deep Reflection",
+    loiMo:
+      "Có những cảm xúc, niềm tin và cách phản ứng xuất hiện nhiều lần trong cuộc sống, nhưng không phải lúc nào chúng ta cũng nhận ra chúng bắt đầu từ đâu hoặc ảnh hưởng đến lựa chọn của mình như thế nào.",
+    noiDung:
+      "Thông qua các phiên phản tư chuyên sâu, Inner Architect™ đồng hành cùng bạn khám phá cảm xúc, giá trị bản thân và những khuôn mẫu suy nghĩ, hành vi trong các mối quan hệ hay tình huống đời thường. Những câu hỏi mở giúp bạn tự nhìn lại trải nghiệm, nhận diện điều quan trọng và cân nhắc hướng thay đổi phù hợp.",
+    traiNghiemTieuBieu: [
+      {
+        ten: "Inner Insight",
+        moTa: "Khám phá cảm xúc và nhận diện hệ giá trị cốt lõi của bản thân.",
+      },
+      {
+        ten: "Inner Journey",
+        moTa: "Nhận diện các khuôn mẫu tiềm ẩn và định hướng thay đổi tích cực.",
+      },
+    ],
+    diemNhan: "Thấu hiểu khuôn mẫu · Nhận diện cảm xúc gốc · Cân nhắc thay đổi",
   },
   {
-    soTrang: "08",
-    tenNgan: "Tầng 1 · Entry",
-    tieuDe: "Tầng 1 – Entry (Cafe The Hermit Tarot)",
-    phuDe: "TIẾP CẬN BAN ĐẦU",
-    chamNgon: "Tầng 1 tồn tại để chỉ ra, không phải để giải quyết.",
-    moTa: "Điểm tiếp xúc đầu tiên tạo không gian soi chiếu ban đầu, nhận diện bối cảnh và mức độ sẵn sàng mà không kích hoạt cảm xúc.",
-    src: "/assets/he-thong/08-tang-1-entry-the-hermit-tarot.webp",
-    alt: "Trang 08 Portfolio - Tầng 1 Entry Cafe The Hermit Tarot",
+    id: "tang-3",
+    soThuTu: "03",
+    soLaMa: "TẦNG III",
+    tenTang: "Định hướng & Phát triển",
+    tenTiengAnh: "Direction & Personal Growth",
+    loiMo:
+      "Hiểu mình là điểm khởi đầu. Điều tạo nên khác biệt là cách chúng ta đưa những nhận thức ấy vào cuộc sống hằng ngày.",
+    noiDung:
+      "Inner Architect™ tạo điều kiện để bạn làm rõ giá trị, xác định mục tiêu và xây dựng các bước hành động khả thi. Bên cạnh phiên định hướng cá nhân, những workshop, lớp học và hoạt động cộng đồng mở ra cơ hội tiếp cận kiến thức, trao đổi góc nhìn và thực hành kỹ năng phát triển bản thân.",
+    traiNghiemTieuBieu: [
+      {
+        ten: "Inner Architect™ Session",
+        moTa: "Phản tư chuyên sâu và xây dựng kế hoạch hành động khả thi.",
+      },
+      {
+        ten: "Workshop theo chủ đề",
+        moTa: "Tiếp cận kiến thức chuyên sâu và mở rộng đa chiều góc nhìn.",
+      },
+      {
+        ten: "Đào tạo Tarot phản tư",
+        moTa: "Thực hành kỹ năng đọc ngôn ngữ biểu tượng để tự soi chiếu.",
+      },
+      {
+        ten: "Hoạt động cộng đồng",
+        moTa: "Không gian kết nối, trao đổi trải nghiệm và cùng nhau phát triển.",
+      },
+    ],
+    diemNhan: "Làm rõ giá trị · Xây dựng mục tiêu · Kế hoạch hành động khả thi",
   },
   {
-    soTrang: "09",
-    tenNgan: "Tầng 2 · Chữa lành",
-    tieuDe: "Tầng 2 – Chữa lành & Tái cấu trúc",
-    phuDe: "HEALING & RESTRUCTURING",
-    chamNgon: "Không tìm cao trào cảm xúc – xây nền cho thay đổi bền vững.",
-    moTa: "Tầng làm việc cốt lõi tháo gỡ mô thức cảm xúc và niềm tin gốc, phục hồi khả năng tự điều chỉnh và lựa chọn sống tự chủ.",
-    src: "/assets/he-thong/09-tang-2-chua-lanh-va-tai-cau-truc.webp",
-    alt: "Trang 09 Portfolio - Tầng 2 Chữa lành và Tái cấu trúc",
-  },
-  {
-    soTrang: "10",
-    tenNgan: "Tầng 3 · Định hướng",
-    tieuDe: "Tầng 3 – Định hướng & Giữ linh hồn hệ thống",
-    phuDe: "DIRECTION & MASTER LAYER",
-    chamNgon: "Giữ trục sống mới sau chữa lành, ngăn quay lại mô thức cũ.",
-    moTa: "Tầng giữ trục và bảo toàn vận hành, duy trì sự phù hợp giữa đời sống thực tế và cấu trúc nội tâm mới sau khi tái cấu trúc.",
-    src: "/assets/he-thong/10-tang-3-dinh-huong-va-giu-linh-hon-he-thong.webp",
-    alt: "Trang 10 Portfolio - Tầng 3 Định hướng và Giữ linh hồn hệ thống",
-  },
-  {
-    soTrang: "11",
-    tenNgan: "Tầng 4 · Thân thể",
-    tieuDe: "Tầng 4 – Điều tiết thân & Năng lượng",
-    phuDe: "BODY & ENERGY REGULATION",
-    chamNgon: "Tầng 4 tồn tại để giữ thân an toàn, không phải để đẩy quá trình đi nhanh hơn.",
-    moTa: "Giữ nền an toàn hỗ trợ khả năng tự điều hòa của thân thể và hệ thần kinh, neo vững sự chuyển hóa trong đời sống thực.",
-    src: "/assets/he-thong/11-tang-4-dieu-tiet-than-va-nang-luong.webp",
-    alt: "Trang 11 Portfolio - Tầng 4 Điều tiết thân và Năng lượng",
+    id: "tang-4",
+    soThuTu: "04",
+    soLaMa: "TẦNG IV",
+    tenTang: "Chăm sóc thân thể & Cân bằng",
+    tenTiengAnh: "Body Awareness & Balance",
+    loiMo:
+      "Giữa những thay đổi và bộn bề, cơ thể cũng cần được lắng nghe. Một nhịp sống cân bằng bắt đầu từ việc nhận biết khi nào mình cần nghỉ ngơi, thư giãn và chăm sóc bản thân.",
+    noiDung:
+      "Thông qua trà đạo, thực hành chú tâm, thiền thư giãn nhẹ và những gợi ý chăm sóc bản thân, Inner Architect™ khuyến khích bạn dành thời gian kết nối với cơ thể, quan sát nhu cầu và nuôi dưỡng thói quen sống phù hợp.",
+    traiNghiemTieuBieu: [
+      {
+        ten: "Trà đạo tĩnh tại",
+        moTa: "Lắng đọng tâm thức, kết nối hơi thở và các giác quan tự nhiên.",
+      },
+      {
+        ten: "Thư giãn & Thả lỏng",
+        moTa: "Nhận biết điểm căng thẳng trên cơ thể và thực hành thư giãn nhẹ.",
+      },
+      {
+        ten: "Thực hành chú tâm",
+        moTa: "Quan sát nhu cầu bên trong mà không phán xét trong từng khoảnh khắc.",
+      },
+      {
+        ten: "Chăm sóc bản thân",
+        moTa: "Gợi ý lối sống lành mạnh, nuôi dưỡng nhịp sinh học cân bằng.",
+      },
+    ],
+    diemNhan: "Lắng nghe thân thể · Thư giãn hệ thần kinh · Nuôi dưỡng nhịp sống",
   },
 ]
 
 /**
  * Trang Hệ thống bốn tầng (`/he-thong`)
- * - Desktop/Tablet: Phương án 2 (Triển lãm song song Dual-pane Exhibition, cột ảnh ghim sticky, cột chỉ mục tương tác).
- * - Mobile: Nửa trên là dải hình ảnh trượt ngang (Horizontal Slider), nửa dưới là chỉ mục các tầng tương tác đồng bộ.
+ * Thiết kế kiến trúc nội tâm ấn tượng không dùng hình ảnh.
+ * Hoàn toàn dựa trên tài liệu word: Inner_Architect_Noi_Dung_Website_4_Tang.docx
  */
 export function HeThongPage() {
-  const [trangHienTaiIndex, setTrangHienTaiIndex] = useState<number>(0)
-  const [dangMoToanManHinh, setDangMoToanManHinh] = useState<boolean>(false)
-  const mobileSliderRef = useRef<HTMLDivElement>(null)
+  const [tangHienTaiIndex, setTangHienTaiIndex] = useState<number>(0)
+  const [cheDoXem, setCheDoXem] = useState<"tuong-tac" | "toan-canh">("tuong-tac")
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }, [])
 
-  useEffect(() => {
-    const xuLyNhanPhim = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setDangMoToanManHinh(false)
-      }
-    }
-    window.addEventListener("keydown", xuLyNhanPhim)
-    return () => window.removeEventListener("keydown", xuLyNhanPhim)
-  }, [])
-
-  const trangDangXem = danhSachAnhPortfolio[trangHienTaiIndex]
+  const tangHienTai = danhSachBonTang[tangHienTaiIndex]
 
   const quayVeTrangTruoc = () => {
     if (window.history.length > 1) {
@@ -110,296 +158,458 @@ export function HeThongPage() {
     }
   }
 
-  /** Xử lý khi chọn trang từ danh mục hoặc tab */
-  const chuyenTrang = (index: number) => {
-    setTrangHienTaiIndex(index)
-    // Đồng bộ vị trí cuộn trên slider mobile nếu có
-    if (mobileSliderRef.current) {
-      const card = mobileSliderRef.current.children[index] as HTMLElement
-      if (card) {
-        card.scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-          block: "nearest",
-        })
-      }
-    }
-  }
-
   return (
-    <main className="cream-page he-thong-page min-h-screen pb-20 select-none">
-      {/* 1. Header Trang Nhã kèm Nút X Thoát Quay Về */}
-      <header className="max-w-[1360px] mx-auto px-6 pt-10 sm:pt-14 pb-8 border-b border-[#3B3636]/10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#B75E2A]" />
-              <p className="text-xs font-semibold tracking-widest text-[#B75E2A] uppercase m-0">
-                INNER ARCHITECT™ · PORTFOLIO EXHIBITION
+    <main className="cream-page he-thong-page min-h-screen pb-24 text-[#27190F]">
+      {/* 1. HEADER CHÍNH XUẤT SẮC */}
+      <header className="max-w-[1360px] mx-auto px-6 pt-10 sm:pt-14 pb-10 border-b border-[#3B3636]/10">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+          <div className="max-w-4xl">
+            {/* Nhãn nhận diện */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#B75E2A]" />
+              <p className="text-xs font-semibold tracking-[0.25em] text-[#B75E2A] uppercase m-0">
+                INNER ARCHITECT™ · HỆ THỐNG TÍCH HỢP BỐN TẦNG
               </p>
             </div>
-            <h1 className="serif text-3xl sm:text-4xl lg:text-5xl text-[#27190F] m-0 font-bold tracking-tight">
-              Hệ thống tích hợp bốn tầng
+
+            {/* Tiêu đề chính lớn */}
+            <h1 className="serif text-3xl sm:text-4xl lg:text-5xl lg:leading-[1.15] text-[#27190F] m-0 font-bold tracking-tight">
+              Hành trình Khám phá &amp; Kiến tạo Nội tâm
             </h1>
-            <p className="text-[#3B3636]/75 text-sm sm:text-base mt-2 max-w-2xl">
-              Hồ sơ cấu trúc và triết lý vận hành chính thức trích từ tài liệu gốc.
-            </p>
+
+            {/* Subtitle / Trụ cột */}
+            <div className="flex items-center gap-3 mt-3 text-xs sm:text-sm font-semibold tracking-widest text-[#B75E2A] uppercase">
+              <span>Explore</span>
+              <span className="text-[#3B3636]/30">·</span>
+              <span>Reflect</span>
+              <span className="text-[#3B3636]/30">·</span>
+              <span>Transform</span>
+            </div>
+
+            {/* Dẫn nhập 2 đoạn từ tài liệu word */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-[#3B3636]/10 text-sm sm:text-[15px] leading-relaxed text-[#3B3636]/85">
+              <p className="m-0">
+                Mỗi người đều mang trong mình những trải nghiệm, cảm xúc, niềm tin và khuôn mẫu được hình thành qua năm tháng. Có những điều giúp chúng ta trưởng thành, nhưng cũng có những điều khiến chúng ta lặp lại cách suy nghĩ, phản ứng hoặc kết nối mà chính mình chưa thật sự hiểu rõ.
+              </p>
+              <p className="m-0">
+                <strong className="text-[#27190F] font-semibold">Inner Architect™</strong> được hình thành như một không gian để mỗi người có cơ hội nhìn lại chính mình, khám phá điều đang diễn ra bên trong và từng bước xây dựng cuộc sống phù hợp hơn với giá trị bản thân. Hành trình ấy được mở ra qua bốn tầng trải nghiệm, có thể lựa chọn độc lập hoặc kết hợp tùy nhu cầu.
+              </p>
+            </div>
           </div>
 
           {/* Nút X Thoát quay về trang trước */}
           <button
             type="button"
             onClick={quayVeTrangTruoc}
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#3B3636]/20 bg-white/80 hover:bg-[#27190F] hover:text-[#FEFBF0] text-[#27190F] text-xs font-semibold transition-all cursor-pointer shadow-sm group"
+            className="self-start inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[#3B3636]/20 bg-white hover:bg-[#27190F] text-[#27190F] text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer shadow-sm group hover:scale-[1.02]"
             title="Thoát và quay về trang đang xem"
             aria-label="Thoát và quay về trang đang xem"
           >
-            <span>Thoát</span>
-            <span className="text-base leading-none group-hover:rotate-90 transition-transform">✕</span>
+            <span className="group-hover:text-[#FEFBF0] transition-colors">Thoát</span>
+            <span className="text-base leading-none group-hover:rotate-90 group-hover:text-[#FEFBF0] transition-transform duration-300">✕</span>
           </button>
+        </div>
+
+        {/* Thanh chuyển chế độ xem: Tương tác từng tầng vs Xem toàn cảnh */}
+        <div className="mt-10 pt-6 border-t border-[#3B3636]/10 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-[#3B3636]/70">
+            <span className="font-semibold uppercase tracking-wider text-[#B75E2A]">Chế độ xem:</span>
+            <span>Chọn cách bạn muốn tìm hiểu cấu trúc 4 tầng</span>
+          </div>
+
+          {/* Pill Switcher với độ tương phản tuyệt đối không bị chìm/che chữ */}
+          <div className="inline-flex p-1 rounded-full bg-[#3B3636]/5 border border-[#3B3636]/15">
+            <button
+              type="button"
+              onClick={() => setCheDoXem("tuong-tac")}
+              className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer"
+              style={{
+                backgroundColor: cheDoXem === "tuong-tac" ? "#27190F" : "transparent",
+                color: cheDoXem === "tuong-tac" ? "#FEFBF0" : "#3B3636",
+                boxShadow: cheDoXem === "tuong-tac" ? "0 2px 6px rgba(39, 25, 15, 0.25)" : "none",
+              }}
+            >
+              ✦ Tương tác từng tầng
+            </button>
+            <button
+              type="button"
+              onClick={() => setCheDoXem("toan-canh")}
+              className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer"
+              style={{
+                backgroundColor: cheDoXem === "toan-canh" ? "#27190F" : "transparent",
+                color: cheDoXem === "toan-canh" ? "#FEFBF0" : "#3B3636",
+                boxShadow: cheDoXem === "toan-canh" ? "0 2px 6px rgba(39, 25, 15, 0.25)" : "none",
+              }}
+            >
+              ☰ Toàn cảnh 4 tầng
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* 2. GIAO DIỆN DI ĐỘNG (MOBILE: < md) — Nửa trên slider trượt ngang, nửa dưới chỉ mục */}
-      <div className="block md:hidden px-4 pt-6">
-        {/* Nửa trên: Dải hình ảnh trượt ngang (Horizontal Slider) */}
-        <div className="mb-2 flex items-center justify-between text-xs text-[#3B3636]/60 px-1 font-medium">
-          <span>Vuốt ngang để lật trang</span>
-          <span className="font-mono text-[#B75E2A] font-bold">
-            {trangHienTaiIndex + 1} / {danhSachAnhPortfolio.length}
-          </span>
-        </div>
-
-        <div
-          ref={mobileSliderRef}
-          className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scroll-smooth scrollbar-none"
-          onScroll={(e) => {
-            const el = e.currentTarget
-            const scrollLeft = el.scrollLeft
-            const width = el.offsetWidth * 0.82
-            const newIndex = Math.round(scrollLeft / width)
-            if (newIndex >= 0 && newIndex < danhSachAnhPortfolio.length && newIndex !== trangHienTaiIndex) {
-              setTrangHienTaiIndex(newIndex)
-            }
-          }}
-        >
-          {danhSachAnhPortfolio.map((item, index) => (
-            <div
-              key={item.soTrang}
-              onClick={() => chuyenTrang(index)}
-              className={`snap-center shrink-0 w-[82vw] rounded-2xl overflow-hidden border transition-all duration-300 shadow-xl bg-white ${
-                trangHienTaiIndex === index
-                  ? "border-[#B75E2A] ring-2 ring-[#B75E2A]/30 scale-[1.01]"
-                  : "border-[#3B3636]/15 opacity-80"
-              }`}
-            >
-              <img
-                src={item.src}
-                alt={item.alt}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto block"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Nút lật nhanh trang trước / sau trên mobile */}
-        <div className="flex items-center justify-between mt-2 mb-6 px-1">
-          <button
-            type="button"
-            disabled={trangHienTaiIndex === 0}
-            onClick={() => chuyenTrang(Math.max(0, trangHienTaiIndex - 1))}
-            className="px-4 py-2 rounded-full text-xs font-medium border border-[#3B3636]/15 bg-white disabled:opacity-30 disabled:cursor-not-allowed text-[#27190F]"
-          >
-            ← Trang trước
-          </button>
-          <span className="text-xs font-semibold text-[#B75E2A]">
-            {trangDangXem.tenNgan}
-          </span>
-          <button
-            type="button"
-            disabled={trangHienTaiIndex === danhSachAnhPortfolio.length - 1}
-            onClick={() => chuyenTrang(Math.min(danhSachAnhPortfolio.length - 1, trangHienTaiIndex + 1))}
-            className="px-4 py-2 rounded-full text-xs font-medium border border-[#3B3636]/15 bg-white disabled:opacity-30 disabled:cursor-not-allowed text-[#27190F]"
-          >
-            Trang sau →
-          </button>
-        </div>
-
-        {/* Nửa dưới: Chỉ mục các tầng dạng danh thiếp tương tác */}
-        <div className="flex flex-col gap-3">
-          <p className="text-xs uppercase tracking-wider font-bold text-[#B75E2A] mb-1">
-            NỘI DUNG TẦNG ĐANG XEM:
-          </p>
-          <div className="p-5 rounded-2xl bg-[#FFF5E2] border border-[#B75E2A]/30 shadow-sm">
-            <span className="text-[11px] font-semibold text-[#B75E2A] block uppercase mb-1 tracking-wider">
-              {trangDangXem.phuDe}
-            </span>
-            <h3 className="serif text-xl font-bold text-[#27190F] m-0 mb-2">
-              {trangDangXem.tieuDe}
-            </h3>
-            <p className="text-xs sm:text-sm text-[#3B3636]/85 leading-relaxed m-0 mb-3">
-              {trangDangXem.moTa}
-            </p>
-            <div className="pt-2 border-t border-[#B75E2A]/20 text-xs italic text-[#B75E2A] font-medium">
-              👉 {trangDangXem.chamNgon}
-            </div>
-          </div>
-
-          {/* Dải nút chuyển nhanh 6 trang */}
-          <div className="grid grid-cols-3 gap-2 pt-2">
-            {danhSachAnhPortfolio.map((item, idx) => (
-              <button
-                key={item.soTrang}
-                type="button"
-                onClick={() => chuyenTrang(idx)}
-                className={`p-2.5 rounded-xl text-center border transition-all text-xs ${
-                  trangHienTaiIndex === idx
-                    ? "bg-[#27190F] text-[#FEFBF0] border-[#27190F] font-bold shadow"
-                    : "bg-white text-[#3B3636]/80 border-[#3B3636]/15 hover:bg-[#FFF5E2]"
-                }`}
-              >
-                <span className="block truncate font-medium">
-                  {item.tenNgan}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* 3. GIAO DIỆN MÁY TÍNH & TABLET (DESKTOP/TABLET: md+) — Phương án 2 Triển lãm Song Song */}
-      <div className="hidden md:block max-w-[1360px] mx-auto px-6 py-12">
-        <div className="grid grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* CỘT TRÁI (col-span-7): Khung triển lãm hình ảnh ghim sticky */}
-          <div className="col-span-7 sticky top-24">
-            <div className="flex items-center justify-between mb-3 text-xs text-[#3B3636]/70 px-2 font-medium">
-              <span className="uppercase tracking-wider text-[#B75E2A] font-semibold">
-                {trangDangXem.phuDe}
-              </span>
-            </div>
-
-            {/* Khung trưng bày trang Portfolio cao cấp */}
-            <div
-              onClick={() => setDangMoToanManHinh(true)}
-              className="relative rounded-[24px] lg:rounded-[32px] overflow-hidden shadow-2xl border border-[#3B3636]/15 bg-white transition-all duration-500 cursor-zoom-in group"
-              title="Nhấn để xem phóng to toàn màn hình"
-            >
-              <img
-                src={trangDangXem.src}
-                alt={trangDangXem.alt}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.01]"
-              />
-              <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm text-white text-[11px] font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5">
-                <span>Phóng to</span>
-                <span>⤢</span>
-              </div>
-            </div>
-
-            {/* Nút lật nhanh trang ở dưới khung ảnh */}
-            <div className="flex items-center justify-between mt-4 px-2">
-              <button
-                type="button"
-                disabled={trangHienTaiIndex === 0}
-                onClick={() => chuyenTrang(Math.max(0, trangHienTaiIndex - 1))}
-                className="px-4 py-2 rounded-full text-xs font-medium border border-[#3B3636]/15 bg-white hover:bg-[#27190F] hover:text-[#FEFBF0] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-[#27190F] cursor-pointer shadow-sm"
-              >
-                ← Trang trước
-              </button>
-              <button
-                type="button"
-                onClick={() => setDangMoToanManHinh(true)}
-                className="text-xs text-[#B75E2A] hover:underline inline-flex items-center gap-1 font-semibold cursor-pointer bg-transparent border-0"
-              >
-                <span>Xem ảnh phóng to</span>
-                <span aria-hidden="true">⤢</span>
-              </button>
-              <button
-                type="button"
-                disabled={trangHienTaiIndex === danhSachAnhPortfolio.length - 1}
-                onClick={() => chuyenTrang(Math.min(danhSachAnhPortfolio.length - 1, trangHienTaiIndex + 1))}
-                className="px-4 py-2 rounded-full text-xs font-medium border border-[#3B3636]/15 bg-white hover:bg-[#27190F] hover:text-[#FEFBF0] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-[#27190F] cursor-pointer shadow-sm"
-              >
-                Trang sau →
-              </button>
-            </div>
-          </div>
-
-          {/* CỘT PHẢI (col-span-5): Chỉ mục tương tác 6 bước */}
-          <div className="col-span-5 flex flex-col gap-3.5">
-            <div className="mb-2">
-              <p className="text-xs uppercase tracking-widest font-bold text-[#B75E2A] m-0 mb-1">
-                CHỈ MỤC HỒ SƠ · INDEX
-              </p>
-              <h2 className="serif text-2xl font-bold text-[#27190F] m-0">
-                Khám phá từng tầng
-              </h2>
-            </div>
-
-            {danhSachAnhPortfolio.map((item, index) => {
-              const dangChon = trangHienTaiIndex === index
+      {/* 2. CHẾ ĐỘ 1: TƯƠNG TÁC TỪNG TẦNG (INTERACTIVE EXPLORER) */}
+      {cheDoXem === "tuong-tac" && (
+        <section className="max-w-[1360px] mx-auto px-6 pt-10">
+          {/* Thanh chọn 4 Tầng Kiến Trúc (Architecture Tabs) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+            {danhSachBonTang.map((tang, index) => {
+              const dangChon = tangHienTaiIndex === index
               return (
-                <div
-                  key={item.soTrang}
-                  onClick={() => chuyenTrang(index)}
-                  className={`p-5 rounded-2xl border transition-all duration-200 cursor-pointer text-left flex flex-col ${
+                <button
+                  key={tang.id}
+                  type="button"
+                  onClick={() => setTangHienTaiIndex(index)}
+                  className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-300 cursor-pointer relative group ${
                     dangChon
-                      ? "bg-[#FFF5E2] border-[#B75E2A] shadow-md scale-[1.01]"
-                      : "bg-[#FAF7F2] hover:bg-white border-[#3B3636]/10 opacity-75 hover:opacity-100"
+                      ? "bg-[#FFF9ED] border-[#B75E2A] shadow-lg ring-1 ring-[#B75E2A]/30 scale-[1.01]"
+                      : "bg-white/80 hover:bg-[#FAF7F2] border-[#3B3636]/12 opacity-80 hover:opacity-100"
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1.5">
+                  {/* Dải màu đánh dấu phía trên khi chọn */}
+                  {dangChon && (
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#B75E2A] rounded-t-2xl" />
+                  )}
+
+                  <div className="flex items-center justify-between mb-2">
                     <span
-                      className={`text-[11px] uppercase tracking-wider font-semibold transition-colors ${
-                        dangChon ? "text-[#B75E2A]" : "text-[#3B3636]/60"
+                      className={`font-mono text-xs font-bold tracking-widest ${
+                        dangChon ? "text-[#B75E2A]" : "text-[#3B3636]/50"
                       }`}
                     >
-                      {item.phuDe}
+                      {tang.soLaMa}
                     </span>
                     <span
-                      className={`text-xs font-semibold px-2.5 py-0.5 rounded-full transition-colors ${
-                        dangChon
-                          ? "bg-[#B75E2A] text-white"
-                          : "bg-black/5 text-[#3B3636]/60"
-                      }`}
+                      className="text-[11px] font-bold px-2 py-0.5 rounded-full transition-colors"
+                      style={{
+                        backgroundColor: dangChon ? "#B75E2A" : "rgba(0, 0, 0, 0.05)",
+                        color: dangChon ? "#ffffff" : "rgba(59, 54, 54, 0.7)",
+                      }}
                     >
-                      {item.tenNgan}
+                      TẦNG {tang.soThuTu}
                     </span>
                   </div>
 
-                  <h3
-                    className={`serif text-lg font-bold m-0 transition-colors ${
+                  <h2
+                    className={`serif text-base sm:text-lg font-bold m-0 transition-colors leading-normal ${
                       dangChon ? "text-[#27190F]" : "text-[#3B3636]"
                     }`}
                   >
-                    {item.tieuDe}
-                  </h3>
-
-                  {dangChon && (
-                    <div className="mt-2.5 pt-2.5 border-t border-[#B75E2A]/20">
-                      <p className="text-xs text-[#3B3636]/85 leading-relaxed m-0 mb-2">
-                        {item.moTa}
-                      </p>
-                      <p className="text-xs italic text-[#B75E2A] font-medium m-0 flex items-center gap-1.5">
-                        <span>👉</span>
-                        <span>{item.chamNgon}</span>
-                      </p>
-                    </div>
-                  )}
-                </div>
+                    {tang.tenTang}
+                  </h2>
+                  <p
+                    className={`text-xs mt-1 m-0 tracking-wide transition-colors ${
+                      dangChon ? "text-[#B75E2A] font-medium" : "text-[#3B3636]/60"
+                    }`}
+                  >
+                    {tang.tenTiengAnh}
+                  </p>
+                </button>
               )
             })}
           </div>
-        </div>
-      </div>
 
-      {/* 4. Điều Hướng Cuối Trang Tinh Tế */}
+          {/* Sân khấu kiến trúc hiển thị tầng đang chọn (Architectural Stage Card) */}
+          <article className="rounded-3xl border border-[#3B3636]/15 bg-white shadow-xl overflow-hidden transition-all duration-300">
+            {/* Header của thẻ tầng */}
+            <div className="bg-[#FAF7F2] px-6 sm:px-10 py-8 border-b border-[#3B3636]/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-3 mb-1.5">
+                  <span className="font-mono text-xs font-bold tracking-widest text-[#B75E2A] uppercase">
+                    {tangHienTai.soLaMa}
+                  </span>
+                  <span className="text-xs text-[#3B3636]/30">|</span>
+                  <span className="text-xs font-semibold tracking-wider text-[#3B3636]/70 uppercase">
+                    {tangHienTai.tenTiengAnh}
+                  </span>
+                </div>
+                <h3 className="serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#27190F] m-0">
+                  Tầng {tangHienTai.soThuTu} — {tangHienTai.tenTang}
+                </h3>
+              </div>
+
+              {/* Tag điểm nhấn */}
+              <div className="self-start md:self-auto px-4 py-2 rounded-xl bg-[#FFF9ED] border border-[#B75E2A]/25 text-xs text-[#B75E2A] font-semibold tracking-wide">
+                ✦ {tangHienTai.diemNhan}
+              </div>
+            </div>
+
+            {/* Nội dung chi tiết tầng */}
+            <div className="p-6 sm:p-10 lg:p-12 space-y-10">
+              {/* Lời mở triết lý trích dẫn nổi bật - sạch sẽ, không có ký tự đè chữ */}
+              <div className="pl-6 sm:pl-8 border-l-4 border-[#B75E2A] py-3 bg-[#FFF9ED]/60 rounded-r-2xl pr-6">
+                <p className="serif italic text-lg sm:text-xl lg:text-2xl text-[#27190F] leading-relaxed m-0 font-medium">
+                  “{tangHienTai.loiMo}”
+                </p>
+              </div>
+
+              {/* Nội dung vận hành chuyên sâu */}
+              <div className="space-y-4 max-w-4xl">
+                <h4 className="text-xs uppercase tracking-widest font-bold text-[#B75E2A] m-0">
+                  PHẠM VI &amp; NỘI DUNG VẬN HÀNH
+                </h4>
+                <p className="text-base sm:text-lg leading-relaxed text-[#3B3636]/90 m-0">
+                  {tangHienTai.noiDung}
+                </p>
+              </div>
+
+              {/* Khối trải nghiệm tiêu biểu */}
+              <div className="pt-6 border-t border-[#3B3636]/10">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="w-2 h-2 rounded-full bg-[#B75E2A]" />
+                  <h4 className="text-xs uppercase tracking-widest font-bold text-[#27190F] m-0">
+                    TRẢI NGHIỆM TIÊU BIỂU TẠI TẦNG {tangHienTai.soThuTu}
+                  </h4>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {tangHienTai.traiNghiemTieuBieu.map((item, idx) => (
+                    <div
+                      key={item.ten}
+                      className="p-5 rounded-2xl border border-[#3B3636]/10 bg-[#FAF7F2]/70 hover:bg-[#FFF9ED] hover:border-[#B75E2A]/40 transition-all duration-200 flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="text-[11px] font-mono text-[#B75E2A] font-bold mb-2">
+                          0{idx + 1}
+                        </div>
+                        <h5 className="serif text-base sm:text-lg font-bold text-[#27190F] m-0 mb-2">
+                          {item.ten}
+                        </h5>
+                        {item.moTa && (
+                          <p className="text-xs sm:text-sm text-[#3B3636]/80 leading-relaxed m-0">
+                            {item.moTa}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Thanh điều hướng giữa các tầng */}
+              <div className="pt-6 border-t border-[#3B3636]/10 flex items-center justify-between">
+                <button
+                  type="button"
+                  disabled={tangHienTaiIndex === 0}
+                  onClick={() => setTangHienTaiIndex((prev) => Math.max(0, prev - 1))}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold border border-[#3B3636]/15 bg-white hover:bg-[#27190F] text-[#27190F] disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer shadow-sm group"
+                >
+                  <span className="group-hover:text-[#FEFBF0] transition-colors">← Tầng trước</span>
+                </button>
+
+                <div className="text-xs font-mono font-bold text-[#B75E2A]">
+                  {tangHienTaiIndex + 1} / {danhSachBonTang.length}
+                </div>
+
+                <button
+                  type="button"
+                  disabled={tangHienTaiIndex === danhSachBonTang.length - 1}
+                  onClick={() =>
+                    setTangHienTaiIndex((prev) =>
+                      Math.min(danhSachBonTang.length - 1, prev + 1),
+                    )
+                  }
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold border border-[#3B3636]/15 bg-white hover:bg-[#27190F] text-[#27190F] disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer shadow-sm group"
+                >
+                  <span className="group-hover:text-[#FEFBF0] transition-colors">Tầng tiếp theo →</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+      )}
+
+      {/* 3. CHẾ ĐỘ 2: TOÀN CẢNH 4 TẦNG (PANORAMIC ARCHITECTURAL BLUEPRINT) */}
+      {cheDoXem === "toan-canh" && (
+        <section className="max-w-[1360px] mx-auto px-6 pt-10 space-y-12">
+          {danhSachBonTang.map((tang) => (
+            <article
+              key={tang.id}
+              className="rounded-3xl border border-[#3B3636]/15 bg-white shadow-lg overflow-hidden transition-all"
+            >
+              <div className="bg-[#FAF7F2] px-6 sm:px-10 py-6 border-b border-[#3B3636]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <span className="font-mono text-2xl sm:text-3xl font-bold text-[#B75E2A]">
+                    {tang.soThuTu}
+                  </span>
+                  <div>
+                    <span className="text-[11px] font-semibold tracking-wider text-[#3B3636]/60 uppercase block">
+                      {tang.tenTiengAnh}
+                    </span>
+                    <h3 className="serif text-xl sm:text-2xl font-bold text-[#27190F] m-0">
+                      TẦNG {tang.soThuTu} — {tang.tenTang}
+                    </h3>
+                  </div>
+                </div>
+
+                <span className="px-3 py-1 rounded-full bg-[#FFF9ED] border border-[#B75E2A]/25 text-xs text-[#B75E2A] font-semibold self-start sm:self-auto">
+                  {tang.soLaMa}
+                </span>
+              </div>
+
+              <div className="p-6 sm:p-10 space-y-8">
+                {/* Trích dẫn triết lý */}
+                <div className="pl-5 sm:pl-6 border-l-4 border-[#B75E2A] py-1 bg-[#FFF9ED]/50 rounded-r-xl pr-4">
+                  <p className="serif italic text-base sm:text-lg text-[#27190F] leading-relaxed m-0 font-medium">
+                    “{tang.loiMo}”
+                  </p>
+                </div>
+
+                {/* Nội dung vận hành */}
+                <div>
+                  <h4 className="text-xs uppercase tracking-widest font-bold text-[#B75E2A] m-0 mb-2">
+                    NỘI DUNG VẬN HÀNH
+                  </h4>
+                  <p className="text-sm sm:text-base leading-relaxed text-[#3B3636]/90 m-0">
+                    {tang.noiDung}
+                  </p>
+                </div>
+
+                {/* Trải nghiệm tiêu biểu */}
+                <div className="pt-4 border-t border-[#3B3636]/10">
+                  <h4 className="text-xs uppercase tracking-widest font-bold text-[#27190F] m-0 mb-4">
+                    TRẢI NGHIỆM TIÊU BIỂU
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    {tang.traiNghiemTieuBieu.map((item, idx) => (
+                      <div
+                        key={item.ten}
+                        className="p-4 rounded-xl border border-[#3B3636]/10 bg-[#FAF7F2]"
+                      >
+                        <div className="text-[11px] font-mono text-[#B75E2A] font-bold mb-1">
+                          0{idx + 1}
+                        </div>
+                        <h5 className="serif text-base font-bold text-[#27190F] m-0 mb-1">
+                          {item.ten}
+                        </h5>
+                        {item.moTa && (
+                          <p className="text-xs text-[#3B3636]/75 m-0 leading-relaxed">
+                            {item.moTa}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </section>
+      )}
+
+      {/* 4. HAI KHỐI NỀN TẢNG: NHỊP ĐỘ RIÊNG & NGUYÊN TẮC ĐỒNG HÀNH */}
+      <section className="max-w-[1360px] mx-auto px-6 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Khối 1: Mỗi hành trình đều có nhịp độ riêng */}
+          <div className="rounded-3xl border border-[#B75E2A]/25 bg-[#FFF9ED] p-8 sm:p-10 shadow-md relative overflow-hidden flex flex-col justify-between">
+            <div className="absolute top-4 right-5 text-4xl select-none opacity-20 text-[#B75E2A]">
+              ✦
+            </div>
+
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#B75E2A]" />
+                <p className="text-xs font-semibold tracking-wider text-[#B75E2A] uppercase m-0">
+                  TRIẾT LÝ VẬN HÀNH
+                </p>
+              </div>
+
+              <h3 className="serif text-2xl sm:text-3xl font-bold text-[#27190F] m-0 mb-4">
+                Mỗi hành trình đều có nhịp độ riêng
+              </h3>
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#3B3636]/85 m-0">
+                Bốn tầng không phải là các bước bắt buộc hay một liệu trình điều trị. Bạn có thể bắt đầu từ một buổi Tarot, tham dự workshop, trải nghiệm trà đạo hoặc lựa chọn phiên phản tư phù hợp với nhu cầu hiện tại. Inner Architect™ không quyết định thay bạn; chúng tôi trân trọng khả năng tự lựa chọn và phát triển của mỗi người.
+              </p>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-[#B75E2A]/20 text-xs font-medium text-[#B75E2A] italic">
+              👉 Tôn trọng sự tự chủ và sẵn sàng của mỗi cá nhân
+            </div>
+          </div>
+
+          {/* Khối 2: Nguyên tắc đồng hành */}
+          <div className="rounded-3xl border border-[#3B3636]/15 bg-white p-8 sm:p-10 shadow-md relative overflow-hidden flex flex-col justify-between">
+            <div className="absolute top-4 right-5 text-4xl select-none opacity-10 text-[#27190F]">
+              🛡
+            </div>
+
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#27190F]" />
+                <p className="text-xs font-semibold tracking-wider text-[#3B3636]/70 uppercase m-0">
+                  RANH GIỚI &amp; AN TOÀN
+                </p>
+              </div>
+
+              <h3 className="serif text-2xl sm:text-3xl font-bold text-[#27190F] m-0 mb-4">
+                Nguyên tắc đồng hành
+              </h3>
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#3B3636]/85 m-0">
+                Các hoạt động của Inner Architect™ tập trung vào khám phá bản thân, phản tư, giáo dục tâm lý và phát triển cá nhân; không thay thế việc đánh giá, chẩn đoán hoặc điều trị y khoa và tâm lý lâm sàng. Khi nhu cầu vượt ngoài phạm vi hoạt động, chúng tôi khuyến khích tìm đến chuyên gia hoặc cơ sở chuyên môn phù hợp.
+              </p>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-[#3B3636]/10 text-xs font-medium text-[#3B3636]/70 italic">
+              👉 An toàn luôn được đặt trước chiều sâu
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. KHỐI KẾT BÀI ẤN TƯỢNG (ARCHITECTURAL EPILOGUE) - Đảm bảo độ tương phản tuyệt đối */}
+      <section className="max-w-[1360px] mx-auto px-6 pt-16">
+        <div
+          className="rounded-3xl p-8 sm:p-12 lg:p-16 text-center shadow-2xl relative overflow-hidden glowence-dark-card"
+          style={{ backgroundColor: "#27190F", color: "#FEFBF0" }}
+        >
+          <div className="max-w-3xl mx-auto space-y-6">
+            <p
+              className="text-xs font-semibold tracking-[0.25em] uppercase m-0"
+              style={{ color: "#D97736" }}
+            >
+              INNER ARCHITECT™
+            </p>
+
+            <h2
+              className="serif text-2xl sm:text-3xl lg:text-4xl m-0 font-bold leading-tight"
+              style={{ color: "#FEFBF0" }}
+            >
+              Khám phá bản thân · Chiêm nghiệm nội tâm · Chuyển hóa nhận thức
+            </h2>
+
+            <p
+              className="text-sm sm:text-base leading-relaxed max-w-2xl mx-auto m-0"
+              style={{ color: "rgba(254, 251, 240, 0.88)" }}
+            >
+              Mỗi tầng trải nghiệm là một nhịp bước vững chãi giúp bạn nhìn thấu trật tự bên trong và kiến tạo đời sống bình an, vững vàng.
+            </p>
+
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to="/lien-he"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all shadow-md hover:scale-[1.02]"
+                style={{ backgroundColor: "#B75E2A", color: "#ffffff" }}
+              >
+                <span>Liên hệ tư vấn về hệ thống bốn tầng</span>
+                <span>→</span>
+              </Link>
+              <Link
+                to="/"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border transition-all hover:bg-white/10"
+                style={{ borderColor: "rgba(255, 255, 255, 0.25)", color: "#ffffff" }}
+              >
+                <span>Về trang chủ</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. ĐIỀU HƯỚNG CUỐI TRANG */}
       <nav
         aria-label="Điều hướng trang"
-        className="max-w-[1360px] mx-auto px-6 pt-10 pb-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#3B3636]/15 mt-12 bg-transparent text-[#27190F]"
+        className="max-w-[1360px] mx-auto px-6 pt-12 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#3B3636]/15 mt-16 text-[#27190F]"
       >
         <Link
           to="/"
@@ -416,87 +626,6 @@ export function HeThongPage() {
           <span className="transition-transform group-hover:translate-x-1">→</span>
         </Link>
       </nav>
-
-      {/* 5. Chế độ xem phóng to toàn màn hình với icon dấu X thoát */}
-      {dangMoToanManHinh && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Chế độ xem ảnh toàn màn hình"
-          className="fixed inset-0 z-50 bg-[#121212]/95 backdrop-blur-md flex flex-col items-center justify-between p-4 sm:p-6 select-none"
-          onClick={() => setDangMoToanManHinh(false)}
-        >
-          {/* Header với nút icon dấu X nổi bật để thoát */}
-          <div
-            className="w-full max-w-6xl flex items-center justify-between text-white/90 z-10"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#B75E2A]" />
-              <span className="text-xs uppercase tracking-wider font-semibold text-[#FEFBF0]/90">
-                {trangDangXem.phuDe} · {trangDangXem.tenNgan}
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setDangMoToanManHinh(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all cursor-pointer border border-white/25 hover:scale-105 shadow-lg"
-              aria-label="Thoát khỏi chế độ này và quay về trang đang xem"
-              title="Đóng chế độ phóng to (Esc)"
-            >
-              <span>Thoát</span>
-              <span className="text-lg leading-none font-bold">✕</span>
-            </button>
-          </div>
-
-          {/* Ảnh toàn màn hình */}
-          <div
-            className="relative flex-1 flex items-center justify-center w-full max-w-5xl my-2"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={trangDangXem.src}
-              alt={trangDangXem.alt}
-              loading="lazy"
-              decoding="async"
-              className="max-h-[82vh] max-w-full w-auto h-auto object-contain rounded-xl shadow-2xl border border-white/10"
-            />
-          </div>
-
-          {/* Phím chuyển nhanh trang */}
-          <div
-            className="w-full max-w-md flex items-center justify-between gap-4 text-xs z-10"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              disabled={trangHienTaiIndex === 0}
-              onClick={() => chuyenTrang(Math.max(0, trangHienTaiIndex - 1))}
-              className="px-4 py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-25 disabled:cursor-not-allowed transition-colors cursor-pointer"
-            >
-              ← Trang trước
-            </button>
-            <span className="text-white/70 font-medium">
-              {trangHienTaiIndex + 1} / {danhSachAnhPortfolio.length}
-            </span>
-            <button
-              type="button"
-              disabled={trangHienTaiIndex === danhSachAnhPortfolio.length - 1}
-              onClick={() =>
-                chuyenTrang(
-                  Math.min(
-                    danhSachAnhPortfolio.length - 1,
-                    trangHienTaiIndex + 1,
-                  ),
-                )
-              }
-              className="px-4 py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-25 disabled:cursor-not-allowed transition-colors cursor-pointer"
-            >
-              Trang sau →
-            </button>
-          </div>
-        </div>
-      )}
     </main>
   )
 }

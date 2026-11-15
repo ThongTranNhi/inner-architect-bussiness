@@ -253,7 +253,7 @@ export const duAnFounder: {
       ghiChu:
         "Các ấn phẩm và sản phẩm được giới thiệu theo tình trạng phát hành thực tế; không gắn với tuyên bố về công dụng chữa bệnh hoặc hiệu quả tâm lý được bảo đảm.",
       anh: anhFounder.sangTao,
-      lienKet: { to: "/lara", nhan: "Khám phá LARA" },
+      lienKet: { to: "/lara", nhan: "Khám phá Lara Infinity" },
       coLon: true,
     },
   ],

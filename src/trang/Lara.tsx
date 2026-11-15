@@ -33,7 +33,7 @@ export function LaraPage() {
         <div className="flex items-center justify-between py-4 border-b border-[#27190F]/10 mb-8 sm:mb-12">
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EFE7DB]/70 border border-[#27190F]/8 text-xs uppercase tracking-widest text-[#7B6B5D] font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B75E2A] animate-pulse"></span>
-            LARA · Inner Architect™ Ecosystem
+            Lara Infinity · Inner Architect™ Ecosystem
           </span>
           <Link
             to="/"
@@ -52,13 +52,13 @@ export function LaraPage() {
               HƯƠNG THƠM &amp; NGHI THỨC CÁ NHÂN
             </p>
             <h1 className="serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#27190F] tracking-tight leading-[0.95] mb-5">
-              LARA
+              Lara Infinity
             </h1>
             <p className="serif italic text-2xl sm:text-3xl text-[#4A3B2C] leading-snug mb-5">
               Hương thơm cho những khoảng nghỉ và nghi thức cá nhân.
             </p>
             <p className="text-[#554538] text-base sm:text-lg leading-relaxed max-w-xl mb-8">
-              LARA là nhánh sản phẩm hương thơm do Founder Khiêm Võ phát triển, kết nối mùi hương tự nhiên, vật liệu mộc mạc và những khoảng thời gian tĩnh lặng dành riêng cho chính mình.
+              Lara Infinity là nhánh sản phẩm hương thơm do Founder Khiêm Võ phát triển, kết nối mùi hương tự nhiên, vật liệu mộc mạc và những khoảng thời gian tĩnh lặng dành riêng cho chính mình.
             </p>
 
             {/* 3 Scent Profiles Mini-Cards */}
