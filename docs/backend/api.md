@@ -72,3 +72,52 @@ Request thay đổi dữ liệu phải gửi header `X-CSRF-Token: <csrfToken>`.
 `/account/pin` và `/account/password`: 5 lần xác minh sai/15 phút mỗi tài khoản → `429`. Mỗi lần đổi ghi một dòng log JSON `{"loai":"security","thaoTac","maQuanTriVien","ketQua","thoiDiem"}` — không có PIN, mật khẩu hay bản băm.
 
 Danh sách trả `{"data":[KhachHang], "pagination":{page,pageSize,total,totalPages}}`. `KhachHang`: `id, fullName, phone, email, service, source, status, consentAt, createdAt, updatedAt` (ISO 8601 UTC).
+
+## Journal
+
+### Công khai (không cần đăng nhập, không tạo session)
+
+Chỉ trả bài **đã xuất bản** nằm trong chuyên mục **đang công khai**. Bản nháp và bản nháp chỉnh sửa của bài đã đăng không bao giờ xuất hiện ở đây.
+
+| Method | Đường dẫn | Mô tả |
+| --- | --- | --- |
+| GET | `/journal` | `{"data":{"categories":[…],"articles":[…]}}`. Chuyên mục: `id, slug, name, englishName, label, description, image, imageWidth, imageHeight`. Bài (không kèm nội dung): `slug, categoryId, title, dek, summary, image, imageAlt, imageWidth, imageHeight, date, featured`. Đã sắp theo thứ tự chuyên mục rồi thứ tự bài trong chuyên mục |
+| GET | `/journal/articles/:slug` | Bài + `content` (cây JSON đã kiểm duyệt). `404` nếu không tồn tại, chưa xuất bản hoặc chuyên mục đang ẩn |
+| GET | `/sitemap.xml` (ngoài `/api/v1`) | Trang tĩnh công khai + bài đã xuất bản, `loc` dựa trên `SITE_URL` |
+| GET | `/media/journal/<uuid>.<jpg\|png\|webp>` (ngoài `/api/v1`) | Ảnh đã tải lên; production nên để Nginx phục vụ trực tiếp |
+
+### Quản trị — `/admin/journal/*`
+
+Mọi route cần phiên đăng nhập **và quyền Journal**: vai trò `admin` luôn có; nhân viên khác cần admin cấp (`admins.can_manage_journal`). Thiếu quyền → `403`. Mọi request ghi cần `X-CSRF-Token`. Giới hạn tần suất riêng 1000 request/15 phút/IP (không tính vào giới hạn chung). Body JSON tối đa 1 MB.
+
+Các thao tác ghi trên bài/chuyên mục gửi kèm `version` đang xem; lệch phiên bản (có người vừa lưu) → `409 CONFLICT` với thông điệp nêu người/lúc cập nhật, không ghi đè.
+
+| Method | Đường dẫn | Mô tả |
+| --- | --- | --- |
+| GET | `/admin/journal/categories` | Mọi chuyên mục (kể cả đang ẩn) + `articleCount`, `publishedCount`, `version` |
+| POST | `/admin/journal/categories` | `{"name","englishName?","label?","description","image?","isPublic"}`. Slug sinh từ tên, cố định. Đặt cuối danh sách |
+| PUT | `/admin/journal/categories/:id` | Như trên + `version` |
+| PUT | `/admin/journal/category-order` | `{"ids":[…]}` — phải đủ đúng tập chuyên mục, sai → `409` |
+| GET | `/admin/journal/articles?categoryId=&status=draft\|published\|changed` | Danh sách bài (không kèm nội dung) |
+| GET | `/admin/journal/articles/:id` | Bản làm việc đầy đủ |
+| POST | `/admin/journal/articles` | `{"title","summary","categoryId","coverImage","coverAlt","content","slug?"}` → bản nháp mới (`201`). Slug sinh từ tiêu đề nếu không gửi, **không đổi về sau** |
+| PUT | `/admin/journal/articles/:id` | Lưu nháp (+`version`). Bài đã xuất bản: bản công khai giữ nguyên, `hasDraftChanges = true` |
+| POST | `/admin/journal/articles/:id/publish` | `{"version"}` — xuất bản / cập nhật bản công khai từ bản làm việc. Ngày hiển thị là lần xuất bản đầu |
+| POST | `/admin/journal/articles/:id/unpublish` | `{"version"}` — gỡ khỏi trang công khai, giữ bản làm việc |
+| POST | `/admin/journal/articles/:id/discard` | `{"version"}` — bỏ bản nháp chỉnh sửa, quay về bản công khai |
+| PATCH | `/admin/journal/articles/:id/category` | `{"categoryId","version"}` — chuyển mục ngay (cả bản công khai), URL giữ nguyên |
+| PATCH | `/admin/journal/articles/:id/featured` | `{"featured","version"}` |
+| PUT | `/admin/journal/categories/:id/article-order` | `{"ids":[…]}` — thứ tự bài trong một chuyên mục; sai tập → `409` |
+| GET | `/admin/journal/media?page=1` | Thư viện ảnh (40/trang, mới nhất trước) |
+| POST | `/admin/journal/media` | Body **nhị phân** của ảnh, `Content-Type: image/jpeg\|image/png\|image/webp`, header tùy chọn `X-File-Name` (URL-encoded, chỉ để hiển thị). Kiểm tra định dạng thật bằng chữ ký byte, kích thước điểm ảnh, dung lượng ≤ `JOURNAL_MAX_UPLOAD_MB` (`413` khi vượt). JPEG được gỡ EXIF/GPS (giữ hướng xoay). Tên file lưu là UUID ngẫu nhiên |
+| DELETE | `/admin/journal/articles/:id` | `{"version"}` — xóa vĩnh viễn bài **chưa xuất bản**; bài đang công khai → `409` (phải gỡ xuất bản trước) |
+| DELETE | `/admin/journal/categories/:id` | `{"version"}` — xóa vĩnh viễn chuyên mục **không còn bài** (kể cả nháp); còn bài → `409` |
+| DELETE | `/admin/journal/media/:id` | Xóa ảnh khỏi thư viện và file trên đĩa; ảnh còn dùng ở ảnh bìa, nội dung bài (nháp hoặc công khai) hay ảnh chuyên mục → `409` kèm nơi đang dùng |
+| GET | `/admin/journal/staff` | **Chỉ `admin`.** Nhân viên (không phải admin) + `canManageJournal` |
+| PATCH | `/admin/journal/staff/:id` | **Chỉ `admin`.** `{"canManageJournal":true\|false}` — có hiệu lực ngay ở request kế tiếp của nhân viên |
+
+`/auth/me` và `/auth/login` trả thêm `admin.canManageJournal`.
+
+**Nội dung bài** (`content`) là cây JSON `{ "type":"doc", "content":[…] }`. Máy chủ chỉ nhận: `paragraph`, `heading` (level 2/3), `bulletList`, `orderedList` (`start`), `listItem`, `blockquote`, `image` (`src` phải là `/media/journal/<uuid>.<ext>` đã có trong thư viện hoặc `/assets/…`, `alt`, `caption`, `width`, `height`), `text`, `hardBreak`; mark `bold`, `italic`, `underline`, `link` (`href` chỉ `http(s)://`, `mailto:`, `tel:`, `/…`, `#…`). Node/mark khác (script, iframe, HTML thô…) → `400` với `fields.content`; thuộc tính lạ (`onclick`, `style`…) bị bỏ. Giới hạn: 8000 node, 200.000 ký tự, 60 ảnh, độ sâu 8.
+
+Nhật ký bảo mật ghi `cap_quyen_journal`, `thu_hoi_quyen_journal`, `xuat_ban_journal`, `go_xuat_ban_journal`, `xoa_bai_journal`, `xoa_chuyen_muc_journal`, `xoa_anh_journal` kèm ID (không có nội dung bài).

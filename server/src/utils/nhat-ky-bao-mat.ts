@@ -1,5 +1,15 @@
 /** Thao tác bảo mật được ghi nhật ký. */
-export type ThaoTacBaoMat = "doi_pin" | "doi_mat_khau" | "xoa_khach_hang"
+export type ThaoTacBaoMat =
+  | "doi_pin"
+  | "doi_mat_khau"
+  | "xoa_khach_hang"
+  | "cap_quyen_journal"
+  | "thu_hoi_quyen_journal"
+  | "xuat_ban_journal"
+  | "go_xuat_ban_journal"
+  | "xoa_bai_journal"
+  | "xoa_chuyen_muc_journal"
+  | "xoa_anh_journal"
 
 /** Kết quả thao tác bảo mật. */
 export type KetQuaBaoMat = "thanh_cong" | "sai_thong_tin" | "xung_dot"

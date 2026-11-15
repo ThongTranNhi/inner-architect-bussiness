@@ -57,7 +57,8 @@ test("trang quản trị ở /jathong (một hằng số), API backend vẫn là
   assert.match(goc, /export const GOC_QUAN_TRI = "\/jathong"/)
   assert.match(app, /const laTrangQuanTri = laDuongDanQuanTri\(path\)/)
   for (const { ten, noiDung } of nguon) {
-    if (ten.endsWith("/api-quan-tri.ts")) continue
+    // Lớp gọi API (src/admin/services/) dùng đường dẫn backend /api/v1/admin/... hợp lệ.
+    if (ten.includes("/admin/services/")) continue
     const ma = noiDung.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "")
     assert.doesNotMatch(ma, /["'`]\/admin(\/|["'`?])/, `${ten} còn đường dẫn trang /admin viết cứng`)
   }

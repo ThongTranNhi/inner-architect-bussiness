@@ -43,17 +43,26 @@ export class LoiApi extends Error {
  * Gọi một endpoint JSON, tự gắn CSRF token cho request thay đổi dữ liệu.
  *
  * @param duongDan - Đường dẫn sau `/api/v1`, ví dụ `/admin/statistics`
- * @param tuyChon - Method và body JSON
+ * @param tuyChon.method - HTTP method
+ * @param tuyChon.body - Body JSON
+ * @param tuyChon.file - Gửi file nhị phân (ảnh) thay cho JSON; Content-Type lấy theo file
+ * @param tuyChon.headers - Header bổ sung
  * @returns Body JSON đã parse
  * @throws LoiApi khi mất kết nối hoặc server trả lỗi
  */
-async function goiApi<T>(
+export async function goiApi<T>(
   duongDan: string,
-  tuyChon: { method?: "GET" | "POST" | "PATCH" | "DELETE"; body?: unknown } = {},
+  tuyChon: {
+    method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+    body?: unknown
+    file?: Blob
+    headers?: Record<string, string>
+  } = {},
 ): Promise<T> {
   const method = tuyChon.method ?? "GET"
-  const headers: Record<string, string> = { Accept: "application/json" }
+  const headers: Record<string, string> = { Accept: "application/json", ...tuyChon.headers }
   if (tuyChon.body !== undefined) headers["Content-Type"] = "application/json"
+  if (tuyChon.file) headers["Content-Type"] = tuyChon.file.type || "application/octet-stream"
   if (method !== "GET" && csrfToken) headers["X-CSRF-Token"] = csrfToken
 
   let phanHoi: Response
@@ -62,7 +71,7 @@ async function goiApi<T>(
       method,
       headers,
       credentials: "same-origin",
-      body: tuyChon.body === undefined ? undefined : JSON.stringify(tuyChon.body),
+      body: tuyChon.file ?? (tuyChon.body === undefined ? undefined : JSON.stringify(tuyChon.body)),
     })
   } catch {
     throw new LoiApi(0, "NETWORK", "Không kết nối được máy chủ. Kiểm tra backend hoặc mạng rồi thử lại.")

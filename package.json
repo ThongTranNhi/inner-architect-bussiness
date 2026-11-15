@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test tests/homepage-editorial.test.mjs tests/lien-he.test.mjs tests/founder.test.mjs tests/journal.test.mjs tests/hieu-nang.test.mjs tests/bieu-mau-lien-he.test.mjs tests/dieu-huong.test.mjs",
+    "test": "node --test tests/homepage-editorial.test.mjs tests/lien-he.test.mjs tests/founder.test.mjs tests/journal.test.mjs tests/hieu-nang.test.mjs tests/bieu-mau-lien-he.test.mjs tests/dieu-huong.test.mjs tests/bao-mat-tai-khoan.test.mjs tests/journal-quan-tri.test.mjs",
     "typecheck": "tsc --noEmit",
     "format": "oxfmt",
     "dev:frontend": "vite",
@@ -15,6 +15,7 @@
     "dev:all": "node scripts/chay-dev-tat-ca.mjs",
     "db:migrate": "pnpm --dir server db:migrate",
     "admin:create": "pnpm --dir server admin:create",
+    "journal:import": "pnpm --dir server journal:import",
     "typecheck:server": "pnpm --dir server typecheck",
     "test:server": "pnpm --dir server test",
     "build:server": "pnpm --dir server build",
@@ -23,6 +24,10 @@
     "build:all": "pnpm build && pnpm build:server"
   },
   "dependencies": {
+    "@tiptap/core": "3.32.2",
+    "@tiptap/pm": "3.32.2",
+    "@tiptap/react": "3.32.2",
+    "@tiptap/starter-kit": "3.32.2",
     "framer-motion": "^14.13.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

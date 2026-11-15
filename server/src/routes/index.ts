@@ -11,13 +11,14 @@ import {
   taoRouterKhachHangCongKhai,
   taoRouterQuanTriKhachHang,
 } from "../modules/customers/customers.routes.ts"
+import { taoRouterJournalCongKhai, taoRouterQuanTriJournal } from "../modules/journal/journal.routes.ts"
 
 /** Giới hạn kích thước body JSON; biểu mẫu chỉ có bốn trường ngắn. */
 export const GIOI_HAN_BODY = "10kb"
 
 /**
- * Router `/api/v1`. Session chỉ gắn cho `/auth` và `/admin`; API công khai
- * (health, gửi biểu mẫu) không tạo hay đọc session.
+ * Router `/api/v1`. Session chỉ gắn cho `/auth`, `/account` và `/admin`; API công khai
+ * (health, gửi biểu mẫu, đọc Journal) không tạo hay đọc session.
  *
  * @param tuyChon.pool - Pool MySQL
  * @param tuyChon.session - Middleware express-session đã cấu hình store MySQL
@@ -26,6 +27,8 @@ export const GIOI_HAN_BODY = "10kb"
  * @param tuyChon.originChoPhep - Origin được phép gửi request thay đổi dữ liệu
  * @param tuyChon.pinKhoiTao - `ADMIN_UNLOCK_PIN`: PIN khởi tạo khi MySQL chưa có PIN
  * @param tuyChon.ghiNhatKyBaoMat - Ghi nhật ký đổi PIN / mật khẩu (không chứa bí mật)
+ * @param tuyChon.thuMucAnhJournal - Thư mục lưu ảnh Journal tải lên
+ * @param tuyChon.dungLuongAnhToiDa - Số byte tối đa mỗi ảnh Journal
  * @returns Router Express
  */
 export function taoRouterApiV1(tuyChon: {
@@ -36,6 +39,8 @@ export function taoRouterApiV1(tuyChon: {
   originChoPhep: readonly string[]
   pinKhoiTao?: string
   ghiNhatKyBaoMat: GhiNhatKyBaoMat
+  thuMucAnhJournal: string
+  dungLuongAnhToiDa: number
 }): Router {
   const { pool, session, tenCookie, gioiHan, originChoPhep } = tuyChon
   const router = Router()
@@ -45,9 +50,23 @@ export function taoRouterApiV1(tuyChon: {
     res.setHeader("Cache-Control", "no-store")
     next()
   })
+  router.use(kiemTraNguonGoc(originChoPhep))
+  // Quản trị Journal có parser riêng (nội dung bài tới 1 MB, ảnh dạng nhị phân) và giới hạn
+  // tần suất riêng nên được gắn trước giới hạn chung và parser JSON 10 KB dùng chung;
+  // xác thực + quyền + CSRF chạy trước khi đọc body.
+  router.use(
+    "/admin/journal",
+    gioiHan.quanTriJournal,
+    session,
+    taoRouterQuanTriJournal({
+      pool,
+      thuMucAnh: tuyChon.thuMucAnhJournal,
+      dungLuongAnhToiDa: tuyChon.dungLuongAnhToiDa,
+      ghiNhatKy: tuyChon.ghiNhatKyBaoMat,
+    }),
+  )
   router.use(gioiHan.chung)
   router.use(express.json({ limit: GIOI_HAN_BODY, strict: true }))
-  router.use(kiemTraNguonGoc(originChoPhep))
 
   router.get("/health", async (_req, res) => {
     const databaseOk = await kiemTraKetNoiDatabase(pool)
@@ -59,6 +78,7 @@ export function taoRouterApiV1(tuyChon: {
   })
 
   router.use("/customers", taoRouterKhachHangCongKhai(pool, gioiHan.bieuMau))
+  router.use("/journal", taoRouterJournalCongKhai(pool))
   router.use(
     "/auth",
     session,

@@ -58,6 +58,101 @@ Pipeline `ci-cd.yml` deploy frontend mỗi khi có commit vào `main`. Nếu mer
 
 Rate limit PIN/xác minh lưu trong bộ nhớ tiến trình: khởi động lại backend sẽ reset bộ đếm.
 
+## Cập nhật: Quản lý Journal (migration 003)
+
+Bản này chuyển 6 chuyên mục / 28 bài Journal từ mã nguồn frontend vào MySQL và thêm mục **Journal** trong `/jathong`. Frontend mới **đọc Journal từ API**: nếu frontend lên trước backend + dữ liệu, trang `/journal`, trang bài và khối Journal trang chủ sẽ trống. Thứ tự bắt buộc: **backup → migration → nhập dữ liệu → backend mới → frontend mới**.
+
+1. **Backup MySQL và ảnh** (trước mọi thay đổi):
+
+   ```bash
+   mysqldump --defaults-extra-file=<file-cnf> --single-transaction --routines --triggers --set-gtid-purged=OFF      inner_architect_db | gzip > /var/backups/inner-architect/db_$(date +%Y%m%d_%H%M).sql.gz
+   # Lần đầu chưa có thư mục ảnh thì bỏ qua lệnh này
+   tar -czf /var/backups/inner-architect/journal_media_$(date +%Y%m%d_%H%M).tar.gz -C /var/lib/inner-architect/uploads journal
+   ```
+
+   Đưa cả hai vào job backup hằng ngày (xem [database.md](database.md)).
+
+2. **Thư mục ảnh bền vững** (ngoài `/var/www/inner-architect-api/current` để không mất khi đổi bản phát hành):
+
+   ```bash
+   sudo mkdir -p /var/lib/inner-architect/uploads/journal
+   sudo chown -R innerarchitect-api:innerarchitect-api /var/lib/inner-architect/uploads
+   sudo chmod 755 /var/lib/inner-architect /var/lib/inner-architect/uploads /var/lib/inner-architect/uploads/journal
+   ```
+
+   File ảnh được tạo với quyền `0644` để Nginx (user khác) đọc được. Nếu systemd dùng `ProtectSystem=strict`, thêm `ReadWritePaths=/var/lib/inner-architect/uploads` vào unit.
+
+3. **Biến môi trường** trong `/etc/inner-architect/api.env`:
+
+   ```
+   JOURNAL_UPLOAD_DIR=/var/lib/inner-architect/uploads/journal
+   JOURNAL_MAX_UPLOAD_MB=5
+   SITE_URL=https://innerarchitect.vn
+   ```
+
+4. Build và chép backend mới như bước 3 (gồm `server/database/migrations/003_journal.sql` và `server/database/seed/journal-ban-dau.json`).
+
+5. **Migration trước khi bật backend mới:** `node dist/scripts/chay-migration.js` (migrator cần `CREATE`, `ALTER`, `REFERENCES`). Code mới đọc cột `admins.can_manage_journal`; chạy backend mới khi chưa migration sẽ lỗi đăng nhập.
+
+6. **Nhập dữ liệu Journal cũ:** chạy thử rồi chạy thật (dùng tài khoản ứng dụng, chỉ cần `INSERT`):
+
+   ```bash
+   node dist/scripts/nhap-journal.js --dry-run   # mong đợi: chuyên mục thêm 6, bài thêm 28
+   node dist/scripts/nhap-journal.js
+   ```
+
+   Chạy lại an toàn (chỉ thêm bản ghi thiếu, không ghi đè). Kiểm tra: `curl -s https://<host>/api/v1/journal | jq '.data.articles|length'` → `28` (sau khi bật backend).
+
+7. `sudo systemctl restart inner-architect-api`.
+
+8. **Nginx** — thêm vào server block HTTPS (đặt **trước** `location /api/` để giới hạn tải ảnh riêng; `location /api/` vẫn giữ 16k):
+
+   ```nginx
+   # Tải ảnh Journal: phải >= JOURNAL_MAX_UPLOAD_MB (thêm dư cho header)
+   location = /api/v1/admin/journal/media {
+       proxy_pass http://127.0.0.1:3001;
+       proxy_set_header Host $host;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto $scheme;
+       client_max_body_size 6m;
+   }
+   # Lưu nháp bài (nội dung JSON tới 1 MB)
+   location ^~ /api/v1/admin/journal/ {
+       proxy_pass http://127.0.0.1:3001;
+       proxy_set_header Host $host;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto $scheme;
+       client_max_body_size 1100k;
+   }
+   # Ảnh Journal: Nginx phục vụ trực tiếp, tên file ngẫu nhiên nên cache dài hạn
+   location ^~ /media/journal/ {
+       alias /var/lib/inner-architect/uploads/journal/;
+       try_files $uri =404;
+       add_header Cache-Control "public, max-age=31536000, immutable";
+       add_header X-Content-Type-Options nosniff;
+       types { image/jpeg jpg; image/png png; image/webp webp; }
+       default_type application/octet-stream;
+   }
+   location = /sitemap.xml {
+       proxy_pass http://127.0.0.1:3001;
+       proxy_set_header Host $host;
+   }
+   ```
+
+   `sudo nginx -t && sudo systemctl reload nginx`. Nếu có `robots.txt`, có thể thêm dòng `Sitemap: https://innerarchitect.vn/sitemap.xml`.
+
+9. **Cấp quyền:** đăng nhập `admin` → `/jathong/journal` → tab **Phân quyền** → tích *Được quản lý Journal* cho nhân viên phụ trách.
+
+10. **Triển khai frontend mới**, rồi kiểm tra:
+    - `/journal`: đủ 6 chuyên mục, 28 bài, đúng thứ tự; khung đọc nhanh mở được.
+    - Mở thẳng một URL cũ, ví dụ `/journal/ban-la-ai-khi-khong-con-phai-lam-hai-long-tat-ca` → hiện đúng nội dung (không 404).
+    - Trang chủ: khối Journal hiện 3 bài.
+    - `/sitemap.xml` có các URL `/journal/<slug>`, không có bài nháp.
+    - Trong `/jathong/journal`: tạo bài nháp thử có ảnh → ảnh hiện (`/media/journal/…` trả `200`, `Content-Type: image/…`) → **không** xuất bản, hoặc xuất bản rồi gỡ; ảnh 6 MB bị từ chối với thông báo rõ.
+    - `journalctl -u inner-architect-api` không có lỗi; log `"loai":"security"` chỉ chứa ID.
+
+**Hoàn tác:** frontend cũ vẫn chạy được với backend mới (không đọc API Journal). Bảng mới không ảnh hưởng chức năng liên hệ / Customer Care. Nếu cần quay lại hẳn: khôi phục frontend cũ trước, sau đó mới tính đến khôi phục database từ backup.
+
 ## Việc cần PM quyết định trước deploy
 
 - Chính sách bảo mật bản chính thức (thời gian lưu trữ, quyền yêu cầu xóa dữ liệu) — bản hiện tại vẫn là nháp.

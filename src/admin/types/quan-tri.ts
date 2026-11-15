@@ -10,6 +10,8 @@ export type QuanTriVien = {
   username: string
   displayName: string
   role: VaiTroQuanTri
+  /** Được tạo, sửa, sắp xếp và xuất bản Journal (admin luôn có). */
+  canManageJournal: boolean
 }
 
 /** Bản ghi khách hàng; thời gian là chuỗi ISO 8601 UTC. */

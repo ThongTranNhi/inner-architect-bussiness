@@ -19,6 +19,28 @@ function phatSuKienDieuHuong(): void {
   window.dispatchEvent(new Event(SU_KIEN_DIEU_HUONG))
 }
 
+/** Hàm hỏi trang hiện tại có cho rời đi không (vd. trình soạn thảo còn thay đổi chưa lưu). */
+let hoiRoiTrang: (() => boolean) | null = null
+
+/**
+ * Đăng ký (hoặc gỡ với `null`) hàm kiểm tra trước khi rời trang bằng điều hướng nội bộ
+ * hoặc nút Back/Forward. Hàm trả `true` nếu được phép rời đi.
+ *
+ * @param ham - Hàm kiểm tra, ví dụ hỏi xác nhận khi còn thay đổi chưa lưu
+ */
+export function datChanRoiTrang(ham: (() => boolean) | null): void {
+  hoiRoiTrang = ham
+}
+
+/**
+ * Trang hiện tại có cho phép rời đi không.
+ *
+ * @returns `true` nếu không có chặn hoặc người dùng đồng ý rời trang
+ */
+export function choPhepRoiTrang(): boolean {
+  return !hoiRoiTrang || hoiRoiTrang()
+}
+
 /**
  * Cuộn mượt màn hình đến phần tử có ID tương ứng trên trang.
  * @param {string} idPhanTu - ID của phần tử mục tiêu (không kèm dấu #)
@@ -39,6 +61,7 @@ export function cuonDenPhanTu(idPhanTu: string): void {
  * @returns {void}
  */
 export function go(path: string): void {
+  if (!choPhepRoiTrang()) return
   if (path === "/#he-thong" || path === "#he-thong") {
     if (window.location.pathname === "/") {
       cuonDenPhanTu("he-thong")

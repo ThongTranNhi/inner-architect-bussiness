@@ -10,6 +10,8 @@ export type QuanTriVien = {
   isActive: boolean
   /** Tăng mỗi lần đổi mật khẩu; phiên lưu version lúc đăng nhập. */
   credentialVersion: number
+  /** Được cấp quyền quản lý Journal (vai trò `admin` luôn có quyền, xem `coQuyenJournal`). */
+  canManageJournal: boolean
 }
 
 type DongQuanTriVien = RowDataPacket & {
@@ -19,6 +21,7 @@ type DongQuanTriVien = RowDataPacket & {
   role: VaiTroQuanTri
   is_active: number
   credential_version: number
+  can_manage_journal: number
   password_hash: string
 }
 
@@ -36,6 +39,7 @@ function chuyenDongQuanTriVien(dong: DongQuanTriVien): QuanTriVien {
     role: dong.role,
     isActive: Boolean(dong.is_active),
     credentialVersion: Number(dong.credential_version),
+    canManageJournal: Boolean(dong.can_manage_journal),
   }
 }
 
@@ -51,7 +55,7 @@ export async function timQuanTriVienDeDangNhap(
   tenDangNhap: string,
 ): Promise<(QuanTriVien & { passwordHash: string }) | null> {
   const [dong] = await pool.execute<DongQuanTriVien[]>(
-    "SELECT id, username, display_name, role, is_active, credential_version, password_hash FROM admins WHERE username = ? LIMIT 1",
+    "SELECT id, username, display_name, role, is_active, credential_version, can_manage_journal, password_hash FROM admins WHERE username = ? LIMIT 1",
     [tenDangNhap],
   )
   const banGhi = dong[0]
@@ -71,7 +75,7 @@ export async function layQuanTriVienTheoMa(
   maQuanTriVien: number,
 ): Promise<QuanTriVien | null> {
   const [dong] = await pool.execute<DongQuanTriVien[]>(
-    "SELECT id, username, display_name, role, is_active, credential_version FROM admins WHERE id = ? LIMIT 1",
+    "SELECT id, username, display_name, role, is_active, credential_version, can_manage_journal FROM admins WHERE id = ? LIMIT 1",
     [maQuanTriVien],
   )
   return dong[0] ? chuyenDongQuanTriVien(dong[0]) : null
