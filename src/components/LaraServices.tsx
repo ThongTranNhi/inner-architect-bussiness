@@ -357,7 +357,7 @@ export function LaraServices() {
                   overflow: "hidden",
                   boxShadow: "0 10px 30px rgba(43, 36, 32, 0.06)",
                   position: "relative",
-                  shrink: 0,
+                  flexShrink: 0,
                 }}
               >
                 <motion.img
@@ -642,7 +642,7 @@ function HerbIcon({ size = 20, color = "#7A1E1E" }: { size?: number; color?: str
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      style={{ shrink: 0 }}
+      style={{ flexShrink: 0 }}
     >
       <path
         d="M3 21C3 14 8 4 19 3C18 14 12 21 3 21Z"
