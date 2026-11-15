@@ -16,6 +16,7 @@ export function KhungQuanTri({ duongDan, children }: { duongDan: string; childre
   const mucMenu = [
     { href: GOC_QUAN_TRI, nhan: "Tổng quan", dangMo: duongDan === GOC_QUAN_TRI },
     { href: `${GOC_QUAN_TRI}/customers`, nhan: "Khách hàng", dangMo: duongDan.startsWith(`${GOC_QUAN_TRI}/customers`) },
+    { href: `${GOC_QUAN_TRI}/bao-mat`, nhan: "Bảo mật tài khoản", dangMo: duongDan === `${GOC_QUAN_TRI}/bao-mat` },
   ]
 
   return (

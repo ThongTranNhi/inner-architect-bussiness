@@ -50,7 +50,9 @@ export async function apDungMigration(
   const vuaApDung: string[] = []
 
   for (const ten of danhSachFile) {
-    const sql = readFileSync(path.join(thuMuc, ten), "utf8")
+    // Chuẩn hóa CRLF → LF: Git trên Windows (core.autocrlf) checkout file thành CRLF,
+    // checksum phải giống nhau trên mọi máy với cùng nội dung migration.
+    const sql = readFileSync(path.join(thuMuc, ten), "utf8").replace(/\r\n/g, "\n")
     const checksum = createHash("sha256").update(sql).digest("hex")
     const checksumCu = checksumDaChay.get(ten)
     if (checksumCu) {

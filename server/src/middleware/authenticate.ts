@@ -10,8 +10,14 @@ import { LoiUngDung } from "../utils/loi-ung-dung.ts"
 
 declare module "express-session" {
   interface SessionData {
+    /** Thời điểm (ms) lượt mở khóa bằng PIN hết hạn. */
+    pinMoKhoaDen?: number
+    /** Version của PIN đã dùng để mở khóa; đổi PIN làm lượt mở khóa cũ hết hiệu lực. */
+    pinVersion?: number
     /** ID tài khoản đã đăng nhập. */
     adminId: number
+    /** `admins.credential_version` lúc đăng nhập; lệch nghĩa là phiên đã bị thu hồi. */
+    credentialVersion?: number
     /** CSRF token gắn với phiên, gửi lại qua header `X-CSRF-Token`. */
     csrfToken: string
   }
@@ -45,7 +51,8 @@ export function layQuanTriVienHienTai(res: Response): QuanTriVien {
 
 /**
  * Bắt buộc có phiên đăng nhập hợp lệ. Mỗi request đọc lại tài khoản từ MySQL
- * để tài khoản bị khóa (`is_active = 0`) hoặc bị xóa mất quyền ngay lập tức.
+ * để tài khoản bị khóa (`is_active = 0`), bị xóa hoặc đã đổi mật khẩu
+ * (`credential_version` tăng) mất quyền ngay lập tức.
  *
  * @param pool - Pool MySQL
  * @returns Middleware gắn `res.locals.quanTriVien`
@@ -58,7 +65,10 @@ export function yeuCauDangNhap(pool: Pool): RequestHandler {
       throw new LoiUngDung(401, "UNAUTHENTICATED", "Vui lòng đăng nhập.")
 
     const quanTriVien = await layQuanTriVienTheoMa(pool, maQuanTriVien)
-    if (!quanTriVien || !quanTriVien.isActive) {
+    // Phiên tạo trước khi có credential_version được coi là version 1 (giá trị mặc định).
+    const phienDaBiThuHoi =
+      quanTriVien !== null && (req.session.credentialVersion ?? 1) !== quanTriVien.credentialVersion
+    if (!quanTriVien || !quanTriVien.isActive || phienDaBiThuHoi) {
       await new Promise<void>((resolve) => req.session.destroy(() => resolve()))
       throw new LoiUngDung(
         401,

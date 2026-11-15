@@ -85,6 +85,7 @@ export async function donDuLieuTest(pool: Pool): Promise<void> {
   if (!(await pool.query<mysql.RowDataPacket[]>("SELECT DATABASE() AS db"))[0][0]?.db?.includes("test"))
     throw new Error("Từ chối dọn dữ liệu: database hiện tại không phải database test.")
   await pool.query("DELETE FROM sessions")
+  await pool.query("DELETE FROM admin_settings")
   await pool.query("DELETE FROM customers")
   await pool.query("DELETE FROM admins")
 }

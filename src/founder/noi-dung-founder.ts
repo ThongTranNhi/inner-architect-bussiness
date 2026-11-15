@@ -29,7 +29,13 @@ export const anhFounder = {
     src: "/assets/founder/01-chan-dung-nha-sang-lap-khiem-vo.webp",
     alt: "Chân dung Khiêm Võ, người sáng lập INNER ARCHITECT™",
     tiLe: "1 / 1",
-    mucDich: "Chân dung chính thức · 1080 × 1080px",
+    mucDich: "Chân dung chính thức · 960 × 1280px",
+  },
+  gioiThieu: {
+    src: "/assets/founder/08-gioi-thieu-khiem-vo.webp",
+    alt: "Khiêm Võ đứng trước màn hình trình chiếu trong một buổi chia sẻ",
+    tiLe: "3 / 4",
+    mucDich: "Ảnh section Giới thiệu · 960 × 1280px",
   },
   hanhTrinh: {
     src: "/assets/founder/02-ban-lam-viec-va-khong-gian-sang-lap.webp",
@@ -99,7 +105,7 @@ export const gioiThieuFounder = {
   dan: "Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
   doan: [
     "Khiêm Võ là người sáng lập INNER ARCHITECT™ System, hoạt động trong lĩnh vực Tarot phản tư, chia sẻ kiến thức và phát triển bản thân.",
-    "Với nền tảng đào tạo đại học trong ba lĩnh vực Công nghệ Thông tin, Tài chính – Ngân hàng và Tâm lý học, Khiêm Võ hướng đến cách tiếp cận đa chiều: kết hợp tư duy hệ thống, kinh nghiệm sống và kiến thức về nhận thức, cảm xúc, hành vi.",
+    "Với nền tảng đào tạo đại học trong ba lĩnh vực Công nghệ Thông tin, Tài chính – Ngân hàng và Tâm lý học, Khiêm Võ hướng đến cách tiếp cận đa chiều: kết hợp tư duy hệ thống, kinh nghiệm sống và kiến thức về nhận thức, cảm xúc và hành vi.",
   ],
   /** Đoạn chứa số liệu chưa xác nhận — chỉ hiển thị khi `soLieuDaXacNhan`. */
   doanSoLieu:

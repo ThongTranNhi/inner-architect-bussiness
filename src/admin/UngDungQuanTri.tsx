@@ -3,6 +3,7 @@ import { Link, thayDuongDan } from "../dieu-huong"
 import { KhungQuanTri } from "./components/KhungQuanTri"
 import { GOC_QUAN_TRI } from "./duong-dan-quan-tri"
 import { PhienQuanTriProvider, usePhienQuanTri } from "./hooks/usePhienQuanTri"
+import { BaoMatTaiKhoan } from "./pages/BaoMatTaiKhoan"
 import { ChiTietKhachHang } from "./pages/ChiTietKhachHang"
 import { DangNhapQuanTri } from "./pages/DangNhapQuanTri"
 import { DanhSachKhachHang } from "./pages/DanhSachKhachHang"
@@ -13,6 +14,7 @@ const TIEU_DE: Record<string, string> = {
   [`${GOC_QUAN_TRI}/login`]: "Đăng nhập",
   [GOC_QUAN_TRI]: "Tổng quan",
   [`${GOC_QUAN_TRI}/customers`]: "Khách hàng",
+  [`${GOC_QUAN_TRI}/bao-mat`]: "Bảo mật tài khoản",
 }
 
 /** Khớp trang chi tiết khách hàng, ví dụ `/jathong/customers/12`. */
@@ -50,6 +52,7 @@ function DinhTuyenQuanTri({ duongDan }: { duongDan: string }) {
   const khopChiTiet = duongDan.match(MAU_CHI_TIET)
   if (duongDan === GOC_QUAN_TRI || duongDan === `${GOC_QUAN_TRI}/login`) noiDung = <TongQuanQuanTri />
   else if (duongDan === `${GOC_QUAN_TRI}/customers`) noiDung = <DanhSachKhachHang />
+  else if (duongDan === `${GOC_QUAN_TRI}/bao-mat`) noiDung = <BaoMatTaiKhoan />
   else if (khopChiTiet) noiDung = <ChiTietKhachHang key={khopChiTiet[1]} id={Number(khopChiTiet[1])} />
   else
     noiDung = (

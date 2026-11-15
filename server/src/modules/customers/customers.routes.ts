@@ -3,16 +3,19 @@ import type { Pool } from "mysql2/promise"
 import {
   kiemTraCsrf,
   kiemTraQuyen,
+  layQuanTriVienHienTai,
   yeuCauDangNhap,
 } from "../../middleware/authenticate.ts"
 import { phanTichDuLieu } from "../../middleware/validate.ts"
 import { LoiUngDung } from "../../utils/loi-ung-dung.ts"
+import type { GhiNhatKyBaoMat } from "../../utils/nhat-ky-bao-mat.ts"
 import {
   capNhatTrangThaiKhachHang,
   layDanhSachKhachHang,
   layKhachHangTheoMa,
   layThongKeKhachHang,
   themKhachHang,
+  xoaKhachHang,
 } from "./customers.repository.ts"
 import {
   schemaCapNhatTrangThai,
@@ -47,14 +50,15 @@ export function taoRouterKhachHangCongKhai(
 }
 
 /**
- * Router quản trị `/admin`: danh sách, chi tiết, cập nhật trạng thái và thống kê.
+ * Router quản trị `/admin`: danh sách, chi tiết, cập nhật trạng thái, xóa và thống kê.
  * Mọi route yêu cầu phiên hợp lệ và vai trò `admin` hoặc `customer_care`;
- * route thay đổi dữ liệu yêu cầu thêm CSRF token.
+ * route thay đổi dữ liệu yêu cầu thêm CSRF token. Xóa chỉ dành cho vai trò `admin`.
  *
  * @param pool - Pool MySQL
+ * @param ghiNhatKy - Ghi nhật ký thao tác xóa (chỉ ID, không có dữ liệu cá nhân)
  * @returns Router Express
  */
-export function taoRouterQuanTriKhachHang(pool: Pool): Router {
+export function taoRouterQuanTriKhachHang(pool: Pool, ghiNhatKy: GhiNhatKyBaoMat): Router {
   const router = Router()
   router.use(yeuCauDangNhap(pool), kiemTraQuyen("admin", "customer_care"), kiemTraCsrf())
 
@@ -89,6 +93,15 @@ export function taoRouterQuanTriKhachHang(pool: Pool): Router {
       throw new LoiUngDung(404, "NOT_FOUND", "Không tìm thấy khách hàng.")
     const khachHang = await layKhachHangTheoMa(pool, id)
     res.json({ success: true, data: khachHang })
+  })
+
+  router.delete("/customers/:id", kiemTraQuyen("admin"), async (req, res) => {
+    const { id } = phanTichDuLieu(schemaMaKhachHang, req.params)
+    const quanTriVien = layQuanTriVienHienTai(res)
+    if (!(await xoaKhachHang(pool, id)))
+      throw new LoiUngDung(404, "NOT_FOUND", "Không tìm thấy khách hàng.")
+    ghiNhatKy({ thaoTac: "xoa_khach_hang", maQuanTriVien: quanTriVien.id, ketQua: "thanh_cong", maDoiTuong: id })
+    res.json({ success: true, message: "Đã xóa khách hàng." })
   })
 
   router.get("/statistics", async (_req, res) => {

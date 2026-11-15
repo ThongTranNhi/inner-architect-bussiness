@@ -74,7 +74,7 @@ test("psychology degree is not presented as awarded", () => {
 })
 
 test("founder portraits use authentic photos from founder image directory", () => {
-  for (const key of ["chanDungHero", "hanhTrinh", "ketThuc"]) {
+  for (const key of ["chanDungHero", "gioiThieu", "hanhTrinh", "ketThuc"]) {
     assert.ok(
       noiDung.anhFounder[key].src,
       `${key} must have authentic photo src`,

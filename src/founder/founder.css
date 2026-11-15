@@ -101,7 +101,7 @@
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   gap: var(--fp-gap);
   align-items: center;
-  padding-top: clamp(120px, 11vw, 160px);
+  padding-top: clamp(44px, 5vw, 80px);
 }
 
 .founder-page .fp-hero h1 {
@@ -141,16 +141,28 @@
 .founder-page .fp-hero {
   grid-template-columns: fit-content(560px) auto;
   justify-content: center;
-  column-gap: clamp(56px, 6vw, 112px);
+  column-gap: clamp(36px, 4.5vw, 72px);
 }
 
 .founder-page .fp-hero-media {
   width: min(620px, max(440px, calc((100vh - 280px) * 0.75)));
 }
 
-/* 02 — Giới thiệu, một cột trung tâm */
+/* 02 — Giới thiệu: ảnh trái, chữ phải (cùng tỉ lệ cột với Hành trình) */
 .founder-page .fp-intro {
-  max-width: 760px;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--fp-gap);
+  align-items: center;
+  padding-top: clamp(56px, 6vw, 96px);
+}
+
+.founder-page .fp-intro-media {
+  max-width: 480px;
+}
+
+.founder-page .fp-intro-copy {
+  max-width: 640px;
 }
 
 .founder-page .fp-lead {
@@ -163,13 +175,15 @@
 /* 03 — Hành trình */
 .founder-page .fp-journey {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
   gap: var(--fp-gap);
   align-items: start;
 }
 
+/* Ảnh ở cột phải, sát mép phải để cân với ảnh trái của section Giới thiệu. */
 .founder-page .fp-journey-media {
   max-width: 480px;
+  justify-self: end;
 }
 
 .founder-page .fp-journey-copy h2 {
@@ -628,6 +642,7 @@
 /* Tablet */
 @media (max-width: 1023px) {
   .founder-page .fp-hero,
+  .founder-page .fp-intro,
   .founder-page .fp-journey,
   .founder-page .fp-philosophy-body,
   .founder-page .fp-vision-grid {
@@ -636,6 +651,9 @@
   .founder-page .fp-hero-media {
     justify-self: start;
     width: min(100%, 520px);
+  }
+  .founder-page .fp-journey-media {
+    justify-self: start;
   }
   .founder-page .fp-values {
     grid-template-columns: minmax(0, 1fr);
@@ -667,6 +685,11 @@
   .founder-page .fp-journey-media {
     max-width: none;
     aspect-ratio: 4 / 3 !important;
+  }
+  .founder-page .fp-intro-media {
+    max-width: none;
+    aspect-ratio: 4 / 5 !important;
+    max-height: 70vh;
   }
   .founder-page .fp-works-grid {
     row-gap: 72px;
