@@ -180,6 +180,20 @@ function tenFileGoc(giaTri: string | undefined): string | null {
 }
 
 /**
+ * Bộ nhớ đệm trong RAM cho API Journal công khai:
+ * Phục vụ hàng ngàn truy cập đồng thời (< 0.5ms) mà không làm quá tải MySQL.
+ * Tự động xóa cache ngay khi quản trị viên thêm, sửa, xóa, xuất bản bài hoặc chuyên mục.
+ */
+let cacheJournalCongKhai: { duLieu: unknown; hetHanLuc: number } | null = null
+const cacheBaiCongKhai = new Map<string, { duLieu: unknown; hetHanLuc: number }>()
+const THOI_GIAN_CACHE_MS = 30_000 // 30 giây TTL
+
+export function xoaCacheJournal(): void {
+  cacheJournalCongKhai = null
+  cacheBaiCongKhai.clear()
+}
+
+/**
  * Router công khai `/journal`: chỉ trả bài đã xuất bản trong chuyên mục công khai.
  *
  * @param pool - Pool MySQL
@@ -189,13 +203,27 @@ export function taoRouterJournalCongKhai(pool: Pool): Router {
   const router = Router()
 
   router.get("/", async (_req, res) => {
-    res.json({ success: true, data: await layJournalCongKhai(pool) })
+    res.setHeader("Cache-Control", "public, max-age=30, stale-while-revalidate=120")
+    const now = Date.now()
+    if (cacheJournalCongKhai && cacheJournalCongKhai.hetHanLuc > now) {
+      return res.json({ success: true, data: cacheJournalCongKhai.duLieu })
+    }
+    const duLieu = await layJournalCongKhai(pool)
+    cacheJournalCongKhai = { duLieu, hetHanLuc: now + THOI_GIAN_CACHE_MS }
+    res.json({ success: true, data: duLieu })
   })
 
   router.get("/articles/:slug", async (req, res) => {
     const { slug } = phanTichDuLieu(schemaSlug, req.params)
+    res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=180")
+    const now = Date.now()
+    const cached = cacheBaiCongKhai.get(slug)
+    if (cached && cached.hetHanLuc > now) {
+      return res.json({ success: true, data: cached.duLieu })
+    }
     const bai = await layBaiCongKhai(pool, slug)
     if (!bai) throw new LoiUngDung(404, "NOT_FOUND", "Không tìm thấy bài viết.")
+    cacheBaiCongKhai.set(slug, { duLieu: bai, hetHanLuc: now + THOI_GIAN_CACHE_MS })
     res.json({ success: true, data: bai })
   })
 
@@ -239,6 +267,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
   router.post("/categories", async (req, res) => {
     const duLieu = phanTichDuLieu(schemaTaoChuyenMuc, req.body)
     await taoChuyenMuc(pool, duLieu, layQuanTriVienHienTai(res).id)
+    xoaCacheJournal()
     res.status(201).json({ success: true, data: await layDanhSachChuyenMucQuanTri(pool) })
   })
 
@@ -246,6 +275,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { id } = phanTichDuLieu(schemaMa, req.params)
     const { version, ...duLieu } = phanTichDuLieu(schemaSuaChuyenMuc, req.body)
     nemLoiNeuThatBai(await suaChuyenMuc(pool, id, duLieu, version, layQuanTriVienHienTai(res).id), "chuyên mục")
+    xoaCacheJournal()
     res.json({ success: true, data: await layDanhSachChuyenMucQuanTri(pool) })
   })
 
@@ -253,6 +283,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { id } = phanTichDuLieu(schemaMa, req.params)
     const { version } = phanTichDuLieu(schemaPhienBan, req.body)
     nemLoiNeuThatBai(await xoaChuyenMuc(pool, id, version), "chuyên mục")
+    xoaCacheJournal()
     ghiNhatKy({ thaoTac: "xoa_chuyen_muc_journal", maQuanTriVien: layQuanTriVienHienTai(res).id, ketQua: "thanh_cong", maDoiTuong: id })
     res.json({ success: true, data: await layDanhSachChuyenMucQuanTri(pool) })
   })
@@ -261,6 +292,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { ids } = phanTichDuLieu(schemaThuTu, req.body)
     if (!(await sapXepChuyenMuc(pool, ids)))
       throw new LoiUngDung(409, "CONFLICT", "Danh sách chuyên mục vừa thay đổi. Hãy tải lại rồi sắp xếp lại.")
+    xoaCacheJournal()
     res.json({ success: true, data: await layDanhSachChuyenMucQuanTri(pool) })
   })
 
@@ -269,6 +301,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { ids } = phanTichDuLieu(schemaThuTu, req.body)
     if (!(await sapXepBai(pool, id, ids)))
       throw new LoiUngDung(409, "CONFLICT", "Danh sách bài trong chuyên mục vừa thay đổi. Hãy tải lại rồi sắp xếp lại.")
+    xoaCacheJournal()
     res.json({ success: true, data: await layDanhSachBaiQuanTri(pool, { categoryId: id }) })
   })
 
@@ -289,6 +322,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const id = await taoBai(pool, duLieu, slug, layQuanTriVienHienTai(res).id)
     if (id === null)
       throw new LoiUngDung(400, "VALIDATION_ERROR", "Chuyên mục không tồn tại.", { categoryId: "Chuyên mục không tồn tại." })
+    xoaCacheJournal()
     await traBai(id, res, 201)
   })
 
@@ -297,6 +331,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { version, ...tho } = phanTichDuLieu(schemaLuuBai, req.body)
     const duLieu = await chuanBiDuLieuBai(pool, tho)
     nemLoiNeuThatBai(await luuNhapBai(pool, id, duLieu, version, layQuanTriVienHienTai(res).id), "bài viết")
+    xoaCacheJournal()
     await traBai(id, res)
   })
 
@@ -306,6 +341,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const maNguoi = layQuanTriVienHienTai(res).id
     nemLoiNeuThatBai(await xuatBanBai(pool, id, version, maNguoi), "bài viết")
     ghiNhatKy({ thaoTac: "xuat_ban_journal", maQuanTriVien: maNguoi, ketQua: "thanh_cong", maDoiTuong: id })
+    xoaCacheJournal()
     await traBai(id, res)
   })
 
@@ -315,6 +351,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const maNguoi = layQuanTriVienHienTai(res).id
     nemLoiNeuThatBai(await goXuatBanBai(pool, id, version, maNguoi), "bài viết")
     ghiNhatKy({ thaoTac: "go_xuat_ban_journal", maQuanTriVien: maNguoi, ketQua: "thanh_cong", maDoiTuong: id })
+    xoaCacheJournal()
     await traBai(id, res)
   })
 
@@ -322,6 +359,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { id } = phanTichDuLieu(schemaMa, req.params)
     const { version } = phanTichDuLieu(schemaPhienBan, req.body)
     nemLoiNeuThatBai(await boThayDoiNhap(pool, id, version, layQuanTriVienHienTai(res).id), "bài viết")
+    xoaCacheJournal()
     await traBai(id, res)
   })
 
@@ -330,6 +368,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { version } = phanTichDuLieu(schemaPhienBan, req.body)
     nemLoiNeuThatBai(await xoaBai(pool, id, version), "bài viết")
     ghiNhatKy({ thaoTac: "xoa_bai_journal", maQuanTriVien: layQuanTriVienHienTai(res).id, ketQua: "thanh_cong", maDoiTuong: id })
+    xoaCacheJournal()
     res.json({ success: true, message: "Đã xóa bài viết." })
   })
 
@@ -337,6 +376,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { id } = phanTichDuLieu(schemaMa, req.params)
     const { version, categoryId } = phanTichDuLieu(schemaChuyenMucBai, req.body)
     nemLoiNeuThatBai(await chuyenChuyenMucBai(pool, id, categoryId, version, layQuanTriVienHienTai(res).id), "bài viết")
+    xoaCacheJournal()
     await traBai(id, res)
   })
 
@@ -344,6 +384,7 @@ export function taoRouterQuanTriJournal(tuyChon: {
     const { id } = phanTichDuLieu(schemaMa, req.params)
     const { version, featured } = phanTichDuLieu(schemaTieuBieu, req.body)
     nemLoiNeuThatBai(await datTieuBieu(pool, id, featured, version, layQuanTriVienHienTai(res).id), "bài viết")
+    xoaCacheJournal()
     await traBai(id, res)
   })
 

@@ -21,7 +21,7 @@ const schemaMoiTruong = z.object({
   DB_NAME: z.string().regex(/^[A-Za-z0-9_]+$/, "DB_NAME chỉ gồm chữ, số, _"),
   DB_USER: z.string().min(1),
   DB_PASSWORD: z.string().min(1, "DB_PASSWORD bắt buộc"),
-  DB_CONNECTION_LIMIT: z.coerce.number().int().min(1).max(50).default(10),
+  DB_CONNECTION_LIMIT: z.coerce.number().int().min(1).max(100).default(30),
 
   DB_MIGRATE_USER: z.string().min(1).optional(),
   DB_MIGRATE_PASSWORD: z.string().min(1).optional(),

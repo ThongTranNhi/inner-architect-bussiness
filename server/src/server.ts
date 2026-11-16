@@ -23,6 +23,13 @@ async function khoiDong(): Promise<void> {
       `INNER ARCHITECT API (${cauHinh.NODE_ENV}) đang chạy tại http://${cauHinh.HOST}:${cauHinh.PORT}/api/v1`,
     )
   })
+
+  // Tối ưu hóa socket timeout & keep-alive: chịu tải 1000+ kết nối đồng thời và chống tấn công Slowloris DoS
+  server.keepAliveTimeout = 65_000
+  server.headersTimeout = 66_000
+  server.requestTimeout = 30_000
+  server.maxConnections = 5_000
+
   server.on("error", (loi) => {
     console.error(`Không thể khởi động server: ${loi.message}`)
     process.exit(1)

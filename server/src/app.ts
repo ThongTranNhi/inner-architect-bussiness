@@ -60,7 +60,14 @@ export function taoUngDung(tuyChon: {
   app.set("trust proxy", cauHinh.TRUST_PROXY ? 1 : false)
 
   app.use(ganNguCanhYeuCau(tuyChon.batLog ?? true))
-  app.use(helmet())
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: "cross-origin" },
+      referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+      xFrameOptions: { action: "sameorigin" },
+      xContentTypeOptions: true,
+    }),
+  )
 
   const middlewareSession = session({
     name: TEN_COOKIE_SESSION,
