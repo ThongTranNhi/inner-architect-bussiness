@@ -155,7 +155,7 @@ export function Hermit() {
           <h1 className="serif">
             Một khoảng lặng
             <br />
-            <em>có chủ đích.</em>
+            để lắng nghe chính mình.
           </h1>
           <Link to="/lien-he" className="underlink">
             Liên hệ The Hermit →
@@ -165,7 +165,7 @@ export function Hermit() {
 
       <section className="hermit-intro section-pad">
         <p className="eyebrow">A PLACE TO STAY AWHILE</p>
-        <h2 className="serif">Trà, đồ vật và một cuộc đối thoại vừa đủ.</h2>
+        <h2 className="serif">Trà đạo, Tarot và những cuộc đối thoại lắng đọng.</h2>
         <div>
           <p>
             The Hermit là không gian café, trà đạo và Tarot thuộc hệ sinh thái
@@ -189,7 +189,7 @@ export function Hermit() {
       <section className="hermit-rituals section-pad">
         <header>
           <p className="eyebrow">HOW TO BE HERE</p>
-          <h2 className="serif">Không có cách đúng để ở lại.</h2>
+          <h2 className="serif">Cứ thong thả ở lại theo cách của bạn.</h2>
         </header>
         <div>
           {rituals.map(([number, title, copy]) => (
