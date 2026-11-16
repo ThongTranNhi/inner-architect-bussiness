@@ -164,6 +164,17 @@ export const KICH_THUOC_ANH_JOURNAL: Readonly<
   "/assets/workshop/01-workshop-khoi-dong-nam-moi.webp": [1280, 720],
   "/assets/workshop/02-workshop-mo-truc-nam-moi.webp": [756, 426],
   "/assets/founder/02-ban-lam-viec-va-khong-gian-sang-lap.webp": [1086, 1448],
+  "/assets/journal/bai-viet/lao-tu-kiem-soat.webp": [1536, 1024],
+  "/assets/journal/bai-viet/khoang-trong-trang-tu.webp": [1536, 1024],
+  "/assets/journal/bai-viet/biet-du-giua-the-gioi.webp": [1536, 1024],
+  "/assets/journal/bai-viet/vo-vi-thuan-tu-nhien.webp": [1536, 1024],
+  "/assets/journal/bai-viet/mem-nhu-nuoc-doi-dau.webp": [1536, 1024],
+  "/assets/journal/bai-viet/lang-nghe-kiet-suc.webp": [1536, 1024],
+  "/assets/journal/bai-viet/moi-quan-he-can-kiet.webp": [1536, 1024],
+  "/assets/journal/bai-viet/tin-nhan-chua-tra-loi.webp": [1536, 1024],
+  "/assets/journal/bai-viet/ranh-gioi-thuong-yeu.webp": [1536, 1024],
+  "/assets/journal/bai-viet/buong-tay-giu-moi-quan-he.webp": [1536, 1024],
+  "/assets/journal/bai-viet/viet-nhat-ky-khoi-dau.webp": [1536, 1024],
 }
 
 /**
