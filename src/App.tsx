@@ -1290,7 +1290,7 @@ function Home({ initialSection }: { initialSection?: string }) {
           </div>
         </div>
 
-        <div className="home-v3-journal-layout">
+        <div className="home-v3-journal-layout hidden" aria-hidden="true">
           {leadJournal && (
           <article className="home-journal-feature reveal-child">
             <Link to={"/journal/" + leadJournal.slug}>
