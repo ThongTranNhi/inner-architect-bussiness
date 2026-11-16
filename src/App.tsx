@@ -154,7 +154,7 @@ const danhSachDieuHuongMenu: MucDieuHuongMenu[] = [
     nhan: "Journal",
     duongDan: "/journal",
     moTa: "Thư viện tri thức & chiêm nghiệm",
-    anhPreview: IMG.journalReading,
+    anhPreview: "/assets/journal/goc/hinh03.webp",
   },
   {
     nhan: "Chương trình",
@@ -292,8 +292,8 @@ function Header({
             <div className="menu-preview-media">
               {daMoMenu && (
                 <img
-                  src={anhPreviewHover || IMG.journalReading}
-                  alt="Hình ảnh không gian và chiêm nghiệm"
+                  src={anhPreviewHover || "/assets/journal/goc/hinh03.webp"}
+                  alt="Triết học phương Đông và chiêm nghiệm"
                   key={anhPreviewHover || "mac-dinh"}
                   className="menu-preview-img"
                   loading="lazy"
@@ -302,17 +302,16 @@ function Header({
               )}
             </div>
             <div className="menu-aside-content">
-              <p className="eyebrow">FEATURED · CHIÊM NGHIỆM</p>
+              <p className="eyebrow">FEATURED · TRIẾT HỌC &amp; MINH TRIẾT</p>
               <Link
-                to="/journal/tarot-khong-phai-loi-tien-doan"
+                to="/journal/doc-lao-tu-giua-nhung-ngay-muon-kiem-soat-moi-thu"
                 className="serif menu-feature"
                 onClick={() => setOpen(false)}
               >
-                Tarot không phải lời tiên đoán
+                Đọc Lão Tử giữa những ngày muốn kiểm soát mọi thứ
               </Link>
               <blockquote className="menu-aside-quote serif">
-                “Cấu trúc trước. Diễn giải sau. Con người luôn là chủ thể duy
-                nhất quyết định cuộc đời mình.”
+                “Đạo thường vô vi nhi vô bất vi. Thấu hiểu hoàn cảnh và thuận theo tự nhiên để tìm thấy sự tĩnh tại bên trong.”
               </blockquote>
               <div className="menu-contact">
                 <div className="menu-contact-links">
@@ -1053,6 +1052,44 @@ function Home({ initialSection }: { initialSection?: string }) {
               Khám phá bộ bài Tarot
             </Link>
           </article>
+          <article className="reveal-child">
+            <figure className="home-v3-media">
+              <img
+                src={IMG.laraNhangTram}
+                alt="Nhang trầm LARA thanh lọc không gian"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <h3 className="serif">Nhang trầm — Lắng đọng tâm trí</h3>
+            <p>
+              Làn khói mỏng dịu giúp thanh lọc không gian, đưa tâm trí về trạng
+              thái tĩnh tại khi thưởng trà, thiền định hoặc dành thời gian riêng
+              cho bản thân.
+            </p>
+            <Link to="/lara" className="home-v3-link">
+              Khám phá nhang trầm
+            </Link>
+          </article>
+          <article className="reveal-child">
+            <figure className="home-v3-media">
+              <img
+                src={IMG.laraNuTram}
+                alt="Nụ trầm LARA ấm cúng và an yên"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <h3 className="serif">Nụ trầm — Thanh tẩy &amp; an yên</h3>
+            <p>
+              Nụ trầm tự nhiên cháy chậm, lan tỏa hương thơm thảo mộc ấm cúng,
+              xoa dịu căng thẳng và tạo bầu không khí an lành sau những giờ làm
+              việc bận rộn.
+            </p>
+            <Link to="/lara" className="home-v3-link">
+              Khám phá nụ trầm
+            </Link>
+          </article>
         </div>
       </section>
 
@@ -1165,6 +1202,93 @@ function Home({ initialSection }: { initialSection?: string }) {
             Khám phá Journal
           </Link>
         </header>
+
+        {/* Lưới 6 chuyên mục chính chuẩn xác như trang Journal */}
+        <div className="home-v4-categories-showcase reveal-child">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 my-8">
+            {[
+              {
+                id: "01",
+                slug: "01",
+                name: "Khám phá bản thân",
+                englishName: "Self-Discovery",
+                description: "Nhận diện cảm xúc, niềm tin, giá trị sống và khuôn mẫu nội tâm.",
+                image: "/assets/journal/goc/hinh01.webp",
+              },
+              {
+                id: "02",
+                slug: "02",
+                name: "Mối quan hệ & Chữa lành",
+                englishName: "Relationships & Healing",
+                description: "Ranh giới, các kiểu gắn bó và những vòng lặp cảm xúc.",
+                image: "/assets/journal/goc/hinh02.webp",
+              },
+              {
+                id: "03",
+                slug: "03",
+                name: "Triết học & Minh triết sống",
+                englishName: "Wisdom & Philosophy",
+                description: "Đạo Đức Kinh, triết học Lão Tử và các tư tưởng Đông – Tây.",
+                image: "/assets/journal/goc/hinh03.webp",
+              },
+              {
+                id: "04",
+                slug: "04",
+                name: "Tarot & Ngôn ngữ biểu tượng",
+                englishName: "Tarot & Symbolism",
+                description: "Ý nghĩa biểu tượng, nguyên mẫu Jung và những phản tư sâu sắc.",
+                image: "/assets/journal/goc/hinh04.webp",
+              },
+              {
+                id: "05",
+                slug: "05",
+                name: "Sống tỉnh thức & Phát triển bản thân",
+                englishName: "Mindful Living",
+                description: "Chánh niệm, thiền định, viết nhật ký và tự chủ nội tâm.",
+                image: "/assets/journal/goc/hinh05.webp",
+              },
+              {
+                id: "06",
+                slug: "06",
+                name: "Chuyện nhà Hermit",
+                englishName: "The Hermit Stories",
+                description: "Không gian tĩnh tại, trà đạo, workshop và kết nối cộng đồng.",
+                image: "/assets/journal/goc/hinh06.webp",
+              },
+            ].map((muc) => (
+              <Link
+                key={muc.id}
+                to={`/journal#jr-muc-${muc.slug}`}
+                className="group flex flex-col bg-[#FDFBF7] hover:bg-white border border-[rgba(48,31,5,0.12)] hover:border-[#C9882C]/70 rounded-2xl overflow-hidden p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl text-left no-underline block"
+              >
+                <div className="relative aspect-16/10 w-full overflow-hidden rounded-xl bg-[#27190F]/10 mb-4">
+                  <img
+                    src={muc.image}
+                    alt={muc.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-mono tracking-wider text-[#FAF7F2] uppercase">
+                    Chuyên mục {muc.id}
+                  </div>
+                </div>
+                <p className="text-[11px] text-[#C9882C] font-mono uppercase tracking-wider mb-1">
+                  {muc.englishName}
+                </p>
+                <h3 className="serif text-xl text-[#301F05] group-hover:text-[#C9882C] transition-colors mb-2 font-normal not-italic">
+                  {muc.name}
+                </h3>
+                <p className="text-xs text-[#4A3D31]/80 line-clamp-2 mb-3">
+                  {muc.description}
+                </p>
+                <span className="mt-auto text-xs text-[#C9882C] group-hover:text-[#A76D1F] flex items-center gap-1 font-medium">
+                  Khám phá chuyên mục →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
 
         <div className="home-v3-journal-layout">
           {leadJournal && (

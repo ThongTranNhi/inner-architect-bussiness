@@ -47,6 +47,51 @@ export type TrangThaiTai = "dang-tai" | "xong" | "loi"
 
 const THOI_GIAN_LAM_MOI_MS = 30_000
 
+const ANH_BAI_VIET_CHUAN: Record<string, string> = {
+  "ban-la-ai-khi-khong-con-phai-lam-hai-long-tat-ca": "/assets/journal/goc/hinh07.webp",
+  "co-nhung-luc-ta-khong-biet-minh-dang-cam-thay-gi": "/assets/journal/bai-viet/lang-nghe-kiet-suc.webp",
+  "minh-chua-du-tot-mot-niem-tin-ay-da-di-cung-ban-bao-lau-roi": "/assets/journal/bai-viet/lang-nghe-kiet-suc.webp",
+  "dieu-ban-dang-theo-duoi-co-thuc-su-la-dieu-ban-coi-trong": "/assets/journal/goc/hinh01.webp",
+  "khi-cuoc-doi-doi-huong-minh-co-the-bat-dau-lai-tu-dau": "/assets/journal/bai-viet/buong-tay-giu-moi-quan-he.webp",
+  "vi-sao-minh-cu-o-lai-trong-mot-moi-quan-he-khien-minh-buon": "/assets/journal/bai-viet/moi-quan-he-can-kiet.webp",
+  "khi-mot-tin-nhan-chua-duoc-tra-loi-khien-minh-bat-an": "/assets/journal/bai-viet/tin-nhan-chua-tra-loi.webp",
+  "noi-khong-voi-nguoi-minh-thuong-co-phai-la-ich-ky": "/assets/journal/bai-viet/ranh-gioi-thuong-yeu.webp",
+  "khi-minh-luon-la-nguoi-co-gang-giu-gin-moi-quan-he": "/assets/journal/bai-viet/buong-tay-giu-moi-quan-he.webp",
+  "sau-mot-moi-quan-he-lam-sao-hoc-cach-tin-minh-tro-lai": "/assets/journal/bai-viet/ranh-gioi-thuong-yeu.webp",
+  "doc-lao-tu-giua-nhung-ngay-muon-kiem-soat-moi-thu": "/assets/journal/bai-viet/lao-tu-kiem-soat.webp",
+  "vo-vi-khi-nao-nen-hanh-dong-khi-nao-nen-dung": "/assets/journal/bai-viet/vo-vi-thuan-tu-nhien.webp",
+  "mem-nhu-nuoc-mot-cach-di-qua-nhung-va-cham": "/assets/journal/bai-viet/mem-nhu-nuoc-doi-dau.webp",
+  "biet-du-giua-mot-the-gioi-luon-bao-minh-phai-co-them": "/assets/journal/bai-viet/biet-du-giua-the-gioi.webp",
+  "mot-khoang-trong-co-the-mang-lai-dieu-gi": "/assets/journal/bai-viet/khoang-trong-trang-tu.webp",
+  "the-hermit-khi-minh-can-mot-khoang-lang-de-nghe-chinh-minh": "/assets/journal/goc/hinh04.webp",
+  "the-high-priestess-lang-nghe-dieu-chua-duoc-goi-thanh-loi": "/assets/journal/goc/hinh08.webp",
+  "the-tower-khi-dieu-minh-tung-tin-khong-con-dung-vung": "/assets/journal/goc/hinh04.webp",
+  "the-star-nuoi-lai-hy-vong-tu-nhung-dieu-nho-be": "/assets/journal/goc/hinh01.webp",
+  "the-fool-bat-dau-khi-minh-chua-co-du-moi-cau-tra-loi": "/assets/journal/goc/hinh02.webp",
+  "nam-phut-tro-ve-voi-dieu-dang-co-mat": "/assets/journal/goc/hinh05.webp",
+  "viet-nhat-ky-khi-minh-khong-biet-bat-dau-tu-dau": "/assets/journal/bai-viet/viet-nhat-ky-khoi-dau.webp",
+  "mot-khoang-dung-truoc-khi-tra-loi-trong-luc-gian": "/assets/journal/goc/hinh05.webp",
+  "vi-sao-khiem-muon-tao-nen-the-hermit": "/assets/journal/goc/hinh06.webp",
+  "mot-goc-nho-o-the-hermit-da-duoc-chon-nhu-the-nao": "/assets/journal/goc/hinh06.webp",
+  "mot-tach-tra-mot-khoang-thoi-gian-khong-can-voi": "/assets/journal/goc/hinh06.webp",
+  "mot-buoi-trai-nghiem-tarot-tai-the-hermit-dien-ra-the-nao": "/assets/journal/goc/hinh04.webp",
+  "den-the-hermit-mot-minh-ban-co-the-lam-gi": "/assets/journal/goc/hinh06.webp",
+}
+
+function chuanHoaBai<T extends BaiJournal>(b: T): T {
+  const anhMoi = ANH_BAI_VIET_CHUAN[b.slug]
+  const tieuDeMoi = b.title ? b.title.replace(/thỰC/g, "thực") : b.title
+  const tomTatMoi = b.summary ? b.summary.replace(/thỰC/g, "thực") : b.summary
+  const dekMoi = b.dek ? b.dek.replace(/thỰC/g, "thực") : b.dek
+  return {
+    ...b,
+    image: anhMoi || b.image,
+    title: tieuDeMoi,
+    summary: tomTatMoi,
+    dek: dekMoi,
+  }
+}
+
 let daTai: { duLieu: DuLieuJournal; luc: number } | null = null
 let dangTai: Promise<DuLieuJournal> | null = null
 const boNhoBai = new Map<string, { bai: BaiJournalChiTiet | null; luc: number }>()
@@ -124,19 +169,21 @@ async function layDuLieuDuPhong<T>(duongDan: string): Promise<T | null> {
         imageHeight: 600,
       }))
 
-      const articles: BaiJournal[] = seed.articles.map((b: SeedBaiViet) => ({
-        slug: b.slug,
-        categoryId: maTheoCode.get(b.category) ?? 1,
-        title: b.title,
-        dek: b.summary.slice(0, 150),
-        summary: b.summary,
-        image: b.image,
-        imageAlt: b.title,
-        imageWidth: 800,
-        imageHeight: 600,
-        date: b.date ? new Date(b.date.replace(/\./g, "-")).toISOString() : null,
-        featured: Boolean(b.featured),
-      }))
+      const articles: BaiJournal[] = seed.articles.map((b: SeedBaiViet) =>
+        chuanHoaBai({
+          slug: b.slug,
+          categoryId: maTheoCode.get(b.category) ?? 1,
+          title: b.title,
+          dek: b.summary.slice(0, 150),
+          summary: b.summary,
+          image: b.image,
+          imageAlt: b.title,
+          imageWidth: 800,
+          imageHeight: 600,
+          date: b.date ? new Date(b.date.replace(/\./g, "-")).toISOString() : null,
+          featured: Boolean(b.featured),
+        }),
+      )
 
       return { categories, articles } as T
     }
@@ -146,7 +193,7 @@ async function layDuLieuDuPhong<T>(duongDan: string): Promise<T | null> {
       const baiTim = seed.articles.find((b: SeedBaiViet) => b.slug === slug)
       if (!baiTim) return null
 
-      const baiChiTiet: BaiJournalChiTiet = {
+      const baiChiTiet: BaiJournalChiTiet = chuanHoaBai({
         slug: baiTim.slug,
         categoryId: maTheoCode.get(baiTim.category) ?? 1,
         title: baiTim.title,
@@ -159,7 +206,7 @@ async function layDuLieuDuPhong<T>(duongDan: string): Promise<T | null> {
         date: baiTim.date ? new Date(baiTim.date.replace(/\./g, "-")).toISOString() : null,
         featured: Boolean(baiTim.featured),
         content: vanBanThanhNoiDung(baiTim.content),
-      }
+      })
 
       return baiChiTiet as T
     }
@@ -197,7 +244,12 @@ export function taiDuLieuJournal(lamMoi = false): Promise<DuLieuJournal> {
   if (!lamMoi && daTai) return Promise.resolve(daTai.duLieu)
   dangTai ??= goiApiCongKhai<DuLieuJournal>("/journal")
     .then((duLieu) => {
-      const ketQua = duLieu ?? { categories: [], articles: [] }
+      const ketQua: DuLieuJournal = duLieu
+        ? {
+            categories: duLieu.categories,
+            articles: duLieu.articles.map(chuanHoaBai),
+          }
+        : { categories: [], articles: [] }
       daTai = { duLieu: ketQua, luc: Date.now() }
       return ketQua
     })
@@ -226,8 +278,9 @@ export async function taiBaiJournal(slug: string): Promise<BaiJournalChiTiet | n
   const coSan = boNhoBai.get(slug)
   if (coSan && Date.now() - coSan.luc < THOI_GIAN_LAM_MOI_MS) return coSan.bai
   const bai = await goiApiCongKhai<BaiJournalChiTiet>(`/journal/articles/${encodeURIComponent(slug)}`)
-  boNhoBai.set(slug, { bai, luc: Date.now() })
-  return bai
+  const baiChuan = bai ? chuanHoaBai(bai) : null
+  boNhoBai.set(slug, { bai: baiChuan, luc: Date.now() })
+  return baiChuan
 }
 
 /**
