@@ -8,7 +8,7 @@
 export const MAU_SLUG_JOURNAL = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
 /** Bài tối thiểu mà các hàm lọc cần. */
-export type BaiCoChuyenMuc = { slug: string; categoryId: number; featured?: boolean }
+export type BaiCoChuyenMuc = { slug: string; categoryId: number; featured?: boolean; date?: string | null }
 
 /**
  * Cấu trúc chuyên mục kiểu cũ (dữ liệu tĩnh theo file Word). Chỉ còn dùng cho các component
@@ -55,12 +55,22 @@ export function layBaiTieuBieu<T extends BaiCoChuyenMuc>(
   baiViet: readonly T[],
   toiDa = 3,
 ): T[] {
-  const ghim = baiViet.filter((b) => Boolean(b.featured))
+  const ghim = baiViet
+    .filter((b) => Boolean(b.featured))
+    .sort((a, b) => {
+      if (a.date && b.date) return new Date(b.date).getTime() - new Date(a.date).getTime()
+      return 0
+    })
   if (ghim.length >= toiDa) {
     return ghim.slice(0, toiDa)
   }
   const slugsDaCo = new Set(ghim.map((b) => b.slug))
-  const conLai = baiViet.filter((b) => !slugsDaCo.has(b.slug))
+  const conLai = baiViet
+    .filter((b) => !slugsDaCo.has(b.slug))
+    .sort((a, b) => {
+      if (a.date && b.date) return new Date(b.date).getTime() - new Date(a.date).getTime()
+      return 0
+    })
   return [...ghim, ...conLai].slice(0, toiDa)
 }
 

@@ -68,6 +68,9 @@ export function LuxuryResortFooter() {
         .palmoro-footer-serif {
           font-family: 'Cormorant', Georgia, serif;
         }
+        .palmoro-footer-cinzel {
+          font-family: 'Cinzel', serif;
+        }
         .palmoro-footer-sans {
           font-family: 'Outfit', sans-serif;
         }
@@ -96,10 +99,8 @@ export function LuxuryResortFooter() {
               "opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          <p className="palmoro-footer-serif text-[clamp(22px,2.8vw,36px)] text-[#FEFBF0] leading-[135%] font-normal max-w-[960px] m-0">
-            INNER ARCHITECT™ hỗ trợ con người xây lại trật tự bên trong,
-            <br />
-            và trở về với khả năng tự dẫn dắt.
+          <p className="palmoro-footer-serif text-[clamp(16px,1.6vw,24px)] text-[#FEFBF0] leading-[135%] font-normal max-w-full m-0 lg:whitespace-nowrap">
+            <span className="font-['Cinzel',serif] not-italic font-bold tracking-wider">INNER ARCHITECT™</span> hỗ trợ con người xây lại trật tự bên trong và trở về với khả năng tự dẫn dắt.
           </p>
         </div>
 
@@ -125,7 +126,9 @@ export function LuxuryResortFooter() {
               info@innerarchitect.vn
             </a>
             <p className="palmoro-footer-sans text-[rgba(255,250,240,0.8)] text-[15px] leading-[140%] m-0">
-              595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh
+              595/18 Cách Mạng Tháng 8, Phường Hoà Hưng,
+              <br />
+              TP. Hồ Chí Minh
             </p>
             <div className="flex items-center gap-4 mt-2">
               {contactChannels.zalo && (
@@ -220,7 +223,7 @@ export function LuxuryResortFooter() {
             }}
           >
             <span className="palmoro-footer-sans text-[rgba(255,250,240,0.8)] text-[14px] sm:text-[16px] leading-[140%]">
-              ©2026 INNER ARCHITECT™ · All rights reserved.
+              ©2026 <span className="font-['Cinzel',serif]">INNER ARCHITECT™</span> · All rights reserved.
             </span>
             <span className="palmoro-footer-sans text-[rgba(255,250,240,0.8)] text-[14px] sm:text-[16px] leading-[140%] text-left sm:text-right">
               Integrated Healing System · TP. Hồ Chí Minh
@@ -250,7 +253,7 @@ export function LuxuryResortFooter() {
                   x={item.x}
                   y={200}
                   textAnchor="middle"
-                  className="palmoro-footer-serif fill-[#F4F5EB] font-bold text-[140px] select-none pointer-events-none"
+                  className="palmoro-footer-cinzel fill-[#F4F5EB] font-bold text-[140px] select-none pointer-events-none"
                   style={{
                     transform: isInView ? "translateY(0)" : "translateY(90px)",
                     opacity: isInView ? 1 : 0,
@@ -264,7 +267,7 @@ export function LuxuryResortFooter() {
                 x={1375}
                 y={120}
                 textAnchor="middle"
-                className="palmoro-footer-serif fill-[#F4F5EB] font-bold text-[48px] select-none pointer-events-none"
+                className="palmoro-footer-cinzel fill-[#F4F5EB] font-bold text-[48px] select-none pointer-events-none"
                 style={{
                   transform: isInView ? "translateY(0)" : "translateY(90px)",
                   opacity: isInView ? 1 : 0,

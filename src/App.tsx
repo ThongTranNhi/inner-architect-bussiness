@@ -279,7 +279,7 @@ function Header({
               >
                 <span className="menu-link-index">0{i + 1}</span>
                 <div className="menu-link-text">
-                  <h2 className="menu-link-title font-sans font-bold">{item.nhan}</h2>
+                  <h2 className="menu-link-title font-sans font-normal">{item.nhan}</h2>
                   <p className="menu-link-desc">{item.moTa}</p>
                 </div>
                 <span className="menu-link-arrow" aria-hidden="true">
@@ -389,13 +389,15 @@ function Footer({ home = false }: { home?: boolean }) {
     <footer>
       <div className="footer-intro">
         <h2 className="serif">
-          INNER ARCHITECT™ hỗ trợ con người xây lại trật tự bên trong và trở về
-          với khả năng tự dẫn dắt.
+          <span className="footer-brand font-['Cinzel',serif] not-italic font-bold tracking-wider">
+            INNER ARCHITECT™
+          </span>{" "}
+          hỗ trợ con người xây lại trật tự bên trong và trở về với khả năng tự dẫn dắt.
         </h2>
       </div>
       <div className="footer-links">
         <div>
-          <b>INNER ARCHITECT™</b>
+          <b className="font-['Cinzel',serif] tracking-wider">INNER ARCHITECT™</b>
           <br />
           Integrated Healing System
           <br />
@@ -425,7 +427,9 @@ function Footer({ home = false }: { home?: boolean }) {
           <br />
           <a href="mailto:info@innerarchitect.vn">info@innerarchitect.vn</a>
           <br />
-          595/18 Cách Mạng Tháng 8, Phường Hoà Hưng, TP. Hồ Chí Minh
+          595/18 Cách Mạng Tháng 8, Phường Hoà Hưng,
+          <br />
+          TP. Hồ Chí Minh
         </div>
         <div>
           <b>THÔNG TIN</b>
@@ -492,8 +496,8 @@ const danhSachBonTang = [
 ]
 
 /**
- * Danh sách 2 hình ảnh nền tuyển chọn cho Hero Banner Trang Chủ.
- * Tự động luân phiên vòng lặp giữa Bàn Tarot và Sảnh chính The Hermit.
+ * Danh sách 3 hình ảnh nền tuyển chọn cho Hero Banner Trang Chủ.
+ * Tự động luân phiên vòng lặp chuyển đổi giữa 3 hình ảnh không gian.
  */
 const danhSachAnhHero = [
   {
@@ -502,9 +506,14 @@ const danhSachAnhHero = [
     nhan: "Bàn Tarot",
   },
   {
-    src: IMG.hermitHall,
-    alt: "Sảnh chính The Hermit với ánh sáng ấm và kệ nến thơm LARA",
+    src: IMG.homeCuratedHero2,
+    alt: "Sảnh chính The Hermit với ánh sáng ấm qua khung cửa kính",
     nhan: "Sảnh chính",
+  },
+  {
+    src: IMG.homeCuratedHero3,
+    alt: "Không gian tĩnh lặng ấm cúng tại The Hermit",
+    nhan: "Không gian tĩnh lặng",
   },
 ]
 
@@ -715,8 +724,8 @@ function Home({ initialSection }: { initialSection?: string }) {
 
       <section id="gioi-thieu" className="home-v4-intro">
         <header className="home-v4-chapter-heading reveal-child">
-          <p className="home-v3-label">INNER ARCHITECT™ LÀ GÌ?</p>
-          <h2 className="serif">
+          <p className="home-v3-label"><span className="font-['Cinzel',serif] tracking-wider">INNER ARCHITECT™</span> LÀ GÌ?</p>
+          <h2 className="serif not-italic font-normal">
             Kiến trúc sư nội tâm — xây nền từ sự thấu hiểu chính mình.
           </h2>
         </header>
@@ -741,7 +750,7 @@ function Home({ initialSection }: { initialSection?: string }) {
             cầu, thiết lập ranh giới và lựa chọn có ý thức hơn trong các mối
             quan hệ, công việc và đời sống.
           </p>
-          <p className="home-v4-statement serif">
+          <p className="home-v4-statement serif not-italic font-semibold">
             Bạn là người kiến tạo cuộc đời mình. Inner Architect™ đồng hành
             cùng bạn xây nền.
           </p>
@@ -765,7 +774,7 @@ function Home({ initialSection }: { initialSection?: string }) {
         <div className="home-v4-companion-inner">
           <header className="home-v4-chapter-heading reveal-child">
             <p className="home-v3-label">TRIẾT LÝ ĐỒNG HÀNH</p>
-            <h2 className="serif">
+            <h2 className="serif not-italic font-normal">
               Hiểu mình sâu hơn. Từng bước tự đứng vững.
             </h2>
             <p>
@@ -878,7 +887,7 @@ function Home({ initialSection }: { initialSection?: string }) {
       <section id="phien-dong-hanh" className="home-v4-sessions">
         <header className="home-v4-chapter-heading reveal-child">
           <p className="home-v3-label">CÁC PHIÊN ĐỒNG HÀNH</p>
-          <h2 className="serif">
+          <h2 className="serif not-italic font-normal">
             Dành thời gian cho điều bạn đang cần nhìn lại.
           </h2>
           <p>
@@ -975,7 +984,7 @@ function Home({ initialSection }: { initialSection?: string }) {
         </figure>
         <div className="home-v4-feature-copy reveal-child">
           <p className="home-v3-label">WORKSHOP &amp; TRẢI NGHIỆM</p>
-          <h2 className="serif">Gặp gỡ, khám phá và thực hành cùng nhau.</h2>
+          <h2 className="serif not-italic font-normal">Gặp gỡ, khám phá và thực hành cùng nhau.</h2>
           <p>
             Các workshop tại Inner Architect™ mở ra không gian để bạn tìm hiểu
             bản thân qua những chủ đề gần gũi: cảm xúc, các mối quan hệ, ranh
@@ -998,8 +1007,8 @@ function Home({ initialSection }: { initialSection?: string }) {
 
       <section id="san-pham" className="home-v4-products">
         <header className="home-v4-chapter-heading reveal-child">
-          <p className="home-v3-label">SẢN PHẨM TỪ INNER ARCHITECT™</p>
-          <h2 className="serif">Một khoảng dừng, một góc nhìn mới.</h2>
+          <p className="home-v3-label">SẢN PHẨM TỪ <span className="font-['Cinzel',serif] tracking-wider">INNER ARCHITECT™</span></p>
+          <h2 className="serif not-italic font-normal">Một khoảng dừng, một góc nhìn mới.</h2>
           <p>
             Những sản phẩm được phát triển để bạn mang tinh thần khám phá bản
             thân vào đời sống hằng ngày.
@@ -1066,7 +1075,7 @@ function Home({ initialSection }: { initialSection?: string }) {
           <p className="home-v3-label">
             THE HERMIT · TAROT · HEALING · TRÀ ĐẠO
           </p>
-          <h2 className="serif">Một khoảng dừng để trở về với mình.</h2>
+          <h2 className="serif not-italic font-normal">Một khoảng dừng để trở về với mình.</h2>
           <p>
             The Hermit là không gian gặp gỡ và trải nghiệm thuộc hệ thống Inner
             Architect™, nơi bạn có thể thưởng trà, khám phá Tarot và tham gia
@@ -1082,7 +1091,7 @@ function Home({ initialSection }: { initialSection?: string }) {
             chiếc gương soi, gợi mở góc nhìn về cảm xúc, trải nghiệm và những
             lựa chọn của bạn.
           </p>
-          <p className="home-v4-statement serif">
+          <p className="home-v4-statement serif not-italic font-semibold">
             Ghé uống một tách trà. Dành cho mình một chút thời gian.
           </p>
           <div className="home-v4-actions">
@@ -1099,7 +1108,7 @@ function Home({ initialSection }: { initialSection?: string }) {
       <section id="nguoi-sang-lap" className="home-v4-founder">
         <div className="home-v4-founder-copy reveal-child">
           <p className="home-v3-label">Khiêm Võ · NGƯỜI SÁNG LẬP</p>
-          <h2 className="serif">
+          <h2 className="serif not-italic font-normal">
             Từ hành trình tìm lại mình đến mong muốn đồng hành cùng người khác.
           </h2>
           <p>
@@ -1141,7 +1150,7 @@ function Home({ initialSection }: { initialSection?: string }) {
             <p className="home-v3-label reveal-child">
               JOURNAL · GÓC CHIÊM NGHIỆM
             </p>
-            <h2 className="serif reveal-child">
+            <h2 className="serif reveal-child not-italic font-normal">
               Đọc để hiểu mình, dừng lại để nhìn sâu hơn.
             </h2>
             <p className="home-v4-journal-intro reveal-child">
@@ -1225,8 +1234,8 @@ function Home({ initialSection }: { initialSection?: string }) {
         />
         <div className="home-v3-closing-scrim" />
         <div className="home-v3-closing-copy reveal-child">
-          <p className="home-v3-label">KẾT NỐI VỚI INNER ARCHITECT™</p>
-          <h2 className="serif">Bắt đầu từ điều bạn đang quan tâm.</h2>
+          <p className="home-v3-label">KẾT NỐI VỚI <span className="font-['Cinzel',serif] tracking-wider">INNER ARCHITECT™</span></p>
+          <h2 className="serif not-italic font-normal">Bắt đầu từ điều bạn đang quan tâm.</h2>
           <p>
             Bạn muốn tìm hiểu một phiên đồng hành, tham gia workshop, lựa chọn
             sản phẩm hay ghé The Hermit? Hãy nhắn cho chúng tôi để được cung

@@ -1,4 +1,5 @@
 import { Link } from "../dieu-huong"
+import { IMG } from "../du-lieu/hinh-anh"
 import { kichThuocAnh } from "./loc-journal"
 import { HienThiNoiDung } from "./noi-dung/HienThiNoiDung"
 import { coNoiDung, type NodeNoiDung } from "./noi-dung/quy-tac"
@@ -65,15 +66,33 @@ export function BaiJournalHienThi({ bai }: { bai: DuLieuHienThiBai }) {
         </aside>
       </div>
       <footer className="author-block">
-        <p className="eyebrow">TÁC GIẢ</p>
-        <h2 className="serif">Khiêm Võ — Founder, INNER ARCHITECT™ System</h2>
-        <p>
-          Khiêm Võ viết về Tarot phản tư, tự nhận thức, tư duy phản biện và
-          ranh giới trong các hoạt động phát triển bản thân.
-        </p>
-        <Link to="/vo-khiem" className="underlink">
-          Xem hồ sơ tác giả →
-        </Link>
+        <div className="author-block-card">
+          <div className="author-avatar-wrap">
+            <img
+              src={IMG.homeFounderPortrait}
+              alt="Khiêm Võ — Founder INNER ARCHITECT™"
+              loading="lazy"
+              decoding="async"
+              className="author-avatar"
+            />
+          </div>
+          <div className="author-info">
+            <p className="author-eyebrow">TÁC GIẢ · FOUNDER</p>
+            <h2 className="serif author-name">
+              Khiêm Võ <span className="author-sep">—</span> Founder, <span className="font-cinzel">INNER ARCHITECT™</span> System
+            </h2>
+            <p className="author-bio">
+              Khiêm Võ viết về Tarot phản tư, tự nhận thức, tư duy phản biện và
+              ranh giới trong các hoạt động phát triển bản thân.
+            </p>
+            <div className="author-cta">
+              <Link to="/vo-khiem" className="author-link">
+                <span>Xem hồ sơ tác giả</span>
+                <span className="author-arrow">→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </footer>
     </article>
   )

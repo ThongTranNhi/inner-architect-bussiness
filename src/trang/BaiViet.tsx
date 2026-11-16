@@ -86,6 +86,88 @@ export function useOgataInview(khoaLamMoi?: string) {
 }
 
 /**
+ * Danh sách các từ dừng (stopwords) thông dụng trong tiếng Việt cần loại bỏ khi trích xuất từ khóa.
+ */
+const TU_DUNG_TIENG_VIET = new Set([
+  "va", "la", "cua", "cho", "voi", "trong", "de", "co", "mot", "nhung", "cac", "nay", "do",
+  "khi", "duoc", "nguoi", "khong", "minh", "ban", "ta", "vua", "dang", "se", "da", "lai",
+  "ra", "vao", "len", "xuong", "nhu", "the", "gi", "nao", "sao", "ai", "dau", "roi", "hay",
+  "boi", "vi", "den", "tu", "ve", "cung", "ma", "hon", "rat", "qua", "thi", "neu", "chi",
+  "lam", "nhieu", "it", "tat", "ca", "biet"
+])
+
+/**
+ * Chuẩn hóa chuỗi văn bản: chuyển chữ thường, loại bỏ dấu tiếng Việt và ký tự đặc biệt.
+ */
+function chuanHoaVanBan(str: string): string {
+  return (str || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\w\s]/g, " ")
+    .trim()
+}
+
+/**
+ * Trích xuất các từ khóa đặc trưng từ chuỗi văn bản.
+ */
+function trichXuatTuKhoa(str: string): string[] {
+  return Array.from(
+    new Set(
+      chuanHoaVanBan(str)
+        .split(/\s+/)
+        .filter((w) => w.length > 2 && !TU_DUNG_TIENG_VIET.has(w))
+    )
+  )
+}
+
+/**
+ * Tìm bài viết liên quan trong TOÀN BỘ bài viết (xuyên suốt tất cả các chuyên mục)
+ * dựa trên từ khóa chính của bài viết hiện tại.
+ *
+ * @param baiGoc - Bài viết hiện tại
+ * @param danhSach - Toàn bộ bài viết có sẵn
+ * @param soLuong - Số lượng bài liên quan cần lấy (mặc định: 3)
+ */
+export function timBaiLienQuanTheoTuKhoa(
+  baiGoc: BaiJournal,
+  danhSach: readonly BaiJournal[],
+  soLuong: number = 3
+): BaiJournal[] {
+  const khac = danhSach.filter((b) => b.slug !== baiGoc.slug)
+  if (khac.length <= soLuong) return khac
+
+  // Lấy từ khóa chính từ tiêu đề (trọng số cao nhất) và phần mô tả tóm tắt
+  const tuKhoaTieuDe = trichXuatTuKhoa(baiGoc.title)
+  const tuKhoaMoTa = trichXuatTuKhoa(`${baiGoc.summary || ""} ${baiGoc.dek || ""}`)
+
+  // Tính điểm khớp từ khóa cho từng bài viết trong toàn bộ thư viện
+  const danhSachCoDiem = khac.map((b) => {
+    const textTieuDe = chuanHoaVanBan(b.title)
+    const textMoTa = chuanHoaVanBan(`${b.summary || ""} ${b.dek || ""}`)
+
+    let diem = 0
+    // Khớp từ khóa tiêu đề:
+    for (const tk of tuKhoaTieuDe) {
+      if (textTieuDe.includes(tk)) diem += 6
+      if (textMoTa.includes(tk)) diem += 2
+    }
+    // Khớp từ khóa tóm tắt:
+    for (const tk of tuKhoaMoTa) {
+      if (textTieuDe.includes(tk)) diem += 3
+      if (textMoTa.includes(tk)) diem += 1
+    }
+
+    return { bai: b, diem }
+  })
+
+  // Sắp xếp giảm dần theo điểm khớp từ khóa
+  danhSachCoDiem.sort((a, b) => b.diem - a.diem)
+
+  return danhSachCoDiem.slice(0, soLuong).map((item) => item.bai)
+}
+
+/**
  * Ghi tiêu đề và mô tả của bài vào `<head>` (sau khi tải xong bài).
  *
  * @param tieuDe - Tiêu đề trang
@@ -152,8 +234,7 @@ export function Article({ slug }: { slug: string }) {
   const viTri = danhSach.findIndex((n) => n.slug === bai.slug)
   const baiTruoc = viTri >= 0 && danhSach.length > 1 ? danhSach[(viTri - 1 + danhSach.length) % danhSach.length] : undefined
   const baiSau = viTri >= 0 && danhSach.length > 1 ? danhSach[(viTri + 1) % danhSach.length] : undefined
-  const khac = danhSach.filter((n) => n.slug !== bai.slug)
-  const lienQuan = [...khac.filter((n) => n.categoryId === bai.categoryId), ...khac.filter((n) => n.categoryId !== bai.categoryId)].slice(0, 3)
+  const lienQuan = timBaiLienQuanTheoTuKhoa(bai, danhSach, 3)
 
   return (
     <main className="article-page">

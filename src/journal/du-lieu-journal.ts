@@ -52,6 +52,122 @@ let dangTai: Promise<DuLieuJournal> | null = null
 const boNhoBai = new Map<string, { bai: BaiJournalChiTiet | null; luc: number }>()
 
 /**
+ * Chuyển đổi văn bản thô thành tài liệu NodeNoiDung cho trình đọc bài.
+ */
+function vanBanThanhNoiDung(vanBan: string): NodeNoiDung {
+  const doan = vanBan
+    .split("\n\n")
+    .map((d) => d.trim())
+    .filter(Boolean)
+  if (doan.length === 0) return { type: "doc", content: [] }
+  const inline = (chu: string): NodeNoiDung[] =>
+    chu.split("\n").flatMap((dong, i) => [
+      ...(i > 0 ? [{ type: "hardBreak" }] : []),
+      ...(dong ? [{ type: "text", text: dong }] : []),
+    ])
+  return {
+    type: "doc",
+    content: doan.map((d) => {
+      if (d.startsWith("### ")) return { type: "heading", attrs: { level: 3 }, content: inline(d.slice(4)) }
+      if (d.startsWith("## ")) return { type: "heading", attrs: { level: 2 }, content: inline(d.slice(3)) }
+      if (d.startsWith("> ")) return { type: "blockquote", content: [{ type: "paragraph", content: inline(d.slice(2)) }] }
+      return { type: "paragraph", content: inline(d) }
+    }),
+  }
+}
+
+type SeedChuyenMuc = {
+  slug: string
+  code: string
+  name: string
+  englishName?: string | null
+  label?: string
+  description: string
+  image: string | null
+}
+
+type SeedBaiViet = {
+  slug: string
+  category: string
+  date?: string | null
+  title: string
+  summary: string
+  image: string | null
+  featured?: boolean
+  content: string
+}
+
+type SeedDuLieu = {
+  categories: SeedChuyenMuc[]
+  articles: SeedBaiViet[]
+}
+
+/**
+ * Dự phòng dữ liệu tĩnh từ seed JSON khi backend không chạy (môi trường dev không bật MySQL).
+ */
+async function layDuLieuDuPhong<T>(duongDan: string): Promise<T | null> {
+  try {
+    const mod = await import("./journal-ban-dau.json")
+    const seed = ((mod as { default?: SeedDuLieu }).default ?? mod) as SeedDuLieu
+    const maTheoCode = new Map<string, number>(seed.categories.map((m: SeedChuyenMuc, i: number) => [m.code, i + 1]))
+
+    if (duongDan === "/journal") {
+      const categories: ChuyenMucJournal[] = seed.categories.map((m: SeedChuyenMuc, i: number) => ({
+        id: i + 1,
+        slug: m.slug,
+        name: m.name,
+        englishName: m.englishName ?? null,
+        label: m.label || m.name,
+        description: m.description,
+        image: m.image,
+        imageWidth: 800,
+        imageHeight: 600,
+      }))
+
+      const articles: BaiJournal[] = seed.articles.map((b: SeedBaiViet) => ({
+        slug: b.slug,
+        categoryId: maTheoCode.get(b.category) ?? 1,
+        title: b.title,
+        dek: b.summary.slice(0, 150),
+        summary: b.summary,
+        image: b.image,
+        imageAlt: b.title,
+        imageWidth: 800,
+        imageHeight: 600,
+        date: b.date ? new Date(b.date.replace(/\./g, "-")).toISOString() : null,
+        featured: Boolean(b.featured),
+      }))
+
+      return { categories, articles } as T
+    }
+
+    if (duongDan.startsWith("/journal/articles/")) {
+      const slug = decodeURIComponent(duongDan.slice("/journal/articles/".length))
+      const baiTim = seed.articles.find((b: SeedBaiViet) => b.slug === slug)
+      if (!baiTim) return null
+
+      const baiChiTiet: BaiJournalChiTiet = {
+        slug: baiTim.slug,
+        categoryId: maTheoCode.get(baiTim.category) ?? 1,
+        title: baiTim.title,
+        dek: baiTim.summary.slice(0, 150),
+        summary: baiTim.summary,
+        image: baiTim.image,
+        imageAlt: baiTim.title,
+        imageWidth: 800,
+        imageHeight: 600,
+        date: baiTim.date ? new Date(baiTim.date.replace(/\./g, "-")).toISOString() : null,
+        featured: Boolean(baiTim.featured),
+        content: vanBanThanhNoiDung(baiTim.content),
+      }
+
+      return baiChiTiet as T
+    }
+  } catch {}
+  return null
+}
+
+/**
  * Gọi API công khai và trả phần `data`.
  *
  * @param duongDan - Đường dẫn sau `/api/v1`
@@ -59,10 +175,16 @@ const boNhoBai = new Map<string, { bai: BaiJournalChiTiet | null; luc: number }>
  * @throws Error khi mất kết nối hoặc máy chủ lỗi
  */
 async function goiApiCongKhai<T>(duongDan: string): Promise<T | null> {
-  const phanHoi = await fetch(`/api/v1${duongDan}`, { headers: { Accept: "application/json" }, credentials: "omit" })
-  if (phanHoi.status === 404) return null
-  if (!phanHoi.ok) throw new Error(`HTTP ${phanHoi.status}`)
-  return ((await phanHoi.json()) as { data: T }).data
+  try {
+    const phanHoi = await fetch(`/api/v1${duongDan}`, { headers: { Accept: "application/json" }, credentials: "omit" })
+    if (phanHoi.status === 404) return null
+    if (!phanHoi.ok) throw new Error(`HTTP ${phanHoi.status}`)
+    return ((await phanHoi.json()) as { data: T }).data
+  } catch (err) {
+    const duPhong = await layDuLieuDuPhong<T>(duongDan)
+    if (duPhong) return duPhong
+    throw err
+  }
 }
 
 /**

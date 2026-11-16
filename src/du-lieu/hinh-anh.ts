@@ -1,6 +1,10 @@
 export const IMG = {
   homeCuratedHero:
     "/assets/homepage-curated/01-hero-ban-tarot-nen-am.jpg",
+  homeCuratedHero2:
+    "/assets/homepage-curated/02-hero-the-hermit-sanh-chinh.jpg",
+  homeCuratedHero3:
+    "/assets/homepage-curated/03-hero-the-hermit-khong-gian.jpg",
   homeCuratedWorkshop:
     "/assets/homepage-curated/01-workshop-cham-ve-de-diu-lai.webp",
   homeFemaleAdvisor:
@@ -36,8 +40,8 @@ export const IMG = {
   journalMindful: "/assets/journal/goc/hinh05.webp",
   journalHermitStories: "/assets/journal/goc/hinh06.webp",
   hermitStorefront: "/assets/the-hermit/01-mat-tien-the-hermit.webp",
-  hermitKhongGianQuan: "/assets/the-hermit/khong-gian-quan.jpg",
-  hermitTangTren: "/assets/the-hermit/tang-tren.jpg",
+  hermitKhongGianQuan: "/assets/the-hermit/01-tiep-can-va-soi-chieu.jpg",
+  hermitTangTren: "/assets/the-hermit/04-cham-soc-than-the-can-bang.jpg",
   sessionExchange: "/assets/homepage-curated/trao-doi-truoc-dat-lich.jpg",
   sessionQuietSpace: "/assets/the-hermit/khong-gian-tro-chuyen-tinh-lang.jpg",
   hermitHall: "/assets/the-hermit/sanh-chinh-the-hermit.jpg",
@@ -53,6 +57,7 @@ export const IMG = {
   laraNuQue: "/assets/lara/lara-nu-que.jpg",
   laraNuBai: "/assets/lara/lara-nu-bai.jpg",
   laraNuTram: "/assets/lara/lara-nu-tram.jpg",
+  laraBauHuong: "/assets/lara/lara-bau-huong-gourd.webp",
   tarot2: "/assets/journal/journal-tarot-box-portrait.webp",
   lara: "/assets/lara/lara-autumn-collage-source.webp",
   academyTarotCanBan: "/assets/workshop/academy-curriculum.png",
