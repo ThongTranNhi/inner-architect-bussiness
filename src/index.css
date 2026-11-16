@@ -6451,7 +6451,7 @@ h2.serif.menu-link-title,
   font-family: "EB Garamond", "Times New Roman", serif !important;
   font-style: normal !important;
   font-weight: 400 !important;
-  font-size: clamp(26px, 2.6vw, 36px) !important;
+  font-size: clamp(34px, 3.6vw, 48px) !important;
   letter-spacing: -.025em;
   line-height: 1.18;
 }
@@ -6706,7 +6706,7 @@ h2.serif.menu-link-title,
     font-size: clamp(38px, 3.8vw, 54px);
   }
   .home-editorial-v4 .home-v4-sessions .home-v4-chapter-heading h2 {
-    font-size: clamp(26px, 2.6vw, 36px) !important;
+    font-size: clamp(38px, 3.8vw, 54px) !important;
     font-weight: 400 !important;
   }
 }
@@ -7938,6 +7938,92 @@ h2.serif.menu-link-title,
   .footer-intro h2 {
     font-size: 17px !important;
     line-height: 1.45 !important;
+  }
+}
+
+/* ==========================================================================
+   PAGE HERO & ARTICLE HEAD TYPOGRAPHY SCALE AUDIT
+   Điều chỉnh kích cỡ tiêu đề trang phụ và trang bài viết theo chuẩn web:
+   - Thu nhỏ tiêu đề khổng lồ (từ 104px xuống 32px-48px thanh lịch, hài hòa)
+   - Thu gọn khoảng trống đầu trang quá thừa (từ 180px xuống 96px-130px)
+   ========================================================================== */
+.page-hero {
+  padding: clamp(96px, 11vw, 130px) var(--pad) clamp(36px, 4vw, 56px) !important;
+  background: var(--cream);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.page-hero .eyebrow {
+  grid-column: 1;
+}
+
+.page-hero h1 {
+  grid-column: 2;
+  font-size: clamp(32px, 3.6vw, 48px) !important;
+  line-height: 1.15 !important;
+  font-style: normal !important;
+  margin: 0;
+}
+
+.page-hero h1 em {
+  font-size: 0.9em !important;
+  font-style: italic !important;
+  display: block;
+  margin-top: 6px;
+}
+
+.page-hero > p:last-child {
+  grid-column: 2;
+  max-width: 580px;
+  font-size: 16px;
+  line-height: 1.65;
+  margin-top: 24px;
+}
+
+.article-head {
+  padding: clamp(96px, 11vw, 130px) var(--pad) clamp(36px, 4vw, 52px) !important;
+  max-width: 1040px;
+  margin: auto;
+}
+
+.article-head h1 {
+  font-size: clamp(28px, 3.4vw, 44px) !important;
+  line-height: 1.15 !important;
+  font-style: normal !important;
+}
+
+.article-head .dek {
+  font-size: 16px;
+  line-height: 1.65;
+  margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .page-hero {
+    grid-template-columns: 1fr;
+    padding: clamp(80px, 10vw, 110px) var(--pad) 36px !important;
+  }
+  .page-hero h1,
+  .page-hero > p:last-child {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-hero {
+    padding-top: 90px !important;
+    padding-bottom: 28px !important;
+  }
+  .page-hero h1 {
+    font-size: 30px !important;
+  }
+  .article-head {
+    padding-top: 90px !important;
+    padding-bottom: 28px !important;
+  }
+  .article-head h1 {
+    font-size: 26px !important;
   }
 }
 
