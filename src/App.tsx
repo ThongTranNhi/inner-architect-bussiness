@@ -925,7 +925,7 @@ function Home({ initialSection }: { initialSection?: string }) {
                 decoding="async"
               />
             </figure>
-            <h3 className="serif">Phiên chuyên sâu cùng Khiêm Võ</h3>
+            <h3 className="serif">Phiên chuyên sâu cùng chuyên gia</h3>
             <p>
               Dành cho những ai muốn dành nhiều thời gian hơn để tìm hiểu khó
               khăn đang gặp phải, những niềm tin và khuôn mẫu đang ảnh hưởng
