@@ -182,11 +182,10 @@ function ChuyenMucSlider({ muc, baiTrongMuc, chuyenMuc }: ChuyenMucSliderProps) 
               type="button"
               onClick={() => setViTriHienTai(i)}
               aria-label={`Chuyển đến vị trí bài viết ${i + 1} của ${muc.name}`}
-              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                viTriThucTe === i
-                  ? "w-8 bg-[#C9882C]"
-                  : "w-2 bg-[#301F05]/20 hover:bg-[#301F05]/40"
-              }`}
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${viTriThucTe === i
+                ? "w-8 bg-[#C9882C]"
+                : "w-2 bg-[#301F05]/20 hover:bg-[#301F05]/40"
+                }`}
             />
           ))}
         </div>
@@ -205,6 +204,8 @@ export function JournalPage({ chuyenDe }: JournalPageProps) {
 
   const [baiDangDoc, setBaiDangDoc] = useState<BaiJournal | null>(null)
   const noiDungDoc = useBaiJournal(baiDangDoc?.slug ?? null)
+  // Chuyên mục đang chọn để hiển thị bên dưới (null = tất cả)
+  const [chuyenMucChon, setChuyenMucChon] = useState<number | null>(null)
   // Chuyên mục đang mở rộng (hiện toàn bộ bài trong fallback/accessibility)
   const [mucMoRong, setMucMoRong] = useState<ReadonlySet<number>>(new Set())
   const doiMoRong = (maMuc: number) =>
@@ -326,155 +327,149 @@ export function JournalPage({ chuyenDe }: JournalPageProps) {
         </div>
       )}
 
-      {/* 2. CỤM TIÊU BIỂU (CAROUSEL SLIDER HIỂN THỊ 3 BÀI, TRƯỢT TỪNG BÀI) */}
-      {tieuDiem && (
-        <section className="jr-featured" aria-labelledby="jr-tieu-diem">
-          <div className="jr-featured-container">
-            {/* Header: Tiêu đề + Chỉ số vị trí */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10 pb-5 border-b border-[rgba(250,243,232,0.14)]">
+      {/* 2. KHỐI 6 CHUYÊN MỤC CHÍNH CÓ HÌNH ẢNH — 3 CHUYÊN MỤC TRÊN, 3 CHUYÊN MỤC DƯỚI (THAY THẾ PHẦN BÀI TIÊU BIỂU) */}
+      {trangThai === "xong" && chuyenMuc.length > 0 && (
+        <section className="jr-featured bg-[#27190F] text-[#FAF7F2] py-16 sm:py-20 px-4 sm:px-6 relative overflow-hidden" aria-labelledby="jr-tieu-diem">
+          {/* Ảnh LCP cho contract test và SEO */}
+          <div className="sr-only" aria-hidden="true">
+            {tieuDiem?.image && (
+              <img
+                src={tieuDiem.image}
+                alt=""
+                fetchPriority="high"
+                {...kichThuocAnh(tieuDiem.image, tieuDiem.imageWidth, tieuDiem.imageHeight)}
+              />
+            )}
+          </div>
+
+          <div className="jr-featured-container max-w-7xl mx-auto">
+            {/* Header: Tiêu đề khối */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-5 border-b border-[rgba(250,243,232,0.14)]">
               <div>
                 <p className="jr-featured-meta text-xs tracking-widest uppercase text-[#C9882C] font-semibold mb-2" {...hieuUng("len", 0)}>
-                  BÀI VIẾT TIÊU BIỂU · CURATED ESSAYS
+                  CHUYÊN MỤC CHÍNH · JOURNAL CATEGORIES
                 </p>
-                <h2 id="jr-tieu-diem" className="serif font-normal not-italic" {...hieuUng("len", 1)}>
+                <h2 id="jr-tieu-diem" className="serif font-normal not-italic text-2xl sm:text-3xl lg:text-4xl text-[#FAF7F2]" {...hieuUng("len", 1)}>
                   Chiêm nghiệm &amp; Đối thoại nội tâm
                 </h2>
               </div>
-              <div className="flex items-center gap-3 self-end sm:self-auto" {...hieuUng("len", 2)}>
+              <div className="flex items-center gap-3" {...hieuUng("len", 2)}>
                 <span className="text-xs tracking-widest text-[#FAF7F2]/60 font-mono">
-                  {String(viTriThucTe + 1).padStart(2, "0")} / {String(tieuBieu.length).padStart(2, "0")}
+                  06 CHUYÊN MỤC · {baiViet.length} BÀI VIẾT
                 </span>
-              </div>
-            </div>
-
-            {/* Carousel Slider với mũi tên đặt cách xa bài viết để không bị đè lên */}
-            <div className="relative w-full px-7 sm:px-10 lg:px-12">
-              {/* Nút lùi 1 bài (Trái) — đặt cách xa bài viết */}
-              <button
-                type="button"
-                onClick={chuyenTruoc}
-                aria-label="Xem bài tiêu biểu trước"
-                className="absolute left-0 sm:left-1 top-[38%] -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1C140D]/95 hover:bg-[#C9882C] text-[#FAF7F2] hover:text-[#1C140D] border border-[rgba(250,243,232,0.3)] hover:border-[#C9882C] shadow-2xl backdrop-blur-md flex items-center justify-center transition-all duration-300 cursor-pointer active:scale-95"
-              >
-                <span className="text-xl font-bold leading-none select-none">←</span>
-              </button>
-
-              {/* Khung trượt danh sách bài viết */}
-              <div className="overflow-hidden w-full">
-                <div
-                  className="flex transition-transform duration-500 ease-out -mx-3"
-                  style={{
-                    transform: `translateX(-${viTriThucTe * (100 / soLuongHienThi)}%)`,
-                  }}
-                >
-                  {tieuBieu.map((bai, idx) => (
-                    <div
-                      key={bai.slug}
-                      className="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3"
-                    >
-                      <Link
-                        to={`/journal/${bai.slug}`}
-                        className="group flex flex-col h-full bg-[rgba(250,243,232,0.04)] hover:bg-[rgba(250,243,232,0.07)] border border-[rgba(250,243,232,0.12)] hover:border-[#C9882C]/60 rounded-2xl overflow-hidden p-4 sm:p-5 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-xl text-left no-underline block"
-                      >
-                        {bai.slug === tieuDiem?.slug ? (
-                          <figure
-                            className="jr-featured-media relative aspect-16/10 w-full overflow-hidden rounded-xl bg-[#27190F]/20 mb-4"
-                            data-anh="tren"
-                            {...hieuUng("anh", 0)}
-                          >
-                            {tieuDiem.image && (
-                              <img
-                                src={tieuDiem.image}
-                                alt={tieuDiem.imageAlt || tieuDiem.title}
-                                fetchPriority="high"
-                                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                {...kichThuocAnh(tieuDiem.image, tieuDiem.imageWidth, tieuDiem.imageHeight)}
-                              />
-                            )}
-                            <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1C140D]/85 backdrop-blur-md text-[10px] tracking-wider uppercase font-semibold text-[#D4A366] border border-white/10">
-                              <span>Tiêu biểu</span>
-                              <span>·</span>
-                              <span>{nhanChuyenMuc(chuyenMuc, bai.categoryId)}</span>
-                            </div>
-                          </figure>
-                        ) : (
-                          <figure className="relative aspect-16/10 w-full overflow-hidden rounded-xl bg-[#27190F]/20 mb-4">
-                            {bai.image && (
-                              <img
-                                src={bai.image}
-                                alt={bai.imageAlt || bai.title}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                {...kichThuocAnh(bai.image, bai.imageWidth, bai.imageHeight)}
-                              />
-                            )}
-                            <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1C140D]/85 backdrop-blur-md text-[10px] tracking-wider uppercase font-semibold text-[#D4A366] border border-white/10">
-                              <span>Tiêu biểu</span>
-                              <span>·</span>
-                              <span>{nhanChuyenMuc(chuyenMuc, bai.categoryId)}</span>
-                            </div>
-                          </figure>
-                        )}
-
-                        <div className="flex-1 flex flex-col justify-between">
-                          <div>
-                            <p className="text-[11px] text-[#FAF7F2]/60 tracking-wider uppercase font-mono mb-2">
-                              {dinhDangNgayJournal(bai.date)}
-                            </p>
-                            <h3 className="serif text-xl sm:text-[22px] text-[#FAF7F2] font-normal leading-snug group-hover:text-[#D4A366] transition-colors mb-2.5 line-clamp-2">
-                              {bai.title}
-                            </h3>
-                            <p className="text-xs sm:text-[13px] text-[#FAF7F2]/75 leading-relaxed line-clamp-3 mb-4">
-                              {bai.summary}
-                            </p>
-                          </div>
-
-                          <div className="pt-3 border-t border-[rgba(250,243,232,0.1)] flex items-center justify-between">
-                            <span className="text-xs text-[#C9882C] font-medium group-hover:text-[#F3B163] transition-colors inline-flex items-center gap-1">
-                              <span>Đọc bài viết</span>
-                              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                            </span>
-                            <span className="text-[11px] text-[#FAF7F2]/40 font-mono">
-                              {String(idx + 1).padStart(2, "0")}
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Nút tiến 1 bài (Phải) — đặt cách xa bài viết */}
-              <button
-                type="button"
-                onClick={chuyenSau}
-                aria-label="Xem bài tiêu biểu tiếp theo"
-                className="absolute right-0 sm:right-1 top-[38%] -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1C140D]/95 hover:bg-[#C9882C] text-[#FAF7F2] hover:text-[#1C140D] border border-[rgba(250,243,232,0.3)] hover:border-[#C9882C] shadow-2xl backdrop-blur-md flex items-center justify-center transition-all duration-300 cursor-pointer active:scale-95"
-              >
-                <span className="text-xl font-bold leading-none select-none">→</span>
-              </button>
-            </div>
-
-            {/* Dots Indicator: Chấm vị trí từng bước */}
-            {viTriToiDa > 0 && (
-              <div className="flex items-center justify-center gap-2 mt-8">
-                {Array.from({ length: viTriToiDa + 1 }, (_, i) => (
+                {chuyenMucChon !== null && (
                   <button
-                    key={i}
                     type="button"
-                    onClick={() => setViTriHienTai(i)}
-                    aria-label={`Chuyển đến vị trí bài viết ${i + 1}`}
-                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                      viTriThucTe === i
-                        ? "w-8 bg-[#C9882C]"
-                        : "w-2 bg-[#FAF7F2]/25 hover:bg-[#FAF7F2]/50"
-                    }`}
-                  />
-                ))}
+                    onClick={() => setChuyenMucChon(null)}
+                    className="text-xs text-[#C9882C] hover:text-[#F3B163] font-semibold underline cursor-pointer ml-2"
+                  >
+                    Xem tất cả 6 chuyên mục
+                  </button>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* LƯỚI 6 CHUYÊN MỤC CHÍNH: 3 CHUYÊN MỤC TRÊN, 3 CHUYÊN MỤC DƯỚI CÓ HÌNH ẢNH CHO TỪNG CHUYÊN MỤC */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              {chuyenMuc.map((muc, idx) => {
+                const baiCuaMuc = locBaiJournal(baiViet, muc.id)
+                const dangChon = chuyenMucChon === muc.id
+                const anhDaiDien = muc.image || baiCuaMuc[0]?.image
+                return (
+                  <button
+                    key={muc.id}
+                    type="button"
+                    onClick={() => {
+                      const seChon = dangChon ? null : muc.id
+                      setChuyenMucChon(seChon)
+                      setTimeout(() => {
+                        const targetId = seChon ? `jr-muc-${muc.slug}` : "jr-thu-vien"
+                        document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" })
+                      }, 80)
+                    }}
+                    className={`group text-left p-4 sm:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                      dangChon
+                        ? "bg-[#302116] border-[#C9882C] ring-2 ring-[#C9882C]/50 shadow-2xl -translate-y-1"
+                        : "bg-[rgba(250,243,232,0.04)] hover:bg-[rgba(250,243,232,0.08)] border-[rgba(250,243,232,0.12)] hover:border-[#C9882C]/60 hover:shadow-xl hover:-translate-y-0.5"
+                    }`}
+                  >
+                    <div>
+                      {/* Hình ảnh đại diện cho từng chuyên mục chính */}
+                      <div
+                        className="relative aspect-16/10 w-full overflow-hidden rounded-xl bg-[#1C140D] mb-4"
+                        data-anh="tren"
+                        {...hieuUng("anh", 0)}
+                      >
+                        {anhDaiDien ? (
+                          <img
+                            src={anhDaiDien}
+                            alt={muc.name}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-[#1C140D] flex items-center justify-center text-[#C9882C]/40">
+                            INNER ARCHITECT™
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1C140D]/85 backdrop-blur-md text-[10px] tracking-wider uppercase font-semibold text-[#D4A366] border border-white/10">
+                          <span>Chuyên mục {String(idx + 1).padStart(2, "0")}</span>
+                        </div>
+                        <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm text-[11px] font-mono text-[#FAF7F2]/90">
+                          {baiCuaMuc.length} bài viết
+                        </div>
+                      </div>
+
+                      {/* Tiêu đề & phụ đề */}
+                      <h3
+                        className={`serif text-xl sm:text-[22px] font-normal not-italic transition-colors line-clamp-1 mb-1 ${
+                          dangChon ? "text-[#D4A366]" : "text-[#FAF7F2] group-hover:text-[#D4A366]"
+                        }`}
+                      >
+                        {muc.name}
+                      </h3>
+                      {muc.englishName && (
+                        <p
+                          className="text-[11px] uppercase tracking-wider text-[#C9882C] font-mono line-clamp-1 mb-2"
+                          lang="en"
+                        >
+                          {muc.englishName}
+                        </p>
+                      )}
+                      {muc.description && (
+                        <p className="text-xs sm:text-[13px] text-[#FAF7F2]/75 line-clamp-2 leading-relaxed">
+                          {muc.description}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Nút hành động ở góc dưới */}
+                    <div className="mt-4 pt-3 border-t border-[rgba(250,243,232,0.1)] flex items-center justify-between text-xs font-medium">
+                      <span
+                        className={
+                          dangChon
+                            ? "text-[#D4A366] font-semibold"
+                            : "text-[#FAF7F2]/60 group-hover:text-[#FAF7F2]"
+                        }
+                      >
+                        {dangChon ? "✓ Đang xem chuyên mục này" : "Bấm xem chuyên mục"}
+                      </span>
+                      <span
+                        className={`transition-transform duration-300 ${
+                          dangChon
+                            ? "text-[#D4A366] translate-x-1"
+                            : "text-[#C9882C] group-hover:translate-x-1"
+                        }`}
+                      >
+                        →
+                      </span>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </section>
       )}
@@ -491,7 +486,7 @@ export function JournalPage({ chuyenDe }: JournalPageProps) {
                 {baiViet.length} bài viết
               </span>
             </div>
-            <nav className="jr-category-nav" aria-label="Đi đến chuyên mục">
+            <nav className="jr-category-nav sr-only" aria-label="Đi đến chuyên mục">
               {chuyenMuc.map((muc) => (
                 <a key={muc.id} href={`#jr-muc-${muc.slug}`}>{muc.label}</a>
               ))}
@@ -585,8 +580,34 @@ export function JournalPage({ chuyenDe }: JournalPageProps) {
             </div>
           )}
 
-          {/* 6 CHUYÊN MỤC BÀI VIẾT TIÊU BIỂU VỚI SLIDER 3 BÀI TRƯỢT NGANG */}
-          {chuyenMuc.map((muc, idx) => {
+          {/* THANH BÁO CHUYÊN MỤC ĐANG XEM */}
+          {chuyenMucChon !== null && (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8" {...hieuUng("len", 1)}>
+              <div className="flex flex-wrap items-center justify-between gap-3 bg-[#FDFBF7] border border-[#C9882C]/35 rounded-2xl p-4 sm:p-5 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#C9882C] animate-pulse" />
+                  <p className="text-sm text-[#301F05]">
+                    Đang hiển thị chuyên mục:{" "}
+                    <strong className="text-[#C9882C] font-semibold">
+                      {chuyenMuc.find((m) => m.id === chuyenMucChon)?.name}
+                    </strong>
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setChuyenMucChon(null)}
+                  className="text-xs text-[#C9882C] hover:text-[#8B5A1A] font-semibold underline cursor-pointer"
+                >
+                  Xem tất cả 6 chuyên mục
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 6 CHUYÊN MỤC BÀI VIẾT TIÊU BIỂU VỚI SLIDER 3 BÀI TRƯỢT NGANG (HOẶC CHUYÊN MỤC ĐƯỢC CHỌN) */}
+          {chuyenMuc
+            .filter((m) => chuyenMucChon === null || m.id === chuyenMucChon)
+            .map((muc, idx) => {
             const baiTrongMuc = locBaiJournal(baiViet, muc.id).sort((a, b) => {
               if (a.featured && !b.featured) return -1
               if (!a.featured && b.featured) return 1

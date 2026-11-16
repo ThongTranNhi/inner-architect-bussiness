@@ -2957,6 +2957,50 @@ h2.serif.menu-link-title,
   margin: 0 auto;
 }
 
+.article-main-content .article-head {
+  padding-top: 0 !important;
+  margin: 0;
+  max-width: 100%;
+}
+
+.article-main-content .breadcrumbs {
+  margin-bottom: 12px;
+}
+
+.article-main-content .lead-image {
+  max-width: 100%;
+  margin: 0;
+}
+
+.article-main-content .article-body {
+  max-width: 100%;
+  padding-inline: 0;
+  margin: clamp(32px, 4vw, 48px) 0;
+}
+
+.article-main-content .author-block {
+  max-width: 100%;
+  margin-inline: 0;
+}
+
+/* Tiêu đề liên hệ và glowence-serif: không in nghiêng, cỡ chữ thanh lịch đồng bộ */
+#contacts-three-column-heading,
+.contact-editorial-page h1,
+.contact-editorial-page h2,
+.contact-editorial-page h3,
+.page-hero h1 em,
+.page-hero em,
+.glowence-serif {
+  font-family: "EB Garamond", "Times New Roman", serif !important;
+  font-style: normal !important;
+}
+
+#contacts-three-column-heading {
+  font-size: clamp(24px, 2.4vw, 30px) !important;
+  line-height: 1.25 !important;
+  font-weight: 400 !important;
+}
+
 .article-page .breadcrumbs {
   font-size: 12px;
   margin-bottom: 16px;
@@ -8304,4 +8348,27 @@ h2.serif.menu-link-title,
   .journal-page #jr-chuyen-de {
     font-size: 22px !important;
   }
+}
+
+/* ==========================================================================
+   TỐI ƯU HIỆU NĂNG CHO THIẾT BỊ DI ĐỘNG & DESKTOP (MƯỢT MÀ, KHÔNG LAG)
+   ========================================================================== */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+}
+
+/* Tăng tốc phần cứng GPU cho các thành phần chuyển động và slider */
+.home-v3-hero-image,
+.jr-featured-container,
+.news-card,
+.contact-space-visual img,
+.article-main-content img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }

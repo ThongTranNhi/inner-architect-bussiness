@@ -481,8 +481,8 @@ const danhSachBonTang = [
     linhVuc: "Giá trị · Hành động",
     moTa:
       "Làm rõ giá trị bản thân, xác định hướng đi và xây dựng mục tiêu phù hợp. Từng bước đưa định hướng thành hành động cụ thể trong công việc và cuộc sống.",
-    anh: IMG.homeCuratedRoadmap,
-    alt: "Thẻ lộ trình các bước định hướng và hành động",
+    anh: IMG.homeDinhHuongPhatTrien,
+    alt: "Hai người trò chuyện trong phiên định hướng và phát triển",
   },
   {
     so: "04",

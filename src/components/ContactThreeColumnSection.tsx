@@ -105,7 +105,9 @@ export function ContactThreeColumnSection() {
 
       <style>{`
         .glowence-serif {
-          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-family: "EB Garamond", "Times New Roman", serif !important;
+          font-style: normal !important;
+          font-weight: 400 !important;
         }
         .glowence-sans {
           font-family: 'Work Sans', sans-serif;
@@ -151,8 +153,8 @@ export function ContactThreeColumnSection() {
               </p>
               <h2
                 id="contacts-three-column-heading"
-                className="glowence-serif m-0 mt-3 text-[40px] font-semibold leading-[1.06] tracking-tight text-[#3B3636] sm:text-5xl lg:text-[46px] xl:text-[52px]"
-                style={xuatHien(80)}
+                className="serif not-italic m-0 mt-3 text-2xl sm:text-3xl lg:text-[30px] font-normal leading-[1.22] tracking-tight text-[#301F05]"
+                style={{ ...xuatHien(80), fontStyle: "normal", fontWeight: 400 }}
               >
                 Sẵn sàng bắt đầu hành trình của bạn?
               </h2>
@@ -167,7 +169,7 @@ export function ContactThreeColumnSection() {
               style={xuatHien(240)}
             >
               <img
-                src={IMG.hermitKhongGianQuan}
+                src={IMG.homeGeneratedSessionProcess}
                 alt="Không gian trà đạo tĩnh lặng tại The Hermit"
                 loading="lazy"
                 decoding="async"
@@ -196,8 +198,8 @@ export function ContactThreeColumnSection() {
                 KÊNH TRỰC TIẾP
               </span>
               <h3
-                className="glowence-serif m-0 mt-2 text-[32px] font-semibold leading-tight sm:text-4xl xl:text-[40px]"
-                style={{ color: "#FFFAF1" }}
+                className="serif not-italic m-0 mt-2 text-xl sm:text-2xl font-normal leading-tight"
+                style={{ color: "#FFFAF1", fontStyle: "normal", fontWeight: 400 }}
               >
                 Nhắn trực tiếp cho chúng tôi
               </h3>

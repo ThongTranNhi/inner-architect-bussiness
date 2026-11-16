@@ -17,6 +17,8 @@ export const IMG = {
     "/assets/homepage-curated/11-phien-1-1-the-hermit.webp",
   homeCuratedRoadmap:
     "/assets/homepage-curated/03-the-lo-trinh-phien-dau-tien.webp",
+  homeDinhHuongPhatTrien:
+    "/assets/homepage-curated/03-dinh-huong-va-phat-trien.webp",
   homeCuratedReflective:
     "/assets/homepage-curated/04-the-lo-trinh-thuc-hanh-phan-tu.webp",
   homeCuratedHermit:

@@ -156,8 +156,8 @@ export function BieuMauLienHe({
         ĐẶT LỊCH · APPOINTMENT
       </p>
       <h3
-        className="glowence-serif m-0 mt-2 text-[30px] font-semibold leading-[1.12] text-[#3B3636] sm:text-[34px]"
-        style={xuatHien(240)}
+        className="serif not-italic m-0 mt-2 text-xl sm:text-2xl font-normal leading-[1.2] text-[#301F05]"
+        style={{ ...xuatHien(240), fontStyle: "normal", fontWeight: 400 }}
       >
         Liên hệ để đặt lịch
       </h3>
