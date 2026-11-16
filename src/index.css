@@ -3001,6 +3001,18 @@ h2.serif.menu-link-title,
   font-weight: 400 !important;
 }
 
+/* Tiêu đề liên hệ và glowence-serif: không in nghiêng, cỡ chữ thanh lịch đồng bộ */
+#contacts-three-column-heading,
+.glowence-serif {
+  font-style: normal !important;
+}
+
+#contacts-three-column-heading {
+  font-size: clamp(24px, 2.4vw, 30px) !important;
+  line-height: 1.25 !important;
+  font-weight: 400 !important;
+}
+
 .article-page .breadcrumbs {
   font-size: 12px;
   margin-bottom: 16px;
@@ -6654,9 +6666,10 @@ h2.serif.menu-link-title,
 .home-v4-companion-note {
   width: min(920px, 100%);
   margin: 72px auto 0;
-  font-size: clamp(25px, 2.7vw, 38px);
-  line-height: 1.35;
-  font-style: italic;
+  font-size: clamp(25px, 2.3vw, 34px);
+  line-height: 1.4;
+  font-style: normal;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -8348,6 +8361,29 @@ h2.serif.menu-link-title,
   .journal-page #jr-chuyen-de {
     font-size: 22px !important;
   }
+}
+
+/* ==========================================================================
+   TỐI ƯU HIỆU NĂNG CHO THIẾT BỊ DI ĐỘNG & DESKTOP (MƯỢT MÀ, KHÔNG LAG)
+   ========================================================================== */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+}
+
+/* Tăng tốc phần cứng GPU cho các thành phần chuyển động và slider */
+.home-v3-hero-image,
+.jr-featured-container,
+.news-card,
+.contact-space-visual img,
+.article-main-content img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* ==========================================================================

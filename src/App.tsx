@@ -827,10 +827,10 @@ function Home({ initialSection }: { initialSection?: string }) {
             </article>
           </div>
 
-          <p className="home-v4-companion-note serif italic reveal-child">
-            Điều chúng tôi hướng đến là khả năng
+          <p className="home-v4-companion-note serif not-italic font-normal reveal-child" style={{ fontStyle: "normal", fontWeight: 400 }}>
+            Điều chúng tôi hướng đến là khả năng bạn tự mang những gì đã học
             <br />
-            bạn tự mang những gì đã học vào cuộc sống của chính mình.
+            vào cuộc sống của chính mình.
           </p>
 
           <div className="home-v4-layers-heading reveal-child">
