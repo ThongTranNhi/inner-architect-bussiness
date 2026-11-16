@@ -20,7 +20,7 @@ export const IMG = {
   homeDinhHuongPhatTrien:
     "/assets/homepage-curated/03-dinh-huong-va-phat-trien.webp",
   homeCuratedReflective:
-    "/assets/homepage-curated/04-the-lo-trinh-thuc-hanh-phan-tu.webp",
+    "/assets/homepage-curated/02-kham-pha-thay-doi-khuon-mau.webp",
   homeCuratedHermit:
     "/assets/homepage-curated/05-the-lo-trinh-the-hermit-room.webp",
   homeCuratedBoundary:

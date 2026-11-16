@@ -6668,7 +6668,7 @@ h2.serif.menu-link-title,
   margin: 72px auto 0;
   font-size: clamp(25px, 2.3vw, 34px);
   line-height: 1.4;
-  font-style: normal;
+  font-style: italic;
   font-weight: 400;
   text-align: center;
 }
