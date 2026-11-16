@@ -416,25 +416,21 @@ export function Hermit() {
           {/* Thông tin dịch vụ & Ranh giới an toàn */}
           <div className="hermit-tarot-notes">
             <div className="hermit-tarot-note-item">
-              <span className="hermit-tarot-note-icon">☕</span>
               <span>
                 <strong>Thực đơn đồ uống:</strong> Mức phí chưa bao gồm thức uống tại quán (tính riêng theo thực đơn).
               </span>
             </div>
             <div className="hermit-tarot-note-item">
-              <span className="hermit-tarot-note-icon">🔒</span>
               <span>
                 <strong>Bảo mật &amp; Riêng tư:</strong> Đối thoại 1:1 trong phòng riêng; nội dung được tôn trọng và bảo mật nghiêm ngặt.
               </span>
             </div>
             <div className="hermit-tarot-note-item">
-              <span className="hermit-tarot-note-icon">⚖️</span>
               <span>
                 <strong>Công cụ gợi mở:</strong> Tarot là công cụ chiêm nghiệm đa chiều, không mang tính bói toán hay quyết định thay bạn.
               </span>
             </div>
             <div className="hermit-tarot-note-item">
-              <span className="hermit-tarot-note-icon">🌱</span>
               <span>
                 <strong>Ranh giới chuyên môn:</strong> Phiên phản tư không thay thế dịch vụ khám, chẩn đoán hoặc điều trị y tế lâm sàng.
               </span>

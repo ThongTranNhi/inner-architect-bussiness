@@ -496,8 +496,10 @@ export function JournalPage({ chuyenDe }: JournalPageProps) {
           {/* THANH TÌM KIẾM BÀI VIẾT ĐẶT TRÊN CHUYÊN MỤC ĐẦU TIÊN */}
           <div className="jr-search-container max-w-2xl mx-auto my-8 px-4 w-full" {...hieuUng("len", 1)}>
             <div className="relative flex items-center">
-              <span className="absolute left-4 text-[#7A6B5D] pointer-events-none text-base">
-                🔍
+              <span className="absolute left-4 text-[#7A6B5D] pointer-events-none inline-flex items-center">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
               </span>
               <input
                 type="text"

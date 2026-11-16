@@ -241,8 +241,8 @@ export function GioiThieuPage() {
             <p className="text-xs sm:text-sm text-[#3B3636]/85 leading-relaxed m-0 mb-3">
               {trangDangXem.moTa}
             </p>
-            <div className="pt-2 border-t border-[#B75E2A]/20 text-xs italic text-[#B75E2A] font-medium">
-              👉 {trangDangXem.chamNgon}
+            <div className="pt-2 border-t border-[#B75E2A]/20 text-xs text-[#B75E2A] font-medium">
+              {trangDangXem.chamNgon}
             </div>
           </div>
 
@@ -390,9 +390,8 @@ export function GioiThieuPage() {
                       <p className="text-xs text-[#3B3636]/85 leading-relaxed m-0 mb-2">
                         {item.moTa}
                       </p>
-                      <p className="text-xs italic text-[#B75E2A] font-medium m-0 flex items-center gap-1.5">
-                        <span>👉</span>
-                        <span>{item.chamNgon}</span>
+                      <p className="text-xs text-[#B75E2A] font-medium m-0">
+                        {item.chamNgon}
                       </p>
                     </div>
                   )}

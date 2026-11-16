@@ -522,17 +522,13 @@ export function HeThongPage() {
               </p>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-[#B75E2A]/20 text-xs font-medium text-[#B75E2A] italic">
-              👉 Tôn trọng sự tự chủ và sẵn sàng của mỗi cá nhân
+            <div className="mt-6 pt-6 border-t border-[#B75E2A]/20 text-xs font-medium text-[#B75E2A]">
+              Tôn trọng sự tự chủ và sẵn sàng của mỗi cá nhân
             </div>
           </div>
 
           {/* Khối 2: Nguyên tắc đồng hành */}
           <div className="rounded-3xl border border-[#3B3636]/15 bg-white p-8 sm:p-10 shadow-md relative overflow-hidden flex flex-col justify-between">
-            <div className="absolute top-4 right-5 text-4xl select-none opacity-10 text-[#27190F]">
-              🛡
-            </div>
-
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-[#27190F]" />
@@ -550,8 +546,8 @@ export function HeThongPage() {
               </p>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-[#3B3636]/10 text-xs font-medium text-[#3B3636]/70 italic">
-              👉 An toàn luôn được đặt trước chiều sâu
+            <div className="mt-6 pt-6 border-t border-[#3B3636]/10 text-xs font-medium text-[#3B3636]/70">
+              An toàn luôn được đặt trước chiều sâu
             </div>
           </div>
         </div>
