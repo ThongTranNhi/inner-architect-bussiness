@@ -6461,24 +6461,24 @@ h2.serif.menu-link-title,
 .hermit-page .hermit-hero h1,
 .hermit-hero h1 {
   max-width: 18ch;
-  font-size: clamp(32px, 3.8vw, 48px) !important;
-  line-height: 1.15 !important;
+  font-size: clamp(44px, 5.2vw, 68px) !important;
+  line-height: 1.08 !important;
   font-style: normal !important;
 }
 
 .hermit-page .hermit-intro h2,
 .hermit-intro h2 {
-  max-width: 22ch;
-  font-size: clamp(26px, 3vw, 38px) !important;
-  line-height: 1.25 !important;
+  max-width: 20ch;
+  font-size: clamp(34px, 3.8vw, 50px) !important;
+  line-height: 1.18 !important;
   font-style: normal !important;
 }
 
 .hermit-page .hermit-rituals h2,
 .hermit-rituals h2 {
   max-width: 22ch;
-  font-size: clamp(24px, 2.6vw, 34px) !important;
-  line-height: 1.25 !important;
+  font-size: clamp(30px, 3.2vw, 42px) !important;
+  line-height: 1.2 !important;
   font-style: normal !important;
 }
 
@@ -6491,16 +6491,16 @@ h2.serif.menu-link-title,
 .hermit-visit h2,
 .hermit-tarot-header h2 {
   max-width: 24ch;
-  font-size: clamp(24px, 2.6vw, 34px) !important;
-  line-height: 1.25 !important;
+  font-size: clamp(30px, 3.2vw, 42px) !important;
+  line-height: 1.2 !important;
   font-style: normal !important;
 }
 
 @media (max-width: 600px) {
   .hermit-page .hermit-hero h1,
-  .hermit-hero h1 { font-size: 28px !important; line-height: 1.2 !important; }
+  .hermit-hero h1 { font-size: 38px !important; line-height: 1.12 !important; }
   .hermit-page .hermit-intro h2,
-  .hermit-intro h2 { font-size: 24px !important; line-height: 1.25 !important; }
+  .hermit-intro h2 { font-size: 30px !important; line-height: 1.2 !important; }
   .hermit-page .hermit-rituals h2,
   .hermit-page .hermit-pair h2,
   .hermit-page .hermit-tarot h2,
@@ -6510,7 +6510,7 @@ h2.serif.menu-link-title,
   .hermit-pair h2,
   .hermit-tarot h2,
   .hermit-visit h2,
-  .hermit-tarot-header h2 { font-size: 22px !important; line-height: 1.25 !important; }
+  .hermit-tarot-header h2 { font-size: 26px !important; line-height: 1.22 !important; }
 }
 
 /* Trang chủ v4 — kiến trúc nội dung do PM duyệt ngày 03/11/2026. */
